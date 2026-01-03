@@ -1,0 +1,92 @@
+﻿<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Automédiathèque</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Automédiathèque : base ouverte d'automédias en lutte.">
+  <link rel="stylesheet" href="assets/automediatheque.css">
+</head>
+<body>
+  <header class="am-header">
+    <div class="am-container">
+      <h1>Automédiathèque</h1>
+      <p class="am-tagline">
+        Liste open-source d'automédias accessibles en ligne.
+      </p>
+      <div class="am-controls">
+        <div class="am-filters">
+          <label>
+            Type
+            <select id="filter-type">
+              <option value="">Tous types</option>
+            </select>
+          </label>
+          <label>
+            Pays
+            <select id="filter-country">
+              <option value="">Tous pays</option>
+            </select>
+          </label>
+        </div>
+        <div class="am-status">
+          <button id="reload-btn" title="Rafraîchir la liste">⟳</button>
+          <span id="status-text">Statut : inconnue</span>
+        </div>
+      </div>
+      <p class="am-meta" id="meta-info"></p>
+    </div>
+  </header>
+
+  <main class="am-main">
+    <section class="am-container">
+      <div id="cards" class="am-grid">
+        <!-- Les cartes d'automédias seront injectées ici par JS -->
+      </div>
+      <div id="empty-state" class="am-empty" hidden>
+        Aucun automédia ne correspond à ces filtres.
+      </div>
+    </section>
+
+    <section class="am-container am-text-block">
+      <h2>Qu'est-ce que l'automédia&nbsp;?</h2>
+      <p>
+        Les automédias désignent l’ensemble des pratiques, dispositifs et réseaux par lesquels
+        des acteurs collectifs — mouvements sociaux, collectifs militants, communautés en lutte
+        ou d’entraide — produisent, publient et archivent eux-mêmes des récits, preuves et
+        instruments de leur action politique.
+      </p>
+      <p>
+        L’automédia combine autoproduction (contenu créé par les protagonistes), autogestion
+        éditoriale (contrôle des formes, des cadres de diffusion et des dispositifs d’archivage)
+        et polymédialité (texte, photo, audio, vidéo, livestream, zines, dépôts numériques),
+        et vise à établir des régimes locaux de légitimation et de mémoire qui concurrencent
+        ou complètent ceux des médias institutionnels.
+      </p>
+
+      <h2>Fondements théoriques et positionnement disciplinaire</h2>
+      <p>
+        Conceptuellement, l’étude des automédias se situe à l’intersection de l’anthropologie
+        documentaire, des media studies et de la sociologie politique. Elle mobilise l’idée
+        d’une fabrique populaire de l’information, l’analyse des régimes de vérité, et une
+        attention aux infrastructures techniques qui médiatisent l’expérience collective.
+      </p>
+    </section>
+  </main>
+
+  <footer class="am-footer">
+    <div class="am-container">
+      <p>
+        Automédiathèque · données construites à partir de fichiers Markdown / JSON
+        hébergés sur GitHub.
+      </p>
+      <p class="am-footer-small">
+        Pour ajouter / corriger un automédia, éditez les fichiers du dépôt GitHub
+        ou ouvrez une issue.
+      </p>
+    </div>
+  </footer>
+
+  <script src="assets/automediatheque.js"></script>
+</body>
+</html>
