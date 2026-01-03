@@ -1,0 +1,22 @@
+title: "Automédiathèque"
+description: "Cartographie open-source des automédias en lutte"
+baseurl: ""        # laisse vide pour un custom domain
+url: "https://AUTOMEDIATHEQUE.LINKPC.NET"
+
+theme: null        # pas de thème GitHub par défaut
+markdown: kramdown
+
+collections:
+  automedias:
+    output: true
+    permalink: /automedias/:slug/
+
+defaults:
+  - scope:
+      path: ""
+      type: "automedias"
+    values:
+      layout: automedia
+
+# Pour que GitHub Pages utilise ses plugins par défaut (pas besoin d'en ajouter)
+plugins: []

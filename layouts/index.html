@@ -1,0 +1,25 @@
+---
+layout: default
+---
+
+<section class="intro">
+  {{ content }}
+</section>
+
+<section class="search-block">
+  <div class="filters">
+    <input id="search" type="search" placeholder="Rechercher (nom, description, tags)…">
+    <select id="filter-country">
+      <option value="">Pays (tous)</option>
+    </select>
+    <select id="filter-language">
+      <option value="">Langue (toutes)</option>
+    </select>
+  </div>
+  <p class="hint">Tape pour filtrer en temps réel. Clique sur un média pour voir la fiche détaillée.</p>
+</section>
+
+<section id="automedias-list" class="automedias-list">
+  <!-- Le JS remplira cette zone à partir de /automedias.json -->
+  <p>Chargement des automédias…</p>
+</section>

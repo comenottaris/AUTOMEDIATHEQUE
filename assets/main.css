@@ -1,0 +1,167 @@
+:root {
+  --bg: #f6f6f6;
+  --bg-card: #ffffff;
+  --border: #e0e0e0;
+  --accent: #222;
+  --text: #222;
+  --muted: #666;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-header,
+.site-footer {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+}
+
+.site-footer {
+  border-top: 1px solid var(--border);
+  border-bottom: none;
+  margin-top: 2rem;
+}
+
+.site-header .container,
+.site-footer .container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+}
+
+.site-title {
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.site-title a {
+  text-decoration: none;
+  color: var(--accent);
+}
+
+.site-nav a {
+  margin-left: 1rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+.site-main {
+  padding: 1.5rem 1rem 2rem;
+}
+
+.intro {
+  margin-bottom: 1rem;
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.filters input,
+.filters select {
+  padding: 0.4rem 0.6rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+.hint {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.automedias-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.automedia-item {
+  background: var(--bg-card);
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  padding: 0.75rem 1rem;
+}
+
+.automedia-item h2 {
+  margin: 0 0 0.25rem;
+  font-size: 1.1rem;
+}
+
+.automedia-item h2 a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.automedia-item h2 a:hover {
+  text-decoration: underline;
+}
+
+.automedia-item .meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 0 0 0.25rem;
+}
+
+.automedia-item .desc {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.9rem;
+}
+
+.automedia-item p a {
+  font-size: 0.85rem;
+}
+
+/* Page individuelle */
+
+.automedia-page header h2 {
+  margin-top: 0;
+}
+
+.automedia-page .meta {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+.automedia-page .short-desc {
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+}
+
+.automedia-page section {
+  margin-bottom: 1rem;
+}
+
+.tag {
+  display: inline-block;
+  background: #e3e3e3;
+  border-radius: 999px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  margin-right: 0.25rem;
+  margin-bottom: 0.25rem;
+}
