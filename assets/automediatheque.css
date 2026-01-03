@@ -1,34 +1,38 @@
-/* ------------------------------------------------------------------
-   Automédiathèque – thème minimal, mat et apaisé
-   ------------------------------------------------------------------ */
-
-/* Polices douces et lisibles : une sérif calme + une sans sérif arrondie */
-@import url("https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Nunito:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap");
+/* ================================
+   Thème général – Notion-like Dark
+   ================================ */
 
 :root {
-  /* Palette mate, légèrement chaude */
-  --am-bg: #f3f1ec;
-  --am-bg-alt: #e6e2da;
-  --am-surface: #fdfbf7;
-  --am-surface-alt: #f4f1ea;
+  --am-bg: #0f1115;
+  --am-bg-elevated: #181a20;
+  --am-bg-elevated-soft: #1e2128;
+  --am-border-subtle: rgba(255, 255, 255, 0.04);
+  --am-border-strong: rgba(255, 255, 255, 0.08);
+  --am-text: #f5f5f7;
+  --am-text-muted: #a0a4b5;
+  --am-text-soft: #7d8191;
+  --am-accent: #4f7cff;
+  --am-accent-soft: rgba(79, 124, 255, 0.14);
+  --am-accent-strong: #90a8ff;
+  --am-danger: #ff6b81;
+  --am-success: #3dd68c;
+  --am-warning: #ffb65c;
 
-  --am-border-soft: #d6d0c5;
-  --am-border-strong: #b8b0a3;
-
-  --am-text-main: #2d2924;
-  --am-text-muted: #6a6257;
-
-  /* Accent discret, non flashy */
-  --am-accent: #6f7b6d;   /* vert-gris mat */
-  --am-accent-soft: #dde3da;
-
-  --am-radius-card: 8px;
+  --am-radius-lg: 14px;
+  --am-radius-md: 10px;
   --am-radius-pill: 999px;
 
-  --am-shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --am-shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.55);
+  --am-shadow-subtle: 0 12px 32px rgba(0, 0, 0, 0.4);
+
+  --am-font-sans: system-ui, -apple-system, BlinkMacSystemFont,
+    "Inter", "SF Pro Text", "Segoe UI", sans-serif;
+
+  --am-transition-fast: 150ms ease-out;
+  --am-transition-med: 220ms ease;
 }
 
-/* Reset léger ----------------------------------------------------- */
+/* Reset léger, typé Notion */
 
 *,
 *::before,
@@ -36,431 +40,527 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
-/* Corps de page ---------------------------------------------------- */
+body {
+  font-family: var(--am-font-sans);
+  color: var(--am-text);
+  background: radial-gradient(circle at top, #161822 0, #06070b 55%, #030307 100%);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  line-height: 1.5;
+}
+
+/* Scrollbar sobre */
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+/* Curseur rond noir (mignon mais sobre) */
 
 body {
-  font-family: "Nunito", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 16px;
-  line-height: 1.55;
-  color: var(--am-text-main);
-  background: radial-gradient(circle at top, #f9f7f1 0, var(--am-bg) 45%, #ebe6dd 100%);
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Ccircle cx='9' cy='9' r='5' fill='%23000000'/%3E%3C/svg%3E") 8 8, auto;
 }
 
-/* Conteneur générique */
-
-.am-container {
-  width: 100%;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 0 1.25rem;
+a,
+button,
+[role='button'],
+input[type='submit'],
+input[type='button'] {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 18 18'%3E%3Ccircle cx='9' cy='9' r='5' fill='%23ffffff'/%3E%3C/svg%3E") 8 8, pointer;
 }
 
-/* En-tête ---------------------------------------------------------- */
+/* ==========================
+   Layout général Automédiathèque
+   ========================== */
+
+.am-app {
+  max-width: 1200px;
+  margin: 32px auto 64px;
+  padding: 0 20px 40px;
+}
+
+/* Conteneur principal façon "page Notion" */
+
+.am-shell {
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.05), transparent 55%),
+              linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent 40%);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: var(--am-shadow-soft);
+  padding: 24px 22px 26px;
+}
+
+/* ==========================
+   En-tête, titre, description
+   ========================== */
 
 .am-header {
-  border-bottom: 1px solid var(--am-border-soft);
-  background: linear-gradient(to bottom, #f7f4ee, var(--am-bg));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
 }
 
-.am-header-inner {
-  padding: 1.75rem 0 1.25rem;
+.am-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
 }
 
-.am-header h1 {
-  font-family: "Spectral", "Times New Roman", serif;
-  font-weight: 500;
-  font-size: 1.9rem;
-  letter-spacing: 0.03em;
-  margin: 0 0 0.2rem;
+.am-title {
+  font-size: 1.7rem;
+  font-weight: 630;
+  letter-spacing: -0.02em;
 }
 
-.am-tagline {
-  margin: 0.2rem 0 0.9rem;
-  font-size: 0.95rem;
+.am-badge {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
   color: var(--am-text-muted);
+  background: rgba(0, 0, 0, 0.3);
 }
 
-.am-meta-line {
-  font-size: 0.85rem;
-  color: var(--am-text-muted);
+.am-subtitle {
+  font-size: 0.9rem;
+  color: var(--am-text-soft);
+  max-width: 680px;
 }
 
-/* Barre d’outils (recherche + filtres) ----------------------------- */
+/* ==========================
+   Barre d’outils : recherche + filtres
+   ========================== */
 
 .am-toolbar {
-  padding: 0.9rem 1rem;
-  margin: 0 0 0.75rem;
-  background: var(--am-surface-alt);
-  border-radius: 10px;
-  border: 1px solid var(--am-border-soft);
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  padding: 8px 0 12px;
+  margin-bottom: 10px;
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  background: linear-gradient(to bottom,
+    rgba(10, 11, 16, 0.92),
+    rgba(10, 11, 16, 0.76),
+    transparent
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Bloc filtres + statut dans le header (index.html) */
-
-.am-controls {
-  padding: 0.9rem 1rem;
-  margin: 0 0 0.75rem;
-  background: var(--am-surface-alt);
-  border-radius: 10px;
-  border: 1px solid var(--am-border-soft);
+.am-toolbar-inner {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.8rem;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.am-status {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  font-size: 0.8rem;
-  color: var(--am-text-muted);
-}
-
-.am-status button {
-  width: 1.8rem;
-  height: 1.8rem;
-  border-radius: 999px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-}
-
-#status-text {
-  white-space: nowrap;
-}
-
-.am-toolbar-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.6rem;
+  gap: 10px;
   align-items: center;
 }
 
-.am-toolbar-row + .am-toolbar-row {
-  margin-top: 0.6rem;
-}
+/* Champ de recherche – style Notion-like */
 
 .am-search {
+  position: relative;
   flex: 1 1 220px;
+  max-width: 380px;
 }
 
-.am-search input[type="search"],
-.am-search input[type="text"] {
+.am-search-input {
   width: 100%;
-  padding: 0.45rem 0.7rem;
+  padding: 8px 30px 8px 30px;
   border-radius: 999px;
-  border: 1px solid var(--am-border-soft);
-  background: #fdfbf7;
-  color: var(--am-text-main);
-  font-size: 0.95rem;
-}
-
-.am-search input::placeholder {
-  color: var(--am-text-muted);
-}
-
-.am-search input:focus {
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(14, 16, 23, 0.9);
+  color: var(--am-text);
+  font-size: 0.9rem;
   outline: none;
-  border-color: var(--am-accent);
-  background: #fcfbf8;
+  transition:
+    border-color var(--am-transition-fast),
+    background var(--am-transition-fast),
+    box-shadow var(--am-transition-fast),
+    transform var(--am-transition-fast);
 }
 
-/* Filtres */
+.am-search-input::placeholder {
+  color: var(--am-text-soft);
+}
 
-.am-filters {
+.am-search-input:focus {
+  border-color: rgba(79, 124, 255, 0.7);
+  box-shadow: 0 0 0 1px rgba(79, 124, 255, 0.55);
+  background: #151722;
+  transform: translateY(-0.5px);
+}
+
+.am-search-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.9rem;
+  color: var(--am-text-soft);
+}
+
+/* Filtres (langues, pays, etc.) */
+
+.am-filter-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem;
+  gap: 6px;
+  margin-left: auto;
 }
 
-.am-filter-label {
-  font-size: 0.8rem;
-  color: var(--am-text-muted);
-  margin-right: 0.2rem;
+.am-filter-pill {
+  border-radius: var(--am-radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 4px 9px;
+  font-size: 0.78rem;
+  color: var(--am-text-soft);
+  background: rgba(18, 20, 27, 0.9);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition:
+    background var(--am-transition-fast),
+    border-color var(--am-transition-fast),
+    color var(--am-transition-fast),
+    transform var(--am-transition-fast);
 }
 
-.am-filters select {
-  min-width: 130px;
-  padding: 0.35rem 0.7rem;
-  font-size: 0.9rem;
-  border-radius: 999px;
-  border: 1px solid var(--am-border-soft);
-  background: #fbf8f2;
-  color: var(--am-text-main);
-}
-
-.am-filters select:focus {
-  outline: none;
-  border-color: var(--am-accent);
-}
-
-/* Boutons */
-
-button,
-.am-button {
-  appearance: none;
-  border: 1px solid var(--am-border-soft);
-  background: #f7f3ec;
-  color: var(--am-text-main);
-  font-size: 0.9rem;
-  border-radius: 999px;
-  padding: 0.35rem 0.9rem;
-  cursor: pointer;
-}
-
-button:hover,
-.am-button:hover {
-  background: #f1ece3;
-}
-
-button:focus-visible,
-.am-button:focus-visible {
-  outline: 2px solid var(--am-accent);
-  outline-offset: 2px;
-}
-
-/* Corps principal -------------------------------------------------- */
-
-.am-main {
-  padding: 1.25rem 0 2rem;
-}
-
-/* Info compteur */
-
-.am-counter {
-  font-size: 0.85rem;
-  color: var(--am-text-muted);
-  margin-bottom: 0.75rem;
-}
-
-/* Grille de cartes ------------------------------------------------- */
-
-.am-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 0.9rem;
-}
-
-/* Carte */
-
-.am-card {
-  background: var(--am-surface);
-  border-radius: var(--am-radius-card);
-  border: 1px solid var(--am-border-soft);
-  padding: 0.85rem 0.95rem 0.9rem;
-  box-shadow: var(--am-shadow-soft);
-  transition: background-color 0.15s ease-out, border-color 0.15s ease-out, transform 0.1s ease-out;
-}
-
-.am-card:hover {
-  background: #faf6ee;
-  border-color: var(--am-border-strong);
+.am-filter-pill.is-active {
+  background: var(--am-accent-soft);
+  border-color: rgba(79, 124, 255, 0.8);
+  color: var(--am-accent-strong);
   transform: translateY(-1px);
 }
 
+.am-filter-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--am-accent);
+}
+
+/* ==========================
+   Grille de cartes
+   ========================== */
+
+.am-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+  align-items: stretch;
+}
+
+/* Carte média – style bloc Notion mais plus dense */
+
+.am-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 13px 11px;
+  border-radius: var(--am-radius-lg);
+  border: 1px solid var(--am-border-subtle);
+  background: radial-gradient(circle at top left,
+              rgba(255, 255, 255, 0.03),
+              transparent 55%)
+              ,
+              linear-gradient(135deg,
+                rgba(255, 255, 255, 0.02),
+                rgba(0, 0, 0, 0.8));
+  box-shadow: var(--am-shadow-subtle);
+  overflow: hidden;
+  transition:
+    transform var(--am-transition-med),
+    box-shadow var(--am-transition-med),
+    border-color var(--am-transition-med),
+    background var(--am-transition-med);
+}
+
+/* Focus + accessibilité si la carte est focusable */
+
+.am-card:focus-within {
+  outline: 1px solid rgba(79, 124, 255, 0.9);
+  outline-offset: 2px;
+}
+
+/* Hover */
+
+.am-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.7);
+  background: radial-gradient(circle at top left,
+              rgba(255, 255, 255, 0.06),
+              transparent 55%)
+              ,
+              linear-gradient(145deg,
+                #181b25,
+                #111219);
+}
+
+/* ==========================
+   Contenu des cartes
+   ========================== */
+
+/* Ligne titre + statut */
+
 .am-card-header {
   display: flex;
+  align-items: center;
+  gap: 8px;
   justify-content: space-between;
-  align-items: baseline;
-  gap: 0.5rem;
-  margin-bottom: 0.2rem;
 }
+
+/* Titre principal */
 
 .am-card-title {
-  font-family: "Spectral", "Times New Roman", serif;
-  font-weight: 500;
-  font-size: 1.02rem;
-  margin: 0;
+  font-size: 0.93rem;
+  font-weight: 540;
+  letter-spacing: -0.01em;
+  color: var(--am-text);
 }
 
-/* Type / pays sous le titre */
+/* Tag de type / catégorie à droite du titre si tu l’utilises */
 
-.am-card-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  align-items: center;
-  margin: 0.1rem 0 0.4rem;
-}
-
-.am-type-pill {
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  padding: 0.15rem 0.6rem;
+.am-card-type-pill {
   border-radius: var(--am-radius-pill);
-  border: 1px solid var(--am-border-soft);
-  background: #f5f1ea;
-  color: var(--am-text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  padding: 2px 7px;
+  font-size: 0.72rem;
+  color: var(--am-text-soft);
+  background: rgba(7, 7, 10, 0.9);
 }
 
-.am-country-label {
+/* Sous-titre / description courte */
+
+.am-card-subtitle {
   font-size: 0.8rem;
   color: var(--am-text-muted);
+  margin-bottom: 4px;
 }
 
-/* Lien principal */
+/* Meta (site / pays / statut) – cachées par défaut, visibles au survol */
 
-.am-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.88rem;
-  color: var(--am-accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-}
-
-.am-link:hover {
-  border-bottom-color: var(--am-accent);
-}
-
-/* Description */
-
-.am-description {
-  margin: 0.45rem 0 0.2rem;
-  font-size: 0.9rem;
-  color: var(--am-text-main);
-}
-
-/* Alias pour ce que génère le JS : am-card-link / am-desc */
-
-.am-card-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  font-size: 0.88rem;
-  color: var(--am-accent);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-}
-
-.am-card-link:hover {
-  border-bottom-color: var(--am-accent);
-}
-
-.am-desc {
-  margin: 0.45rem 0 0.2rem;
-  font-size: 0.9rem;
-  color: var(--am-text-main);
-}
-
-
-/* Langues / tags */
-
-.am-tags {
+.am-meta-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
-  margin-top: 0.3rem;
+  gap: 4px;
+  font-size: 0.74rem;
+  color: var(--am-text-soft);
+  opacity: 0;
+  transform: translateY(6px);
+  pointer-events: none;
+  transition:
+    opacity var(--am-transition-med),
+    transform var(--am-transition-med);
 }
 
-.am-tag {
-  font-size: 0.72rem;
-  padding: 0.12rem 0.55rem;
+.am-card:hover .am-meta-row {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Pastilles meta */
+
+.am-meta-pill {
+  padding: 2px 7px;
   border-radius: var(--am-radius-pill);
-  border: 1px solid var(--am-border-soft);
-  background: #f6f3ed;
-  color: var(--am-text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(10, 11, 17, 0.85);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 
-/* Rangée de chips (type / pays / statut) générée par le JS */
+/* Statut en ligne / hors ligne */
 
-.am-chip-row,
+.am-status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+}
+
+.am-status-online .am-status-dot {
+  background: var(--am-success);
+  box-shadow: 0 0 0 3px rgba(61, 214, 140, 0.24);
+}
+
+.am-status-offline .am-status-dot {
+  background: var(--am-danger);
+  box-shadow: 0 0 0 3px rgba(255, 107, 129, 0.24);
+}
+
+/* Footer de carte : langues + tags */
+
 .am-footer-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem;
-  margin-top: 0.3rem;
-  font-size: 0.72rem;
-  color: var(--am-text-muted);
+  gap: 4px;
+  margin-top: 3px;
 }
+
+/* Rangées de chips (compatible avec ton renderCards / am-chip-row) */
+
+.am-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* Chips génériques */
 
 .am-chip {
-  padding: 0.12rem 0.55rem;
   border-radius: var(--am-radius-pill);
-  border: 1px solid var(--am-border-soft);
-  background: #f6f3ed;
-  color: var(--am-text-muted);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(13, 15, 22, 0.9);
+  color: var(--am-text-soft);
+  font-size: 0.73rem;
+  padding: 3px 7px;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Variantes de statut (online / offline) */
+/* Chip langue */
 
-.am-chip--status-online {
-  background: #ddeee0;
-  border-color: #c3dec9;
-  font-weight: 600;
+.am-lang-chip {
+  border-color: rgba(112, 215, 255, 0.55);
+  background: radial-gradient(circle at top left,
+              rgba(112, 215, 255, 0.18),
+              rgba(11, 18, 26, 0.95));
+  color: #cff1ff;
 }
 
-.am-chip--status-offline {
-  background: #f1dddd;
-  border-color: #e0c3c3;
-  font-weight: 600;
+/* Chip tag */
+
+.am-tag-chip {
+  border-color: rgba(255, 255, 255, 0.14);
+  background: rgba(21, 22, 29, 0.96);
 }
 
+/* Icônes dans les chips (si tu en mets via JS) */
 
-/* Badge statut */
-
-.am-status {
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--am-text-muted);
+.am-chip-icon {
+  font-size: 0.8em;
+  opacity: 0.9;
 }
 
-/* Pied de page ----------------------------------------------------- */
+/* ==========================
+   Lien cliquable sur la carte
+   ========================== */
 
-.am-footer {
-  border-top: 1px solid var(--am-border-soft);
-  background: var(--am-bg-alt);
-  padding: 0.9rem 0 1.1rem;
-  margin-top: 0.5rem;
+.am-card-link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
-.am-footer-inner {
-  font-size: 0.8rem;
-  color: var(--am-text-muted);
+.am-card-content {
+  position: relative;
+  z-index: 2;
 }
 
-/* États "vide" / message ------------------------------------------- */
+/* ==========================
+   États vides & info
+   ========================== */
 
-.am-empty {
-  padding: 1.2rem 1rem;
-  text-align: center;
-  font-size: 0.95rem;
-  color: var(--am-text-muted);
-  background: var(--am-surface-alt);
-  border-radius: 10px;
-  border: 1px dashed var(--am-border-soft);
+.am-empty-state {
+  margin-top: 30px;
+  padding: 22px 18px;
+  border-radius: var(--am-radius-md);
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  background: rgba(10, 11, 16, 0.9);
+  color: var(--am-text-soft);
+  font-size: 0.88rem;
 }
 
-/* Responsive léger ------------------------------------------------- */
+/* ==========================
+   Boutons divers (si tu en as)
+   ========================== */
 
-@media (max-width: 640px) {
-  .am-header-inner {
-    padding-top: 1.4rem;
+.am-button {
+  border-radius: var(--am-radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(15, 17, 24, 0.96);
+  color: var(--am-text);
+  font-size: 0.85rem;
+  padding: 5px 11px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition:
+    background var(--am-transition-fast),
+    border-color var(--am-transition-fast),
+    transform var(--am-transition-fast),
+    box-shadow var(--am-transition-fast);
+}
+
+.am-button:hover {
+  background: var(--am-accent-soft);
+  border-color: rgba(79, 124, 255, 0.9);
+  box-shadow: 0 10px 24px rgba(79, 124, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ==========================
+   Responsivité
+   ========================== */
+
+@media (max-width: 800px) {
+  .am-app {
+    margin: 18px auto 36px;
+    padding: 0 14px 30px;
   }
 
-  .am-header h1 {
-    font-size: 1.6rem;
+  .am-shell {
+    padding: 16px 14px 18px;
+    border-radius: 18px;
   }
 
-  .am-toolbar {
-    padding: 0.75rem 0.8rem;
+  .am-toolbar-inner {
+    flex-direction: column;
+    align-items: stretch;
   }
 
+  .am-filter-row {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 520px) {
   .am-grid {
     grid-template-columns: 1fr;
   }
-    .am-controls {
-    padding: 0.75rem 0.8rem;
+
+  .am-card {
+    padding: 11px 11px 10px;
+  }
+
+  .am-title {
+    font-size: 1.45rem;
   }
 }
