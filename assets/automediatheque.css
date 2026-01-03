@@ -100,6 +100,43 @@ body {
   border: 1px solid var(--am-border-soft);
 }
 
+/* Bloc filtres + statut dans le header (index.html) */
+
+.am-controls {
+  padding: 0.9rem 1rem;
+  margin: 0 0 0.75rem;
+  background: var(--am-surface-alt);
+  border-radius: 10px;
+  border: 1px solid var(--am-border-soft);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.am-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  color: var(--am-text-muted);
+}
+
+.am-status button {
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+}
+
+#status-text {
+  white-space: nowrap;
+}
+
 .am-toolbar-row {
   display: flex;
   flex-wrap: wrap;
@@ -294,6 +331,29 @@ button:focus-visible,
   color: var(--am-text-main);
 }
 
+/* Alias pour ce que génère le JS : am-card-link / am-desc */
+
+.am-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.88rem;
+  color: var(--am-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.am-card-link:hover {
+  border-bottom-color: var(--am-accent);
+}
+
+.am-desc {
+  margin: 0.45rem 0 0.2rem;
+  font-size: 0.9rem;
+  color: var(--am-text-main);
+}
+
+
 /* Langues / tags */
 
 .am-tags {
@@ -311,6 +371,41 @@ button:focus-visible,
   background: #f6f3ed;
   color: var(--am-text-muted);
 }
+
+/* Rangée de chips (type / pays / statut) générée par le JS */
+
+.am-chip-row,
+.am-footer-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-top: 0.3rem;
+  font-size: 0.72rem;
+  color: var(--am-text-muted);
+}
+
+.am-chip {
+  padding: 0.12rem 0.55rem;
+  border-radius: var(--am-radius-pill);
+  border: 1px solid var(--am-border-soft);
+  background: #f6f3ed;
+  color: var(--am-text-muted);
+}
+
+/* Variantes de statut (online / offline) */
+
+.am-chip--status-online {
+  background: #ddeee0;
+  border-color: #c3dec9;
+  font-weight: 600;
+}
+
+.am-chip--status-offline {
+  background: #f1dddd;
+  border-color: #e0c3c3;
+  font-weight: 600;
+}
+
 
 /* Badge statut */
 
@@ -364,5 +459,8 @@ button:focus-visible,
 
   .am-grid {
     grid-template-columns: 1fr;
+  }
+    .am-controls {
+    padding: 0.75rem 0.8rem;
   }
 }
