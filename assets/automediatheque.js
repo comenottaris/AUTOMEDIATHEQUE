@@ -1,258 +1,263 @@
-// ================================
-// Automédiathèque - Script principal
-// ================================
+﻿const DATA_URL = "automedias.json";
 
-const CONFIG = {
-  jsonUrl: 'automedias.json',
-  githubRepo: 'https://github.com/comenottaris/AUTOMEDIATHEQUE'
+const state = {
+  all: [],
+  filtered: [],
+  type: "",
+  country: "",
 };
 
-let allAutomedias = [];
-let filteredAutomedias = [];
+function normaliseArray(value) {
+  if (Array.isArray(value)) return value;
+  if (typeof value === "string" && value.trim() !== "") return [value.trim()];
+  return [];
+}
 
-// =====================
-// Chargement des données
-// =====================
-async function loadData() {
-  const loadingState = document.getElementById('loading-state');
-  const errorState = document.getElementById('error-state');
-  const statusText = document.getElementById('status-text');
+function normaliseItem(raw) {
+  return {
+    id: raw.id || raw.slug || raw.name || "",
+    name: raw.name || raw.title || "Sans titre",
+    url: raw.url || raw.link || "",
+    type: raw.type || raw.category || "Autre",
+    country: raw.country || raw.pays || "",
+    status: (raw.status || raw.statut || "inconnu").toLowerCase(),
+    languages: normaliseArray(raw.languages || raw.lang || raw.langs),
+    tags: normaliseArray(raw.tags || raw.mots_cles || raw.keywords),
+    description: raw.description || raw.resume || raw.notes || "",
+  };
+}
 
-  try {
-    loadingState.hidden = false;
-    errorState.hidden = true;
-    statusText.textContent = 'Chargement...';
-    statusText.className = 'status-badge';
+function updateStatus(text) {
+  const el = document.getElementById("status-text");
+  if (el) el.textContent = text;
+}
 
-    const response = await fetch(CONFIG.jsonUrl);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
-    }
-
-    const data = await response.json();
-    
-    allAutomedias = data.automedias || [];
-    filteredAutomedias = [...allAutomedias];
-
-    // Mise à jour des métadonnées
-    updateMetadata(data);
-    
-    // Initialisation des filtres
-    initFilters();
-    
-    // Affichage des cartes
-    renderCards();
-
-    loadingState.hidden = true;
-    statusText.textContent = `${allAutomedias.length} automédias`;
-    statusText.className = 'status-badge';
-
-  } catch (error) {
-    console.error('Erreur de chargement:', error);
-    loadingState.hidden = true;
-    errorState.hidden = false;
-    statusText.textContent = 'Erreur';
-    statusText.className = 'status-badge';
+function updateMeta() {
+  const el = document.getElementById("meta-info");
+  if (!el) return;
+  const total = state.all.length;
+  const current = state.filtered.length;
+  if (!total) {
+    el.textContent = "Aucune donnée chargée pour l'instant.";
+  } else if (current === total) {
+    el.textContent = `${total} automédias listés.`;
+  } else {
+    el.textContent = `${current} / ${total} automédias après filtrage.`;
   }
 }
 
-// =====================
-// Mise à jour des métadonnées
-// =====================
-function updateMetadata(data) {
-  const metaInfo = document.getElementById('meta-info');
-  const dbVersion = document.getElementById('db-version');
-  const dbDate = document.getElementById('db-date');
+function renderFilters() {
+  const types = new Set();
+  const countries = new Set();
 
-  if (data.version) dbVersion.textContent = data.version;
-  if (data.date_updated) dbDate.textContent = formatDate(data.date_updated);
-  
-  if (data.count !== undefined) {
-    metaInfo.textContent = `Base de données : ${data.count} entrées`;
-  }
-}
-
-// =====================
-// Initialisation des filtres
-// =====================
-function initFilters() {
-  const typeSelect = document.getElementById('filter-type');
-  const countrySelect = document.getElementById('filter-country');
-  const languageSelect = document.getElementById('filter-language');
-
-  // Extraction des valeurs uniques
-  const types = [...new Set(allAutomedias.map(a => a.type).filter(Boolean))].sort();
-  const countries = [...new Set(allAutomedias.map(a => a.country).filter(Boolean))].sort();
-  const languages = [...new Set(allAutomedias.map(a => a.language).filter(Boolean))].sort();
-
-  // Peuplement des selects
-  populateSelect(typeSelect, types);
-  populateSelect(countrySelect, countries);
-  populateSelect(languageSelect, languages);
-
-  // Événements de changement
-  typeSelect.addEventListener('change', applyFilters);
-  countrySelect.addEventListener('change', applyFilters);
-  languageSelect.addEventListener('change', applyFilters);
-}
-
-function populateSelect(selectElement, options) {
-  // Garder l'option "Tous"
-  const allOption = selectElement.querySelector('option[value=""]');
-  selectElement.innerHTML = '';
-  selectElement.appendChild(allOption);
-
-  options.forEach(option => {
-    const opt = document.createElement('option');
-    opt.value = option;
-    opt.textContent = option;
-    selectElement.appendChild(opt);
+  state.all.forEach((item) => {
+    if (item.type) types.add(item.type);
+    if (item.country) countries.add(item.country);
   });
+
+  const typeSelect = document.getElementById("filter-type");
+  const countrySelect = document.getElementById("filter-country");
+
+  if (typeSelect) {
+    const current = typeSelect.value;
+    typeSelect.innerHTML = '<option value="">Tous types</option>';
+    Array.from(types)
+      .sort((a, b) => a.localeCompare(b))
+      .forEach((t) => {
+        const opt = document.createElement("option");
+        opt.value = t;
+        opt.textContent = t;
+        typeSelect.appendChild(opt);
+      });
+    typeSelect.value = current;
+  }
+
+  if (countrySelect) {
+    const current = countrySelect.value;
+    countrySelect.innerHTML = '<option value="">Tous pays</option>';
+    Array.from(countries)
+      .sort((a, b) => a.localeCompare(b))
+      .forEach((c) => {
+        const opt = document.createElement("option");
+        opt.value = c;
+        opt.textContent = c;
+        countrySelect.appendChild(opt);
+      });
+    countrySelect.value = current;
+  }
 }
 
-// =====================
-// Application des filtres
-// =====================
 function applyFilters() {
-  const typeFilter = document.getElementById('filter-type').value;
-  const countryFilter = document.getElementById('filter-country').value;
-  const languageFilter = document.getElementById('filter-language').value;
-
-  filteredAutomedias = allAutomedias.filter(automedia => {
-    const matchType = !typeFilter || automedia.type === typeFilter;
-    const matchCountry = !countryFilter || automedia.country === countryFilter;
-    const matchLanguage = !languageFilter || automedia.language === languageFilter;
-
-    return matchType && matchCountry && matchLanguage;
+  const { type, country, all } = state;
+  state.filtered = all.filter((item) => {
+    if (type && item.type !== type) return false;
+    if (country && item.country !== country) return false;
+    return true;
   });
-
   renderCards();
-  
-  // Mise à jour du statut
-  const statusText = document.getElementById('status-text');
-  statusText.textContent = `${filteredAutomedias.length} automédias`;
+  updateMeta();
 }
 
-// =====================
-// Rendu des cartes
-// =====================
+function cardStatusClass(status) {
+  if (status === "online" || status === "actif" || status === "ok") {
+    return "am-chip--status-online";
+  }
+  if (status === "offline" || status === "mort" || status === "hs") {
+    return "am-chip--status-offline";
+  }
+  return "";
+}
+
 function renderCards() {
-  const cardsContainer = document.getElementById('cards');
-  const emptyState = document.getElementById('empty-state');
+  const container = document.getElementById("cards");
+  const empty = document.getElementById("empty-state");
+  if (!container) return;
 
-  cardsContainer.innerHTML = '';
+  container.innerHTML = "";
 
-  if (filteredAutomedias.length === 0) {
-    emptyState.hidden = false;
+  if (!state.filtered.length) {
+    if (empty) empty.hidden = false;
     return;
   }
+  if (empty) empty.hidden = true;
 
-  emptyState.hidden = true;
+  state.filtered.forEach((item) => {
+    const card = document.createElement("article");
+    card.className = "am-card";
 
-  filteredAutomedias.forEach(automedia => {
-    const card = createCard(automedia);
-    cardsContainer.appendChild(card);
+    const header = document.createElement("div");
+    header.className = "am-card-header";
+
+    const title = document.createElement("h3");
+    title.className = "am-card-title";
+    title.textContent = item.name;
+
+    header.appendChild(title);
+
+    if (item.url) {
+      const link = document.createElement("a");
+      link.className = "am-card-link";
+      link.href = item.url;
+      link.target = "_blank";
+      link.rel = "noopener noreferrer";
+      link.textContent = item.url.replace(/^https?:\/\//, "");
+      header.appendChild(link);
+    }
+
+    card.appendChild(header);
+
+    const chipsRow = document.createElement("div");
+    chipsRow.className = "am-chip-row";
+
+    if (item.type) {
+      const chip = document.createElement("span");
+      chip.className = "am-chip am-chip--accent";
+      chip.textContent = item.type;
+      chipsRow.appendChild(chip);
+    }
+
+    if (item.country) {
+      const chip = document.createElement("span");
+      chip.className = "am-chip";
+      chip.textContent = item.country;
+      chipsRow.appendChild(chip);
+    }
+
+    if (item.status) {
+      const chip = document.createElement("span");
+      chip.className = `am-chip ${cardStatusClass(item.status)}`.trim();
+      chip.textContent = `Statut : ${item.status}`;
+      chipsRow.appendChild(chip);
+    }
+
+    card.appendChild(chipsRow);
+
+    if (item.description) {
+      const p = document.createElement("p");
+      p.className = "am-desc";
+      p.textContent = item.description;
+      card.appendChild(p);
+    }
+
+    const footerRow = document.createElement("div");
+    footerRow.className = "am-footer-row";
+
+    if (item.languages && item.languages.length) {
+      const langSpan = document.createElement("span");
+      langSpan.textContent =
+        "Langues : " +
+        item.languages
+          .map((l) => l.toUpperCase())
+          .join(", ");
+      footerRow.appendChild(langSpan);
+    } else {
+      footerRow.appendChild(document.createElement("span"));
+    }
+
+    if (item.tags && item.tags.length) {
+      const tagsSpan = document.createElement("span");
+      tagsSpan.textContent = item.tags.join(" · ");
+      footerRow.appendChild(tagsSpan);
+    }
+
+    card.appendChild(footerRow);
+
+    container.appendChild(card);
   });
 }
 
-// =====================
-// Création d'une carte
-// =====================
-function createCard(automedia) {
-  const card = document.createElement('div');
-  card.className = 'am-card';
-
-  const title = automedia.title || 'Sans titre';
-  const url = automedia.url || '#';
-  const type = automedia.type || 'Non spécifié';
-  const country = automedia.country || 'Non spécifié';
-  const language = automedia.language || 'Non spécifié';
-  const active = automedia.active !== false;
-  const dateAdded = automedia.date_added ? formatDate(automedia.date_added) : '-';
-  const platforms = automedia.platforms || [];
-  const tags = automedia.tags || [];
-
-  card.innerHTML = `
-    <div class="am-card-header">
-      <h3 class="am-card-title">
-        <a href="${escapeHtml(url)}" target="_blank" rel="noopener">
-          ${escapeHtml(title)}
-        </a>
-      </h3>
-      <div class="am-card-meta">
-        <span class="am-tag am-tag-type">${escapeHtml(type)}</span>
-        <span class="am-tag am-tag-country">${escapeHtml(country)}</span>
-        <span class="am-tag ${active ? 'am-tag-active' : 'am-tag-inactive'}">
-          ${active ? '✓ Actif' : '✗ Inactif'}
-        </span>
-      </div>
-    </div>
-    <div class="am-card-body">
-      <div class="am-card-field">
-        <strong>Langue :</strong> ${escapeHtml(language)}
-      </div>
-      <div class="am-card-field">
-        <strong>Ajouté le :</strong> ${escapeHtml(dateAdded)}
-      </div>
-      ${platforms.length > 0 ? `
-        <div class="am-card-field">
-          <strong>Plateformes :</strong> ${platforms.map(p => escapeHtml(p)).join(', ')}
-        </div>
-      ` : ''}
-      ${tags.length > 0 ? `
-        <div class="am-tags">
-          ${tags.map(tag => `<span class="am-tag">${escapeHtml(tag)}</span>`).join('')}
-        </div>
-      ` : ''}
-    </div>
-  `;
-
-  return card;
-}
-
-// =====================
-// Utilitaires
-// =====================
-function formatDate(dateString) {
-  if (!dateString) return '-';
+async function loadData() {
+  updateStatus("Chargement des données…");
   try {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  } catch {
-    return dateString;
+    const res = await fetch(DATA_URL, { cache: "no-store" });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const raw = await res.json();
+    const list = Array.isArray(raw) ? raw : Array.isArray(raw.items) ? raw.items : [];
+    state.all = list.map(normaliseItem);
+    state.type = "";
+    state.country = "";
+    state.filtered = [...state.all];
+    renderFilters();
+    renderCards();
+    updateMeta();
+    updateStatus("Données chargées.");
+  } catch (err) {
+    console.error(err);
+    state.all = [];
+    state.filtered = [];
+    renderCards();
+    updateMeta();
+    updateStatus("Erreur : impossible de charger automedias.json");
   }
 }
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
+function initEvents() {
+  const typeSelect = document.getElementById("filter-type");
+  const countrySelect = document.getElementById("filter-country");
+  const reloadBtn = document.getElementById("reload-btn");
+
+  if (typeSelect) {
+    typeSelect.addEventListener("change", (e) => {
+      state.type = e.target.value;
+      applyFilters();
+    });
+  }
+
+  if (countrySelect) {
+    countrySelect.addEventListener("change", (e) => {
+      state.country = e.target.value;
+      applyFilters();
+    });
+  }
+
+  if (reloadBtn) {
+    reloadBtn.addEventListener("click", () => {
+      loadData();
+    });
+  }
 }
 
-// =====================
-// Événements
-// =====================
-document.addEventListener('DOMContentLoaded', () => {
-  // Chargement initial
+document.addEventListener("DOMContentLoaded", () => {
+  initEvents();
   loadData();
-
-  // Bouton recharger
-  document.getElementById('reload-btn').addEventListener('click', () => {
-    loadData();
-  });
-
-  // Bouton mise à jour (pour l'instant juste un message)
-  document.getElementById('update-db-btn').addEventListener('click', () => {
-    alert('Fonctionnalité de mise à jour à venir !\n\nPour l\'instant, vous pouvez contribuer via GitHub:\n' + CONFIG.githubRepo);
-  });
-
-  // Bouton réessayer en cas d'erreur
-  document.getElementById('retry-btn')?.addEventListener('click', () => {
-    loadData();
-  });
 });
