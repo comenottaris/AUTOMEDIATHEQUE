@@ -37,6 +37,76 @@ function setCount(n) {
   }
 }
 
+// Construit la liste des types à partir de la base JSON
+function buildTypeOptions(items) {
+  if (!els.filterType) return;
+
+  const select = els.filterType;
+  const previousValue = select.value;
+
+  // On garde seulement la première option ("Tous les types")
+  while (select.options.length > 1) {
+    select.remove(1);
+  }
+
+  const types = Array.from(
+    new Set(
+      items
+        .map(m => m.type)
+        .filter(Boolean) // enlève null / undefined / ""
+    )
+  ).sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+
+  types.forEach(type => {
+    const opt = document.createElement('option');
+    opt.value = type;
+    opt.textContent = type;
+    select.appendChild(opt);
+  });
+
+  // Si l'ancien choix existe encore, on le remet
+  if (types.includes(previousValue)) {
+    select.value = previousValue;
+  } else {
+    // sinon on reste sur "Tous les types"
+    select.value = '';
+  }
+}
+
+// Construit la liste des pays à partir de la base JSON
+function buildCountryOptions(items) {
+  if (!els.filterCountry) return;
+
+  const select = els.filterCountry;
+  const previousValue = select.value;
+
+  // On garde seulement la première option ("Tous les pays")
+  while (select.options.length > 1) {
+    select.remove(1);
+  }
+
+  const countries = Array.from(
+    new Set(
+      items
+        .map(m => m.country)
+        .filter(Boolean)
+    )
+  ).sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
+
+  countries.forEach(country => {
+    const opt = document.createElement('option');
+    opt.value = country;
+    opt.textContent = country;
+    select.appendChild(opt);
+  });
+
+  if (countries.includes(previousValue)) {
+    select.value = previousValue;
+  } else {
+    select.value = '';
+  }
+}
+
 async function loadData(forceReload = false) {
   if (!forceReload && allMedias.length) {
     return allMedias;
@@ -66,6 +136,10 @@ async function loadData(forceReload = false) {
 
   allMedias = data;
   setCount(allMedias.length);
+
+  // Met à jour les listes de filtres en fonction de la base
+  buildTypeOptions(allMedias);
+  buildCountryOptions(allMedias);
 
   const now = new Date().toLocaleTimeString('fr-FR', {
     hour: '2-digit',
@@ -231,44 +305,3 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
-/* === Overrides forts pour les couleurs de badges === */
-
-.am-pill {
-  border-radius: 999px;
-  font-size: 0.72rem;
-  line-height: 1.1;
-  padding: 0.18rem 0.65rem;
-  border: 1px solid transparent;
-  white-space: nowrap;
-}
-
-/* TYPE : ex. Instagram, Podcast… (orange) */
-.am-pill-type {
-  background-color: #ffe0b8 !important;
-  color: #7a3e00 !important;
-  border-color: #f0b26b !important;
-}
-
-/* PAYS (bleu) */
-.am-pill-country {
-  background-color: #d9e8ff !important;
-  color: #10436a !important;
-  border-color: #7aa6d8 !important;
-}
-
-/* LANGUE(S) (vert) */
-.am-pill-lang {
-  background-color: #d9f3e4 !important;
-  color: #145633 !important;
-  border-color: #60b287 !important;
-}
-
-/* Si le type est cliquable (lien) */
-.am-pill-link {
-  text-decoration: none;
-  color: inherit;
-}
-
-.am-pill-link:hover {
-  filter: brightness(0.95);
-}
