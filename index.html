@@ -59,17 +59,14 @@
             <div class="am-toolbar-filters">
               <!-- TYPE -->
               <label class="am-field">
-                <span class="am-field-label">Type de support</span>
-                <select id="am-filter-type" class="am-select">
-                  <option value="">Tous</option>
-                  <!-- values = "type" dans ton JSON -->
-                  <option value="site">Site</option>
-                  <option value="noblogs">Noblogs</option>
-                  <option value="telegram">Telegram</option>
-                  <option value="Instagram">Instagram</option>
-                  <option value="other">Autre</option>
-                </select>
-              </label>
+  <span class="am-field-label">Type</span>
+  <select id="am-filter-type" class="am-select">
+    <!-- option par défaut -->
+    <option value="">Tous les types</option>
+    <!-- les autres options sont ajoutées en JS à partir du JSON -->
+  </select>
+</label>
+
 
               <!-- PAYS -->
               <label class="am-field">
