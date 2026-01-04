@@ -1,303 +1,231 @@
-/* Automédiathèque - Script principal */
+// assets/automediatheque.js
 
-(function() {
-  'use strict';
+// Si tu déplaces le JSON dans assets/, mets plutôt:
+// const DATA_URL = 'assets/automedias.json';
+const DATA_URL = 'automedias.json';
 
-  var DEBUG = true;
-  
-  function log(msg) {
-    if (DEBUG) console.log('[Automédiathèque] ' + msg);
+let allMedias = [];
+let filteredMedias = [];
+
+// Récupération des éléments du DOM
+const els = {};
+
+function cacheDom() {
+  els.searchInput = document.getElementById('am-search-input');
+  els.filterType = document.getElementById('am-filter-type');
+  els.filterCountry = document.getElementById('am-filter-country');
+  els.filterLanguage = document.getElementById('am-filter-language');
+  els.results = document.getElementById('am-results');
+  els.emptyMessage = document.getElementById('am-empty-message');
+  els.refreshBtn = document.getElementById('am-refresh-db');
+}
+
+// Chargement du JSON
+async function loadData() {
+  const res = await fetch(DATA_URL, { headers: { 'Accept': 'application/json' } });
+  if (!res.ok) {
+    throw new Error(`Erreur de chargement de ${DATA_URL} : HTTP ${res.status}`);
+  }
+  const data = await res.json();
+  if (!Array.isArray(data)) {
+    throw new Error('Le JSON doit être un tableau d’objets.');
+  }
+  allMedias = data;
+  filteredMedias = data.slice();
+}
+
+// Création d’une carte HTML pour un automédia
+function createCard(media) {
+  const {
+    name,
+    url,
+    type,
+    languages,
+    country,
+    status,
+    description
+  } = media;
+
+  const article = document.createElement('article');
+  article.className = 'am-card';
+
+  const langs = Array.isArray(languages) ? languages.join(', ') : (languages || '');
+
+  article.innerHTML = `
+    <h3 class="am-card-title">
+      ${url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${name || 'Sans nom'}</a>` : (name || 'Sans nom')}
+    </h3>
+
+    <p class="am-card-meta">
+      ${type ? `<span class="am-badge am-badge-type">${type}</span>` : ''}
+      ${country ? `<span class="am-meta-item">${country}</span>` : ''}
+      ${langs ? `<span class="am-meta-item">${langs}</span>` : ''}
+    </p>
+
+    ${status ? `<p class="am-card-status"><span class="am-badge am-badge-status am-status-${status}">${status}</span></p>` : ''}
+
+    ${description ? `<p class="am-card-description">${description}</p>` : ''}
+  `;
+
+  return article;
+}
+
+// Rendu de la liste filtrée
+function renderList() {
+  if (!els.results) return;
+
+  els.results.innerHTML = '';
+
+  if (!filteredMedias.length) {
+    if (els.emptyMessage) els.emptyMessage.hidden = false;
+    return;
   }
 
-  log('Script chargé');
+  if (els.emptyMessage) els.emptyMessage.hidden = true;
 
-  // Chemins possibles pour le JSON
-  var jsonPaths = [
-    'automedias.json',
-    './automedias.json',
-    '../automedias.json',
-    '/automedias.json',
-    '/main/automedias.json'
-  ];
+  filteredMedias.forEach(media => {
+    els.results.appendChild(createCard(media));
+  });
+}
 
-  var allAutomedias = [];
-  var currentFilters = { type: '', country: '', language: '', status: '' };
+// Construire les options de filtres en fonction des données
+function buildFilters() {
+  if (!allMedias.length) return;
 
-  // Éléments DOM
-  var els = {};
+  const types = new Set();
+  const countries = new Set();
+  const languages = new Set();
 
-  function init() {
-    log('Initialisation...');
-    
-    els.grid = document.getElementById('automedias-grid');
-    els.loading = document.getElementById('loading-state');
-    els.error = document.getElementById('error-state');
-    els.empty = document.getElementById('empty-state');
-    els.status = document.getElementById('status-text');
-    els.filterType = document.getElementById('filter-type');
-    els.filterCountry = document.getElementById('filter-country');
-    els.filterLanguage = document.getElementById('filter-language');
-    els.filterStatus = document.getElementById('filter-status');
-    els.reloadBtn = document.getElementById('reload-btn');
-    els.updateDbBtn = document.getElementById('update-db-btn');
-    els.retryBtn = document.getElementById('retry-btn');
+  allMedias.forEach(m => {
+    if (m.type) types.add(m.type);
+    if (m.country) countries.add(m.country);
+    if (Array.isArray(m.languages)) {
+      m.languages.forEach(l => languages.add(l));
+    } else if (m.languages) {
+      languages.add(m.languages);
+    }
+  });
 
-    log('Grid trouvé: ' + !!els.grid);
-    log('Loading trouvé: ' + !!els.loading);
+  function fillSelect(selectEl, values) {
+    if (!selectEl) return;
+    // On garde la première option (“Tous…”)
+    const first = selectEl.querySelector('option');
+    selectEl.innerHTML = '';
+    if (first) selectEl.appendChild(first);
 
-    bindEvents();
-    tryLoadJson(0);
+    Array.from(values).sort((a, b) => a.localeCompare(b, 'fr'))
+      .forEach(v => {
+        const opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = v;
+        selectEl.appendChild(opt);
+      });
   }
 
-  function bindEvents() {
-    if (els.filterType) els.filterType.onchange = function() { currentFilters.type = this.value; render(); };
-    if (els.filterCountry) els.filterCountry.onchange = function() { currentFilters.country = this.value; render(); };
-    if (els.filterLanguage) els.filterLanguage.onchange = function() { currentFilters.language = this.value; render(); };
-    if (els.filterStatus) els.filterStatus.onchange = function() { currentFilters.status = this.value; render(); };
-    if (els.reloadBtn) els.reloadBtn.onclick = function() { tryLoadJson(0); };
-    if (els.retryBtn) els.retryBtn.onclick = function() { tryLoadJson(0); };
-    if (els.updateDbBtn) els.updateDbBtn.onclick = function() {
-      window.open('https://github.com/comenottaris/AUTOMEDIATHEQUE', '_blank');
-    };
-  }
+  fillSelect(els.filterType, types);
+  fillSelect(els.filterCountry, countries);
+  fillSelect(els.filterLanguage, languages);
+}
 
-  function tryLoadJson(index) {
-    if (index >= jsonPaths.length) {
-      log('ERREUR: Tous les chemins ont échoué');
-      showError('Impossible de charger les données. Chemins testés: ' + jsonPaths.join(', '));
-      return;
-    }
+// Appliquer recherche + filtres
+function applyFilters() {
+  const q = (els.searchInput?.value || '').trim().toLowerCase();
+  const type = els.filterType?.value || '';
+  const country = els.filterCountry?.value || '';
+  const language = els.filterLanguage?.value || '';
 
-    var path = jsonPaths[index];
-    log('Tentative ' + (index + 1) + '/' + jsonPaths.length + ': ' + path);
-    
-    showLoading('Chargement... (' + path + ')');
+  filteredMedias = allMedias.filter(m => {
+    // Filtre type
+    if (type && m.type !== type) return false;
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', path, true);
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState === 4) {
-        log('Réponse pour ' + path + ': HTTP ' + xhr.status);
-        
-        if (xhr.status === 200) {
-          try {
-            var data = JSON.parse(xhr.responseText);
-            log('JSON parsé, type: ' + typeof data + ', isArray: ' + Array.isArray(data));
-            
-            if (Array.isArray(data) && data.length > 0) {
-              log('SUCCÈS: ' + data.length + ' éléments chargés depuis ' + path);
-              allAutomedias = data;
-              onDataLoaded();
-            } else if (data && data.automedias && Array.isArray(data.automedias)) {
-              log('SUCCÈS (format objet): ' + data.automedias.length + ' éléments');
-              allAutomedias = data.automedias;
-              onDataLoaded();
-            } else {
-              log('Format invalide, essai suivant...');
-              tryLoadJson(index + 1);
-            }
-          } catch (e) {
-            log('Erreur parsing JSON: ' + e.message);
-            tryLoadJson(index + 1);
-          }
-        } else {
-          tryLoadJson(index + 1);
-        }
-      }
-    };
-    xhr.onerror = function() {
-      log('Erreur réseau pour ' + path);
-      tryLoadJson(index + 1);
-    };
-    xhr.send();
-  }
+    // Filtre pays
+    if (country && m.country !== country) return false;
 
-  function onDataLoaded() {
-    log('Données chargées: ' + allAutomedias.length + ' automédias');
-    
-    populateFilters();
-    hideLoading();
-    render();
-  }
-
-  function populateFilters() {
-    var types = {};
-    var countries = {};
-    var languages = {};
-    var statuses = {};
-
-    for (var i = 0; i < allAutomedias.length; i++) {
-      var item = allAutomedias[i];
-      if (item.type) types[item.type] = true;
-      if (item.country) countries[item.country] = true;
-      if (item.status) statuses[item.status] = true;
-      if (item.languages && item.languages.length) {
-        for (var j = 0; j < item.languages.length; j++) {
-          if (item.languages[j]) languages[item.languages[j]] = true;
-        }
-      }
-    }
-
-    fillSelect(els.filterType, sortKeys(types), 'Tous types');
-    fillSelect(els.filterCountry, sortKeys(countries), 'Tous pays');
-    fillSelect(els.filterLanguage, sortKeys(languages), 'Toutes langues');
-    fillSelect(els.filterStatus, sortKeys(statuses), 'Tous statuts');
-  }
-
-  function sortKeys(obj) {
-    return Object.keys(obj).sort();
-  }
-
-  function fillSelect(select, options, defaultLabel) {
-    if (!select) return;
-    select.innerHTML = '';
-    var opt = document.createElement('option');
-    opt.value = '';
-    opt.textContent = defaultLabel;
-    select.appendChild(opt);
-    for (var i = 0; i < options.length; i++) {
-      var o = document.createElement('option');
-      o.value = options[i];
-      o.textContent = options[i];
-      select.appendChild(o);
-    }
-  }
-
-  function render() {
-    if (!els.grid) {
-      log('ERREUR: #automedias-grid non trouvé');
-      return;
-    }
-
-    var filtered = [];
-    for (var i = 0; i < allAutomedias.length; i++) {
-      var item = allAutomedias[i];
-      if (currentFilters.type && item.type !== currentFilters.type) continue;
-      if (currentFilters.country && item.country !== currentFilters.country) continue;
-      if (currentFilters.status && item.status !== currentFilters.status) continue;
-      if (currentFilters.language) {
-        if (!item.languages || item.languages.indexOf(currentFilters.language) === -1) continue;
-      }
-      filtered.push(item);
-    }
-
-    log('Affichage: ' + filtered.length + '/' + allAutomedias.length + ' automédias');
-
-    if (els.status) {
-      els.status.textContent = filtered.length + ' automédia' + (filtered.length !== 1 ? 's' : '');
-    }
-
-    if (els.empty) {
-      els.empty.hidden = filtered.length > 0;
-    }
-
-    els.grid.innerHTML = '';
-
-    if (filtered.length === 0) {
-      return;
-    }
-
-    for (var i = 0; i < filtered.length; i++) {
-      var card = createCard(filtered[i]);
-      els.grid.appendChild(card);
-    }
-  }
-
-  function createCard(item) {
-    var card = document.createElement('article');
-    card.className = 'am-card';
-
-    var header = document.createElement('header');
-    header.className = 'am-card-header';
-
-    var title = document.createElement('h2');
-    title.className = 'am-card-title';
-
-    var link = document.createElement('a');
-    link.href = item.url || '#';
-    link.target = '_blank';
-    link.rel = 'noopener';
-    link.textContent = item.name || 'Sans nom';
-    title.appendChild(link);
-    header.appendChild(title);
-
-    var meta = document.createElement('div');
-    meta.className = 'am-card-meta';
-
-    if (item.type) {
-      meta.appendChild(createTag(item.type, 'am-tag-type'));
-    }
-    if (item.country) {
-      meta.appendChild(createTag(item.country, 'am-tag-country'));
-    }
-    if (item.languages && item.languages.length) {
-      for (var i = 0; i < item.languages.length; i++) {
-        meta.appendChild(createTag(item.languages[i], 'am-tag-language'));
+    // Filtre langue
+    if (language) {
+      const langs = Array.isArray(m.languages) ? m.languages : (m.languages ? [m.languages] : []);
+      if (!langs.map(l => String(l).toLowerCase()).includes(language.toLowerCase())) {
+        return false;
       }
     }
-    if (item.status) {
-      var statusClass = item.status === 'online' ? 'am-tag-online' : 'am-tag-offline';
-      meta.appendChild(createTag(item.status, statusClass));
+
+    // Recherche plein texte
+    if (q) {
+      const haystack = [
+        m.name,
+        m.description,
+        m.country,
+        m.type,
+        Array.isArray(m.languages) ? m.languages.join(' ') : m.languages
+      ]
+        .filter(Boolean)
+        .join(' ')
+        .toLowerCase();
+
+      if (!haystack.includes(q)) return false;
     }
 
-    var body = document.createElement('div');
-    body.className = 'am-card-body';
+    return true;
+  });
 
-    if (item.description) {
-      var desc = document.createElement('p');
-      desc.className = 'am-card-description';
-      desc.textContent = item.description;
-      body.appendChild(desc);
+  renderList();
+}
+
+// Petite fonction de debounce pour ne pas filtrer à chaque frapppe trop vite
+function debounce(fn, delay = 200) {
+  let t = null;
+  return (...args) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...args), delay);
+  };
+}
+
+// Initialisation des listeners
+function setupEvents() {
+  if (els.searchInput) {
+    els.searchInput.addEventListener('input', debounce(applyFilters, 200));
+  }
+  if (els.filterType) {
+    els.filterType.addEventListener('change', applyFilters);
+  }
+  if (els.filterCountry) {
+    els.filterCountry.addEventListener('change', applyFilters);
+  }
+  if (els.filterLanguage) {
+    els.filterLanguage.addEventListener('change', applyFilters);
+  }
+
+  if (els.refreshBtn) {
+    els.refreshBtn.addEventListener('click', () => {
+      // Pour l’instant : simple placeholder
+      // Plus tard tu pourras ici :
+      //  - appeler une API
+      //  - déclencher une GitHub Action
+      //  - recharger les données d’une autre source, etc.
+      console.log('Bouton "Mettre à jour la base de données" cliqué (non relié pour l’instant).');
+      // On peut au moins recharger les données actuelles :
+      init(true);
+    });
+  }
+}
+
+// Initialisation globale
+async function init(forceReload = false) {
+  try {
+    cacheDom();
+    if (!allMedias.length || forceReload) {
+      await loadData();
     }
-
-    card.appendChild(header);
-    card.appendChild(meta);
-    card.appendChild(body);
-
-    return card;
-  }
-
-  function createTag(text, extraClass) {
-    var span = document.createElement('span');
-    span.className = 'am-tag ' + (extraClass || '');
-    span.textContent = text;
-    return span;
-  }
-
-  function showLoading(msg) {
-    if (els.loading) {
-      els.loading.hidden = false;
-      els.loading.innerHTML = '<p>' + escapeHtml(msg || 'Chargement...') + '</p>';
-    }
-    if (els.error) els.error.hidden = true;
-    if (els.grid) els.grid.innerHTML = '';
-  }
-
-  function hideLoading() {
-    if (els.loading) els.loading.hidden = true;
-  }
-
-  function showError(msg) {
-    if (els.loading) els.loading.hidden = true;
-    if (els.error) {
-      els.error.hidden = false;
-      var p = els.error.querySelector('p');
-      if (p) p.textContent = msg || 'Erreur lors du chargement';
+    buildFilters();
+    applyFilters();
+  } catch (err) {
+    console.error(err);
+    if (els.results) {
+      els.results.textContent = 'Erreur lors du chargement de la base de données.';
     }
   }
+}
 
-  function escapeHtml(text) {
-    if (!text) return '';
-    var div = document.createElement('div');
-    div.appendChild(document.createTextNode(text));
-    return div.innerHTML;
-  }
-
-  // Démarrage
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
-  }
-
-})();
+document.addEventListener('DOMContentLoaded', () => {
+  init(false);
+});
