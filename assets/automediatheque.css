@@ -373,3 +373,29 @@ body {
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
 }
+
+/* === Overrides forts pour les couleurs de badges === */
+
+.am-pill {
+  ...
+}
+
+/* TYPE : ex. Instagram, Podcast… (orange) */
+.am-pill-type {
+  ...
+}
+
+/* PAYS (bleu) */
+.am-pill-country {
+  ...
+}
+
+/* LANGUE(S) (vert) */
+.am-pill-lang {
+  ...
+}
+
+/* Si le type est cliquable (lien) */
+.am-pill-link {
+  ...
+}
