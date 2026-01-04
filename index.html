@@ -4,88 +4,171 @@
     <meta charset="UTF-8" />
     <title>Automédiathèque</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+    <!-- Ton CSS principal -->
     <link rel="stylesheet" href="assets/automediatheque.css" />
   </head>
   <body>
     <div class="am-page">
-      <!-- Intro / header -->
+      <!-- ================= HEADER / INTRO ================= -->
       <header class="am-hero">
         <div class="am-hero-inner">
-          <p class="am-kicker">Automédiathèque</p>
-          <h1>Cartographie des automédias</h1>
-          <p class="am-hero-lead">
-            Une base en cours de construction pour recenser les médias autonomes
-            contre les violences policières, le racisme d’État, les prisons,
-            les frontières, et les luttes des premier·es concerné·es.
-          </p>
-          <p class="am-hero-meta">
-            Tu peux filtrer par type de support et par pays.
-            La base est mise à jour manuellement.
-          </p>
+          <!-- Sur-titre -->
+          <p class="am-kicker">Ressources · Automédias</p>
+
+          <!-- Titre principal -->
+          <h1 class="am-hero-title">Automédiathèque</h1>
+
+          <!-- 2 colonnes : texte + encadré infos -->
+          <div class="am-hero-layout">
+            <!-- Colonne texte -->
+            <div class="am-hero-col am-hero-col-main">
+              <p class="am-hero-lead">
+                Cette automédiathèque recense des médias autonomes qui
+                documentent et combattent les violences policières,
+                le racisme d’État, les prisons, les frontières
+                et les luttes des premier·es concerné·es.
+              </p>
+
+              <p class="am-hero-text">
+                La base est volontairement partielle et en mouvement :
+                elle a vocation à être complétée collectivement, corrigée,
+                archivée. Les liens pointent vers les plateformes des
+                collectifs et groupes concernés (sites, réseaux sociaux,
+                podcasts, etc.).
+              </p>
+
+              <p class="am-hero-text">
+                Tu peux filtrer par <strong>type de support</strong> (site,
+                Instagram, Telegram, etc.) et par <strong>pays</strong>.
+                Chaque fiche indique le type, le pays et la langue principale
+                du média.
+              </p>
+            </div>
+
+            <!-- Colonne infos base -->
+            <aside class="am-hero-col am-hero-col-aside">
+              <div class="am-hero-box">
+                <h2 class="am-hero-box-title">État de la base</h2>
+
+                <p class="am-hero-box-line">
+                  <span class="am-hero-label">Nombre d’entrées :</span>
+                  <span id="am-count" class="am-hero-value">–</span>
+                </p>
+
+                <p class="am-hero-box-line">
+                  <span class="am-hero-label">Statut :</span>
+                  <span id="am-status-text" class="am-hero-status">
+                    Statut : chargement…
+                  </span>
+                </p>
+
+                <button id="am-refresh-db" class="am-button">
+                  Recharger la base
+                </button>
+
+                <p class="am-hero-note">
+                  Le bouton recharge le fichier JSON
+                  (<code>automedias.json</code>) sans utiliser le cache du
+                  navigateur, pour voir les dernières modifications.
+                </p>
+              </div>
+            </aside>
+          </div>
         </div>
       </header>
 
-      <!-- Barre de séparation -->
+      <!-- ================= SÉPARATEUR ================= -->
       <hr class="am-divider" />
 
-      <!-- Partie "base de données" -->
+      <!-- ================= CONTENU PRINCIPAL ================= -->
       <main class="am-main">
-        <!-- Filtres + bouton -->
-        <section class="am-toolbar">
-          <div class="am-toolbar-left">
-            <label class="am-field">
-              <span class="am-field-label">Type de support</span>
-              <select id="am-filter-type" class="am-select">
-                <option value="">Tous</option>
-                <!-- IMPORTANT :
-                     Les value doivent correspondre exactement à "type" dans ton JSON
-                     (ex : "Instagram", "Site web", "Podcast", etc.)
-                -->
-                <option value="Instagram">Instagram</option>
-                <option value="Site web">Site web</option>
-                <option value="Podcast">Podcast</option>
-              </select>
-            </label>
+        <!-- --------- Section filtres / légende --------- -->
+        <section class="am-filters-section">
+          <header class="am-filters-header">
+            <h2 class="am-section-title">Explorer la base</h2>
+            <p class="am-section-desc">
+              Combine les filtres ci‑dessous pour affiner la liste des automédias.
+              Si aucun filtre n’est sélectionné, toutes les entrées sont affichées.
+            </p>
+          </header>
 
-            <label class="am-field">
-              <span class="am-field-label">Pays</span>
-              <select id="am-filter-country" class="am-select">
-                <option value="">Tous</option>
-                <!-- Idem : les value doivent correspondre à "country" dans le JSON -->
-                <option value="France">France</option>
-                <option value="Belgique">Belgique</option>
-                <option value="Suisse">Suisse</option>
-              </select>
-            </label>
-          </div>
+          <div class="am-toolbar">
+            <!-- Filtres -->
+            <div class="am-toolbar-filters">
+              <!-- TYPE -->
+              <label class="am-field">
+                <span class="am-field-label">Type de support</span>
+                <select id="am-filter-type" class="am-select">
+                  <option value="">Tous</option>
+                  <!-- values = "type" dans ton JSON -->
+                  <option value="site">Site</option>
+                  <option value="noblogs">Noblogs</option>
+                  <option value="telegram">Telegram</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="other">Autre</option>
+                </select>
+              </label>
 
-          <div class="am-toolbar-right">
-            <button id="am-refresh-db" class="am-button-secondary">
-              Rafraîchir la base
-            </button>
+              <!-- PAYS -->
+              <label class="am-field">
+                <span class="am-field-label">Pays</span>
+                <select id="am-filter-country" class="am-select">
+                  <option value="">Tous</option>
+                  <!-- values = "country" dans ton JSON -->
+                  <option value="France">France</option>
+                  <option value="Belgique">Belgique</option>
+                  <option value="Brazil">Brésil</option>
+                  <option value="Hong Kong">Hong Kong</option>
+                  <option value="International">International</option>
+                  <option value="Kurdistan">Kurdistan</option>
+                  <option value="Mexico">Mexique</option>
+                  <option value="Ukraine">Ukraine</option>
+                  <option value="United Kingdom">Royaume‑Uni</option>
+                  <option value="USA">États‑Unis (USA)</option>
+                </select>
+              </label>
+            </div>
+
+            <!-- Légende des pastilles -->
+            <div class="am-toolbar-legend">
+              <span class="am-legend-label">Légende</span>
+              <span class="am-pill am-pill-type">Type</span>
+              <span class="am-pill am-pill-country">Pays</span>
+              <span class="am-pill am-pill-lang">Langue</span>
+            </div>
           </div>
         </section>
 
-        <!-- Compteur + statut -->
-        <section class="am-meta-row">
-          <p class="am-count-text">
-            <span id="am-count">–</span> automédias référencés
-          </p>
-          <p id="am-status-text" class="am-status-text">
-            Statut : en attente de chargement…
-          </p>
-        </section>
+        <!-- --------- Section résultats --------- -->
+        <section class="am-results-section">
+          <header class="am-results-header">
+            <h2 class="am-section-title">Résultats</h2>
+            <p class="am-section-desc">
+              Chaque carte correspond à un automédia. Le titre, le type
+              et l’URL pointent vers la même destination.
+            </p>
+          </header>
 
-        <!-- Grille de résultats -->
-        <section class="am-results-wrapper">
+          <!-- Conteneur dans lequel le JS injecte les cartes -->
           <div id="am-results" class="am-grid">
-            <!-- cartes injectées par JS -->
+            <!-- Contenu généré par automediatheque.js -->
           </div>
         </section>
       </main>
+
+      <!-- ================= FOOTER / CRÉDITS ================= -->
+      <footer class="am-footer">
+        <p class="am-footer-text">
+          Automédiathèque – base expérimentale et incomplète.
+          N’hésite pas à proposer des ajouts, corrections ou suppressions.
+        </p>
+        <p class="am-footer-text">
+          Données chargées depuis <code>automedias.json</code>.
+        </p>
+      </footer>
     </div>
 
+    <!-- Ton JS -->
     <script src="assets/automediatheque.js"></script>
   </body>
 </html>
