@@ -10,9 +10,8 @@
   // =====================
   
   const CONFIG = {
-    // Chemin vers le JSON (relatif à la racine du site)
-    jsonUrl: './automedias.json',
-    // URL GitHub pour le bouton mise à jour
+    // Chemin relatif : depuis /assets/ on remonte vers /
+    jsonUrl: '../automedias.json',
     githubRepo: 'https://github.com/comenottaris/AUTOMEDIATHEQUE',
     githubJson: 'https://github.com/comenottaris/AUTOMEDIATHEQUE/blob/main/automedias.json'
   };
@@ -33,30 +32,13 @@
   // DOM Elements
   // =====================
   
-  const elements = {
-    grid: null,
-    loadingState: null,
-    errorState: null,
-    emptyState: null,
-    statusText: null,
-    metaInfo: null,
-    dbVersion: null,
-    dbDate: null,
-    filterType: null,
-    filterCountry: null,
-    filterLanguage: null,
-    filterActive: null,
-    reloadBtn: null,
-    updateDbBtn: null,
-    retryBtn: null
-  };
+  const elements = {};
 
   // =====================
   // Initialization
   // =====================
   
   function init() {
-    // Cache DOM elements
     elements.grid = document.getElementById('automedias-grid');
     elements.loadingState = document.getElementById('loading-state');
     elements.errorState = document.getElementById('error-state');
@@ -73,10 +55,7 @@
     elements.updateDbBtn = document.getElementById('update-db-btn');
     elements.retryBtn = document.getElementById('retry-btn');
 
-    // Bind events
     bindEvents();
-
-    // Load data
     loadData();
   }
 
@@ -85,28 +64,18 @@
   // =====================
   
   function bindEvents() {
-    // Reload button
     if (elements.reloadBtn) {
-      elements.reloadBtn.addEventListener('click', function() {
-        loadData();
-      });
+      elements.reloadBtn.addEventListener('click', loadData);
     }
 
-    // Update DB button (placeholder for now)
     if (elements.updateDbBtn) {
-      elements.updateDbBtn.addEventListener('click', function() {
-        showUpdateModal();
-      });
+      elements.updateDbBtn.addEventListener('click', showUpdateModal);
     }
 
-    // Retry button
     if (elements.retryBtn) {
-      elements.retryBtn.addEventListener('click', function() {
-        loadData();
-      });
+      elements.retryBtn.addEventListener('click', loadData);
     }
 
-    // Filters
     if (elements.filterType) {
       elements.filterType.addEventListener('change', function() {
         currentFilters.type = this.value;
@@ -144,30 +113,32 @@
     showLoading();
 
     try {
-      const response = await fetch(CONFIG.jsonUrl + '?t=' + Date.now());
+      console.log('Chargement depuis:', CONFIG.jsonUrl);
+      
+      const response = await fetch(CONFIG.jsonUrl, {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json'
+        },
+        cache: 'no-cache'
+      });
       
       if (!response.ok) {
-        throw new Error('HTTP ' + response.status);
+        throw new Error('HTTP ' + response.status + ' - ' + response.statusText);
       }
 
       const data = await response.json();
       
-      // Validate data structure
       if (!data || !Array.isArray(data.automedias)) {
-        throw new Error('Format de données invalide');
+        throw new Error('Structure JSON invalide');
       }
 
+      console.log('Chargement réussi:', data.automedias.length, 'automédias');
+
       allAutomedias = data.automedias;
-
-      // Update metadata
       updateMetadata(data);
-
-      // Populate filters
       populateFilters();
-
-      // Apply filters and render
       applyFilters();
-
       showSuccess();
 
     } catch (error) {
@@ -189,8 +160,9 @@
       elements.dbDate.textContent = formatDate(data.date_updated);
     }
 
-    if (elements.metaInfo && data.count !== undefined) {
-      elements.metaInfo.textContent = data.count + ' automédias référencés';
+    if (elements.metaInfo) {
+      const count = data.count || data.automedias.length;
+      elements.metaInfo.textContent = count + ' automédias référencés';
     }
   }
 
@@ -217,7 +189,6 @@
   function populateSelect(select, options, defaultLabel) {
     if (!select) return;
 
-    // Keep first option (default)
     const currentValue = select.value;
     select.innerHTML = '<option value="">' + defaultLabel + '</option>';
 
@@ -228,14 +199,13 @@
       select.appendChild(opt);
     });
 
-    // Restore selection if still valid
     if (currentValue && options.includes(currentValue)) {
       select.value = currentValue;
     }
   }
 
   function applyFilters() {
-    let filtered = allAutomedias;
+    let filtered = allAutomedias.slice();
 
     if (currentFilters.type) {
       filtered = filtered.filter(function(item) {
@@ -292,57 +262,55 @@
     const card = document.createElement('article');
     card.className = 'am-card';
 
-    // Build tags HTML
-    let tagsHtml = '';
+    // Meta tags
+    let metaHtml = '';
     
     if (item.type) {
-      tagsHtml += '<span class="am-tag am-tag-type">' + escapeHtml(item.type) + '</span>';
+      metaHtml += '<span class="am-tag am-tag-type">' + escapeHtml(item.type) + '</span>';
     }
-    
     if (item.country) {
-      tagsHtml += '<span class="am-tag am-tag-country">' + escapeHtml(item.country) + '</span>';
+      metaHtml += '<span class="am-tag am-tag-country">' + escapeHtml(item.country) + '</span>';
     }
-    
     if (item.language) {
-      tagsHtml += '<span class="am-tag am-tag-language">' + escapeHtml(item.language) + '</span>';
+      metaHtml += '<span class="am-tag am-tag-language">' + escapeHtml(item.language) + '</span>';
     }
-
-    // Active status
     if (item.active === true) {
-      tagsHtml += '<span class="am-tag am-tag-active">Actif</span>';
+      metaHtml += '<span class="am-tag am-tag-active">Actif</span>';
     } else if (item.active === false) {
-      tagsHtml += '<span class="am-tag am-tag-inactive">Inactif</span>';
+      metaHtml += '<span class="am-tag am-tag-inactive">Inactif</span>';
     }
 
     // Description
-    let descriptionHtml = '';
+    let descHtml = '';
     if (item.description) {
-      descriptionHtml = '<p class="am-card-description">' + escapeHtml(item.description) + '</p>';
+      descHtml = '<p class="am-card-description">' + escapeHtml(item.description) + '</p>';
     }
 
-    // Additional tags
-    let extraTagsHtml = '';
+    // Extra tags
+    let tagsHtml = '';
     if (item.tags && Array.isArray(item.tags) && item.tags.length > 0) {
-      extraTagsHtml = '<div class="am-tags">';
+      tagsHtml = '<div class="am-tags">';
       item.tags.forEach(function(tag) {
-        extraTagsHtml += '<span class="am-tag">' + escapeHtml(tag) + '</span>';
+        tagsHtml += '<span class="am-tag">' + escapeHtml(tag) + '</span>';
       });
-      extraTagsHtml += '</div>';
+      tagsHtml += '</div>';
     }
 
-    // Build card HTML
+    const url = item.url || '#';
+    const name = item.name || 'Sans nom';
+
     card.innerHTML = 
       '<header class="am-card-header">' +
         '<h2 class="am-card-title">' +
-          '<a href="' + escapeHtml(item.url || '#') + '" target="_blank" rel="noopener noreferrer">' +
-            escapeHtml(item.name || 'Sans nom') +
+          '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer">' +
+            escapeHtml(name) +
           '</a>' +
         '</h2>' +
       '</header>' +
-      '<div class="am-card-meta">' + tagsHtml + '</div>' +
+      '<div class="am-card-meta">' + metaHtml + '</div>' +
       '<div class="am-card-body">' +
-        descriptionHtml +
-        extraTagsHtml +
+        descHtml +
+        tagsHtml +
       '</div>';
 
     return card;
@@ -355,9 +323,8 @@
   function showLoading() {
     hideAllStates();
     if (elements.loadingState) elements.loadingState.hidden = false;
-    if (elements.statusText) {
-      elements.statusText.textContent = 'Chargement...';
-    }
+    if (elements.grid) elements.grid.innerHTML = '';
+    if (elements.statusText) elements.statusText.textContent = 'Chargement...';
     if (elements.reloadBtn) elements.reloadBtn.disabled = true;
   }
 
@@ -370,9 +337,7 @@
         errorP.textContent = 'Erreur : ' + message;
       }
     }
-    if (elements.statusText) {
-      elements.statusText.textContent = 'Erreur';
-    }
+    if (elements.statusText) elements.statusText.textContent = 'Erreur';
     if (elements.reloadBtn) elements.reloadBtn.disabled = false;
   }
 
@@ -403,15 +368,13 @@
   // =====================
   
   function showUpdateModal() {
-    const message = 
-      'Mise à jour de la base de données\n\n' +
-      'Pour ajouter ou modifier un automédia :\n\n' +
+    const msg = 'Pour ajouter ou modifier un automédia :\n\n' +
       '1. Allez sur GitHub\n' +
       '2. Modifiez le fichier automedias.json\n' +
       '3. Soumettez une Pull Request\n\n' +
       'Ouvrir GitHub ?';
 
-    if (confirm(message)) {
+    if (confirm(msg)) {
       window.open(CONFIG.githubJson, '_blank');
     }
   }
@@ -424,27 +387,25 @@
     if (!dateString) return '-';
     
     try {
-      const date = new Date(dateString);
-      
-      if (isNaN(date.getTime())) {
-        return dateString;
+      const parts = dateString.split('-');
+      if (parts.length === 3) {
+        const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                        'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+        const day = parseInt(parts[2], 10);
+        const month = months[parseInt(parts[1], 10) - 1];
+        const year = parts[0];
+        return day + ' ' + month + ' ' + year;
       }
-
-      return date.toLocaleDateString('fr-FR', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
+      return dateString;
     } catch (e) {
       return dateString;
     }
   }
 
   function escapeHtml(text) {
-    if (!text) return '';
-    
+    if (text === null || text === undefined) return '';
     const div = document.createElement('div');
-    div.textContent = String(text);
+    div.appendChild(document.createTextNode(String(text)));
     return div.innerHTML;
   }
 
