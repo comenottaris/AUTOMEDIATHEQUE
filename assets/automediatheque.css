@@ -1,31 +1,38 @@
 /* ================================
    Thème Automédiathèque - Gris doux
    ================================ */
+
 :root {
+  /* Couleurs de fond */
   --bg-body: #f8f9fa;
   --bg-primary: #ffffff;
   --bg-secondary: #f0f2f5;
   --bg-hover: #e9ecef;
   
+  /* Couleurs de texte */
   --text-primary: #212529;
   --text-secondary: #495057;
   --text-muted: #6c757d;
   
+  /* Couleurs d'accent */
   --accent: #4dabf7;
   --accent-hover: #339af0;
   --success: #51cf66;
   --warning: #ffc107;
   --danger: #f06595;
   
+  /* Bordures */
   --border: #dee2e6;
   --border-light: #e9ecef;
   
+  /* Rayons et ombres */
   --radius: 8px;
   --radius-lg: 12px;
   --shadow: 0 2px 8px rgba(0,0,0,0.05);
   --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
-  --transition: 0.2s ease;
   
+  /* Transitions et typographie */
+  --transition: 0.2s ease;
   --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
 }
@@ -33,6 +40,7 @@
 /* =====================
    Reset & Base
    ===================== */
+
 * {
   margin: 0;
   padding: 0;
@@ -60,6 +68,7 @@ body {
 /* =====================
    Container
    ===================== */
+
 .am-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -70,6 +79,7 @@ body {
 /* =====================
    Header
    ===================== */
+
 .am-header {
   text-align: center;
   padding: 3rem 0 2rem;
@@ -94,6 +104,7 @@ body {
 /* =====================
    Controls & Filters
    ===================== */
+
 .am-controls {
   display: flex;
   flex-direction: column;
@@ -143,6 +154,7 @@ body {
 }
 
 /* Status & Buttons */
+
 .am-status {
   display: flex;
   flex-wrap: wrap;
@@ -165,6 +177,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  text-decoration: none;
 }
 
 .btn:hover {
@@ -175,6 +188,12 @@ body {
 
 .btn:active {
   transform: translateY(0);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .btn-accent {
@@ -195,6 +214,7 @@ body {
   color: var(--text-secondary);
   font-size: 0.85rem;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .am-meta {
@@ -204,8 +224,17 @@ body {
 }
 
 /* =====================
+   Main Content
+   ===================== */
+
+.am-main {
+  min-height: 50vh;
+}
+
+/* =====================
    Grid & Cards
    ===================== */
+
 .am-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -221,6 +250,8 @@ body {
   box-shadow: var(--shadow);
   transition: all var(--transition);
   position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .am-card:hover {
@@ -239,6 +270,7 @@ body {
   color: var(--text-primary);
   margin-bottom: 0.5rem;
   word-break: break-word;
+  line-height: 1.4;
 }
 
 .am-card-title a {
@@ -262,10 +294,16 @@ body {
 .am-card-body {
   color: var(--text-secondary);
   font-size: 0.9rem;
+  flex-grow: 1;
 }
 
 .am-card-field {
   margin-bottom: 0.75rem;
+  line-height: 1.6;
+}
+
+.am-card-field:last-child {
+  margin-bottom: 0;
 }
 
 .am-card-field strong {
@@ -273,7 +311,13 @@ body {
   font-weight: 600;
 }
 
+.am-card-field p {
+  margin-top: 0.5rem;
+  color: var(--text-secondary);
+}
+
 /* Tags & Chips */
+
 .am-tags {
   display: flex;
   flex-wrap: wrap;
@@ -288,51 +332,69 @@ body {
   color: var(--text-secondary);
   font-size: 0.8rem;
   font-weight: 500;
+  white-space: nowrap;
 }
 
 .am-tag-type {
   background: rgba(77, 171, 247, 0.1);
   color: var(--accent);
+  border: 1px solid rgba(77, 171, 247, 0.2);
 }
 
 .am-tag-country {
   background: rgba(81, 207, 102, 0.1);
   color: var(--success);
+  border: 1px solid rgba(81, 207, 102, 0.2);
 }
 
 .am-tag-active {
-  background: rgba(81, 207, 102, 0.2);
+  background: rgba(81, 207, 102, 0.15);
   color: var(--success);
+  border: 1px solid rgba(81, 207, 102, 0.3);
 }
 
 .am-tag-inactive {
   background: rgba(240, 101, 149, 0.1);
   color: var(--danger);
+  border: 1px solid rgba(240, 101, 149, 0.2);
 }
 
 /* States */
+
 .am-empty,
 .am-loading,
 .am-error {
   text-align: center;
   padding: 3rem 1rem;
   color: var(--text-muted);
+  font-size: 1.1rem;
 }
 
 .am-loading {
-  font-size: 1.1rem;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
 }
 
 .am-error {
   color: var(--danger);
 }
 
+.am-error .btn {
+  margin-top: 1rem;
+}
+
 /* =====================
    Text Block
    ===================== */
+
 .am-text-block {
   margin: 4rem auto;
   max-width: 800px;
+  padding: 0 20px;
 }
 
 .am-text-block h2 {
@@ -340,12 +402,31 @@ body {
   font-weight: 700;
   margin: 2rem 0 1rem;
   color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.am-text-block h3 {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin: 1.5rem 0 0.75rem;
+  color: var(--text-primary);
 }
 
 .am-text-block p {
   margin-bottom: 1rem;
   color: var(--text-secondary);
   line-height: 1.8;
+}
+
+.am-text-block ul,
+.am-text-block ol {
+  margin: 1rem 0 1rem 1.5rem;
+  color: var(--text-secondary);
+}
+
+.am-text-block li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
 }
 
 .am-text-block a {
@@ -368,9 +449,19 @@ body {
   font-size: 0.9em;
 }
 
+.am-text-block blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid var(--accent);
+  background: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
 /* =====================
    Footer
    ===================== */
+
 .am-footer {
   background: var(--bg-secondary);
   padding: 2.5rem 0;
@@ -388,6 +479,10 @@ body {
   color: var(--text-muted);
   margin-bottom: 0.75rem;
   font-size: 0.9rem;
+}
+
+.am-footer p:last-child {
+  margin-bottom: 0;
 }
 
 .am-footer a {
@@ -413,9 +508,20 @@ body {
 /* =====================
    Responsive
    ===================== */
+
+@media (max-width: 968px) {
+  .am-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
 @media (max-width: 768px) {
   .am-header h1 {
     font-size: 2rem;
+  }
+
+  .am-tagline {
+    font-size: 1rem;
   }
 
   .am-filters {
@@ -444,6 +550,10 @@ body {
   .am-text-block h2 {
     font-size: 1.5rem;
   }
+
+  .am-text-block h3 {
+    font-size: 1.2rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -459,6 +569,10 @@ body {
     font-size: 1.75rem;
   }
 
+  .am-tagline {
+    font-size: 0.95rem;
+  }
+
   .am-status {
     flex-direction: column;
     width: 100%;
@@ -468,4 +582,31 @@ body {
     width: 100%;
     justify-content: center;
   }
+
+  .am-card {
+    padding: 1.25rem;
+  }
+
+  .am-card-title {
+    font-size: 1.1rem;
+  }
+}
+
+/* =====================
+   Utilitaires
+   ===================== */
+
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
