@@ -116,24 +116,24 @@ function renderList(list) {
     const meta = document.createElement('div');
     meta.className = 'am-card-meta';
 
-    // TYPE : maintenant cliquable si une URL existe
+    // TYPE : cliquable si URL dispo
     if (media.type) {
+      let typeEl;
       if (media.url) {
-        const typeLink = document.createElement('a');
-        typeLink.className = 'am-pill am-pill-type am-pill-link';
-        typeLink.href = media.url;
-        typeLink.target = '_blank';
-        typeLink.rel = 'noopener noreferrer';
-        typeLink.textContent = media.type;
-        meta.appendChild(typeLink);
+        typeEl = document.createElement('a');
+        typeEl.href = media.url;
+        typeEl.target = '_blank';
+        typeEl.rel = 'noopener noreferrer';
+        typeEl.className = 'am-pill am-pill-type am-pill-link';
       } else {
-        const spanType = document.createElement('span');
-        spanType.className = 'am-pill am-pill-type';
-        spanType.textContent = media.type;
-        meta.appendChild(spanType);
+        typeEl = document.createElement('span');
+        typeEl.className = 'am-pill am-pill-type';
       }
+      typeEl.textContent = media.type;
+      meta.appendChild(typeEl);
     }
 
+    // PAYS
     if (media.country) {
       const spanCountry = document.createElement('span');
       spanCountry.className = 'am-pill am-pill-country';
@@ -141,6 +141,7 @@ function renderList(list) {
       meta.appendChild(spanCountry);
     }
 
+    // LANGUES
     if (Array.isArray(media.languages) && media.languages.length) {
       const spanLang = document.createElement('span');
       spanLang.className = 'am-pill am-pill-lang';
@@ -179,7 +180,7 @@ function applyFilters() {
   renderList(list);
 }
 
-// On expose la fonction pour l’utiliser dans le HTML (onchange="amApplyFilters()")
+// On expose la fonction pour l’utiliser dans le HTML au besoin
 window.amApplyFilters = applyFilters;
 
 function setupEvents() {
@@ -203,7 +204,6 @@ function setupEvents() {
     });
   }
 
-  // Sécurité : si jamais l’inline onchange ne marche pas, on écoute aussi ici.
   if (els.filterType) {
     els.filterType.addEventListener('change', applyFilters);
   }
