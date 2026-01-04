@@ -5,150 +5,7 @@
   <title>Automédiathèque</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Automédiathèque : base ouverte d'automédias en lutte.">
-  <style>
-    /* CSS intégré pour éviter les problèmes de chargement */
-    :root {
-      --bg-body: #f8f9fa;
-      --bg-primary: #ffffff;
-      --bg-secondary: #f0f2f5;
-      --text-primary: #212529;
-      --text-secondary: #495057;
-      --text-muted: #6c757d;
-      --accent: #4dabf7;
-      --border: #dee2e6;
-      --radius: 8px;
-      --shadow: 0 2px 8px rgba(0,0,0,0.05);
-      --transition: 0.2s ease;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background-color: var(--bg-body);
-      color: var(--text-primary);
-      line-height: 1.6;
-    }
-
-    .am-container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 20px;
-    }
-
-    /* Header centré */
-    .am-header {
-      text-align: center;
-      padding: 3rem 0;
-    }
-
-    .am-header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      color: var(--text-primary);
-    }
-
-    .am-tagline {
-      font-size: 1.1rem;
-      color: var(--text-secondary);
-      max-width: 600px;
-      margin: 0 auto 2rem;
-    }
-
-    /* Filtres centrés */
-    .am-controls {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .am-filters {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-    }
-
-    .am-filters label {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .am-filters select {
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--bg-primary);
-    }
-
-    /* Grille des cartes */
-    .am-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.5rem;
-      margin: 2rem 0;
-    }
-
-    .am-card {
-      background: var(--bg-primary);
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      padding: 1.5rem;
-      box-shadow: var(--shadow);
-      transition: transform var(--transition);
-    }
-
-    .am-card:hover {
-      transform: translateY(-2px);
-    }
-
-    /* Footer centré */
-    .am-footer {
-      background: var(--bg-secondary);
-      padding: 2rem 0;
-      margin-top: 3rem;
-      text-align: center;
-    }
-
-    .am-footer-inner {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    /* Boutons */
-    .btn {
-      padding: 0.5rem 1rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      cursor: pointer;
-      transition: all var(--transition);
-    }
-
-    .btn:hover {
-      background: var(--bg-secondary);
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .am-filters {
-        flex-direction: column;
-        gap: 1rem;
-      }
-      .am-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/automediatheque.css">
 </head>
 <body>
   <header class="am-header">
@@ -171,10 +28,19 @@
               <option value="">Tous pays</option>
             </select>
           </label>
+          <label>
+            Langue
+            <select id="filter-language">
+              <option value="">Toutes langues</option>
+            </select>
+          </label>
         </div>
         <div class="am-status">
-          <button id="reload-btn" class="btn" title="Rafraîchir la liste">⟳</button>
-          <span id="status-text">Statut : inconnue</span>
+          <button id="reload-btn" class="btn" title="Rafraîchir la liste">⟳ Recharger</button>
+          <button id="update-db-btn" class="btn btn-accent" title="Mettre à jour la base de données">
+            ↻ Mettre à jour la base
+          </button>
+          <span id="status-text" class="status-badge">Chargement...</span>
         </div>
       </div>
       <p class="am-meta" id="meta-info"></p>
@@ -184,50 +50,82 @@
   <main class="am-main">
     <section class="am-container">
       <div id="cards" class="am-grid">
-        <!-- Cartes générées par JS -->
+        <!-- Les cartes d'automédias seront injectées ici par JS -->
       </div>
       <div id="empty-state" class="am-empty" hidden>
-        Aucun automédia ne correspond à ces filtres.
+        <p>🔍 Aucun automédia ne correspond à ces filtres.</p>
+      </div>
+      <div id="loading-state" class="am-loading">
+        <p>Chargement des automédias...</p>
+      </div>
+      <div id="error-state" class="am-error" hidden>
+        <p>❌ Erreur lors du chargement des données.</p>
+        <button id="retry-btn" class="btn">Réessayer</button>
       </div>
     </section>
 
     <section class="am-container am-text-block">
-      <h2>Qu'est-ce que l'automédia ?</h2>
-      <p>Les automédias désignent l'ensemble des pratiques par lesquelles des acteurs collectifs produisent eux-mêmes des récits et preuves de leur action politique.</p>
+      <h2>Qu'est-ce que l'automédia&nbsp;?</h2>
+      <p>
+        Les automédias désignent l'ensemble des pratiques, dispositifs et réseaux par lesquels
+        des acteurs collectifs — mouvements sociaux, collectifs militants, communautés en lutte
+        ou d'entraide — produisent, publient et archivent eux-mêmes des récits, preuves et
+        instruments de leur action politique.
+      </p>
+      <p>
+        L'automédia combine autoproduction (contenu créé par les protagonistes), autogestion
+        éditoriale (contrôle des formes, des cadres de diffusion et des dispositifs d'archivage)
+        et polymédialité (texte, photo, audio, vidéo, livestream, zines, dépôts numériques),
+        et vise à établir des régimes locaux de légitimation et de mémoire qui concurrencent
+        ou complètent ceux des médias institutionnels.
+      </p>
+
+      <h2>Fondements théoriques et positionnement disciplinaire</h2>
+      <p>
+        Conceptuellement, l'étude des automédias se situe à l'intersection de l'anthropologie
+        documentaire, des media studies et de la sociologie politique. Elle mobilise l'idée
+        d'une fabrique populaire de l'information, l'analyse des régimes de vérité, et une
+        attention aux infrastructures techniques qui médiatisent l'expérience collective.
+      </p>
+
+      <h2>Contribuer</h2>
+      <p>
+        Cette base de données est collaborative et open-source. Pour ajouter un automédia,
+        proposer des corrections ou contribuer au projet, rendez-vous sur le
+        <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">
+          dépôt GitHub
+        </a>.
+      </p>
     </section>
   </main>
 
   <footer class="am-footer">
     <div class="am-container">
       <div class="am-footer-inner">
-        <p>Automédiathèque est un projet de documentation collaborative des automédias.</p>
-        <p>Code source sur <a href="#">GitHub</a>.</p>
+        <p>
+          Automédiathèque est un projet de recherche et de documentation des automédias,
+          collectés et décrits à partir de sources publiques.
+        </p>
+        <p>
+          Conception &amp; développement&nbsp;:
+          <a href="https://siratton.hotglue.me" target="_blank" rel="noopener">
+            comenottaris
+          </a>
+          · Code source sur
+          <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">
+            GitHub
+          </a>.
+        </p>
+        <p>
+          Données éditées collectivement à partir du fichier
+          <code>automedias.json</code> · 
+          Version <span id="db-version">-</span> · 
+          Dernière mise à jour : <span id="db-date">-</span>
+        </p>
       </div>
     </div>
   </footer>
 
-  <script>
-    // Exemple de génération de cartes
-    document.addEventListener('DOMContentLoaded', function() {
-      const cardsContainer = document.getElementById('cards');
-
-      // Données d'exemple
-      const exampleData = [
-        { title: "UnFrame", type: "Site", country: "International" },
-        { title: "ZAD", type: "Blog", country: "France" }
-      ];
-
-      exampleData.forEach(item => {
-        const card = document.createElement('div');
-        card.className = 'am-card';
-        card.innerHTML = `
-          <h3>${item.title}</h3>
-          <p><strong>Type:</strong> ${item.type}</p>
-          <p><strong>Pays:</strong> ${item.country}</p>
-        `;
-        cardsContainer.appendChild(card);
-      });
-    });
-  </script>
+  <script src="assets/automediatheque.js"></script>
 </body>
 </html>
