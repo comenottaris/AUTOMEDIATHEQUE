@@ -1,235 +1,254 @@
-/* assets/automediatheque.css */
+// assets/automediatheque.js
 
-:root {
-  --am-bg: #f5f5f7;
-  --am-surface: #ffffff;
-  --am-border: #dadce0;
-  --am-text: #202124;
-  --am-muted: #5f6368;
-  --am-accent: #1a73e8;
-  --am-radius: 8px;
-  --am-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+// Si automedias.json est à la racine à côté de index.html :
+const DATA_URL = './automedias.json';
+// Si tu le mets dans assets/, utilise plutôt :
+// const DATA_URL = './assets/automedias.json';
+
+let allMedias = [];
+let lastLoadedAt = null;
+
+const els = {
+  results: null,
+  filterType: null,
+  filterCountry: null,
+  statusText: null,
+  refreshBtn: null,
+};
+
+function cacheDom() {
+  els.results = document.getElementById('am-results');
+  els.filterType = document.getElementById('am-filter-type');
+  els.filterCountry = document.getElementById('am-filter-country');
+  els.statusText = document.getElementById('am-status-text');
+  els.refreshBtn = document.getElementById('am-refresh-db');
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
-
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background: var(--am-bg);
-  color: var(--am-text);
-  line-height: 1.5;
-}
-
-/* Header */
-
-.am-header {
-  background: var(--am-surface);
-  border-bottom: 1px solid var(--am-border);
-}
-
-.am-header-inner {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 1rem;
-}
-
-.am-header h1 {
-  margin: 0 0 0.25rem;
-  font-size: 1.9rem;
-}
-
-.am-subtitle {
-  margin: 0 0 1rem;
-  color: var(--am-muted);
-}
-
-.am-controls {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.5rem;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 0.5rem;
-}
-
-.am-filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-}
-
-.am-filters label {
-  font-size: 0.9rem;
-  color: var(--am-muted);
-  display: flex;
-  flex-direction: column;
-}
-
-.am-filters select {
-  margin-top: 0.25rem;
-  min-width: 8rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 4px;
-  border: 1px solid var(--am-border);
-  background: #fff;
-  font-size: 0.9rem;
-}
-
-.am-actions {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-size: 0.9rem;
-}
-
-#am-refresh-db {
-  padding: 0.35rem 0.8rem;
-  border-radius: 999px;
-  border: 1px solid var(--am-accent);
-  background: #fff;
-  color: var(--am-accent);
-  cursor: pointer;
-  font-size: 0.9rem;
-}
-
-#am-refresh-db:hover {
-  background: rgba(26, 115, 232, 0.06);
-}
-
-/* Main layout */
-
-.am-main {
-  max-width: 960px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem 3rem;
-}
-
-.am-section {
-  margin-bottom: 2rem;
-}
-
-.am-section-title {
-  margin: 0 0 1rem;
-  font-size: 1.3rem;
-}
-
-/* Grid de cartes */
-
-.am-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
-}
-
-/* Cartes */
-
-.am-card {
-  background: var(--am-surface);
-  border-radius: var(--am-radius);
-  box-shadow: var(--am-shadow);
-  padding: 0.9rem 1rem;
-  border: 1px solid rgba(0, 0, 0, 0.02);
-}
-
-.am-card-title {
-  margin: 0 0 0.4rem;
-  font-size: 1.05rem;
-}
-
-.am-card-title a {
-  color: var(--am-accent);
-  text-decoration: none;
-}
-
-.am-card-title a:hover {
-  text-decoration: underline;
-}
-
-.am-card-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
-  margin-bottom: 0.4rem;
-}
-
-.am-card-desc {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--am-muted);
-}
-
-/* Tags */
-
-.am-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.1rem 0.5rem;
-  border-radius: 999px;
-  font-size: 0.75rem;
-  font-weight: 500;
-  border: 1px solid transparent;
-}
-
-.am-tag-type {
-  background: rgba(26, 115, 232, 0.07);
-  color: #174ea6;
-  border-color: rgba(26, 115, 232, 0.1);
-}
-
-.am-tag-country {
-  background: rgba(0, 0, 0, 0.03);
-  color: #3c4043;
-  border-color: rgba(0, 0, 0, 0.05);
-}
-
-.am-tag-lang {
-  background: rgba(52, 168, 83, 0.07);
-  color: #0d652d;
-  border-color: rgba(52, 168, 83, 0.1);
-}
-
-/* Messages */
-
-.am-message {
-  grid-column: 1 / -1;
-  padding: 0.75rem 1rem;
-  background: #fff9c4;
-  border-radius: var(--am-radius);
-  border: 1px solid #fdd835;
-  font-size: 0.9rem;
-}
-
-.am-message-error {
-  background: #ffebee;
-  border-color: #e53935;
-}
-
-/* Texte de présentation */
-
-.am-text h2 {
-  margin-top: 1.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.am-text p {
-  margin-top: 0;
-  margin-bottom: 0.75rem;
-  color: var(--am-muted);
-}
-
-/* Responsive */
-
-@media (max-width: 600px) {
-  .am-controls {
-    align-items: flex-start;
-  }
-
-  .am-actions {
-    margin-left: -2px;
+function setStatus(text) {
+  if (els.statusText) {
+    els.statusText.textContent = `Statut : ${text}`;
   }
 }
+
+async function loadData(forceReload = false) {
+  if (!forceReload && allMedias.length) {
+    // On a déjà des données : ne pas recharger inutilement
+    return allMedias;
+  }
+
+  if (els.results) {
+    els.results.innerHTML = '<p class="am-message">Chargement des données…</p>';
+  }
+  setStatus('chargement…');
+
+  const url = forceReload ? `${DATA_URL}?t=${Date.now()}` : DATA_URL;
+
+  const res = await fetch(url, {
+    cache: 'no-store',
+    headers: { 'Accept': 'application/json' },
+  });
+
+  console.log('[Automédiathèque] HTTP status', res.status);
+
+  if (!res.ok) {
+    throw new Error(`Erreur HTTP ${res.status}`);
+  }
+
+  const data = await res.json();
+  console.log('[Automédiathèque] Données chargées', data);
+
+  if (!Array.isArray(data)) {
+    throw new Error('Le JSON doit être un tableau d’objets.');
+  }
+
+  allMedias = data;
+  lastLoadedAt = new Date();
+
+  const timeStr = lastLoadedAt.toLocaleTimeString('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  setStatus(`OK (${allMedias.length} entrées, ${timeStr})`);
+
+  return allMedias;
+}
+
+function buildFilters() {
+  if (!els.filterType || !els.filterCountry) return;
+
+  // On garde la 1ère option ("Tous les ..."), on efface le reste
+  els.filterType.length = 1;
+  els.filterCountry.length = 1;
+
+  const types = new Set();
+  const countries = new Set();
+
+  allMedias.forEach((m) => {
+    if (m.type) types.add(m.type);
+    if (m.country) countries.add(m.country);
+  });
+
+  Array.from(types)
+    .sort((a, b) => a.localeCompare(b))
+    .forEach((t) => {
+      const opt = document.createElement('option');
+      opt.value = t;
+      opt.textContent = t;
+      els.filterType.appendChild(opt);
+    });
+
+  Array.from(countries)
+    .sort((a, b) => a.localeCompare(b))
+    .forEach((c) => {
+      const opt = document.createElement('option');
+      opt.value = c;
+      opt.textContent = c;
+      els.filterCountry.appendChild(opt);
+    });
+}
+
+function applyFilters() {
+  if (!allMedias.length) return;
+
+  const typeVal = els.filterType ? els.filterType.value : '';
+  const countryVal = els.filterCountry ? els.filterCountry.value : '';
+
+  console.log('[Automédiathèque] Filtres appliqués', {
+    type: typeVal,
+    country: countryVal,
+  });
+
+  let list = allMedias.slice();
+
+  if (typeVal) {
+    list = list.filter((m) => (m.type || '') === typeVal);
+  }
+
+  if (countryVal) {
+    list = list.filter((m) => (m.country || '') === countryVal);
+  }
+
+  renderList(list);
+}
+
+function renderList(list) {
+  if (!els.results) return;
+
+  if (!list.length) {
+    els.results.innerHTML =
+      '<p class="am-message">Aucun automédia pour ces critères.</p>';
+    return;
+  }
+
+  els.results.innerHTML = '';
+
+  list.forEach((media) => {
+    const card = document.createElement('article');
+    card.className = 'am-card';
+
+    // En-tête de carte
+    const header = document.createElement('div');
+    header.className = 'am-card-header';
+
+    const title = document.createElement('h3');
+    title.className = 'am-card-title';
+
+    if (media.url) {
+      const a = document.createElement('a');
+      a.href = media.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = media.name || 'Sans nom';
+      title.appendChild(a);
+    } else {
+      title.textContent = media.name || 'Sans nom';
+    }
+
+    header.appendChild(title);
+
+    // Ligne de tags / méta
+    const meta = document.createElement('div');
+    meta.className = 'am-card-meta';
+
+    if (media.type) {
+      const spanType = document.createElement('span');
+      spanType.className = 'am-pill am-pill-type';
+      spanType.textContent = media.type;
+      meta.appendChild(spanType);
+    }
+
+    if (media.country) {
+      const spanCountry = document.createElement('span');
+      spanCountry.className = 'am-pill am-pill-country';
+      spanCountry.textContent = media.country;
+      meta.appendChild(spanCountry);
+    }
+
+    if (Array.isArray(media.languages) && media.languages.length) {
+      const spanLang = document.createElement('span');
+      spanLang.className = 'am-pill am-pill-lang';
+      spanLang.textContent = media.languages.join(', ');
+      meta.appendChild(spanLang);
+    }
+
+    // Description
+    const desc = document.createElement('p');
+    desc.className = 'am-card-desc';
+    desc.textContent = media.description || '—';
+
+    card.appendChild(header);
+    card.appendChild(meta);
+    card.appendChild(desc);
+
+    els.results.appendChild(card);
+  });
+}
+
+function setupEvents() {
+  if (els.filterType) {
+    els.filterType.addEventListener('change', applyFilters);
+  }
+  if (els.filterCountry) {
+    els.filterCountry.addEventListener('change', applyFilters);
+  }
+  if (els.refreshBtn) {
+    els.refreshBtn.addEventListener('click', async () => {
+      try {
+        setStatus('rafraîchissement…');
+        await loadData(true); // force reload du JSON
+        buildFilters();
+        // On remet les filtres à "Tous"
+        if (els.filterType) els.filterType.value = '';
+        if (els.filterCountry) els.filterCountry.value = '';
+        applyFilters();
+      } catch (err) {
+        console.error('[Automédiathèque] Erreur rafraîchissement', err);
+        setStatus('erreur lors du rafraîchissement');
+        if (els.results) {
+          els.results.innerHTML =
+            '<p class="am-message am-message-error">Erreur lors du rafraîchissement de la base.</p>';
+        }
+      }
+    });
+  }
+}
+
+async function init() {
+  cacheDom();
+  setupEvents();
+
+  try {
+    await loadData(false);
+    buildFilters();
+    applyFilters();
+  } catch (err) {
+    console.error('[Automédiathèque] Erreur init', err);
+    if (els.results) {
+      els.results.innerHTML =
+        '<p class="am-message am-message-error">Erreur lors du chargement de la base.</p>';
+    }
+    setStatus('erreur');
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
