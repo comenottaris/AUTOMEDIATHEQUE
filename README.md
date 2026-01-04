@@ -11,8 +11,7 @@ Projet conçu et développé par **Côme Nottaris**, journaliste.
 
 ## Démo
 
-Version en ligne :  
-https://automedias.netlify.app/
+[Version en ligne](https://www.automediatheque.linkpc.net/)
 
 ---
 
