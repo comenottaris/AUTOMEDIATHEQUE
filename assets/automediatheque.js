@@ -116,11 +116,22 @@ function renderList(list) {
     const meta = document.createElement('div');
     meta.className = 'am-card-meta';
 
+    // TYPE : maintenant cliquable si une URL existe
     if (media.type) {
-      const spanType = document.createElement('span');
-      spanType.className = 'am-pill am-pill-type';
-      spanType.textContent = media.type;
-      meta.appendChild(spanType);
+      if (media.url) {
+        const typeLink = document.createElement('a');
+        typeLink.className = 'am-pill am-pill-type am-pill-link';
+        typeLink.href = media.url;
+        typeLink.target = '_blank';
+        typeLink.rel = 'noopener noreferrer';
+        typeLink.textContent = media.type;
+        meta.appendChild(typeLink);
+      } else {
+        const spanType = document.createElement('span');
+        spanType.className = 'am-pill am-pill-type';
+        spanType.textContent = media.type;
+        meta.appendChild(spanType);
+      }
     }
 
     if (media.country) {
