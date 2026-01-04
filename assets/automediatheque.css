@@ -351,3 +351,26 @@ body {
     text-align: left;
   }
 }
+
+/* Centrage de l'intro */
+
+.am-hero.am-hero--center {
+  text-align: center;
+}
+
+.am-hero.am-hero--center .am-hero-inner {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Optionnel : joli espacement */
+
+.am-hero-title {
+  margin-bottom: 0.75rem;
+}
+
+.am-hero-lead {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
