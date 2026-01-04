@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="fr">
 <head>
   <meta charset="utf-8">
@@ -6,6 +6,79 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Automédiathèque : base ouverte d'automédias en lutte.">
   <link rel="stylesheet" href="assets/automediatheque.css">
+  <style>
+    /* Styles pour centrer le contenu */
+    .am-header, .am-footer {
+      text-align: center;
+    }
+
+    .am-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .am-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0;
+    }
+
+    .am-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .am-filters label {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .am-status {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .am-meta {
+      margin-top: 20px;
+    }
+
+    .am-footer-inner {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .am-controls {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .am-filters {
+        flex-direction: row;
+      }
+
+      .am-filters label {
+        flex-direction: row;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .am-status {
+        flex-direction: row;
+        gap: 15px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="am-header">
@@ -17,13 +90,13 @@
       <div class="am-controls">
         <div class="am-filters">
           <label>
-            Type
+            <span>Type</span>
             <select id="filter-type">
               <option value="">Tous types</option>
             </select>
           </label>
           <label>
-            Pays
+            <span>Pays</span>
             <select id="filter-country">
               <option value="">Tous pays</option>
             </select>
@@ -51,14 +124,14 @@
     <section class="am-container am-text-block">
       <h2>Qu'est-ce que l'automédia&nbsp;?</h2>
       <p>
-        Les automédias désignent l’ensemble des pratiques, dispositifs et réseaux par lesquels
+        Les automédias désignent l'ensemble des pratiques, dispositifs et réseaux par lesquels
         des acteurs collectifs — mouvements sociaux, collectifs militants, communautés en lutte
-        ou d’entraide — produisent, publient et archivent eux-mêmes des récits, preuves et
+        ou d'entraide — produisent, publient et archivent eux-mêmes des récits, preuves et
         instruments de leur action politique.
       </p>
       <p>
-        L’automédia combine autoproduction (contenu créé par les protagonistes), autogestion
-        éditoriale (contrôle des formes, des cadres de diffusion et des dispositifs d’archivage)
+        L'automédia combine autoproduction (contenu créé par les protagonistes), autogestion
+        éditoriale (contrôle des formes, des cadres de diffusion et des dispositifs d'archivage)
         et polymédialité (texte, photo, audio, vidéo, livestream, zines, dépôts numériques),
         et vise à établir des régimes locaux de légitimation et de mémoire qui concurrencent
         ou complètent ceux des médias institutionnels.
@@ -66,38 +139,38 @@
 
       <h2>Fondements théoriques et positionnement disciplinaire</h2>
       <p>
-        Conceptuellement, l’étude des automédias se situe à l’intersection de l’anthropologie
-        documentaire, des media studies et de la sociologie politique. Elle mobilise l’idée
-        d’une fabrique populaire de l’information, l’analyse des régimes de vérité, et une
-        attention aux infrastructures techniques qui médiatisent l’expérience collective.
+        Conceptuellement, l'étude des automédias se situe à l'intersection de l'anthropologie
+        documentaire, des media studies et de la sociologie politique. Elle mobilise l'idée
+        d'une fabrique populaire de l'information, l'analyse des régimes de vérité, et une
+        attention aux infrastructures techniques qui médiatisent l'expérience collective.
       </p>
     </section>
   </main>
 
   <footer class="am-footer">
-  <div class="am-container">
-    <div class="am-footer-inner">
-      <p>
-        Automédiathèque est un projet de recherche et de documentation des automédias,
-        collectés et décrits à partir de sources publiques.
-      </p>
-      <p>
-        Conception &amp; développement&nbsp;:
-        <a href="https://siratton.hotglue.me" target="_blank" rel="noopener">
-          comenottaris
-        </a>
-        · Code source sur
-        <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">
-          GitHub
-        </a>.
-      </p>
-      <p>
-        Données éditées collectivement à partir du fichier
-        <code>automedias.json</code>.
-      </p>
+    <div class="am-container">
+      <div class="am-footer-inner">
+        <p>
+          Automédiathèque est un projet de recherche et de documentation des automédias,
+          collectés et décrits à partir de sources publiques.
+        </p>
+        <p>
+          Conception &amp; développement&nbsp;:
+          <a href="https://siratton.hotglue.me" target="_blank" rel="noopener">
+            comenottaris
+          </a>
+          · Code source sur
+          <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">
+            GitHub
+          </a>.
+        </p>
+        <p>
+          Données éditées collectivement à partir du fichier
+          <code>automedias.json</code>.
+        </p>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
   <script src="assets/automediatheque.js"></script>
 </body>
