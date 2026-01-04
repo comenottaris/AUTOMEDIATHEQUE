@@ -38,6 +38,8 @@
   // =====================
   
   function init() {
+    console.log('Automédiathèque: Initialisation...');
+    
     elements.grid = document.getElementById('automedias-grid');
     elements.loadingState = document.getElementById('loading-state');
     elements.errorState = document.getElementById('error-state');
@@ -54,6 +56,12 @@
     elements.updateDbBtn = document.getElementById('update-db-btn');
     elements.retryBtn = document.getElementById('retry-btn');
 
+    console.log('Automédiathèque: Éléments DOM:', {
+      grid: !!elements.grid,
+      loadingState: !!elements.loadingState,
+      errorState: !!elements.errorState
+    });
+
     bindEvents();
     loadData();
   }
@@ -64,15 +72,21 @@
   
   function bindEvents() {
     if (elements.reloadBtn) {
-      elements.reloadBtn.addEventListener('click', loadData);
+      elements.reloadBtn.addEventListener('click', function() {
+        loadData();
+      });
     }
 
     if (elements.updateDbBtn) {
-      elements.updateDbBtn.addEventListener('click', showUpdateModal);
+      elements.updateDbBtn.addEventListener('click', function() {
+        showUpdateModal();
+      });
     }
 
     if (elements.retryBtn) {
-      elements.retryBtn.addEventListener('click', loadData);
+      elements.retryBtn.addEventListener('click', function() {
+        loadData();
+      });
     }
 
     if (elements.filterType) {
@@ -108,47 +122,61 @@
   // Data Loading
   // =====================
   
-  async function loadData() {
+  function loadData() {
     showLoading();
 
-    try {
-      console.log('Chargement depuis:', CONFIG.jsonUrl);
-      
-      const response = await fetch(CONFIG.jsonUrl, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json'
-        },
-        cache: 'no-cache'
-      });
+    console.log('Automédiathèque: Chargement depuis', CONFIG.jsonUrl);
+
+    fetch(CONFIG.jsonUrl, {
+      method: 'GET',
+      cache: 'no-cache'
+    })
+    .then(function(response) {
+      console.log('Automédiathèque: Réponse HTTP', response.status);
       
       if (!response.ok) {
-        throw new Error('HTTP ' + response.status + ' - ' + response.statusText);
+        throw new Error('HTTP ' + response.status);
       }
-
-      const data = await response.json();
+      return response.text();
+    })
+    .then(function(text) {
+      console.log('Automédiathèque: Données reçues, longueur:', text.length);
+      console.log('Automédiathèque: Début des données:', text.substring(0, 100));
       
-      // Le JSON est un tableau direct, pas un objet avec "automedias"
+      var data;
+      try {
+        data = JSON.parse(text);
+      } catch (e) {
+        console.error('Automédiathèque: Erreur parsing JSON:', e);
+        throw new Error('JSON invalide: ' + e.message);
+      }
+      
+      console.log('Automédiathèque: Type de données:', typeof data, Array.isArray(data));
+      
+      // Le JSON est un tableau direct
       if (Array.isArray(data)) {
         allAutomedias = data;
-        console.log('Chargement réussi:', allAutomedias.length, 'automédias');
-      } else if (data && Array.isArray(data.automedias)) {
-        // Fallback si format objet
+      } else if (data && data.automedias && Array.isArray(data.automedias)) {
         allAutomedias = data.automedias;
-        console.log('Chargement réussi (format objet):', allAutomedias.length, 'automédias');
       } else {
-        throw new Error('Format JSON non reconnu');
+        throw new Error('Format non reconnu');
       }
-
+      
+      console.log('Automédiathèque: Nombre d\'automédias:', allAutomedias.length);
+      
+      if (allAutomedias.length > 0) {
+        console.log('Automédiathèque: Premier élément:', allAutomedias[0]);
+      }
+      
       updateMetadata();
       populateFilters();
       applyFilters();
       showSuccess();
-
-    } catch (error) {
-      console.error('Erreur de chargement:', error);
+    })
+    .catch(function(error) {
+      console.error('Automédiathèque: Erreur:', error);
       showError(error.message);
-    }
+    });
   }
 
   // =====================
@@ -161,8 +189,11 @@
     }
 
     if (elements.dbDate) {
-      const today = new Date();
-      elements.dbDate.textContent = formatDate(today.toISOString().split('T')[0]);
+      var today = new Date();
+      var dateStr = today.getFullYear() + '-' + 
+                    String(today.getMonth() + 1).padStart(2, '0') + '-' + 
+                    String(today.getDate()).padStart(2, '0');
+      elements.dbDate.textContent = formatDate(dateStr);
     }
 
     if (elements.metaInfo) {
@@ -175,102 +206,116 @@
   // =====================
   
   function populateFilters() {
-    const types = new Set();
-    const countries = new Set();
-    const languages = new Set();
-    const statuses = new Set();
+    var types = {};
+    var countries = {};
+    var languages = {};
+    var statuses = {};
 
     allAutomedias.forEach(function(item) {
-      if (item.type) types.add(item.type);
-      if (item.country) countries.add(item.country);
-      if (item.status) statuses.add(item.status);
+      if (item.type && item.type.trim() !== '') {
+        types[item.type] = true;
+      }
+      if (item.country && item.country.trim() !== '') {
+        countries[item.country] = true;
+      }
+      if (item.status && item.status.trim() !== '') {
+        statuses[item.status] = true;
+      }
       
       // languages est un tableau
       if (item.languages && Array.isArray(item.languages)) {
         item.languages.forEach(function(lang) {
-          languages.add(lang);
+          if (lang && lang.trim() !== '') {
+            languages[lang] = true;
+          }
         });
       }
     });
 
-    populateSelect(elements.filterType, Array.from(types).sort(), 'Tous types');
-    populateSelect(elements.filterCountry, Array.from(countries).sort(), 'Tous pays');
-    populateSelect(elements.filterLanguage, Array.from(languages).sort(), 'Toutes langues');
-    populateSelect(elements.filterStatus, Array.from(statuses).sort(), 'Tous statuts');
+    populateSelect(elements.filterType, Object.keys(types).sort(), 'Tous types');
+    populateSelect(elements.filterCountry, Object.keys(countries).sort(), 'Tous pays');
+    populateSelect(elements.filterLanguage, Object.keys(languages).sort(), 'Toutes langues');
+    populateSelect(elements.filterStatus, Object.keys(statuses).sort(), 'Tous statuts');
   }
 
   function populateSelect(select, options, defaultLabel) {
     if (!select) return;
 
-    const currentValue = select.value;
-    select.innerHTML = '<option value="">' + defaultLabel + '</option>';
+    select.innerHTML = '';
+    
+    var defaultOpt = document.createElement('option');
+    defaultOpt.value = '';
+    defaultOpt.textContent = defaultLabel;
+    select.appendChild(defaultOpt);
 
     options.forEach(function(option) {
-      const opt = document.createElement('option');
+      var opt = document.createElement('option');
       opt.value = option;
       opt.textContent = formatLabel(option);
       select.appendChild(opt);
     });
-
-    if (currentValue && options.includes(currentValue)) {
-      select.value = currentValue;
-    }
   }
 
   function formatLabel(value) {
-    // Traductions pour l'affichage
-    const labels = {
+    var labels = {
+      // Status
       'online': 'En ligne',
       'offline': 'Hors ligne',
       'unknown': 'Inconnu',
+      // Languages
       'fr': 'Français',
       'en': 'English',
       'es': 'Español',
       'de': 'Deutsch',
       'it': 'Italiano',
       'pt': 'Português',
+      'pt-BR': 'Português (BR)',
+      // Types
       'site': 'Site web',
       'blog': 'Blog',
+      'noblogs': 'Noblogs',
+      'telegram': 'Telegram',
+      'Instagram': 'Instagram',
       'radio': 'Radio',
       'video': 'Vidéo',
       'podcast': 'Podcast',
-      'journal': 'Journal',
-      'magazine': 'Magazine',
-      'agence': 'Agence'
+      'other': 'Autre'
     };
     return labels[value] || value;
   }
 
   function applyFilters() {
-    let filtered = allAutomedias.slice();
+    var filtered = allAutomedias.filter(function(item) {
+      // Filtre par type
+      if (currentFilters.type && item.type !== currentFilters.type) {
+        return false;
+      }
+      
+      // Filtre par pays
+      if (currentFilters.country && item.country !== currentFilters.country) {
+        return false;
+      }
+      
+      // Filtre par statut
+      if (currentFilters.status && item.status !== currentFilters.status) {
+        return false;
+      }
+      
+      // Filtre par langue (languages est un tableau)
+      if (currentFilters.language) {
+        if (!item.languages || !Array.isArray(item.languages)) {
+          return false;
+        }
+        if (item.languages.indexOf(currentFilters.language) === -1) {
+          return false;
+        }
+      }
+      
+      return true;
+    });
 
-    if (currentFilters.type) {
-      filtered = filtered.filter(function(item) {
-        return item.type === currentFilters.type;
-      });
-    }
-
-    if (currentFilters.country) {
-      filtered = filtered.filter(function(item) {
-        return item.country === currentFilters.country;
-      });
-    }
-
-    if (currentFilters.language) {
-      filtered = filtered.filter(function(item) {
-        // languages est un tableau
-        return item.languages && 
-               Array.isArray(item.languages) && 
-               item.languages.includes(currentFilters.language);
-      });
-    }
-
-    if (currentFilters.status) {
-      filtered = filtered.filter(function(item) {
-        return item.status === currentFilters.status;
-      });
-    }
-
+    console.log('Automédiathèque: Filtrage -', filtered.length, '/', allAutomedias.length);
+    
     renderCards(filtered);
     updateStatusText(filtered.length);
   }
@@ -280,7 +325,10 @@
   // =====================
   
   function renderCards(items) {
-    if (!elements.grid) return;
+    if (!elements.grid) {
+      console.error('Automédiathèque: Élément grid non trouvé');
+      return;
+    }
 
     elements.grid.innerHTML = '';
 
@@ -292,69 +340,67 @@
     hideAllStates();
 
     items.forEach(function(item) {
-      const card = createCard(item);
+      var card = createCard(item);
       elements.grid.appendChild(card);
     });
   }
 
   function createCard(item) {
-    const card = document.createElement('article');
+    var card = document.createElement('article');
     card.className = 'am-card';
 
-    // Meta tags
-    let metaHtml = '';
+    var name = item.name || 'Sans nom';
+    var url = item.url || '#';
+    var type = item.type || '';
+    var country = item.country || '';
+    var status = item.status || '';
+    var description = item.description || '';
+    var languages = item.languages || [];
+
+    // Construction du HTML de la carte
+    var html = '';
     
-    if (item.type) {
-      metaHtml += '<span class="am-tag am-tag-type">' + escapeHtml(formatLabel(item.type)) + '</span>';
+    // Header avec titre
+    html += '<header class="am-card-header">';
+    html += '<h2 class="am-card-title">';
+    html += '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer">';
+    html += escapeHtml(name);
+    html += '</a>';
+    html += '</h2>';
+    html += '</header>';
+    
+    // Meta tags
+    html += '<div class="am-card-meta">';
+    
+    if (type) {
+      html += '<span class="am-tag am-tag-type">' + escapeHtml(formatLabel(type)) + '</span>';
     }
-    if (item.country) {
-      metaHtml += '<span class="am-tag am-tag-country">' + escapeHtml(item.country) + '</span>';
+    
+    if (country) {
+      html += '<span class="am-tag am-tag-country">' + escapeHtml(country) + '</span>';
     }
-    // Languages (tableau)
-    if (item.languages && Array.isArray(item.languages)) {
-      item.languages.forEach(function(lang) {
-        metaHtml += '<span class="am-tag am-tag-language">' + escapeHtml(formatLabel(lang)) + '</span>';
+    
+    if (languages.length > 0) {
+      languages.forEach(function(lang) {
+        html += '<span class="am-tag am-tag-language">' + escapeHtml(formatLabel(lang)) + '</span>';
       });
     }
-    // Status
-    if (item.status) {
-      const statusClass = item.status === 'online' ? 'am-tag-active' : 'am-tag-inactive';
-      metaHtml += '<span class="am-tag ' + statusClass + '">' + escapeHtml(formatLabel(item.status)) + '</span>';
+    
+    if (status) {
+      var statusClass = (status === 'online') ? 'am-tag-active' : 'am-tag-inactive';
+      html += '<span class="am-tag ' + statusClass + '">' + escapeHtml(formatLabel(status)) + '</span>';
     }
-
-    // Description
-    let descHtml = '';
-    if (item.description) {
-      descHtml = '<p class="am-card-description">' + escapeHtml(item.description) + '</p>';
+    
+    html += '</div>';
+    
+    // Body avec description
+    html += '<div class="am-card-body">';
+    if (description) {
+      html += '<p class="am-card-description">' + escapeHtml(description) + '</p>';
     }
+    html += '</div>';
 
-    // Tags additionnels
-    let tagsHtml = '';
-    if (item.tags && Array.isArray(item.tags) && item.tags.length > 0) {
-      tagsHtml = '<div class="am-tags">';
-      item.tags.forEach(function(tag) {
-        tagsHtml += '<span class="am-tag">' + escapeHtml(tag) + '</span>';
-      });
-      tagsHtml += '</div>';
-    }
-
-    const url = item.url || '#';
-    const name = item.name || 'Sans nom';
-
-    card.innerHTML = 
-      '<header class="am-card-header">' +
-        '<h2 class="am-card-title">' +
-          '<a href="' + escapeHtml(url) + '" target="_blank" rel="noopener noreferrer">' +
-            escapeHtml(name) +
-          '</a>' +
-        '</h2>' +
-      '</header>' +
-      '<div class="am-card-meta">' + metaHtml + '</div>' +
-      '<div class="am-card-body">' +
-        descHtml +
-        tagsHtml +
-      '</div>';
-
+    card.innerHTML = html;
     return card;
   }
 
@@ -374,7 +420,7 @@
     hideAllStates();
     if (elements.errorState) {
       elements.errorState.hidden = false;
-      const errorP = elements.errorState.querySelector('p');
+      var errorP = elements.errorState.querySelector('p');
       if (errorP) {
         errorP.textContent = 'Erreur : ' + message;
       }
@@ -410,7 +456,7 @@
   // =====================
   
   function showUpdateModal() {
-    const msg = 'Pour ajouter ou modifier un automédia :\n\n' +
+    var msg = 'Pour ajouter ou modifier un automédia :\n\n' +
       '1. Allez sur GitHub\n' +
       '2. Modifiez le fichier automedias.json\n' +
       '3. Soumettez une Pull Request\n\n' +
@@ -429,13 +475,13 @@
     if (!dateString) return '-';
     
     try {
-      const parts = dateString.split('-');
+      var parts = dateString.split('-');
       if (parts.length === 3) {
-        const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin',
-                        'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
-        const day = parseInt(parts[2], 10);
-        const month = months[parseInt(parts[1], 10) - 1];
-        const year = parts[0];
+        var months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin',
+                      'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+        var day = parseInt(parts[2], 10);
+        var month = months[parseInt(parts[1], 10) - 1];
+        var year = parts[0];
         return day + ' ' + month + ' ' + year;
       }
       return dateString;
@@ -446,8 +492,9 @@
 
   function escapeHtml(text) {
     if (text === null || text === undefined) return '';
-    const div = document.createElement('div');
-    div.appendChild(document.createTextNode(String(text)));
+    var str = String(text);
+    var div = document.createElement('div');
+    div.appendChild(document.createTextNode(str));
     return div.innerHTML;
   }
 
