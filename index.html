@@ -1,86 +1,111 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
   <title>Automédiathèque</title>
-  <link rel="stylesheet" href="assets/main.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Styles (tu peux garder / adapter ton CSS existant) -->
   <link rel="stylesheet" href="assets/automediatheque.css">
+
+  <!-- JS de l'interface -->
+  <script src="assets/automediatheque.js" defer></script>
 </head>
 <body>
-  <header class="site-header">
-    <div class="container">
+
+  <!-- ========================= -->
+  <!--   Présentation            -->
+  <!-- ========================= -->
+  <header class="am-header">
+    <div class="am-container">
+      <!-- 
+        Garde / colle ici tes textes de présentation existants
+        (ceux que tu avais dans index.md ou autre).
+      -->
       <h1>Automédiathèque</h1>
-      <p class="site-description">Répertoire collaboratif des médias indépendants et autogérés</p>
+      <p>
+        Automédiathèque est un petit site statique qui recense des automédias :
+        collectifs, sites, comptes et ressources d’information autonomes, avec un filtre
+        par type, pays, langue et une recherche plein texte.
+      </p>
     </div>
   </header>
 
-  <main class="container">
-    <!-- Toolbar -->
-    <section class="toolbar">
-      <div class="toolbar-filters">
-        <select id="filter-type">
-          <option value="">Tous types</option>
-        </select>
-        
-        <select id="filter-country">
-          <option value="">Tous pays</option>
-        </select>
-        
-        <select id="filter-language">
-          <option value="">Toutes langues</option>
-        </select>
-        
-        <select id="filter-status">
-          <option value="">Tous statuts</option>
-        </select>
-      </div>
-      
-      <div class="toolbar-actions">
-        <span id="status-text">Chargement...</span>
-        <button id="reload-btn" class="btn btn-secondary">Recharger</button>
-        <button id="update-db-btn" class="btn btn-primary">Contribuer</button>
+  <!-- ========================= -->
+  <!--   Outils de recherche     -->
+  <!-- ========================= -->
+  <main class="am-main">
+    <section class="am-search-section">
+      <div class="am-container">
+
+        <!-- Bouton mise à jour de la base de données -->
+        <div class="am-toolbar">
+          <button id="am-refresh-db" type="button">
+            Mettre à jour la base de données
+          </button>
+        </div>
+
+        <!-- Recherche plein texte -->
+        <div class="am-search-bar">
+          <label for="am-search-input">Recherche plein texte</label>
+          <input
+            id="am-search-input"
+            type="search"
+            placeholder="Rechercher par nom, description, pays, langue…"
+          >
+        </div>
+
+        <!-- Filtres -->
+        <div class="am-filters">
+          <div class="am-filter">
+            <label for="am-filter-type">Type</label>
+            <select id="am-filter-type">
+              <option value="">Tous les types</option>
+              <!-- options générées en JS -->
+            </select>
+          </div>
+
+          <div class="am-filter">
+            <label for="am-filter-country">Pays / zone</label>
+            <select id="am-filter-country">
+              <option value="">Tous les pays / zones</option>
+              <!-- options générées en JS -->
+            </select>
+          </div>
+
+          <div class="am-filter">
+            <label for="am-filter-language">Langue</label>
+            <select id="am-filter-language">
+              <option value="">Toutes les langues</option>
+              <!-- options générées en JS -->
+            </select>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- Metadata -->
-    <section class="meta-section">
-      <p id="meta-info"></p>
-      <p>
-        <small>
-          Version : <span id="db-version">-</span> | 
-          Mise à jour : <span id="db-date">-</span>
-        </small>
-      </p>
+    <!-- ========================= -->
+    <!--   Résultats / cartes      -->
+    <!-- ========================= -->
+    <section class="am-results-section">
+      <div class="am-container">
+        <div id="am-results" class="am-grid">
+          <!-- cartes injectées en JS -->
+        </div>
+        <p id="am-empty-message" class="am-empty-message" hidden>
+          Aucun automédia ne correspond à ces critères.
+        </p>
+      </div>
     </section>
-
-    <!-- States -->
-    <div id="loading-state" class="state-message">
-      <p>Chargement des automédias...</p>
-    </div>
-    
-    <div id="error-state" class="state-message state-error" hidden>
-      <p>Erreur lors du chargement</p>
-      <button id="retry-btn" class="btn btn-secondary">Réessayer</button>
-    </div>
-    
-    <div id="empty-state" class="state-message" hidden>
-      <p>Aucun automédia trouvé avec ces critères.</p>
-    </div>
-
-    <!-- Grid -->
-    <div id="automedias-grid" class="automedias-grid"></div>
   </main>
 
-  <footer class="site-footer">
-    <div class="container">
+  <footer class="am-footer">
+    <div class="am-container">
       <p>
-        Données éditées collectivement sur 
-        <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">GitHub</a>
+        Projet conçu et développé par Côme Nottaris. Code réutilisable / forkable.
       </p>
     </div>
   </footer>
 
-  <script src="assets/automediatheque.js"></script>
 </body>
 </html>
