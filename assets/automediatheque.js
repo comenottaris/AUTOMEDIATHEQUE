@@ -2,11 +2,10 @@
 
 // Si automedias.json est à la racine à côté de index.html :
 const DATA_URL = './automedias.json';
-// Si tu le mets dans assets/, utilise plutôt :
+// Si tu le mets dans assets/, utilise :
 // const DATA_URL = './assets/automedias.json';
 
 let allMedias = [];
-let lastLoadedAt = null;
 
 const els = {
   results: null,
@@ -14,6 +13,7 @@ const els = {
   filterCountry: null,
   statusText: null,
   refreshBtn: null,
+  count: null,
 };
 
 function cacheDom() {
@@ -22,6 +22,7 @@ function cacheDom() {
   els.filterCountry = document.getElementById('am-filter-country');
   els.statusText = document.getElementById('am-status-text');
   els.refreshBtn = document.getElementById('am-refresh-db');
+  els.count = document.getElementById('am-count');
 }
 
 function setStatus(text) {
@@ -30,9 +31,14 @@ function setStatus(text) {
   }
 }
 
+function setCount(n) {
+  if (els.count) {
+    els.count.textContent = typeof n === 'number' ? n : '–';
+  }
+}
+
 async function loadData(forceReload = false) {
   if (!forceReload && allMedias.length) {
-    // On a déjà des données : ne pas recharger inutilement
     return allMedias;
   }
 
@@ -45,90 +51,29 @@ async function loadData(forceReload = false) {
 
   const res = await fetch(url, {
     cache: 'no-store',
-    headers: { 'Accept': 'application/json' },
+    headers: { Accept: 'application/json' },
   });
-
-  console.log('[Automédiathèque] HTTP status', res.status);
 
   if (!res.ok) {
     throw new Error(`Erreur HTTP ${res.status}`);
   }
 
   const data = await res.json();
-  console.log('[Automédiathèque] Données chargées', data);
 
   if (!Array.isArray(data)) {
-    throw new Error('Le JSON doit être un tableau d’objets.');
+    throw new Error('Le JSON doit être un tableau.');
   }
 
   allMedias = data;
-  lastLoadedAt = new Date();
+  setCount(allMedias.length);
 
-  const timeStr = lastLoadedAt.toLocaleTimeString('fr-FR', {
+  const now = new Date().toLocaleTimeString('fr-FR', {
     hour: '2-digit',
     minute: '2-digit',
   });
-  setStatus(`OK (${allMedias.length} entrées, ${timeStr})`);
+  setStatus(`OK (${allMedias.length} entrées, ${now})`);
 
   return allMedias;
-}
-
-function buildFilters() {
-  if (!els.filterType || !els.filterCountry) return;
-
-  // On garde la 1ère option ("Tous les ..."), on efface le reste
-  els.filterType.length = 1;
-  els.filterCountry.length = 1;
-
-  const types = new Set();
-  const countries = new Set();
-
-  allMedias.forEach((m) => {
-    if (m.type) types.add(m.type);
-    if (m.country) countries.add(m.country);
-  });
-
-  Array.from(types)
-    .sort((a, b) => a.localeCompare(b))
-    .forEach((t) => {
-      const opt = document.createElement('option');
-      opt.value = t;
-      opt.textContent = t;
-      els.filterType.appendChild(opt);
-    });
-
-  Array.from(countries)
-    .sort((a, b) => a.localeCompare(b))
-    .forEach((c) => {
-      const opt = document.createElement('option');
-      opt.value = c;
-      opt.textContent = c;
-      els.filterCountry.appendChild(opt);
-    });
-}
-
-function applyFilters() {
-  if (!allMedias.length) return;
-
-  const typeVal = els.filterType ? els.filterType.value : '';
-  const countryVal = els.filterCountry ? els.filterCountry.value : '';
-
-  console.log('[Automédiathèque] Filtres appliqués', {
-    type: typeVal,
-    country: countryVal,
-  });
-
-  let list = allMedias.slice();
-
-  if (typeVal) {
-    list = list.filter((m) => (m.type || '') === typeVal);
-  }
-
-  if (countryVal) {
-    list = list.filter((m) => (m.country || '') === countryVal);
-  }
-
-  renderList(list);
 }
 
 function renderList(list) {
@@ -146,7 +91,7 @@ function renderList(list) {
     const card = document.createElement('article');
     card.className = 'am-card';
 
-    // En-tête de carte
+    // Titre
     const header = document.createElement('div');
     header.className = 'am-card-header';
 
@@ -165,8 +110,9 @@ function renderList(list) {
     }
 
     header.appendChild(title);
+    card.appendChild(header);
 
-    // Ligne de tags / méta
+    // Tags / méta
     const meta = document.createElement('div');
     meta.className = 'am-card-meta';
 
@@ -191,45 +137,67 @@ function renderList(list) {
       meta.appendChild(spanLang);
     }
 
+    card.appendChild(meta);
+
     // Description
     const desc = document.createElement('p');
     desc.className = 'am-card-desc';
     desc.textContent = media.description || '—';
-
-    card.appendChild(header);
-    card.appendChild(meta);
     card.appendChild(desc);
 
     els.results.appendChild(card);
   });
 }
 
+function applyFilters() {
+  if (!allMedias.length) return;
+
+  const typeVal = els.filterType ? els.filterType.value : '';
+  const countryVal = els.filterCountry ? els.filterCountry.value : '';
+
+  let list = allMedias.slice();
+
+  if (typeVal) {
+    list = list.filter((m) => (m.type || '') === typeVal);
+  }
+
+  if (countryVal) {
+    list = list.filter((m) => (m.country || '') === countryVal);
+  }
+
+  renderList(list);
+}
+
+// On expose la fonction pour l’utiliser dans le HTML (onchange="amApplyFilters()")
+window.amApplyFilters = applyFilters;
+
 function setupEvents() {
-  if (els.filterType) {
-    els.filterType.addEventListener('change', applyFilters);
-  }
-  if (els.filterCountry) {
-    els.filterCountry.addEventListener('change', applyFilters);
-  }
   if (els.refreshBtn) {
     els.refreshBtn.addEventListener('click', async () => {
       try {
         setStatus('rafraîchissement…');
-        await loadData(true); // force reload du JSON
-        buildFilters();
-        // On remet les filtres à "Tous"
+        await loadData(true);
+        // on remet les filtres à "Tous"
         if (els.filterType) els.filterType.value = '';
         if (els.filterCountry) els.filterCountry.value = '';
         applyFilters();
       } catch (err) {
         console.error('[Automédiathèque] Erreur rafraîchissement', err);
-        setStatus('erreur lors du rafraîchissement');
         if (els.results) {
           els.results.innerHTML =
             '<p class="am-message am-message-error">Erreur lors du rafraîchissement de la base.</p>';
         }
+        setStatus('erreur lors du rafraîchissement');
       }
     });
+  }
+
+  // Sécurité : si jamais l’inline onchange ne marche pas, on écoute aussi ici.
+  if (els.filterType) {
+    els.filterType.addEventListener('change', applyFilters);
+  }
+  if (els.filterCountry) {
+    els.filterCountry.addEventListener('change', applyFilters);
   }
 }
 
@@ -239,8 +207,7 @@ async function init() {
 
   try {
     await loadData(false);
-    buildFilters();
-    applyFilters();
+    applyFilters(); // affiche la liste complète au début
   } catch (err) {
     console.error('[Automédiathèque] Erreur init', err);
     if (els.results) {
@@ -248,6 +215,7 @@ async function init() {
         '<p class="am-message am-message-error">Erreur lors du chargement de la base.</p>';
     }
     setStatus('erreur');
+    setCount(null);
   }
 }
 
