@@ -231,3 +231,44 @@ async function init() {
 }
 
 document.addEventListener('DOMContentLoaded', init);
+/* === Overrides forts pour les couleurs de badges === */
+
+.am-pill {
+  border-radius: 999px;
+  font-size: 0.72rem;
+  line-height: 1.1;
+  padding: 0.18rem 0.65rem;
+  border: 1px solid transparent;
+  white-space: nowrap;
+}
+
+/* TYPE : ex. Instagram, Podcast… (orange) */
+.am-pill-type {
+  background-color: #ffe0b8 !important;
+  color: #7a3e00 !important;
+  border-color: #f0b26b !important;
+}
+
+/* PAYS (bleu) */
+.am-pill-country {
+  background-color: #d9e8ff !important;
+  color: #10436a !important;
+  border-color: #7aa6d8 !important;
+}
+
+/* LANGUE(S) (vert) */
+.am-pill-lang {
+  background-color: #d9f3e4 !important;
+  color: #145633 !important;
+  border-color: #60b287 !important;
+}
+
+/* Si le type est cliquable (lien) */
+.am-pill-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.am-pill-link:hover {
+  filter: brightness(0.95);
+}
