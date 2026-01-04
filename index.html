@@ -1,151 +1,83 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Automédiathèque</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Automédiathèque : base ouverte d'automédias en lutte. Liste collaborative de médias indépendants, libres et autogérés.">
-  <meta name="keywords" content="automédias, médias indépendants, médias libres, autogestion, luttes sociales">
-  <meta property="og:title" content="Automédiathèque">
-  <meta property="og:description" content="Base ouverte d'automédias en lutte.">
-  <meta property="og:type" content="website">
   <link rel="stylesheet" href="assets/main.css">
   <link rel="stylesheet" href="assets/automediatheque.css">
 </head>
 <body>
-
-  <!-- Header -->
-  <header class="am-header">
-    <div class="am-container">
+  <header class="site-header">
+    <div class="container">
       <h1>Automédiathèque</h1>
-      <p class="am-tagline">
-        Base ouverte d'automédias en lutte.<br>
-        Liste collaborative de médias indépendants, libres et autogérés.
-      </p>
-      
-      <div class="am-controls">
-        <div class="am-filters">
-          <label>
-            Type
-            <select id="filter-type">
-              <option value="">Tous types</option>
-            </select>
-          </label>
-          <label>
-            Pays
-            <select id="filter-country">
-              <option value="">Tous pays</option>
-            </select>
-          </label>
-          <label>
-            Langue
-            <select id="filter-language">
-              <option value="">Toutes langues</option>
-            </select>
-          </label>
-          <label>
-            Statut
-            <select id="filter-active">
-              <option value="">Tous</option>
-              <option value="true">Actifs</option>
-              <option value="false">Inactifs</option>
-            </select>
-          </label>
-        </div>
-        
-        <div class="am-status">
-          <button id="reload-btn" class="btn" title="Rafraîchir la liste">
-            ⟳ Recharger
-          </button>
-          <button id="update-db-btn" class="btn btn-accent" title="Mettre à jour la base de données">
-            ↻ Mise à jour
-          </button>
-          <span id="status-text" class="status-badge">Chargement...</span>
-        </div>
-      </div>
-      
-      <p class="am-meta" id="meta-info"></p>
+      <p class="site-description">Répertoire collaboratif des médias indépendants et autogérés</p>
     </div>
   </header>
 
-  <!-- Main Content -->
-  <main class="am-main">
-    <div class="am-container">
-      
-      <!-- Loading State -->
-      <div id="loading-state" class="am-loading">
-        <p>Chargement des automédias...</p>
+  <main class="container">
+    <!-- Toolbar -->
+    <section class="toolbar">
+      <div class="toolbar-filters">
+        <select id="filter-type">
+          <option value="">Tous types</option>
+        </select>
+        
+        <select id="filter-country">
+          <option value="">Tous pays</option>
+        </select>
+        
+        <select id="filter-language">
+          <option value="">Toutes langues</option>
+        </select>
+        
+        <select id="filter-status">
+          <option value="">Tous statuts</option>
+        </select>
       </div>
       
-      <!-- Error State -->
-      <div id="error-state" class="am-error" hidden>
-        <p>Erreur lors du chargement des données.</p>
-        <button id="retry-btn" class="btn">Réessayer</button>
+      <div class="toolbar-actions">
+        <span id="status-text">Chargement...</span>
+        <button id="reload-btn" class="btn btn-secondary">Recharger</button>
+        <button id="update-db-btn" class="btn btn-primary">Contribuer</button>
       </div>
-      
-      <!-- Empty State -->
-      <div id="empty-state" class="am-empty" hidden>
-        <p>Aucun automédia ne correspond aux filtres sélectionnés.</p>
-      </div>
-      
-      <!-- Grid -->
-      <div id="automedias-grid" class="am-grid"></div>
-      
+    </section>
+
+    <!-- Metadata -->
+    <section class="meta-section">
+      <p id="meta-info"></p>
+      <p>
+        <small>
+          Version : <span id="db-version">-</span> | 
+          Mise à jour : <span id="db-date">-</span>
+        </small>
+      </p>
+    </section>
+
+    <!-- States -->
+    <div id="loading-state" class="state-message">
+      <p>Chargement des automédias...</p>
     </div>
+    
+    <div id="error-state" class="state-message state-error" hidden>
+      <p>Erreur lors du chargement</p>
+      <button id="retry-btn" class="btn btn-secondary">Réessayer</button>
+    </div>
+    
+    <div id="empty-state" class="state-message" hidden>
+      <p>Aucun automédia trouvé avec ces critères.</p>
+    </div>
+
+    <!-- Grid -->
+    <div id="automedias-grid" class="automedias-grid"></div>
   </main>
 
-  <!-- About Section -->
-  <section class="am-text-block">
-    <h2>À propos</h2>
-    <p>
-      L'Automédiathèque est un projet collaboratif qui recense les médias indépendants, 
-      autogérés et engagés dans les luttes sociales. Cette base de données ouverte permet 
-      de découvrir et partager des sources d'information alternatives.
-    </p>
-    
-    <h3>Qu'est-ce qu'un automédia ?</h3>
-    <p>
-      Un automédia est un média créé et géré collectivement, en dehors des structures 
-      médiatiques traditionnelles. Ces médias sont souvent liés à des mouvements sociaux, 
-      des collectifs militants ou des communautés locales.
-    </p>
-    
-    <h3>Contribuer</h3>
-    <p>
-      Cette liste est éditée collectivement. Pour ajouter un automédia ou corriger une 
-      information, vous pouvez contribuer directement sur 
-      <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">GitHub</a> 
-      en modifiant le fichier <code>automedias.json</code>.
-    </p>
-    
-    <h3>Critères d'inclusion</h3>
-    <ul>
-      <li>Média indépendant des grands groupes de presse</li>
-      <li>Gestion collective ou associative</li>
-      <li>Engagement dans les luttes sociales, écologiques, féministes, antiracistes...</li>
-      <li>Accès libre (au moins partiellement)</li>
-    </ul>
-  </section>
-
-  <!-- Footer -->
-  <footer class="am-footer">
-    <div class="am-container">
-      <div class="am-footer-inner">
-        <p>
-          <strong>Automédiathèque</strong> — Base de données ouverte
-        </p>
-        <p>
-          Version <span id="db-version">-</span> • 
-          Dernière mise à jour : <span id="db-date">-</span>
-        </p>
-        <p>
-          Code source disponible sur 
-          <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">GitHub</a>.
-        </p>
-        <p>
-          Données éditées collectivement via le fichier <code>automedias.json</code>.
-        </p>
-      </div>
+  <footer class="site-footer">
+    <div class="container">
+      <p>
+        Données éditées collectivement sur 
+        <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">GitHub</a>
+      </p>
     </div>
   </footer>
 
