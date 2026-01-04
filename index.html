@@ -4,38 +4,76 @@
     <meta charset="UTF-8" />
     <title>Automédiathèque</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Ton CSS principal -->
     <link rel="stylesheet" href="assets/automediatheque.css" />
   </head>
   <body>
     <div class="am-page">
       <!-- ================= HEADER / INTRO ================= -->
-      <header class="am-hero am-hero--center">
+      <header class="am-hero">
         <div class="am-hero-inner">
+          <!-- Sur-titre -->
           <p class="am-kicker">Ressources · Automédias</p>
 
+          <!-- Titre principal -->
           <h1 class="am-hero-title">Automédiathèque</h1>
 
-          <p class="am-hero-lead">
-            Cette automédiathèque recense des médias autonomes qui
-            documentent et combattent les violences policières,
-            le racisme d’État, les prisons, les frontières
-            et les luttes des premier·es concerné·es.
-          </p>
+          <!-- 2 colonnes : texte + encadré infos -->
+          <div class="am-hero-layout">
+            <!-- Colonne texte -->
+            <div class="am-hero-col am-hero-col-main">
+              <p class="am-hero-lead">
+                Cette automédiathèque recense des médias autonomes qui
+                documentent et combattent les violences policières,
+                le racisme d’État, les prisons, les frontières
+                et les luttes des premier·es concerné·es.
+              </p>
 
-          <p class="am-hero-text">
-            La base est volontairement partielle et en mouvement :
-            elle a vocation à être complétée collectivement, corrigée,
-            archivée. Les liens pointent vers les plateformes des
-            collectifs et groupes concernés (sites, réseaux sociaux,
-            podcasts, etc.).
-          </p>
+              <p class="am-hero-text">
+                La base est volontairement partielle et en mouvement :
+                elle a vocation à être complétée collectivement, corrigée,
+                archivée. Les liens pointent vers les plateformes des
+                collectifs et groupes concernés (sites, réseaux sociaux,
+                podcasts, etc.).
+              </p>
 
-          <p class="am-hero-text">
-            Tu peux filtrer par <strong>type de support</strong> (site,
-            Instagram, Telegram, etc.) et par <strong>pays</strong>.
-            Chaque fiche indique le type, le pays et la langue principale
-            du média.
-          </p>
+              <p class="am-hero-text">
+                Tu peux filtrer par <strong>type de support</strong> (site,
+                Instagram, Telegram, etc.) et par <strong>pays</strong>.
+                Chaque fiche indique le type, le pays et la langue principale
+                du média.
+              </p>
+            </div>
+
+            <!-- Colonne infos base -->
+            <aside class="am-hero-col am-hero-col-aside">
+              <div class="am-hero-box">
+                <h2 class="am-hero-box-title">État de la base</h2>
+
+                <p class="am-hero-box-line">
+                  <span class="am-hero-label">Nombre d’entrées :</span>
+                  <span id="am-count" class="am-hero-value">–</span>
+                </p>
+
+                <p class="am-hero-box-line">
+                  <span class="am-hero-label">Statut :</span>
+                  <span id="am-status-text" class="am-hero-status">
+                    Statut : chargement…
+                  </span>
+                </p>
+
+                <button id="am-refresh-db" class="am-button">
+                  Recharger la base
+                </button>
+
+                <p class="am-hero-note">
+                  Le bouton recharge le fichier JSON
+                  (<code>automedias.json</code>) sans utiliser le cache du
+                  navigateur, pour voir les dernières modifications.
+                </p>
+              </div>
+            </aside>
+          </div>
         </div>
       </header>
 
@@ -116,37 +154,6 @@
             <!-- Contenu généré par automediatheque.js -->
           </div>
         </section>
-
-        <!-- --------- Section État de la base (APRÈS la base) --------- -->
-        <section class="am-state-section">
-          <header class="am-state-header">
-            <h2 class="am-section-title">État de la base</h2>
-          </header>
-
-          <div class="am-state-box">
-            <p class="am-state-line">
-              <span class="am-hero-label">Nombre d’entrées :</span>
-              <span id="am-count" class="am-hero-value">–</span>
-            </p>
-
-            <p class="am-state-line">
-              <span class="am-hero-label">Statut :</span>
-              <span id="am-status-text" class="am-hero-status">
-                Statut : chargement…
-              </span>
-            </p>
-
-            <button id="am-refresh-db" class="am-button">
-              Recharger la base
-            </button>
-
-            <p class="am-hero-note">
-              Le bouton recharge le fichier JSON
-              (<code>automedias.json</code>) sans utiliser le cache du
-              navigateur, pour voir les dernières modifications.
-            </p>
-          </div>
-        </section>
       </main>
 
       <!-- ================= FOOTER / CRÉDITS ================= -->
@@ -161,6 +168,7 @@
       </footer>
     </div>
 
+    <!-- Ton JS -->
     <script src="assets/automediatheque.js"></script>
   </body>
 </html>
