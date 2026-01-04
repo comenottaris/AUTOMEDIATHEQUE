@@ -10,7 +10,6 @@
   // =====================
   
   const CONFIG = {
-    // Chemin relatif : depuis /assets/ on remonte vers /
     jsonUrl: '../automedias.json',
     githubRepo: 'https://github.com/comenottaris/AUTOMEDIATHEQUE',
     githubJson: 'https://github.com/comenottaris/AUTOMEDIATHEQUE/blob/main/automedias.json'
@@ -25,7 +24,7 @@
     type: '',
     country: '',
     language: '',
-    active: ''
+    status: ''
   };
 
   // =====================
@@ -50,7 +49,7 @@
     elements.filterType = document.getElementById('filter-type');
     elements.filterCountry = document.getElementById('filter-country');
     elements.filterLanguage = document.getElementById('filter-language');
-    elements.filterActive = document.getElementById('filter-active');
+    elements.filterStatus = document.getElementById('filter-status');
     elements.reloadBtn = document.getElementById('reload-btn');
     elements.updateDbBtn = document.getElementById('update-db-btn');
     elements.retryBtn = document.getElementById('retry-btn');
@@ -97,9 +96,9 @@
       });
     }
 
-    if (elements.filterActive) {
-      elements.filterActive.addEventListener('change', function() {
-        currentFilters.active = this.value;
+    if (elements.filterStatus) {
+      elements.filterStatus.addEventListener('change', function() {
+        currentFilters.status = this.value;
         applyFilters();
       });
     }
@@ -129,14 +128,19 @@
 
       const data = await response.json();
       
-      if (!data || !Array.isArray(data.automedias)) {
-        throw new Error('Structure JSON invalide');
+      // Le JSON est un tableau direct, pas un objet avec "automedias"
+      if (Array.isArray(data)) {
+        allAutomedias = data;
+        console.log('Chargement réussi:', allAutomedias.length, 'automédias');
+      } else if (data && Array.isArray(data.automedias)) {
+        // Fallback si format objet
+        allAutomedias = data.automedias;
+        console.log('Chargement réussi (format objet):', allAutomedias.length, 'automédias');
+      } else {
+        throw new Error('Format JSON non reconnu');
       }
 
-      console.log('Chargement réussi:', data.automedias.length, 'automédias');
-
-      allAutomedias = data.automedias;
-      updateMetadata(data);
+      updateMetadata();
       populateFilters();
       applyFilters();
       showSuccess();
@@ -151,18 +155,18 @@
   // Metadata
   // =====================
   
-  function updateMetadata(data) {
-    if (elements.dbVersion && data.version) {
-      elements.dbVersion.textContent = data.version;
+  function updateMetadata() {
+    if (elements.dbVersion) {
+      elements.dbVersion.textContent = '1.0';
     }
 
-    if (elements.dbDate && data.date_updated) {
-      elements.dbDate.textContent = formatDate(data.date_updated);
+    if (elements.dbDate) {
+      const today = new Date();
+      elements.dbDate.textContent = formatDate(today.toISOString().split('T')[0]);
     }
 
     if (elements.metaInfo) {
-      const count = data.count || data.automedias.length;
-      elements.metaInfo.textContent = count + ' automédias référencés';
+      elements.metaInfo.textContent = allAutomedias.length + ' automédias référencés';
     }
   }
 
@@ -174,16 +178,25 @@
     const types = new Set();
     const countries = new Set();
     const languages = new Set();
+    const statuses = new Set();
 
     allAutomedias.forEach(function(item) {
       if (item.type) types.add(item.type);
       if (item.country) countries.add(item.country);
-      if (item.language) languages.add(item.language);
+      if (item.status) statuses.add(item.status);
+      
+      // languages est un tableau
+      if (item.languages && Array.isArray(item.languages)) {
+        item.languages.forEach(function(lang) {
+          languages.add(lang);
+        });
+      }
     });
 
     populateSelect(elements.filterType, Array.from(types).sort(), 'Tous types');
     populateSelect(elements.filterCountry, Array.from(countries).sort(), 'Tous pays');
     populateSelect(elements.filterLanguage, Array.from(languages).sort(), 'Toutes langues');
+    populateSelect(elements.filterStatus, Array.from(statuses).sort(), 'Tous statuts');
   }
 
   function populateSelect(select, options, defaultLabel) {
@@ -195,13 +208,37 @@
     options.forEach(function(option) {
       const opt = document.createElement('option');
       opt.value = option;
-      opt.textContent = option;
+      opt.textContent = formatLabel(option);
       select.appendChild(opt);
     });
 
     if (currentValue && options.includes(currentValue)) {
       select.value = currentValue;
     }
+  }
+
+  function formatLabel(value) {
+    // Traductions pour l'affichage
+    const labels = {
+      'online': 'En ligne',
+      'offline': 'Hors ligne',
+      'unknown': 'Inconnu',
+      'fr': 'Français',
+      'en': 'English',
+      'es': 'Español',
+      'de': 'Deutsch',
+      'it': 'Italiano',
+      'pt': 'Português',
+      'site': 'Site web',
+      'blog': 'Blog',
+      'radio': 'Radio',
+      'video': 'Vidéo',
+      'podcast': 'Podcast',
+      'journal': 'Journal',
+      'magazine': 'Magazine',
+      'agence': 'Agence'
+    };
+    return labels[value] || value;
   }
 
   function applyFilters() {
@@ -221,14 +258,16 @@
 
     if (currentFilters.language) {
       filtered = filtered.filter(function(item) {
-        return item.language === currentFilters.language;
+        // languages est un tableau
+        return item.languages && 
+               Array.isArray(item.languages) && 
+               item.languages.includes(currentFilters.language);
       });
     }
 
-    if (currentFilters.active !== '') {
-      const isActive = currentFilters.active === 'true';
+    if (currentFilters.status) {
       filtered = filtered.filter(function(item) {
-        return item.active === isActive;
+        return item.status === currentFilters.status;
       });
     }
 
@@ -266,18 +305,21 @@
     let metaHtml = '';
     
     if (item.type) {
-      metaHtml += '<span class="am-tag am-tag-type">' + escapeHtml(item.type) + '</span>';
+      metaHtml += '<span class="am-tag am-tag-type">' + escapeHtml(formatLabel(item.type)) + '</span>';
     }
     if (item.country) {
       metaHtml += '<span class="am-tag am-tag-country">' + escapeHtml(item.country) + '</span>';
     }
-    if (item.language) {
-      metaHtml += '<span class="am-tag am-tag-language">' + escapeHtml(item.language) + '</span>';
+    // Languages (tableau)
+    if (item.languages && Array.isArray(item.languages)) {
+      item.languages.forEach(function(lang) {
+        metaHtml += '<span class="am-tag am-tag-language">' + escapeHtml(formatLabel(lang)) + '</span>';
+      });
     }
-    if (item.active === true) {
-      metaHtml += '<span class="am-tag am-tag-active">Actif</span>';
-    } else if (item.active === false) {
-      metaHtml += '<span class="am-tag am-tag-inactive">Inactif</span>';
+    // Status
+    if (item.status) {
+      const statusClass = item.status === 'online' ? 'am-tag-active' : 'am-tag-inactive';
+      metaHtml += '<span class="am-tag ' + statusClass + '">' + escapeHtml(formatLabel(item.status)) + '</span>';
     }
 
     // Description
@@ -286,7 +328,7 @@
       descHtml = '<p class="am-card-description">' + escapeHtml(item.description) + '</p>';
     }
 
-    // Extra tags
+    // Tags additionnels
     let tagsHtml = '';
     if (item.tags && Array.isArray(item.tags) && item.tags.length > 0) {
       tagsHtml = '<div class="am-tags">';
