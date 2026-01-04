@@ -1,264 +1,461 @@
-// ================================
-// Automédiathèque - Script principal
-// ================================
+/* ================================
+   Automédiathèque - Script principal
+   ================================ */
 
-const CONFIG = {
-  jsonUrl: 'https://raw.githubusercontent.com/comenottaris/AUTOMEDIATHEQUE/main/automedias.json',
-  githubRepo: 'https://github.com/comenottaris/AUTOMEDIATHEQUE'
-};
+(function() {
+  'use strict';
 
-let allAutomedias = [];
-let filteredAutomedias = [];
+  // =====================
+  // Configuration
+  // =====================
+  
+  const CONFIG = {
+    // Chemin vers le JSON (relatif à la racine du site)
+    jsonUrl: './automedias.json',
+    // URL GitHub pour le bouton mise à jour
+    githubRepo: 'https://github.com/comenottaris/AUTOMEDIATHEQUE',
+    githubJson: 'https://github.com/comenottaris/AUTOMEDIATHEQUE/blob/main/automedias.json'
+  };
 
-// =====================
-// Chargement des données
-// =====================
-async function loadData() {
-  const loadingState = document.getElementById('loading-state');
-  const errorState = document.getElementById('error-state');
-  const statusText = document.getElementById('status-text');
+  // =====================
+  // State
+  // =====================
+  
+  let allAutomedias = [];
+  let currentFilters = {
+    type: '',
+    country: '',
+    language: '',
+    active: ''
+  };
 
-  try {
-    loadingState.hidden = false;
-    errorState.hidden = true;
-    statusText.textContent = 'Chargement...';
-    statusText.className = 'status-badge';
+  // =====================
+  // DOM Elements
+  // =====================
+  
+  const elements = {
+    grid: null,
+    loadingState: null,
+    errorState: null,
+    emptyState: null,
+    statusText: null,
+    metaInfo: null,
+    dbVersion: null,
+    dbDate: null,
+    filterType: null,
+    filterCountry: null,
+    filterLanguage: null,
+    filterActive: null,
+    reloadBtn: null,
+    updateDbBtn: null,
+    retryBtn: null
+  };
 
-    const response = await fetch(CONFIG.jsonUrl);
-    
-    if (!response.ok) {
-      throw new Error(`HTTP ${response.status}`);
+  // =====================
+  // Initialization
+  // =====================
+  
+  function init() {
+    // Cache DOM elements
+    elements.grid = document.getElementById('automedias-grid');
+    elements.loadingState = document.getElementById('loading-state');
+    elements.errorState = document.getElementById('error-state');
+    elements.emptyState = document.getElementById('empty-state');
+    elements.statusText = document.getElementById('status-text');
+    elements.metaInfo = document.getElementById('meta-info');
+    elements.dbVersion = document.getElementById('db-version');
+    elements.dbDate = document.getElementById('db-date');
+    elements.filterType = document.getElementById('filter-type');
+    elements.filterCountry = document.getElementById('filter-country');
+    elements.filterLanguage = document.getElementById('filter-language');
+    elements.filterActive = document.getElementById('filter-active');
+    elements.reloadBtn = document.getElementById('reload-btn');
+    elements.updateDbBtn = document.getElementById('update-db-btn');
+    elements.retryBtn = document.getElementById('retry-btn');
+
+    // Bind events
+    bindEvents();
+
+    // Load data
+    loadData();
+  }
+
+  // =====================
+  // Event Binding
+  // =====================
+  
+  function bindEvents() {
+    // Reload button
+    if (elements.reloadBtn) {
+      elements.reloadBtn.addEventListener('click', function() {
+        loadData();
+      });
     }
 
-    const data = await response.json();
-    
-    allAutomedias = data.automedias || [];
-    filteredAutomedias = [...allAutomedias];
+    // Update DB button (placeholder for now)
+    if (elements.updateDbBtn) {
+      elements.updateDbBtn.addEventListener('click', function() {
+        showUpdateModal();
+      });
+    }
 
-    // Mise à jour des métadonnées
-    updateMetadata(data);
-    
-    // Initialisation des filtres
-    initFilters();
-    
-    // Affichage des cartes
-    renderCards();
+    // Retry button
+    if (elements.retryBtn) {
+      elements.retryBtn.addEventListener('click', function() {
+        loadData();
+      });
+    }
 
-    loadingState.hidden = true;
-    statusText.textContent = `${allAutomedias.length} automédias`;
-    statusText.className = 'status-badge';
+    // Filters
+    if (elements.filterType) {
+      elements.filterType.addEventListener('change', function() {
+        currentFilters.type = this.value;
+        applyFilters();
+      });
+    }
 
-  } catch (error) {
-    console.error('Erreur de chargement:', error);
-    loadingState.hidden = true;
-    errorState.hidden = false;
-    statusText.textContent = 'Erreur';
-    statusText.className = 'status-badge';
+    if (elements.filterCountry) {
+      elements.filterCountry.addEventListener('change', function() {
+        currentFilters.country = this.value;
+        applyFilters();
+      });
+    }
+
+    if (elements.filterLanguage) {
+      elements.filterLanguage.addEventListener('change', function() {
+        currentFilters.language = this.value;
+        applyFilters();
+      });
+    }
+
+    if (elements.filterActive) {
+      elements.filterActive.addEventListener('change', function() {
+        currentFilters.active = this.value;
+        applyFilters();
+      });
+    }
   }
-}
 
-// =====================
-// Mise à jour des métadonnées
-// =====================
-function updateMetadata(data) {
-  const metaInfo = document.getElementById('meta-info');
-  const dbVersion = document.getElementById('db-version');
-  const dbDate = document.getElementById('db-date');
-
-  if (data.version) dbVersion.textContent = data.version;
-  if (data.date_updated) dbDate.textContent = formatDate(data.date_updated);
+  // =====================
+  // Data Loading
+  // =====================
   
-  if (data.count !== undefined) {
-    metaInfo.textContent = `Base de données : ${data.count} entrées`;
+  async function loadData() {
+    showLoading();
+
+    try {
+      const response = await fetch(CONFIG.jsonUrl + '?t=' + Date.now());
+      
+      if (!response.ok) {
+        throw new Error('HTTP ' + response.status);
+      }
+
+      const data = await response.json();
+      
+      // Validate data structure
+      if (!data || !Array.isArray(data.automedias)) {
+        throw new Error('Format de données invalide');
+      }
+
+      allAutomedias = data.automedias;
+
+      // Update metadata
+      updateMetadata(data);
+
+      // Populate filters
+      populateFilters();
+
+      // Apply filters and render
+      applyFilters();
+
+      showSuccess();
+
+    } catch (error) {
+      console.error('Erreur de chargement:', error);
+      showError(error.message);
+    }
   }
-}
 
-// =====================
-// Initialisation des filtres
-// =====================
-function initFilters() {
-  const typeSelect = document.getElementById('filter-type');
-  const countrySelect = document.getElementById('filter-country');
-  const languageSelect = document.getElementById('filter-language');
-
-  // Extraction des valeurs uniques
-  const types = [...new Set(allAutomedias.map(a => a.type).filter(Boolean))].sort();
-  const countries = [...new Set(allAutomedias.map(a => a.country).filter(Boolean))].sort();
-  const languages = [...new Set(allAutomedias.map(a => a.language).filter(Boolean))].sort();
-
-  // Peuplement des selects
-  populateSelect(typeSelect, types);
-  populateSelect(countrySelect, countries);
-  populateSelect(languageSelect, languages);
-
-  // Événements de changement
-  typeSelect.addEventListener('change', applyFilters);
-  countrySelect.addEventListener('change', applyFilters);
-  languageSelect.addEventListener('change', applyFilters);
-}
-
-function populateSelect(selectElement, options) {
-  // Garder l'option "Tous"
-  const allOption = selectElement.querySelector('option[value=""]');
-  selectElement.innerHTML = '';
-  selectElement.appendChild(allOption);
-
-  options.forEach(option => {
-    const opt = document.createElement('option');
-    opt.value = option;
-    opt.textContent = option;
-    selectElement.appendChild(opt);
-  });
-}
-
-// =====================
-// Application des filtres
-// =====================
-function applyFilters() {
-  const typeFilter = document.getElementById('filter-type').value;
-  const countryFilter = document.getElementById('filter-country').value;
-  const languageFilter = document.getElementById('filter-language').value;
-
-  filteredAutomedias = allAutomedias.filter(automedia => {
-    const matchType = !typeFilter || automedia.type === typeFilter;
-    const matchCountry = !countryFilter || automedia.country === countryFilter;
-    const matchLanguage = !languageFilter || automedia.language === languageFilter;
-
-    return matchType && matchCountry && matchLanguage;
-  });
-
-  renderCards();
+  // =====================
+  // Metadata
+  // =====================
   
-  // Mise à jour du statut
-  const statusText = document.getElementById('status-text');
-  statusText.textContent = `${filteredAutomedias.length} automédias`;
-}
+  function updateMetadata(data) {
+    if (elements.dbVersion && data.version) {
+      elements.dbVersion.textContent = data.version;
+    }
 
-// =====================
-// Rendu des cartes
-// =====================
-function renderCards() {
-  const cardsContainer = document.getElementById('cards');
-  const emptyState = document.getElementById('empty-state');
+    if (elements.dbDate && data.date_updated) {
+      elements.dbDate.textContent = formatDate(data.date_updated);
+    }
 
-  cardsContainer.innerHTML = '';
-
-  if (filteredAutomedias.length === 0) {
-    emptyState.hidden = false;
-    return;
+    if (elements.metaInfo && data.count !== undefined) {
+      elements.metaInfo.textContent = data.count + ' automédias référencés';
+    }
   }
 
-  emptyState.hidden = true;
+  // =====================
+  // Filters
+  // =====================
+  
+  function populateFilters() {
+    const types = new Set();
+    const countries = new Set();
+    const languages = new Set();
 
-  filteredAutomedias.forEach(automedia => {
-    const card = createCard(automedia);
-    cardsContainer.appendChild(card);
-  });
-}
-
-// =====================
-// Création d'une carte
-// =====================
-function createCard(automedia) {
-  const card = document.createElement('div');
-  card.className = 'am-card';
-
-  const title = automedia.title || 'Sans titre';
-  const url = automedia.url || '#';
-  const type = automedia.type || 'Non spécifié';
-  const country = automedia.country || 'Non spécifié';
-  const language = automedia.language || 'Non spécifié';
-  const active = automedia.active !== false;
-  const dateAdded = automedia.date_added ? formatDate(automedia.date_added) : '-';
-  const platforms = automedia.platforms || [];
-  const tags = automedia.tags || [];
-  const description = automedia.description || '';
-
-  card.innerHTML = `
-    <div class="am-card-header">
-      <h3 class="am-card-title">
-        <a href="${escapeHtml(url)}" target="_blank" rel="noopener">
-          ${escapeHtml(title)}
-        </a>
-      </h3>
-      <div class="am-card-meta">
-        <span class="am-tag am-tag-type">${escapeHtml(type)}</span>
-        <span class="am-tag am-tag-country">${escapeHtml(country)}</span>
-        <span class="am-tag ${active ? 'am-tag-active' : 'am-tag-inactive'}">
-          ${active ? '✓ Actif' : '✗ Inactif'}
-        </span>
-      </div>
-    </div>
-    <div class="am-card-body">
-      ${description ? `
-        <div class="am-card-field">
-          <p>${escapeHtml(description)}</p>
-        </div>
-      ` : ''}
-      <div class="am-card-field">
-        <strong>Langue :</strong> ${escapeHtml(language)}
-      </div>
-      <div class="am-card-field">
-        <strong>Ajouté le :</strong> ${escapeHtml(dateAdded)}
-      </div>
-      ${platforms.length > 0 ? `
-        <div class="am-card-field">
-          <strong>Plateformes :</strong> ${platforms.map(p => escapeHtml(p)).join(', ')}
-        </div>
-      ` : ''}
-      ${tags.length > 0 ? `
-        <div class="am-tags">
-          ${tags.map(tag => `<span class="am-tag">${escapeHtml(tag)}</span>`).join('')}
-        </div>
-      ` : ''}
-    </div>
-  `;
-
-  return card;
-}
-
-// =====================
-// Utilitaires
-// =====================
-function formatDate(dateString) {
-  if (!dateString) return '-';
-  try {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('fr-FR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    allAutomedias.forEach(function(item) {
+      if (item.type) types.add(item.type);
+      if (item.country) countries.add(item.country);
+      if (item.language) languages.add(item.language);
     });
-  } catch {
-    return dateString;
+
+    populateSelect(elements.filterType, Array.from(types).sort(), 'Tous types');
+    populateSelect(elements.filterCountry, Array.from(countries).sort(), 'Tous pays');
+    populateSelect(elements.filterLanguage, Array.from(languages).sort(), 'Toutes langues');
   }
-}
 
-function escapeHtml(text) {
-  const div = document.createElement('div');
-  div.textContent = text;
-  return div.innerHTML;
-}
+  function populateSelect(select, options, defaultLabel) {
+    if (!select) return;
 
-// =====================
-// Événements
-// =====================
-document.addEventListener('DOMContentLoaded', () => {
-  // Chargement initial
-  loadData();
+    // Keep first option (default)
+    const currentValue = select.value;
+    select.innerHTML = '<option value="">' + defaultLabel + '</option>';
 
-  // Bouton recharger
-  document.getElementById('reload-btn').addEventListener('click', () => {
-    loadData();
-  });
+    options.forEach(function(option) {
+      const opt = document.createElement('option');
+      opt.value = option;
+      opt.textContent = option;
+      select.appendChild(opt);
+    });
 
-  // Bouton mise à jour (pour l'instant juste un message)
-  document.getElementById('update-db-btn').addEventListener('click', () => {
-    alert('Fonctionnalité de mise à jour à venir !\n\nPour l\'instant, vous pouvez contribuer via GitHub:\n' + CONFIG.githubRepo);
-  });
+    // Restore selection if still valid
+    if (currentValue && options.includes(currentValue)) {
+      select.value = currentValue;
+    }
+  }
 
-  // Bouton réessayer en cas d'erreur
-  document.getElementById('retry-btn')?.addEventListener('click', () => {
-    loadData();
-  });
-});
+  function applyFilters() {
+    let filtered = allAutomedias;
+
+    if (currentFilters.type) {
+      filtered = filtered.filter(function(item) {
+        return item.type === currentFilters.type;
+      });
+    }
+
+    if (currentFilters.country) {
+      filtered = filtered.filter(function(item) {
+        return item.country === currentFilters.country;
+      });
+    }
+
+    if (currentFilters.language) {
+      filtered = filtered.filter(function(item) {
+        return item.language === currentFilters.language;
+      });
+    }
+
+    if (currentFilters.active !== '') {
+      const isActive = currentFilters.active === 'true';
+      filtered = filtered.filter(function(item) {
+        return item.active === isActive;
+      });
+    }
+
+    renderCards(filtered);
+    updateStatusText(filtered.length);
+  }
+
+  // =====================
+  // Rendering
+  // =====================
+  
+  function renderCards(items) {
+    if (!elements.grid) return;
+
+    elements.grid.innerHTML = '';
+
+    if (!items || items.length === 0) {
+      showEmpty();
+      return;
+    }
+
+    hideAllStates();
+
+    items.forEach(function(item) {
+      const card = createCard(item);
+      elements.grid.appendChild(card);
+    });
+  }
+
+  function createCard(item) {
+    const card = document.createElement('article');
+    card.className = 'am-card';
+
+    // Build tags HTML
+    let tagsHtml = '';
+    
+    if (item.type) {
+      tagsHtml += '<span class="am-tag am-tag-type">' + escapeHtml(item.type) + '</span>';
+    }
+    
+    if (item.country) {
+      tagsHtml += '<span class="am-tag am-tag-country">' + escapeHtml(item.country) + '</span>';
+    }
+    
+    if (item.language) {
+      tagsHtml += '<span class="am-tag am-tag-language">' + escapeHtml(item.language) + '</span>';
+    }
+
+    // Active status
+    if (item.active === true) {
+      tagsHtml += '<span class="am-tag am-tag-active">Actif</span>';
+    } else if (item.active === false) {
+      tagsHtml += '<span class="am-tag am-tag-inactive">Inactif</span>';
+    }
+
+    // Description
+    let descriptionHtml = '';
+    if (item.description) {
+      descriptionHtml = '<p class="am-card-description">' + escapeHtml(item.description) + '</p>';
+    }
+
+    // Additional tags
+    let extraTagsHtml = '';
+    if (item.tags && Array.isArray(item.tags) && item.tags.length > 0) {
+      extraTagsHtml = '<div class="am-tags">';
+      item.tags.forEach(function(tag) {
+        extraTagsHtml += '<span class="am-tag">' + escapeHtml(tag) + '</span>';
+      });
+      extraTagsHtml += '</div>';
+    }
+
+    // Build card HTML
+    card.innerHTML = 
+      '<header class="am-card-header">' +
+        '<h2 class="am-card-title">' +
+          '<a href="' + escapeHtml(item.url || '#') + '" target="_blank" rel="noopener noreferrer">' +
+            escapeHtml(item.name || 'Sans nom') +
+          '</a>' +
+        '</h2>' +
+      '</header>' +
+      '<div class="am-card-meta">' + tagsHtml + '</div>' +
+      '<div class="am-card-body">' +
+        descriptionHtml +
+        extraTagsHtml +
+      '</div>';
+
+    return card;
+  }
+
+  // =====================
+  // UI States
+  // =====================
+  
+  function showLoading() {
+    hideAllStates();
+    if (elements.loadingState) elements.loadingState.hidden = false;
+    if (elements.statusText) {
+      elements.statusText.textContent = 'Chargement...';
+    }
+    if (elements.reloadBtn) elements.reloadBtn.disabled = true;
+  }
+
+  function showError(message) {
+    hideAllStates();
+    if (elements.errorState) {
+      elements.errorState.hidden = false;
+      const errorP = elements.errorState.querySelector('p');
+      if (errorP) {
+        errorP.textContent = 'Erreur : ' + message;
+      }
+    }
+    if (elements.statusText) {
+      elements.statusText.textContent = 'Erreur';
+    }
+    if (elements.reloadBtn) elements.reloadBtn.disabled = false;
+  }
+
+  function showEmpty() {
+    hideAllStates();
+    if (elements.emptyState) elements.emptyState.hidden = false;
+  }
+
+  function showSuccess() {
+    hideAllStates();
+    if (elements.reloadBtn) elements.reloadBtn.disabled = false;
+  }
+
+  function hideAllStates() {
+    if (elements.loadingState) elements.loadingState.hidden = true;
+    if (elements.errorState) elements.errorState.hidden = true;
+    if (elements.emptyState) elements.emptyState.hidden = true;
+  }
+
+  function updateStatusText(count) {
+    if (elements.statusText) {
+      elements.statusText.textContent = count + ' automédia' + (count > 1 ? 's' : '');
+    }
+  }
+
+  // =====================
+  // Update Modal
+  // =====================
+  
+  function showUpdateModal() {
+    const message = 
+      'Mise à jour de la base de données\n\n' +
+      'Pour ajouter ou modifier un automédia :\n\n' +
+      '1. Allez sur GitHub\n' +
+      '2. Modifiez le fichier automedias.json\n' +
+      '3. Soumettez une Pull Request\n\n' +
+      'Ouvrir GitHub ?';
+
+    if (confirm(message)) {
+      window.open(CONFIG.githubJson, '_blank');
+    }
+  }
+
+  // =====================
+  // Utilities
+  // =====================
+  
+  function formatDate(dateString) {
+    if (!dateString) return '-';
+    
+    try {
+      const date = new Date(dateString);
+      
+      if (isNaN(date.getTime())) {
+        return dateString;
+      }
+
+      return date.toLocaleDateString('fr-FR', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    } catch (e) {
+      return dateString;
+    }
+  }
+
+  function escapeHtml(text) {
+    if (!text) return '';
+    
+    const div = document.createElement('div');
+    div.textContent = String(text);
+    return div.innerHTML;
+  }
+
+  // =====================
+  // Start
+  // =====================
+  
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+
+})();
