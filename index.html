@@ -4,16 +4,25 @@
   <meta charset="utf-8">
   <title>Automédiathèque</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Automédiathèque : base ouverte d'automédias en lutte.">
+  <meta name="description" content="Automédiathèque : base ouverte d'automédias en lutte. Liste collaborative de médias indépendants, libres et autogérés.">
+  <meta name="keywords" content="automédias, médias indépendants, médias libres, autogestion, luttes sociales">
+  <meta property="og:title" content="Automédiathèque">
+  <meta property="og:description" content="Base ouverte d'automédias en lutte.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="assets/main.css">
   <link rel="stylesheet" href="assets/automediatheque.css">
 </head>
 <body>
+
+  <!-- Header -->
   <header class="am-header">
     <div class="am-container">
       <h1>Automédiathèque</h1>
       <p class="am-tagline">
-        Liste open-source d'automédias accessibles en ligne.
+        Base ouverte d'automédias en lutte.<br>
+        Liste collaborative de médias indépendants, libres et autogérés.
       </p>
+      
       <div class="am-controls">
         <div class="am-filters">
           <label>
@@ -34,93 +43,107 @@
               <option value="">Toutes langues</option>
             </select>
           </label>
+          <label>
+            Statut
+            <select id="filter-active">
+              <option value="">Tous</option>
+              <option value="true">Actifs</option>
+              <option value="false">Inactifs</option>
+            </select>
+          </label>
         </div>
+        
         <div class="am-status">
-          <button id="reload-btn" class="btn" title="Rafraîchir la liste">⟳ Recharger</button>
+          <button id="reload-btn" class="btn" title="Rafraîchir la liste">
+            ⟳ Recharger
+          </button>
           <button id="update-db-btn" class="btn btn-accent" title="Mettre à jour la base de données">
-            ↻ Mettre à jour la base
+            ↻ Mise à jour
           </button>
           <span id="status-text" class="status-badge">Chargement...</span>
         </div>
       </div>
+      
       <p class="am-meta" id="meta-info"></p>
     </div>
   </header>
 
+  <!-- Main Content -->
   <main class="am-main">
-    <section class="am-container">
-      <div id="cards" class="am-grid">
-        <!-- Les cartes d'automédias seront injectées ici par JS -->
-      </div>
-      <div id="empty-state" class="am-empty" hidden>
-        <p>🔍 Aucun automédia ne correspond à ces filtres.</p>
-      </div>
+    <div class="am-container">
+      
+      <!-- Loading State -->
       <div id="loading-state" class="am-loading">
         <p>Chargement des automédias...</p>
       </div>
+      
+      <!-- Error State -->
       <div id="error-state" class="am-error" hidden>
-        <p>❌ Erreur lors du chargement des données.</p>
+        <p>Erreur lors du chargement des données.</p>
         <button id="retry-btn" class="btn">Réessayer</button>
       </div>
-    </section>
-
-    <section class="am-container am-text-block">
-      <h2>Qu'est-ce que l'automédia&nbsp;?</h2>
-      <p>
-        Les automédias désignent l'ensemble des pratiques, dispositifs et réseaux par lesquels
-        des acteurs collectifs — mouvements sociaux, collectifs militants, communautés en lutte
-        ou d'entraide — produisent, publient et archivent eux-mêmes des récits, preuves et
-        instruments de leur action politique.
-      </p>
-      <p>
-        L'automédia combine autoproduction (contenu créé par les protagonistes), autogestion
-        éditoriale (contrôle des formes, des cadres de diffusion et des dispositifs d'archivage)
-        et polymédialité (texte, photo, audio, vidéo, livestream, zines, dépôts numériques),
-        et vise à établir des régimes locaux de légitimation et de mémoire qui concurrencent
-        ou complètent ceux des médias institutionnels.
-      </p>
-
-      <h2>Fondements théoriques et positionnement disciplinaire</h2>
-      <p>
-        Conceptuellement, l'étude des automédias se situe à l'intersection de l'anthropologie
-        documentaire, des media studies et de la sociologie politique. Elle mobilise l'idée
-        d'une fabrique populaire de l'information, l'analyse des régimes de vérité, et une
-        attention aux infrastructures techniques qui médiatisent l'expérience collective.
-      </p>
-
-      <h2>Contribuer</h2>
-      <p>
-        Cette base de données est collaborative et open-source. Pour ajouter un automédia,
-        proposer des corrections ou contribuer au projet, rendez-vous sur le
-        <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">
-          dépôt GitHub
-        </a>.
-      </p>
-    </section>
+      
+      <!-- Empty State -->
+      <div id="empty-state" class="am-empty" hidden>
+        <p>Aucun automédia ne correspond aux filtres sélectionnés.</p>
+      </div>
+      
+      <!-- Grid -->
+      <div id="automedias-grid" class="am-grid"></div>
+      
+    </div>
   </main>
 
+  <!-- About Section -->
+  <section class="am-text-block">
+    <h2>À propos</h2>
+    <p>
+      L'Automédiathèque est un projet collaboratif qui recense les médias indépendants, 
+      autogérés et engagés dans les luttes sociales. Cette base de données ouverte permet 
+      de découvrir et partager des sources d'information alternatives.
+    </p>
+    
+    <h3>Qu'est-ce qu'un automédia ?</h3>
+    <p>
+      Un automédia est un média créé et géré collectivement, en dehors des structures 
+      médiatiques traditionnelles. Ces médias sont souvent liés à des mouvements sociaux, 
+      des collectifs militants ou des communautés locales.
+    </p>
+    
+    <h3>Contribuer</h3>
+    <p>
+      Cette liste est éditée collectivement. Pour ajouter un automédia ou corriger une 
+      information, vous pouvez contribuer directement sur 
+      <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">GitHub</a> 
+      en modifiant le fichier <code>automedias.json</code>.
+    </p>
+    
+    <h3>Critères d'inclusion</h3>
+    <ul>
+      <li>Média indépendant des grands groupes de presse</li>
+      <li>Gestion collective ou associative</li>
+      <li>Engagement dans les luttes sociales, écologiques, féministes, antiracistes...</li>
+      <li>Accès libre (au moins partiellement)</li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
   <footer class="am-footer">
     <div class="am-container">
       <div class="am-footer-inner">
         <p>
-          Automédiathèque est un projet de recherche et de documentation des automédias,
-          collectés et décrits à partir de sources publiques.
+          <strong>Automédiathèque</strong> — Base de données ouverte
         </p>
         <p>
-          Conception &amp; développement&nbsp;:
-          <a href="https://siratton.hotglue.me" target="_blank" rel="noopener">
-            comenottaris
-          </a>
-          · Code source sur
-          <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">
-            GitHub
-          </a>.
-        </p>
-        <p>
-          Données éditées collectivement à partir du fichier
-          <code>automedias.json</code> · 
-          Version <span id="db-version">-</span> · 
+          Version <span id="db-version">-</span> • 
           Dernière mise à jour : <span id="db-date">-</span>
+        </p>
+        <p>
+          Code source disponible sur 
+          <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener">GitHub</a>.
+        </p>
+        <p>
+          Données éditées collectivement via le fichier <code>automedias.json</code>.
         </p>
       </div>
     </div>
