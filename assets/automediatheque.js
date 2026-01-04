@@ -3,7 +3,7 @@
 // ================================
 
 const CONFIG = {
-  jsonUrl: 'automedias.json',
+  jsonUrl: 'https://raw.githubusercontent.com/comenottaris/AUTOMEDIATHEQUE/main/automedias.json',
   githubRepo: 'https://github.com/comenottaris/AUTOMEDIATHEQUE'
 };
 
@@ -172,6 +172,7 @@ function createCard(automedia) {
   const dateAdded = automedia.date_added ? formatDate(automedia.date_added) : '-';
   const platforms = automedia.platforms || [];
   const tags = automedia.tags || [];
+  const description = automedia.description || '';
 
   card.innerHTML = `
     <div class="am-card-header">
@@ -189,6 +190,11 @@ function createCard(automedia) {
       </div>
     </div>
     <div class="am-card-body">
+      ${description ? `
+        <div class="am-card-field">
+          <p>${escapeHtml(description)}</p>
+        </div>
+      ` : ''}
       <div class="am-card-field">
         <strong>Langue :</strong> ${escapeHtml(language)}
       </div>
