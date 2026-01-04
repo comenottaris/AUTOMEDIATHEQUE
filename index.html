@@ -1,105 +1,91 @@
 <!DOCTYPE html>
 <html lang="fr">
-<link rel="stylesheet" href="assets/automediatheque.css" />
-<body>
-  <div class="am-page">
-    <header class="am-hero">
-<head>
-  <meta charset="utf-8" />
-  <title>Automédiathèque</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <head>
+    <meta charset="UTF-8" />
+    <title>Automédiathèque</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <link rel="stylesheet" href="assets/automediatheque.css" />
+  </head>
+  <body>
+    <div class="am-page">
+      <!-- Intro / header -->
+      <header class="am-hero">
+        <div class="am-hero-inner">
+          <p class="am-kicker">Automédiathèque</p>
+          <h1>Cartographie des automédias</h1>
+          <p class="am-hero-lead">
+            Une base en cours de construction pour recenser les médias autonomes
+            contre les violences policières, le racisme d’État, les prisons,
+            les frontières, et les luttes des premier·es concerné·es.
+          </p>
+          <p class="am-hero-meta">
+            Tu peux filtrer par type de support et par pays.
+            La base est mise à jour manuellement.
+          </p>
+        </div>
+      </header>
 
-  <script src="assets/automediatheque.js" defer></script>
-</head>
-<body>
-<div style="margin: 0 auto;">
-  <header class="am-hero">
-    <div class="am-hero-inner">
-      <div class="am-hero-main">
-        <h1>Automédiathèque</h1>
-        <p class="am-hero-subtitle">
-          Une base ouverte d’automédias, collectifs, sites et plateformes qui publient leurs propres récits de lutte.
-        </p>
+      <!-- Barre de séparation -->
+      <hr class="am-divider" />
 
-        <div class="am-hero-badges">
-          <span class="am-pill am-pill-soft">
+      <!-- Partie "base de données" -->
+      <main class="am-main">
+        <!-- Filtres + bouton -->
+        <section class="am-toolbar">
+          <div class="am-toolbar-left">
+            <label class="am-field">
+              <span class="am-field-label">Type de support</span>
+              <select id="am-filter-type" class="am-select">
+                <option value="">Tous</option>
+                <!-- IMPORTANT :
+                     Les value doivent correspondre exactement à "type" dans ton JSON
+                     (ex : "Instagram", "Site web", "Podcast", etc.)
+                -->
+                <option value="Instagram">Instagram</option>
+                <option value="Site web">Site web</option>
+                <option value="Podcast">Podcast</option>
+              </select>
+            </label>
+
+            <label class="am-field">
+              <span class="am-field-label">Pays</span>
+              <select id="am-filter-country" class="am-select">
+                <option value="">Tous</option>
+                <!-- Idem : les value doivent correspondre à "country" dans le JSON -->
+                <option value="France">France</option>
+                <option value="Belgique">Belgique</option>
+                <option value="Suisse">Suisse</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="am-toolbar-right">
+            <button id="am-refresh-db" class="am-button-secondary">
+              Rafraîchir la base
+            </button>
+          </div>
+        </section>
+
+        <!-- Compteur + statut -->
+        <section class="am-meta-row">
+          <p class="am-count-text">
             <span id="am-count">–</span> automédias référencés
-          </span>
-          <span class="am-pill am-pill-soft">Base JSON réutilisable</span>
-        </div>
-      </div>
-    <hr class="am-divider">
-          <main class="am-main">
-      <div class="am-hero-panel">
-        <h2 class="am-panel-title">Filtrer la base</h2>
+          </p>
+          <p id="am-status-text" class="am-status-text">
+            Statut : en attente de chargement…
+          </p>
+        </section>
 
-        <div class="am-filters">
-          <label>
-            Type
-            <select id="am-filter-type" onchange="window.amApplyFilters && window.amApplyFilters()">
-              <option value="">Tous les types</option>
-              <option value="site">Site web</option>
-              <option value="telegram">Telegram</option>
-              <option value="noblogs">Noblogs</option>
-              <option value="other">Autre</option>
-              <option value="Instagram">Instagram</option>
-            </select>
-          </label>
-
-          <label>
-            Pays
-            <select id="am-filter-country" onchange="window.amApplyFilters && window.amApplyFilters()">
-              <option value="">Tous les pays</option>
-              <option value="France">France</option>
-              <option value="Belgique">Belgique</option>
-              <option value="International">International</option>
-              <option value="USA">États‑Unis</option>
-              <option value="Brazil">Brésil</option>
-              <option value="Mexico">Mexique</option>
-              <option value="Hong Kong">Hong Kong</option>
-              <option value="Kurdistan">Kurdistan</option>
-            </select>
-          </label>
-        </div>
-
-        <div class="am-actions">
-          <button id="am-refresh-db" type="button">⟳ Rafraîchir la base</button>
-          <span id="am-status-text">Statut : en attente</span>
-        </div>
-      </div>
+        <!-- Grille de résultats -->
+        <section class="am-results-wrapper">
+          <div id="am-results" class="am-grid">
+            <!-- cartes injectées par JS -->
+          </div>
+        </section>
+      </main>
     </div>
-  </header>
 
-  <main class="am-main">
-    <section class="am-section">
-      <h2 class="am-section-title">Automédias en ligne</h2>
-      <div id="am-results" class="am-grid">
-        <!-- cartes générées en JS -->
-      </div>
-    </section>
-
-    <section class="am-section am-text">
-      <h2>À propos de l’automédia</h2>
-      <p>
-        Les automédias désignent l’ensemble des pratiques, dispositifs et réseaux par lesquels des acteurs collectifs — mouvements sociaux,
-        collectifs militants, communautés en lutte ou d’entraide — produisent, publient et archivent eux‑mêmes des récits, preuves et
-        instruments de leur action politique.
-      </p>
-      <p>
-        Cette base est maintenue comme un outil partagé : tu peux la réutiliser, forker le code, proposer des ajouts ou créer ta propre
-        cartographie des automédias.
-      </p>
-    </section>
-
-    <footer class="am-footer">
-      <p>
-        Projet conçu et développé par Côme Nottaris. Code réutilisable / forkable.
-      </p>
-    </footer>
-  </main>
-  </div>
-
-  <script src="assets/automediatheque.js"></script>
-</body>
+    <script src="assets/automediatheque.js"></script>
+  </body>
 </html>
