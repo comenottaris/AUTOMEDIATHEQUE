@@ -2,8 +2,10 @@
 
 // Si automedias.json est à la racine à côté de index.html :
 const DATA_URL = './automedias.json';
-// Si tu le mets dans assets/, utilise :
+const PROPOSALS_URL = './propositions.json';
+// Si tu les mets dans assets/, utilise :
 // const DATA_URL = './assets/automedias.json';
+// const PROPOSALS_URL = './assets/propositions.json';
 
 let allMedias = [];
 
@@ -11,6 +13,7 @@ const els = {
   results: null,
   filterType: null,
   filterCountry: null,
+  filterOrigin: null, // NEW : filtre "Statut"
   statusText: null,
   refreshBtn: null,
   count: null,
@@ -20,6 +23,7 @@ function cacheDom() {
   els.results = document.getElementById('am-results');
   els.filterType = document.getElementById('am-filter-type');
   els.filterCountry = document.getElementById('am-filter-country');
+  els.filterOrigin = document.getElementById('am-filter-origin'); // NEW
   els.statusText = document.getElementById('am-status-text');
   els.refreshBtn = document.getElementById('am-refresh-db');
   els.count = document.getElementById('am-count');
@@ -53,7 +57,7 @@ function buildTypeOptions(items) {
     new Set(
       items
         .map(m => m.type)
-        .filter(Boolean) // enlève null / undefined / ""
+        .filter(Boolean)
     )
   ).sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
 
@@ -64,11 +68,9 @@ function buildTypeOptions(items) {
     select.appendChild(opt);
   });
 
-  // Si l'ancien choix existe encore, on le remet
   if (types.includes(previousValue)) {
     select.value = previousValue;
   } else {
-    // sinon on reste sur "Tous les types"
     select.value = '';
   }
 }
@@ -107,6 +109,7 @@ function buildCountryOptions(items) {
   }
 }
 
+// Charge automedias.json + propositions.json et fusionne
 async function loadData(forceReload = false) {
   if (!forceReload && allMedias.length) {
     return allMedias;
@@ -117,27 +120,64 @@ async function loadData(forceReload = false) {
   }
   setStatus('chargement…');
 
-  const url = forceReload ? `${DATA_URL}?t=${Date.now()}` : DATA_URL;
+  const cacheBust = forceReload ? `?t=${Date.now()}` : '';
+  const officialUrl = `${DATA_URL}${cacheBust}`;
+  const proposalsUrl = `${PROPOSALS_URL}${cacheBust}`;
 
-  const res = await fetch(url, {
-    cache: 'no-store',
-    headers: { Accept: 'application/json' },
-  });
+  // On charge les 2 en parallèle
+  const [resOfficial, resProps] = await Promise.all([
+    fetch(officialUrl, {
+      cache: 'no-store',
+      headers: { Accept: 'application/json' },
+    }),
+    fetch(proposalsUrl, {
+      cache: 'no-store',
+      headers: { Accept: 'application/json' },
+    }).catch(() => null), // si le fetch plante complètement
+  ]);
 
-  if (!res.ok) {
-    throw new Error(`Erreur HTTP ${res.status}`);
+  if (!resOfficial.ok) {
+    throw new Error(`Erreur HTTP ${resOfficial.status} sur automedias.json`);
   }
 
-  const data = await res.json();
+  const officialData = await resOfficial.json();
 
-  if (!Array.isArray(data)) {
-    throw new Error('Le JSON doit être un tableau.');
+  if (!Array.isArray(officialData)) {
+    throw new Error('Le fichier automedias.json doit contenir un tableau.');
   }
 
-  allMedias = data;
+  // Traitement des propositions (peut être absent)
+  let proposalsData = [];
+  if (resProps && resProps.ok) {
+    const raw = await resProps.json();
+    if (Array.isArray(raw)) {
+      proposalsData = raw;
+    } else if (raw && typeof raw === 'object') {
+      // cas Jekyll : { "entry-xxx": { ... }, ... }
+      proposalsData = Object.values(raw);
+    } else {
+      console.warn('[Automédiathèque] Format inattendu pour propositions.json, ignoré.');
+    }
+  } else {
+    console.info('[Automédiathèque] Aucun fichier propositions.json valable, on continue sans propositions.');
+  }
+
+  // On tag l’origine
+  const officialTagged = officialData.map(m => ({
+    ...m,
+    __origin: 'validated',
+  }));
+
+  const proposalsTagged = proposalsData.map(m => ({
+    ...m,
+    __origin: 'proposed',
+  }));
+
+  allMedias = [...officialTagged, ...proposalsTagged];
+
   setCount(allMedias.length);
 
-  // Met à jour les listes de filtres en fonction de la base
+  // Met à jour les listes de filtres en fonction de la base fusionnée
   buildTypeOptions(allMedias);
   buildCountryOptions(allMedias);
 
@@ -165,6 +205,11 @@ function renderList(list) {
     const card = document.createElement('article');
     card.className = 'am-card';
 
+    // Classe spéciale si c'est une proposition
+    if (media.__origin === 'proposed') {
+      card.classList.add('am-card-proposed');
+    }
+
     // Titre
     const header = document.createElement('div');
     header.className = 'am-card-header';
@@ -181,6 +226,14 @@ function renderList(list) {
       title.appendChild(a);
     } else {
       title.textContent = media.name || 'Sans nom';
+    }
+
+    // Petit label "Proposition" dans le header si besoin
+    if (media.__origin === 'proposed') {
+      const badge = document.createElement('span');
+      badge.className = 'am-badge am-badge-proposed';
+      badge.textContent = 'Proposition';
+      header.appendChild(badge);
     }
 
     header.appendChild(title);
@@ -240,6 +293,7 @@ function applyFilters() {
 
   const typeVal = els.filterType ? els.filterType.value : '';
   const countryVal = els.filterCountry ? els.filterCountry.value : '';
+  const originVal = els.filterOrigin ? els.filterOrigin.value : '';
 
   let list = allMedias.slice();
 
@@ -249,6 +303,10 @@ function applyFilters() {
 
   if (countryVal) {
     list = list.filter((m) => (m.country || '') === countryVal);
+  }
+
+  if (originVal) {
+    list = list.filter((m) => (m.__origin || '') === originVal);
   }
 
   renderList(list);
@@ -266,6 +324,7 @@ function setupEvents() {
         // on remet les filtres à "Tous"
         if (els.filterType) els.filterType.value = '';
         if (els.filterCountry) els.filterCountry.value = '';
+        if (els.filterOrigin) els.filterOrigin.value = '';
         applyFilters();
       } catch (err) {
         console.error('[Automédiathèque] Erreur rafraîchissement', err);
@@ -283,6 +342,9 @@ function setupEvents() {
   }
   if (els.filterCountry) {
     els.filterCountry.addEventListener('change', applyFilters);
+  }
+  if (els.filterOrigin) {
+    els.filterOrigin.addEventListener('change', applyFilters);
   }
 }
 
