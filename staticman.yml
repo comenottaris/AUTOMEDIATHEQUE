@@ -1,38 +1,42 @@
 propositions:
-  # Champs autorisés dans le formulaire
-  allowedFields: ["name", "url", "type", "country", "languages", "description"]
+  name: "Automédiathèque – Propositions"
 
-  # Branche de ton site (à adapter)
-  branch: "BRANCH"
+  # Branche sur laquelle Staticman enverra les PR
+  branch: "main"
 
-  # Message de commit / titre de PR
-  commitMessage: "Nouvelle proposition d'automédia"
-
-  # Où les fichiers JSON seront créés
-  path: "_data/propositions"
-
-  # Nom de fichier généré
-  filename: "entry-{@timestamp}"
-
-  # Format des fichiers créés
+  # Fichiers créés dans ce dossier (ex. data/propositions/proposition-20260105...json)
+  path: "data/propositions"
+  filename: "proposition-{@timestamp}"
   format: "json"
 
-  # true = Staticman crée une PR que tu dois valider (recommandé)
-  moderation: true
+  # Champs envoyés par le formulaire
+  allowedFields:
+    - name
+    - url
+    - type
+    - country
+    - languages
+    - status
+    - description
+    - notes
 
   # Champs obligatoires
-  requiredFields: ["name", "url"]
+  requiredFields:
+    - name
+    - url
+    - description
 
-  # Champs générés automatiquement
+  # Champ anti‑spam (honeypot) — voir input caché dans le HTML
+  honeypot: "website"
+
+  # Création d’un champ date automatique
   generatedFields:
     date:
       type: date
       options:
-        format: "iso8601"
+        format: iso8601
 
-  # (optionnel) petites transformations
-  transforms:
-    languages: "lowercase"
+  # PR à modérer (true) ou commit direct (false)
+  moderation: true
 
-  # Nom du site (pour les mails si un jour tu actives les notifs)
-  name: "AUTOMEDIATHEQUE"
+  commitMessage: "Nouvelle proposition d'automédia par {fields.name}"
