@@ -1,0 +1,209 @@
+[
+  {
+    "name": "Automedias",
+    "url": "https://automedias.org/en/",
+    "type": "site",
+    "languages": ["en"],
+    "country": "France",
+    "status": "online",
+    "description": "Articles théoriques sur le sujet des automédias."
+  },
+  {
+    "name": "Paris Luttes Info (portail)",
+    "url": "https://paris-luttes.info/",
+    "type": "site",
+    "languages": ["fr"],
+    "country": "France",
+    "status": "online",
+    "description": "Portail où les différents collectifs peuvent publier."
+  },
+  {
+    "name": "Rojava Media (Telegram)",
+    "url": "https://t.me/s/rojavamedia",
+    "type": "telegram",
+    "languages": [],
+    "country": "Kurdistan",
+    "status": "online",
+    "description": ""
+  },
+  {
+    "name": "CrimethInc.",
+    "url": "https://crimethinc.com/",
+    "type": "site",
+    "languages": ["en"],
+    "country": "USA",
+    "status": "online",
+    "description": "A think tank / banner for anonymous collective action, based in the US."
+  },
+  {
+    "name": "Bure Zone Libre",
+    "url": "https://burezonelibre.noblogs.org/",
+    "type": "noblogs",
+    "languages": ["fr"],
+    "country": "France",
+    "status": "online",
+    "description": "Site de la Maison de résistance à la poubelle nucléaire."
+  },
+  {
+    "name": "InMedia HK",
+    "url": "https://www.inmediahk.net/",
+    "type": "site",
+    "languages": [],
+    "country": "Hong Kong",
+    "status": "online",
+    "description": "Pro-democratic media outlet in Hong Kong, listed among the most credible online media in local surveys."
+  },
+  {
+    "name": "Indymedia",
+    "url": "https://indymedia.org/",
+    "type": "site",
+    "languages": [],
+    "country": "International",
+    "status": "online",
+    "description": "Global Network of Independent Media Centres."
+  },
+  {
+    "name": "Mídia NINJA",
+    "url": "https://midianinja.org/",
+    "type": "site",
+    "languages": ["pt-BR"],
+    "country": "Brazil",
+    "status": "online",
+    "description": ""
+  },
+  {
+    "name": "ZAD Nadir",
+    "url": "https://zad.nadir.org/",
+    "type": "site",
+    "languages": ["fr"],
+    "country": "France",
+    "status": "online",
+    "description": "Site des personnes venues s’installer dans le bocage de Notre-Dame-des-Landes pour lutter contre le projet d’aéroport."
+  },
+  {
+    "name": "ZAD Forever",
+    "url": "https://zadforever.blog/",
+    "type": "other",
+    "languages": ["fr"],
+    "country": "International",
+    "status": "online",
+    "description": ""
+  },
+  {
+    "name": "Solidarity Collectives",
+    "url": "https://www.solidaritycollectives.org/en/",
+    "type": "site",
+    "languages": ["en"],
+    "country": "Ukraine",
+    "status": "online",
+    "description": ""
+  },
+  {
+    "name": "Rojava Information Center",
+    "url": "https://rojavainformationcenter.org/",
+    "type": "site",
+    "languages": ["en"],
+    "country": "Kurdistan",
+    "status": "online",
+    "description": "Volunteer staff of international journalists and media activists supporting a free press in North and East Syria."
+  },
+  {
+    "name": "Mutual Aid UK",
+    "url": "https://mutual-aid.co.uk/",
+    "type": "other",
+    "languages": ["en"],
+    "country": "United Kingdom",
+    "status": "online",
+    "description": ""
+  },
+  {
+    "name": "Réseau MUTU",
+    "url": "https://reseaumutu.info/",
+    "type": "site",
+    "languages": ["fr"],
+    "country": "France",
+    "status": "online",
+    "description": "Regroupe les articles mis en une des sites d’info militants français."
+  },
+  {
+    "name": "Coordination des sans papiers de Belgique",
+    "url": "https://sanspapiers.be/qui-sommes-nous/",
+    "type": "site",
+    "languages": ["fr"],
+    "country": "Belgique",
+    "status": "online",
+    "description": "Réseau autonome de collectifs sans papiers en lutte en Belgique, pour soutenir les actions et organiser des actions communes."
+  },
+  {
+    "name": "Unicorn Riot",
+    "url": "https://unicornriot.ninja/",
+    "type": "site",
+    "languages": ["en"],
+    "country": "USA",
+    "status": "online",
+    "description": ""
+  },
+  {
+    "name": "Anarchist Black Cross Paris",
+    "url": "https://parisabc.noblogs.org/",
+    "type": "noblogs",
+    "languages": ["en", "fr"],
+    "country": "France",
+    "status": "online",
+    "description": "Branche parisienne de l’Anarchist Black Cross, réseau international de collectifs engagés dans la lutte anticarcérale et l’antirépression."
+  },
+  {
+    "name": "Anarchist Libraries",
+    "url": "https://anarchistlibraries.net/",
+    "type": "site",
+    "languages": ["en"],
+    "country": "International",
+    "status": "online",
+    "description": ""
+  },
+  {
+    "name": "Enlace Zapatista",
+    "url": "https://enlacezapatista.ezln.org.mx/",
+    "type": "site",
+    "languages": ["es"],
+    "country": "Mexico",
+    "status": "online",
+    "description": "Commission Sexta de l’EZLN."
+  },
+  {
+    "name": "Mutual Aid Wiki",
+    "url": "https://mutualaid.wiki/",
+    "type": "other",
+    "languages": ["en"],
+    "country": "International",
+    "status": "online",
+    "description": ""
+  },
+  {
+    "name": "Collectif des Jeunes du Parc de Belleville",
+    "url": "https://www.instagram.com/belleville.mobilisation/",
+    "type": "Instagram",
+    "languages": ["fr"],
+    "country": "France",
+    "status": "online",
+    "description": "Mineur·es isolé·es en lutte pour l’égalité des droits, pour un monde antiraciste et décolonial."
+  },
+  {
+    "name": "Collectif Combat pour l’Hébergement 93",
+    "url": "https://www.instagram.com/collectif.combat.hebergement93/",
+    "type": "Instagram",
+    "languages": ["fr"],
+    "country": "France",
+    "status": "online",
+    "description": "Collectif de femmes et mères de familles privées du droit à un hébergement digne à Saint-Denis."
+  },
+  {
+    "name": "Coordination Nationale des mineur·es isolé·es en lutte",
+    "url": "https://www.instagram.com/coordination_nationale_mna/",
+    "type": "Instagram",
+    "languages": ["fr"],
+    "country": "France",
+    "status": "online",
+    "description": "Coordination rassemblant tous les collectifs de mineur·es non accompagné·es en lutte pour leurs droits."
+  }
+]
