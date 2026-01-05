@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Proposer un automédia</title>
+</head>
+<body>
+  <h1>Proposer un automédia</h1>
+
+  <form id="am-form" action="add-media.php" method="post">
+    <label>
+      Nom de l'automédia *
+      <input type="text" name="name" required>
+    </label>
+    <br>
+
+    <label>
+      URL principale *
+      <input type="url" name="url" required>
+    </label>
+    <br>
+
+    <label>
+      Type (site, instagram, telegram, podcast…) *
+      <input type="text" name="type" required>
+    </label>
+    <br>
+
+    <label>
+      Pays *
+      <input type="text" name="country" required>
+    </label>
+    <br>
+
+    <label>
+      Langues (séparées par des virgules, ex : fr, en)
+      <input type="text" name="languages">
+    </label>
+    <br>
+
+    <label>
+      Description
+      <textarea name="description" rows="4"></textarea>
+    </label>
+    <br>
+
+    <button type="submit">Envoyer la proposition</button>
+  </form>
+
+  <p id="am-message"></p>
+
+  <script>
+    // Optionnel : interception pour afficher un message sans recharger la page
+    document.getElementById('am-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const form = e.target;
+      const msg = document.getElementById('am-message');
+
+      const formData = new FormData(form);
+
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await res.json();
+        if (data.ok) {
+          msg.textContent = "Merci ! Ta proposition a été enregistrée.";
+          form.reset();
+        } else {
+          msg.textContent = "Erreur : " + (data.error || "impossible d'enregistrer");
+        }
+      } catch (err) {
+        msg.textContent = "Erreur réseau / serveur.";
+        console.error(err);
+      }
+    });
+  </script>
+</body>
+</html>
