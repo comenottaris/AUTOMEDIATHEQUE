@@ -33,7 +33,7 @@
               method="POST"
               action="https://api.staticman.net/v3/entry/github/comenottaris/AUTOMEDIATHEQUE/main/propositions"
             >
-              <!-- Redirection après envoi (à adapter si tu veux une page merci dédiée) -->
+              <!-- Redirection après envoi -->
               <input
                 type="hidden"
                 name="options[redirect]"
@@ -127,7 +127,7 @@
                   ></textarea>
                 </label>
 
-                <!-- Notes libres (pour toi, hors fiche publique si tu veux) -->
+                <!-- Notes libres -->
                 <label class="am-field">
                   <span class="am-field-label">
                     Notes complémentaires (optionnel)
@@ -141,7 +141,7 @@
                 </label>
               </fieldset>
 
-              <!-- Champ honeypot (anti-spam) : ne pas supprimer -->
+              <!-- Champ honeypot (anti-spam) -->
               <div style="position: absolute; left: -9999px;" aria-hidden="true">
                 <label>
                   Ne pas remplir ce champ (anti‑spam)
@@ -160,8 +160,9 @@
 
               <p class="am-hero-note">
                 Après envoi, la proposition génère une demande de fusion (pull
-                request) dans le dépôt GitHub. Elle doit être relue et acceptée
-                avant d’apparaître dans la base.
+                request) dans le dépôt GitHub
+                <code>comenottaris/AUTOMEDIATHEQUE</code>. Elle doit être relue
+                et acceptée avant d’apparaître dans la base.
               </p>
             </form>
           </div>
