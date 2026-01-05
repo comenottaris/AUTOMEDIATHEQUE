@@ -1,6 +1,4 @@
-Voici le contenu formaté en Markdown pour un fichier `README.md` GitHub :
 
-```markdown
 # Automédiathèque
 
 Automédiathèque est un portail en ligne recensant des automédias : collectifs, sites, comptes et ressources d'information autonomes produits par des acteurs en lutte. Il propose une navigation filtrée par type, pays, langue et une recherche plein texte.
