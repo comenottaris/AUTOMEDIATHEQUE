@@ -43,21 +43,20 @@
             <div class="am-toolbar-filters">
               <!-- TYPE -->
               <label class="am-field">
-  <span class="am-field-label">Type</span>
-  <select id="am-filter-type" class="am-select">
-    <!-- option par défaut -->
-    <option value="">Tous les types</option>
-    <!-- les autres options sont ajoutées en JS à partir du JSON -->
-  </select>
-</label>
-
+                <span class="am-field-label">Type</span>
+                <select id="am-filter-type" class="am-select">
+                  <!-- option par défaut -->
+                  <option value="">Tous les types</option>
+                  <!-- les autres options sont ajoutées en JS à partir du JSON -->
+                </select>
+              </label>
 
               <!-- PAYS -->
               <label class="am-field">
                 <span class="am-field-label">Pays</span>
                 <select id="am-filter-country" class="am-select">
                   <option value="">Tous</option>
-                  <!-- values = "country" dans ton JSON -->
+                  <!-- valeurs par défaut, remplacées/complétées par le JS -->
                   <option value="France">France</option>
                   <option value="Belgique">Belgique</option>
                   <option value="Brazil">Brésil</option>
@@ -68,6 +67,16 @@
                   <option value="Ukraine">Ukraine</option>
                   <option value="United Kingdom">Royaume‑Uni</option>
                   <option value="USA">États‑Unis (USA)</option>
+                </select>
+              </label>
+
+              <!-- STATUT (validés / propositions) -->
+              <label class="am-field">
+                <span class="am-field-label">Statut</span>
+                <select id="am-filter-origin" class="am-select">
+                  <option value="">Tous</option>
+                  <option value="validated">Validés</option>
+                  <option value="proposed">Proposés</option>
                 </select>
               </label>
             </div>
@@ -122,8 +131,9 @@
             </button>
 
             <p class="am-hero-note">
-              Le bouton recharge le fichier JSON
-              (<code>automedias.json</code>) sans utiliser le cache du
+              Le bouton recharge les fichiers JSON
+              (<code>automedias.json</code> et
+              <code>propositions.json</code>) sans utiliser le cache du
               navigateur, pour voir les dernières modifications.
             </p>
           </div>
@@ -132,7 +142,7 @@
 
       <!-- ================= FOOTER / CRÉDITS ================= -->
       <footer class="am-footer">
-               <h2 class="am-section-title">Qu'est-ce qu'un automédia ?</h2>
+        <h2 class="am-section-title">Qu'est-ce qu'un automédia ?</h2>
         <p class="am-footer-text">
          <br>Les automédias désignent l’ensemble des pratiques, dispositifs et réseaux par lesquels des acteurs collectifs 
           — mouvements sociaux, collectifs militants, communautés en lutte ou d’entraide — produisent, publient et archivent eux-mêmes des récits, 
@@ -142,7 +152,8 @@
           et vise à établir des régimes locaux de légitimation et de mémoire qui concurrencent ou complètent ceux des médias institutionnels. 
         </p>
         <p class="am-footer-text">
-          Données chargées depuis <code>automedias.json</code>.
+          Données chargées depuis <code>automedias.json</code> et
+          <code>propositions.json</code>.
         </p>
       </footer>
     </div>
