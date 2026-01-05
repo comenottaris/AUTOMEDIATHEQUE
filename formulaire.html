@@ -1,45 +1,178 @@
-<form method="POST"
-      action="https://api.staticman.net/v3/entry/github/comenottaris/automediatheque/main/data/propositions">
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Proposer un automédia – Automédiathèque</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/automediatheque.css" />
+  </head>
+  <body>
+    <div class="am-page">
+      <header class="am-hero am-hero--center">
+        <div class="am-hero-inner">
+          <p class="am-kicker">Ressources · Automédias</p>
+          <h1 class="am-hero-title">Proposer un automédia</h1>
+          <p class="am-hero-lead">
+            Ce formulaire permet de proposer un automédia à ajouter à la base.
+          </p>
+          <p class="am-hero-text">
+            Les propositions sont envoyées dans le dépôt GitHub via Staticman,
+            sous forme de fichiers JSON dans <code>data/propositions/</code>.
+            Elles doivent ensuite être validées (pull request) avant
+            d’apparaître dans la base principale.
+          </p>
+        </div>
+      </header>
 
-  <!-- champ anti-bot tout simple (honeypot) -->
-  <div style="display:none;">
-    <label>Ne pas remplir ce champ
-      <input type="text" name="fields[website]" autocomplete="off">
-    </label>
-  </div>
+      <hr class="am-divider" />
 
-  <label>
-    Nom de l'automédia *
-    <input type="text" name="fields[name]" required>
-  </label>
+      <main class="am-main">
+        <section class="am-filters-section">
+          <div class="am-state-box">
+            <form
+              method="POST"
+              action="https://api.staticman.net/v3/entry/github/comenottaris/AUTOMEDIATHEQUE/main/propositions"
+            >
+              <!-- Redirection après envoi (à adapter si tu veux une page merci dédiée) -->
+              <input
+                type="hidden"
+                name="options[redirect]"
+                value="https://www.automediatheque.linkpc.net/"
+              />
 
-  <label>
-    URL principale *
-    <input type="url" name="fields[url]" required>
-  </label>
+              <fieldset class="am-fieldset">
+                <legend class="am-section-title">Informations principales</legend>
 
-  <label>
-    Type (site, insta, télégram, etc.)
-    <input type="text" name="fields[type]">
-  </label>
+                <!-- Nom de l'automédia -->
+                <label class="am-field">
+                  <span class="am-field-label">Nom de l’automédia *</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[name]"
+                    required
+                  />
+                </label>
 
-  <label>
-    Pays (code ISO, ex: FR, BE…)
-    <input type="text" name="fields[country]">
-  </label>
+                <!-- URL principale -->
+                <label class="am-field">
+                  <span class="am-field-label">URL principale *</span>
+                  <input
+                    class="am-input"
+                    type="url"
+                    name="fields[url]"
+                    placeholder="https://..."
+                    required
+                  />
+                </label>
 
-  <label>
-    Langues (séparées par des virgules, ex: fr,en)
-    <input type="text" name="fields[languages]">
-  </label>
+                <!-- Type -->
+                <label class="am-field">
+                  <span class="am-field-label">Type (site, carte, zine PDF, etc.)</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[type]"
+                    placeholder="site, carte, zine, chaîne vidéo, canal Telegram…"
+                  />
+                </label>
 
-  <label>
-    Description
-    <textarea name="fields[description]"></textarea>
-  </label>
+                <!-- Pays / zone -->
+                <label class="am-field">
+                  <span class="am-field-label">Pays / zone</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[country]"
+                    placeholder="France, International, Kurdistan, etc."
+                  />
+                </label>
 
-  <!-- Redirection après envoi -->
-  <input type="hidden" name="options[redirect]" value="https://www.automediatheque.linkpc.net/">
+                <!-- Langues -->
+                <label class="am-field">
+                  <span class="am-field-label">Langues</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[languages]"
+                    placeholder="fr, en, es… (texte libre)"
+                  />
+                </label>
 
-  <button type="submit">Envoyer la proposition</button>
-</form>
+                <!-- Statut -->
+                <label class="am-field">
+                  <span class="am-field-label">Statut (en ligne, archivé…)</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[status]"
+                    placeholder="online, offline, archivé…"
+                  />
+                </label>
+              </fieldset>
+
+              <fieldset class="am-fieldset">
+                <legend class="am-section-title">Description</legend>
+
+                <!-- Description -->
+                <label class="am-field">
+                  <span class="am-field-label">
+                    Brève description de l’automédia *
+                  </span>
+                  <textarea
+                    class="am-textarea"
+                    name="fields[description]"
+                    rows="5"
+                    required
+                  ></textarea>
+                </label>
+
+                <!-- Notes libres (pour toi, hors fiche publique si tu veux) -->
+                <label class="am-field">
+                  <span class="am-field-label">
+                    Notes complémentaires (optionnel)
+                  </span>
+                  <textarea
+                    class="am-textarea"
+                    name="fields[notes]"
+                    rows="3"
+                    placeholder="Contexte, remarques, précisions…"
+                  ></textarea>
+                </label>
+              </fieldset>
+
+              <!-- Champ honeypot (anti-spam) : ne pas supprimer -->
+              <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                <label>
+                  Ne pas remplir ce champ (anti‑spam)
+                  <input
+                    type="text"
+                    name="fields[website]"
+                    tabindex="-1"
+                    autocomplete="off"
+                  />
+                </label>
+              </div>
+
+              <button type="submit" class="am-button">
+                Envoyer la proposition
+              </button>
+
+              <p class="am-hero-note">
+                Après envoi, la proposition génère une demande de fusion (pull
+                request) dans le dépôt GitHub. Elle doit être relue et acceptée
+                avant d’apparaître dans la base.
+              </p>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer class="am-footer">
+        <p class="am-footer-text">
+          Retour à la liste : <a href="index.html">Automédiathèque</a>.
+        </p>
+      </footer>
+    </div>
+  </body>
+</html>
