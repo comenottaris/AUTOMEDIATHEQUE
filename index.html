@@ -16,7 +16,7 @@
           <h1 class="am-hero-title">Automédiathèque</h1>
 
           <p class="am-hero-lead">
-            Liste open-source d'automédias accessibles en ligne.
+           Liste open-source d'automédias accessibles en ligne.
           </p>
 
           <p class="am-hero-text">
@@ -27,12 +27,6 @@
             podcasts, etc.).
           </p>
 
-          <!-- BOUTON POUR ALLER AU FORMULAIRE -->
-          <p class="am-hero-actions">
-            <a href="formulaire.html" class="am-button">
-              Proposer un automédia
-            </a>
-          </p>
         </div>
       </header>
 
@@ -43,6 +37,7 @@
       <main class="am-main">
         <!-- --------- Section filtres / légende --------- -->
         <section class="am-filters-section">
+
           <div class="am-toolbar">
             <!-- Filtres -->
             <div class="am-toolbar-filters">
@@ -67,12 +62,46 @@
                   <option value="Brazil">Brésil</option>
                   <option value="Hong Kong">Hong Kong</option>
                   <option value="International">International</option>
+                  <option value="Kurdistan">Kurdistan</option>
+                  <option value="Mexico">Mexique</option>
+                  <option value="Ukraine">Ukraine</option>
+                  <option value="United Kingdom">Royaume‑Uni</option>
+                  <option value="USA">États‑Unis (USA)</option>
+                </select>
+              </label>
+
+              <!-- STATUT (validés / propositions) -->
+              <label class="am-field">
+                <span class="am-field-label">Statut</span>
+                <select id="am-filter-origin" class="am-select">
+                  <option value="">Tous</option>
+                  <option value="validated">Validés</option>
+                  <option value="proposed">Proposés</option>
                 </select>
               </label>
             </div>
-          </div>
 
-          <!-- Grille des résultats : conteneur dans lequel le JS injecte les cartes -->
+            <!-- Légende des pastilles -->
+            <div class="am-toolbar-legend">
+              <span class="am-legend-label">Légende</span>
+              <span class="am-pill am-pill-type">Type</span>
+              <span class="am-pill am-pill-country">Pays</span>
+              <span class="am-pill am-pill-lang">Langue</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- --------- Section résultats --------- -->
+        <section class="am-results-section">
+          <header class="am-results-header">
+            <h2 class="am-section-title">Résultats</h2>
+            <p class="am-section-desc">
+              Chaque carte correspond à un automédia. Le titre, le type
+              et l’URL pointent vers la même destination.
+            </p>
+          </header>
+
+          <!-- Conteneur dans lequel le JS injecte les cartes -->
           <div id="am-results" class="am-grid">
             <!-- Contenu généré par automediatheque.js -->
           </div>
@@ -107,6 +136,12 @@
               <code>propositions.json</code>) sans utiliser le cache du
               navigateur, pour voir les dernières modifications.
             </p>
+<!-- BOUTON POUR ALLER AU FORMULAIRE -->
+            <p class="am-hero-actions">
+              <a href="formulaire.html" class="am-button">
+                Proposer un automédia
+              </a>
+            </p>
           </div>
         </section>
       </main>
@@ -115,12 +150,12 @@
       <footer class="am-footer">
         <h2 class="am-section-title">Qu'est-ce qu'un automédia ?</h2>
         <p class="am-footer-text">
-          <br />Les automédias désignent l’ensemble des pratiques, dispositifs et réseaux par lesquels des acteurs collectifs
-          — mouvements sociaux, collectifs militants, communautés en lutte ou d’entraide — produisent, publient et archivent eux-mêmes des récits,
-          preuves et instruments de leur action politique. L’automédia combine autoproduction (contenu créé par les protagonistes),
-          autogestion éditoriale (contrôle des formes, des cadres de diffusion et des dispositifs d’archivage)
-          et polymédialité (texte, photo, audio, vidéo, livestream, zines, dépôts numériques),
-          et vise à établir des régimes locaux de légitimation et de mémoire qui concurrencent ou complètent ceux des médias institutionnels.
+         <br>Les automédias désignent l’ensemble des pratiques, dispositifs et réseaux par lesquels des acteurs collectifs 
+          — mouvements sociaux, collectifs militants, communautés en lutte ou d’entraide — produisent, publient et archivent eux-mêmes des récits, 
+          preuves et instruments de leur action politique. L’automédia combine autoproduction (contenu créé par les protagonistes), 
+          autogestion éditoriale (contrôle des formes, des cadres de diffusion et des dispositifs d’archivage) 
+          et polymédialité (texte, photo, audio, vidéo, livestream, zines, dépôts numériques), 
+          et vise à établir des régimes locaux de légitimation et de mémoire qui concurrencent ou complètent ceux des médias institutionnels. 
         </p>
         <p class="am-footer-text">
           Données chargées depuis <code>automedias.json</code> et
