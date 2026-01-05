@@ -8,72 +8,88 @@
   </head>
   <body>
     <div class="am-page">
+      <!-- ================= HEADER ================= -->
       <header class="am-hero am-hero--center">
         <div class="am-hero-inner">
           <p class="am-kicker">Ressources · Automédias</p>
+
           <h1 class="am-hero-title">Proposer un automédia</h1>
+
           <p class="am-hero-lead">
             Ce formulaire permet de proposer un automédia à ajouter à la base.
           </p>
+
           <p class="am-hero-text">
-            Les propositions sont envoyées dans le dépôt GitHub via Staticman,
-            sous forme de fichiers JSON dans <code>data/propositions/</code>.
-            Elles doivent ensuite être validées (pull request) avant
-            d’apparaître dans la base principale.
+            Les propositions ne demandent aucune information personnelle : seules
+            les informations sur l’automédia sont envoyées. Tu peux donc
+            contribuer de façon anonyme.
           </p>
         </div>
       </header>
 
       <hr class="am-divider" />
 
+      <!-- ================= CONTENU ================= -->
       <main class="am-main">
-        <section class="am-filters-section">
-          <div class="am-state-box">
+        <section class="am-section">
+          <div class="am-section-inner">
+            <p class="am-section-intro">
+              Merci de remplir au mieux les champs ci-dessous. Les propositions
+              seront ensuite relues et ajoutées manuellement dans la base
+              <code>automedias.json</code>.
+            </p>
+
+    
             <form
+              class="am-form"
+              action="https://formspree.io/f/mdakbqej"
               method="POST"
-              action="https://api.staticman.net/v3/entry/github/comenottaris/AUTOMEDIATHEQUE/main/propositions"
+              accept-charset="UTF-8"
             >
-              <!-- Redirection après envoi -->
+              <!-- Pour t'aider à trier les mails côté Formspree -->
               <input
                 type="hidden"
-                name="options[redirect]"
-                value="https://www.automediatheque.linkpc.net/"
+                name="_subject"
+                value="Nouvelle proposition Automédiathèque"
               />
 
+              <!-- ================= INFOS PRINCIPALES ================= -->
               <fieldset class="am-fieldset">
                 <legend class="am-section-title">Informations principales</legend>
 
-                <!-- Nom de l'automédia -->
+                <!-- Nom -->
                 <label class="am-field">
                   <span class="am-field-label">Nom de l’automédia *</span>
                   <input
                     class="am-input"
                     type="text"
-                    name="fields[name]"
+                    name="name"
                     required
                   />
                 </label>
 
-                <!-- URL principale -->
+                <!-- URL -->
                 <label class="am-field">
                   <span class="am-field-label">URL principale *</span>
                   <input
                     class="am-input"
                     type="url"
-                    name="fields[url]"
-                    placeholder="https://..."
+                    name="url"
+                    placeholder="https://…"
                     required
                   />
                 </label>
 
                 <!-- Type -->
                 <label class="am-field">
-                  <span class="am-field-label">Type (site, carte, zine PDF, etc.)</span>
+                  <span class="am-field-label">
+                    Type (site, carte, zine PDF, canal Telegram, etc.)
+                  </span>
                   <input
                     class="am-input"
                     type="text"
-                    name="fields[type]"
-                    placeholder="site, carte, zine, chaîne vidéo, canal Telegram…"
+                    name="type"
+                    placeholder="site, telegram, video, map, zine, pdf…"
                   />
                 </label>
 
@@ -83,8 +99,8 @@
                   <input
                     class="am-input"
                     type="text"
-                    name="fields[country]"
-                    placeholder="France, International, Kurdistan, etc."
+                    name="country"
+                    placeholder="France, International, Kurdistan…"
                   />
                 </label>
 
@@ -94,23 +110,26 @@
                   <input
                     class="am-input"
                     type="text"
-                    name="fields[languages]"
-                    placeholder="fr, en, es… (texte libre)"
+                    name="languages"
+                    placeholder="fr, en, es… (séparées par des virgules)"
                   />
                 </label>
 
                 <!-- Statut -->
                 <label class="am-field">
-                  <span class="am-field-label">Statut (en ligne, archivé…)</span>
+                  <span class="am-field-label">
+                    Statut (en ligne, archivé…)
+                  </span>
                   <input
                     class="am-input"
                     type="text"
-                    name="fields[status]"
-                    placeholder="online, offline, archivé…"
+                    name="status"
+                    placeholder="online, offline, archived…"
                   />
                 </label>
               </fieldset>
 
+              <!-- ================= DESCRIPTION ================= -->
               <fieldset class="am-fieldset">
                 <legend class="am-section-title">Description</legend>
 
@@ -121,7 +140,7 @@
                   </span>
                   <textarea
                     class="am-textarea"
-                    name="fields[description]"
+                    name="description"
                     rows="5"
                     required
                   ></textarea>
@@ -134,35 +153,38 @@
                   </span>
                   <textarea
                     class="am-textarea"
-                    name="fields[notes]"
+                    name="notes"
                     rows="3"
                     placeholder="Contexte, remarques, précisions…"
                   ></textarea>
                 </label>
               </fieldset>
 
-              <!-- Champ honeypot (anti-spam) -->
-              <div style="position: absolute; left: -9999px;" aria-hidden="true">
+              <!-- ================= ANTI-SPAM (HONEYPOT) ================= -->
+              <div
+                style="position:absolute;left:-9999px;"
+                aria-hidden="true"
+              >
                 <label>
                   Ne pas remplir ce champ (anti‑spam)
                   <input
                     type="text"
-                    name="fields[website]"
+                    name="website"
                     tabindex="-1"
                     autocomplete="off"
                   />
                 </label>
               </div>
 
+              <!-- ================= BOUTON ================= -->
               <button type="submit" class="am-button">
                 Envoyer la proposition
               </button>
 
               <p class="am-hero-note">
-                Après envoi, la proposition génère une demande de fusion (pull
-                request) dans le dépôt GitHub
-                <code>comenottaris/AUTOMEDIATHEQUE</code>. Elle doit être relue
-                et acceptée avant d’apparaître dans la base.
+                Après envoi, les informations sont stockées sur Formspree.
+                Elles seront ensuite intégrées manuellement à la base
+                <code>automedias.json</code> et <code>propositions.json</code>.
               </p>
             </form>
           </div>
