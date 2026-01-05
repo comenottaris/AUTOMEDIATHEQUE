@@ -2,162 +2,178 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <title>Automédiathèque</title>
+    <title>Proposer un automédia – Automédiathèque</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assets/automediatheque.css" />
   </head>
   <body>
     <div class="am-page">
-      <!-- ================= HEADER / INTRO ================= -->
       <header class="am-hero am-hero--center">
         <div class="am-hero-inner">
           <p class="am-kicker">Ressources · Automédias</p>
-
-          <h1 class="am-hero-title">Automédiathèque</h1>
-
+          <h1 class="am-hero-title">Proposer un automédia</h1>
           <p class="am-hero-lead">
-           Liste open-source d'automédias accessibles en ligne.
+            Ce formulaire permet de proposer un automédia à ajouter à la base.
           </p>
-
           <p class="am-hero-text">
-            La base est partielle et en mouvement :
-            elle a vocation à être complétée collectivement, corrigée,
-            etc. Les liens renvoient vers les plateformes des
-            collectifs et groupes concernés (sites, réseaux sociaux,
-            podcasts, etc.).
+            Les propositions sont envoyées dans le dépôt GitHub via Staticman,
+            sous forme de fichiers JSON dans <code>data/propositions/</code>.
+            Elles doivent ensuite être validées (pull request) avant
+            d’apparaître dans la base principale.
           </p>
-
         </div>
       </header>
 
-      <!-- ================= SÉPARATEUR ================= -->
       <hr class="am-divider" />
 
-      <!-- ================= CONTENU PRINCIPAL ================= -->
       <main class="am-main">
-        <!-- --------- Section filtres / légende --------- -->
         <section class="am-filters-section">
-
-          <div class="am-toolbar">
-            <!-- Filtres -->
-            <div class="am-toolbar-filters">
-              <!-- TYPE -->
-              <label class="am-field">
-                <span class="am-field-label">Type</span>
-                <select id="am-filter-type" class="am-select">
-                  <!-- option par défaut -->
-                  <option value="">Tous les types</option>
-                  <!-- les autres options sont ajoutées en JS à partir du JSON -->
-                </select>
-              </label>
-
-              <!-- PAYS -->
-              <label class="am-field">
-                <span class="am-field-label">Pays</span>
-                <select id="am-filter-country" class="am-select">
-                  <option value="">Tous</option>
-                  <!-- valeurs par défaut, remplacées/complétées par le JS -->
-                  <option value="France">France</option>
-                  <option value="Belgique">Belgique</option>
-                  <option value="Brazil">Brésil</option>
-                  <option value="Hong Kong">Hong Kong</option>
-                  <option value="International">International</option>
-                  <option value="Kurdistan">Kurdistan</option>
-                  <option value="Mexico">Mexique</option>
-                  <option value="Ukraine">Ukraine</option>
-                  <option value="United Kingdom">Royaume‑Uni</option>
-                  <option value="USA">États‑Unis (USA)</option>
-                </select>
-              </label>
-
-              <!-- STATUT (validés / propositions) -->
-              <label class="am-field">
-                <span class="am-field-label">Statut</span>
-                <select id="am-filter-origin" class="am-select">
-                  <option value="">Tous</option>
-                  <option value="validated">Validés</option>
-                  <option value="proposed">Proposés</option>
-                </select>
-              </label>
-            </div>
-
-            <!-- Légende des pastilles -->
-            <div class="am-toolbar-legend">
-              <span class="am-legend-label">Légende</span>
-              <span class="am-pill am-pill-type">Type</span>
-              <span class="am-pill am-pill-country">Pays</span>
-              <span class="am-pill am-pill-lang">Langue</span>
-            </div>
-          </div>
-        </section>
-
-        <!-- --------- Section résultats --------- -->
-        <section class="am-results-section">
-          <header class="am-results-header">
-            <h2 class="am-section-title">Résultats</h2>
-            <p class="am-section-desc">
-              Chaque carte correspond à un automédia. Le titre, le type
-              et l’URL pointent vers la même destination.
-            </p>
-          </header>
-
-          <!-- Conteneur dans lequel le JS injecte les cartes -->
-          <div id="am-results" class="am-grid">
-            <!-- Contenu généré par automediatheque.js -->
-          </div>
-        </section>
-
-        <!-- --------- Section État de la base (APRÈS la base) --------- -->
-        <section class="am-state-section">
-          <header class="am-state-header">
-            <h2 class="am-section-title">État de la base</h2>
-          </header>
-
           <div class="am-state-box">
-            <p class="am-state-line">
-              <span class="am-hero-label">Nombre d’entrées :</span>
-              <span id="am-count" class="am-hero-value">–</span>
-            </p>
+            <form
+              method="POST"
+              action="https://api.staticman.net/v3/entry/github/comenottaris/AUTOMEDIATHEQUE/main/propositions"
+            >
+              <!-- Redirection après envoi -->
+              <input
+                type="hidden"
+                name="options[redirect]"
+                value="https://www.automediatheque.linkpc.net/"
+              />
 
-            <p class="am-state-line">
-              <span class="am-hero-label">Statut :</span>
-              <span id="am-status-text" class="am-hero-status">
-                Statut : chargement…
-              </span>
-            </p>
+              <fieldset class="am-fieldset">
+                <legend class="am-section-title">Informations principales</legend>
 
-            <button id="am-refresh-db" class="am-button">
-              Recharger la base
-            </button>
+                <!-- Nom de l'automédia -->
+                <label class="am-field">
+                  <span class="am-field-label">Nom de l’automédia *</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[name]"
+                    required
+                  />
+                </label>
 
-            <p class="am-hero-note">
-              Le bouton recharge les fichiers JSON
-              (<code>automedias.json</code> et
-              <code>propositions.json</code>) sans utiliser le cache du
-              navigateur, pour voir les dernières modifications.
-            </p>
+                <!-- URL principale -->
+                <label class="am-field">
+                  <span class="am-field-label">URL principale *</span>
+                  <input
+                    class="am-input"
+                    type="url"
+                    name="fields[url]"
+                    placeholder="https://..."
+                    required
+                  />
+                </label>
+
+                <!-- Type -->
+                <label class="am-field">
+                  <span class="am-field-label">Type (site, carte, zine PDF, etc.)</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[type]"
+                    placeholder="site, carte, zine, chaîne vidéo, canal Telegram…"
+                  />
+                </label>
+
+                <!-- Pays / zone -->
+                <label class="am-field">
+                  <span class="am-field-label">Pays / zone</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[country]"
+                    placeholder="France, International, Kurdistan, etc."
+                  />
+                </label>
+
+                <!-- Langues -->
+                <label class="am-field">
+                  <span class="am-field-label">Langues</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[languages]"
+                    placeholder="fr, en, es… (texte libre)"
+                  />
+                </label>
+
+                <!-- Statut -->
+                <label class="am-field">
+                  <span class="am-field-label">Statut (en ligne, archivé…)</span>
+                  <input
+                    class="am-input"
+                    type="text"
+                    name="fields[status]"
+                    placeholder="online, offline, archivé…"
+                  />
+                </label>
+              </fieldset>
+
+              <fieldset class="am-fieldset">
+                <legend class="am-section-title">Description</legend>
+
+                <!-- Description -->
+                <label class="am-field">
+                  <span class="am-field-label">
+                    Brève description de l’automédia *
+                  </span>
+                  <textarea
+                    class="am-textarea"
+                    name="fields[description]"
+                    rows="5"
+                    required
+                  ></textarea>
+                </label>
+
+                <!-- Notes libres -->
+                <label class="am-field">
+                  <span class="am-field-label">
+                    Notes complémentaires (optionnel)
+                  </span>
+                  <textarea
+                    class="am-textarea"
+                    name="fields[notes]"
+                    rows="3"
+                    placeholder="Contexte, remarques, précisions…"
+                  ></textarea>
+                </label>
+              </fieldset>
+
+              <!-- Champ honeypot (anti-spam) -->
+              <div style="position: absolute; left: -9999px;" aria-hidden="true">
+                <label>
+                  Ne pas remplir ce champ (anti‑spam)
+                  <input
+                    type="text"
+                    name="fields[website]"
+                    tabindex="-1"
+                    autocomplete="off"
+                  />
+                </label>
+              </div>
+
+              <button type="submit" class="am-button">
+                Envoyer la proposition
+              </button>
+
+              <p class="am-hero-note">
+                Après envoi, la proposition génère une demande de fusion (pull
+                request) dans le dépôt GitHub
+                <code>comenottaris/AUTOMEDIATHEQUE</code>. Elle doit être relue
+                et acceptée avant d’apparaître dans la base.
+              </p>
+            </form>
           </div>
         </section>
       </main>
 
-      <!-- ================= FOOTER / CRÉDITS ================= -->
       <footer class="am-footer">
-        <h2 class="am-section-title">Qu'est-ce qu'un automédia ?</h2>
         <p class="am-footer-text">
-         <br>Les automédias désignent l’ensemble des pratiques, dispositifs et réseaux par lesquels des acteurs collectifs 
-          — mouvements sociaux, collectifs militants, communautés en lutte ou d’entraide — produisent, publient et archivent eux-mêmes des récits, 
-          preuves et instruments de leur action politique. L’automédia combine autoproduction (contenu créé par les protagonistes), 
-          autogestion éditoriale (contrôle des formes, des cadres de diffusion et des dispositifs d’archivage) 
-          et polymédialité (texte, photo, audio, vidéo, livestream, zines, dépôts numériques), 
-          et vise à établir des régimes locaux de légitimation et de mémoire qui concurrencent ou complètent ceux des médias institutionnels. 
-        </p>
-        <p class="am-footer-text">
-          Données chargées depuis <code>automedias.json</code> et
-          <code>propositions.json</code>.
+          Retour à la liste : <a href="index.html">Automédiathèque</a>.
         </p>
       </footer>
     </div>
-
-    <script src="assets/automediatheque.js"></script>
   </body>
 </html>
