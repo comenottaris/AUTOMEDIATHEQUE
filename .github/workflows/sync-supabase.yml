@@ -1,0 +1,42 @@
+name: Synchroniser les propositions Supabase
+
+on:
+  schedule:
+    # toutes les 15 minutes
+    - cron: "*/15 * * * *"
+  workflow_dispatch: {}
+
+jobs:
+  sync-supabase:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Configurer Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Lancer le script de sync
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/sync-supabase.js
+
+      - name: Commiter les changements (si nécessaire)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if git diff --quiet; then
+            echo "Aucun changement à commiter."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add data/propositions.json data/supabase-state.json || true
+          git commit -m "Import automatique de nouvelles propositions Supabase"
+          git push
