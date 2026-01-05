@@ -2,73 +2,46 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <title>Proposer un automédia – Automédiathèque</title>
+    <title>Proposer un automédia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assets/automediatheque.css" />
   </head>
   <body>
     <div class="am-page">
-      <!-- ================= HEADER ================= -->
       <header class="am-hero am-hero--center">
         <div class="am-hero-inner">
           <p class="am-kicker">Ressources · Automédias</p>
-
           <h1 class="am-hero-title">Proposer un automédia</h1>
-
           <p class="am-hero-lead">
             Ce formulaire permet de proposer un automédia à ajouter à la base.
           </p>
-
           <p class="am-hero-text">
-            Les propositions ne demandent aucune information personnelle : seules
-            les informations sur l’automédia sont envoyées. Tu peux donc
-            contribuer de façon anonyme.
+            Aucune donnée personnelle n’est demandée : seules les infos
+            sur l’automédia sont envoyées. Tu peux contribuer de façon anonyme.
           </p>
         </div>
       </header>
 
       <hr class="am-divider" />
 
-      <!-- ================= CONTENU ================= -->
       <main class="am-main">
         <section class="am-section">
           <div class="am-section-inner">
             <p class="am-section-intro">
-              Merci de remplir au mieux les champs ci-dessous. Les propositions
-              seront ensuite relues et ajoutées manuellement dans la base
-              <code>automedias.json</code>.
+              Les propositions seront stockées dans une base Supabase (open
+              source), puis synchronisées automatiquement dans
+              <code>data/propositions.json</code>.
             </p>
 
-    
-            <form
-              class="am-form"
-              action="https://formspree.io/f/mdakbqej"
-              method="POST"
-              accept-charset="UTF-8"
-            >
-              <!-- Pour t'aider à trier les mails côté Formspree -->
-              <input
-                type="hidden"
-                name="_subject"
-                value="Nouvelle proposition Automédiathèque"
-              />
-
-              <!-- ================= INFOS PRINCIPALES ================= -->
+            <form id="proposition-form" class="am-form">
               <fieldset class="am-fieldset">
                 <legend class="am-section-title">Informations principales</legend>
 
-                <!-- Nom -->
                 <label class="am-field">
                   <span class="am-field-label">Nom de l’automédia *</span>
-                  <input
-                    class="am-input"
-                    type="text"
-                    name="name"
-                    required
-                  />
+                  <input class="am-input" type="text" name="name" required />
                 </label>
 
-                <!-- URL -->
                 <label class="am-field">
                   <span class="am-field-label">URL principale *</span>
                   <input
@@ -80,7 +53,6 @@
                   />
                 </label>
 
-                <!-- Type -->
                 <label class="am-field">
                   <span class="am-field-label">
                     Type (site, carte, zine PDF, canal Telegram, etc.)
@@ -93,7 +65,6 @@
                   />
                 </label>
 
-                <!-- Pays / zone -->
                 <label class="am-field">
                   <span class="am-field-label">Pays / zone</span>
                   <input
@@ -104,7 +75,6 @@
                   />
                 </label>
 
-                <!-- Langues -->
                 <label class="am-field">
                   <span class="am-field-label">Langues</span>
                   <input
@@ -114,26 +84,11 @@
                     placeholder="fr, en, es… (séparées par des virgules)"
                   />
                 </label>
-
-                <!-- Statut -->
-                <label class="am-field">
-                  <span class="am-field-label">
-                    Statut (en ligne, archivé…)
-                  </span>
-                  <input
-                    class="am-input"
-                    type="text"
-                    name="status"
-                    placeholder="online, offline, archived…"
-                  />
-                </label>
               </fieldset>
 
-              <!-- ================= DESCRIPTION ================= -->
               <fieldset class="am-fieldset">
                 <legend class="am-section-title">Description</legend>
 
-                <!-- Description -->
                 <label class="am-field">
                   <span class="am-field-label">
                     Brève description de l’automédia *
@@ -146,7 +101,6 @@
                   ></textarea>
                 </label>
 
-                <!-- Notes libres -->
                 <label class="am-field">
                   <span class="am-field-label">
                     Notes complémentaires (optionnel)
@@ -160,11 +114,8 @@
                 </label>
               </fieldset>
 
-              <!-- ================= ANTI-SPAM (HONEYPOT) ================= -->
-              <div
-                style="position:absolute;left:-9999px;"
-                aria-hidden="true"
-              >
+              <!-- Honeypot anti-spam -->
+              <div style="position:absolute; left:-9999px;" aria-hidden="true">
                 <label>
                   Ne pas remplir ce champ (anti‑spam)
                   <input
@@ -176,16 +127,11 @@
                 </label>
               </div>
 
-              <!-- ================= BOUTON ================= -->
               <button type="submit" class="am-button">
                 Envoyer la proposition
               </button>
 
-              <p class="am-hero-note">
-                Après envoi, les informations sont stockées sur Formspree.
-                Elles seront ensuite intégrées manuellement à la base
-                <code>automedias.json</code> et <code>propositions.json</code>.
-              </p>
+              <p id="form-message" class="am-hero-note"></p>
             </form>
           </div>
         </section>
@@ -197,5 +143,66 @@
         </p>
       </footer>
     </div>
+
+    <script type="module">
+      // À REMPLACER par ton projet Supabase
+      const SUPABASE_URL = "https://fnxxhuyqhhpfjvgmcbjz.supabase.co";
+      const SUPABASE_ANON_KEY = "sb_secret_7_ij7WuIPIyxGZHoCVzdLA_9oLT_lmn";
+
+      const form = document.getElementById("proposition-form");
+      const messageEl = document.getElementById("form-message");
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        messageEl.textContent = "Envoi en cours…";
+
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
+
+        // honeypot : si rempli, on ignore (bot)
+        if (data.website) {
+          messageEl.textContent = "Merci.";
+          form.reset();
+          return;
+        }
+
+        const payload = {
+          name: data.name,
+          url: data.url,
+          type: data.type || null,
+          country: data.country || null,
+          languages: data.languages || null,
+          description: data.description,
+          notes: data.notes || null
+        };
+
+        try {
+          const res = await fetch(`${SUPABASE_URL}/rest/v1/propositions`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              apikey: SUPABASE_ANON_KEY,
+              Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+              Prefer: "return=minimal"
+            },
+            body: JSON.stringify(payload)
+          });
+
+          if (!res.ok) {
+            const text = await res.text();
+            console.error("Erreur Supabase:", res.status, text);
+            throw new Error("Échec de l’enregistrement");
+          }
+
+          messageEl.textContent =
+            "Merci ! La proposition a été enregistrée et sera bientôt visible dans la base.";
+          form.reset();
+        } catch (err) {
+          console.error(err);
+          messageEl.textContent =
+            "Une erreur est survenue pendant l’envoi. Tu peux réessayer plus tard.";
+        }
+      });
+    </script>
   </body>
 </html>
