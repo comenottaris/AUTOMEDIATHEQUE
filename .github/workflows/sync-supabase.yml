@@ -4,23 +4,10 @@ permissions:
   contents: write
 
 on:
-  workflow_dispatch:
-  schedule:
-    - cron: '0 * * * *'
-  # etc.
-
-jobs:
-  sync:
-    runs-on: ubuntu-latest
-    steps:
-      # ...
-
-
-on:
   schedule:
     # toutes les 15 minutes
     - cron: "*/15 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 jobs:
   sync-supabase:
@@ -29,6 +16,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # nécessaire pour pouvoir rebase avant de push
+          fetch-depth: 0
 
       - name: Configurer Node.js
         uses: actions/setup-node@v4
@@ -41,18 +31,26 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node scripts/sync-supabase.js
 
-      - name: Commiter les changements (si nécessaire)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commiter et pousser les changements (si nécessaire)
         run: |
-          if git diff --quiet; then
-            echo "Aucun changement à commiter."
-            exit 0
-          fi
+          set -e
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # On ajoute explicitement les fichiers générés
           git add data/propositions.json data/supabase-state.json || true
+
+          # S'il n'y a rien de nouveau dans l'index, on sort
+          if git diff --cached --quiet; then
+            echo "Aucun changement à commiter."
+            exit 0
+          fi
+
           git commit -m "Import automatique de nouvelles propositions Supabase"
-          git push
+
+          # Récupérer les derniers commits distants et rebaser notre commit dessus
+          git pull --rebase origin main
+
+          # Puis pousser
+          git push origin HEAD:main
