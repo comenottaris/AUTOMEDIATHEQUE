@@ -1,5 +1,21 @@
 name: Synchroniser les propositions Supabase
 
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+  # etc.
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      # ...
+
+
 on:
   schedule:
     # toutes les 15 minutes
