@@ -1,14 +1,12 @@
-
-yaml_content = """name: Synchroniser les propositions Supabase
+name: Synchroniser les propositions Supabase
 
 permissions:
   contents: write
 
 on:
   schedule:
-    # toutes les 15 minutes
     - cron: "*/15 * * * *"
-  workflow_dispatch: {}
+  workflow_dispatch:
 
 jobs:
   sync-supabase:
@@ -35,29 +33,16 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -e
-
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-
+          
           git add data/propositions.json data/supabase-state.json || true
-
-          # Vérifie s'il y a des changements dans l'index
+          
           if git diff --cached --quiet; then
-            echo "Aucun changement à commiter."
+            echo "Aucun changement a commiter."
             exit 0
           fi
-
+          
           git commit -m "Import automatique de nouvelles propositions Supabase"
-
-          # Récupère les derniers changements avant de pousser
           git pull --rebase origin main
-
-          # Pousse le commit
           git push origin HEAD:main
-"""
-
-with open("sync-supabase-workflow.yml", "w", encoding="utf-8") as f:
-    f.write(yaml_content)
-
-print("Fichier YAML généré : sync-supabase-workflow.yml")
