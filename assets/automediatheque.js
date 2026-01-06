@@ -1,7 +1,7 @@
 // assets/automediatheque.js
 
 // Si automedias.json est à la racine à côté de index.html :
-const DATA_URL = './automedias.json';
+const DATA_URL = './data/automedias.json';
 const PROPOSALS_URL = './data/propositions.json';
 // Si tu les mets dans assets/, utilise :
 // const DATA_URL = './assets/automedias.json';
