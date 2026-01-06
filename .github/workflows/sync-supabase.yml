@@ -17,6 +17,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          ref: main
 
       - name: Configurer Node.js
         uses: actions/setup-node@v4
@@ -33,16 +34,24 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
+          
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           
           git add data/propositions.json data/supabase-state.json || true
           
           if git diff --cached --quiet; then
-            echo "Aucun changement a commiter."
+            echo "=== Aucun changement a commiter ==="
             exit 0
           fi
           
+          echo "=== Commit des changements ==="
           git commit -m "Import automatique de nouvelles propositions Supabase"
-          git pull --rebase origin main
+          
+          echo "=== Pull rebase ==="
+          git fetch origin main
+          git rebase origin/main
+          
+          echo "=== Push ==="
           git push origin HEAD:main
