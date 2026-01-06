@@ -30,28 +30,12 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node scripts/sync-supabase.js
 
-      - name: Commiter et pousser les changements
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commiter et pousser
         run: |
-          set -e
-          
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          
-          git add data/propositions.json data/supabase-state.json || true
-          
-          if git diff --cached --quiet; then
-            echo "=== Aucun changement a commiter ==="
-            exit 0
-          fi
-          
-          echo "=== Commit des changements ==="
-          git commit -m "Import automatique de nouvelles propositions Supabase"
-          
-          echo "=== Pull rebase ==="
-          git fetch origin main
-          git rebase origin/main
-          
-          echo "=== Push ==="
-          git push origin HEAD:main
+          git add -A
+          git diff --cached --quiet && echo "Rien a commiter" && exit 0
+          git commit -m "Sync Supabase"
+          git pull --rebase origin main || true
+          git push origin main --force-with-lease
