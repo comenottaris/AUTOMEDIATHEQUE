@@ -1,4 +1,5 @@
-name: Synchroniser les propositions Supabase
+
+yaml_content = """name: Synchroniser les propositions Supabase
 
 permissions:
   contents: write
@@ -7,7 +8,7 @@ on:
   schedule:
     # toutes les 15 minutes
     - cron: "*/15 * * * *"
-  workflow_dispatch:
+  workflow_dispatch: {}
 
 jobs:
   sync-supabase:
@@ -17,7 +18,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # nécessaire pour pouvoir rebase avant de push
           fetch-depth: 0
 
       - name: Configurer Node.js
@@ -31,17 +31,18 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
         run: node scripts/sync-supabase.js
 
-      - name: Commiter et pousser les changements (si nécessaire)
+      - name: Commiter et pousser les changements
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -e
 
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          # On ajoute explicitement les fichiers générés
           git add data/propositions.json data/supabase-state.json || true
 
-          # S'il n'y a rien de nouveau dans l'index, on sort
+          # Vérifie s'il y a des changements dans l'index
           if git diff --cached --quiet; then
             echo "Aucun changement à commiter."
             exit 0
@@ -49,8 +50,14 @@ jobs:
 
           git commit -m "Import automatique de nouvelles propositions Supabase"
 
-          # Récupérer les derniers commits distants et rebaser notre commit dessus
+          # Récupère les derniers changements avant de pousser
           git pull --rebase origin main
 
-          # Puis pousser
+          # Pousse le commit
           git push origin HEAD:main
+"""
+
+with open("sync-supabase-workflow.yml", "w", encoding="utf-8") as f:
+    f.write(yaml_content)
+
+print("Fichier YAML généré : sync-supabase-workflow.yml")
