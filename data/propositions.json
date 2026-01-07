@@ -6,9 +6,8 @@
     "country": "France",
     "languages": ["fr"],
     "status": "proposed",
-    "description": "média d’info local qui raconte, relaie, rassemble, aux côtés de ceux qui se battent pour une Marseille
-bouillonnante, indomptable et mélangée.",
-    "notes": "",
+    "description": "info locale des luttes de marseille",
+    "notes": "vidéos",
     "source": "supabase",
     "createdAt": "2026-01-05T23:58:43.620068+00:00"
   },
