@@ -2,11 +2,12 @@
   {
     "name": "primitivi",
     "url": "http://www.primitivi.org/",
-    "type": null,
-    "country": null,
-    "languages": [],
+    "type": site,
+    "country": France,
+    "languages": [fr],
     "status": "proposed",
-    "description": "tip top ",
+    "description": " « téloche de rue » / média d’info local qui raconte, relaie, rassemble, aux côtés de ceux qui se battent pour une Marseille
+bouillonnante, indomptable et mélangée.",
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-01-05T23:58:43.620068+00:00"
@@ -14,11 +15,11 @@
   {
     "name": "Lyon2autonome",
     "url": "https://Instagram.com/lyon2autonome",
-    "type": null,
-    "country": null,
-    "languages": [],
+    "type": Instagram,
+    "country": France,
+    "languages": [fr],
     "status": "proposed",
-    "description": "Test",
+    "description": "Groupe ouvert autonome de l'université Lyon 2 Lumière",
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-01-06T12:08:31.125995+00:00"
