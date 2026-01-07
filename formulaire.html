@@ -16,8 +16,7 @@
             Ce formulaire permet de proposer un automédia à ajouter à la base.
           </p>
           <p class="am-hero-text">
-            Aucune donnée personnelle n’est demandée : seules les infos
-            sur l’automédia sont envoyées. Tu peux contribuer de façon anonyme.
+            Aucune donnée personnelle n’est demandée. Tu peux contribuer de façon anonyme.
           </p>
         </div>
       </header>
@@ -55,13 +54,13 @@
 
                 <label class="am-field">
                   <span class="am-field-label">
-                    Type (site, carte, zine PDF, canal Telegram, etc.)
+                    Type 
                   </span>
                   <input
                     class="am-input"
                     type="text"
                     name="type"
-                    placeholder="site, telegram, video, map, zine, pdf…"
+                    placeholder="site, radio, Instagram, zine, canal Telegram, etc."
                   />
                 </label>
 
@@ -195,12 +194,12 @@
           }
 
           messageEl.textContent =
-            "Merci ! La proposition a été enregistrée et sera bientôt visible dans la base.";
+            "Merci ! Ta proposition sera bientôt visible dans la base !";
           form.reset();
         } catch (err) {
           console.error(err);
           messageEl.textContent =
-            "Une erreur est survenue pendant l’envoi. Tu peux réessayer plus tard.";
+            "Une erreur est survenue pendant l’envoi. Désolé, c'est sûrement un problème technique de mon côté, il va falloir réessayer plus tard...";
         }
       });
     </script>
