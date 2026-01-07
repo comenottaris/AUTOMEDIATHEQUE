@@ -205,11 +205,11 @@ function renderList(list) {
     const card = document.createElement('article');
     card.className = 'am-card';
 
-        // Classe spéciale si c'est une proposition
+    // Classe spéciale si c'est une proposition
     if (media.__origin === 'proposed') {
       card.classList.add('am-card-proposed');
     }
-  
+
     // Titre
     const header = document.createElement('div');
     header.className = 'am-card-header';
@@ -227,6 +227,17 @@ function renderList(list) {
     } else {
       title.textContent = media.name || 'Sans nom';
     }
+
+    // Petit label "Proposition" dans le header si besoin
+    if (media.__origin === 'proposed') {
+      const badge = document.createElement('span');
+      badge.className = 'am-badge am-badge-proposed';
+      badge.textContent = 'Proposition';
+      header.appendChild(badge);
+    }
+
+    header.appendChild(title);
+    card.appendChild(header);
 
     // Tags / méta
     const meta = document.createElement('div');
