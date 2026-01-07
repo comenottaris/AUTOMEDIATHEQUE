@@ -114,8 +114,7 @@
     "languages": ["en"],
     "country": "USA",
     "status": "online",
-    "description": "organisation décentralisée et éducative à but non lucratif. 
-    Plate-forme accessible pour diverses communautés et fabricant·es de médias."
+    "description": "organisation décentralisée et éducative à but non lucratif. Plate-forme accessible pour diverses communautés et fabricant·es de médias."
   },
   {
     "name": "Enlace Zapatista",
@@ -154,5 +153,6 @@
     "description": "Coordination rassemblant tous les collectifs de mineur·es non accompagné·es en lutte pour leurs droits."
   }
 ]
+
 
 
