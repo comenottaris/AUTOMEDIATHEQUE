@@ -228,17 +228,6 @@ function renderList(list) {
       title.textContent = media.name || 'Sans nom';
     }
 
-    // Petit label "Proposition" dans le header si besoin
-    if (media.__origin === 'proposed') {
-      const badge = document.createElement('span');
-      badge.className = 'am-badge am-badge-proposed';
-      badge.textContent = 'Proposition';
-      header.appendChild(badge);
-    }
-
-    header.appendChild(title);
-    card.appendChild(header);
-
     // Tags / méta
     const meta = document.createElement('div');
     meta.className = 'am-card-meta';
