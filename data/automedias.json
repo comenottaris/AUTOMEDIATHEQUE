@@ -78,9 +78,7 @@
     "languages": ["en"],
     "country": "Ukraine",
     "status": "online",
-    "description": "groupe d'anarchistes et d'anti-autoritaires ukrainiens qui se sont uni·es 
-    en 2022 pour soutenir les personnes qui luttent contre l'agression 
-    impériale russe en Ukraine et aider les personnes touchées par la guerre."
+    "description": "groupe d'anarchistes et d'anti-autoritaires ukrainiens qui se sont uni·es pour soutenir les personnes qui luttent contre l'agression impériale russe en Ukraine et aider les personnes touchées par la guerre."
   },
   {
     "name": "Rojava Information Center",
@@ -89,8 +87,7 @@
     "languages": ["en"],
     "country": "Kurdistan",
     "status": "online",
-    "description": "Organisation indépendante et bénévole basée dans le nord-est de la Syrie. 
-    Aide des journalistes et des chercheur·euses à couvrir la situation sur place."
+    "description": "Organisation indépendante et bénévole basée dans le nord-est de la Syrie. Aide des journalistes et des chercheur·euses à couvrir la situation sur place."
   },
   {
     "name": "Réseau MUTU",
@@ -121,24 +118,6 @@
     Plate-forme accessible pour diverses communautés et fabricant·es de médias."
   },
   {
-    "name": "Anarchist Black Cross Paris",
-    "url": "https://parisabc.noblogs.org/",
-    "type": "noblogs",
-    "languages": ["en", "fr"],
-    "country": "France",
-    "status": "online",
-    "description": "Branche parisienne de l’Anarchist Black Cross, réseau international de collectifs engagés dans la lutte anticarcérale et l’antirépression."
-  },
-  {
-    "name": "Anarchist Libraries",
-    "url": "https://anarchistlibraries.net/",
-    "type": "site",
-    "languages": ["en"],
-    "country": "International",
-    "status": "online",
-    "description": ""
-  },
-  {
     "name": "Enlace Zapatista",
     "url": "https://enlacezapatista.ezln.org.mx/",
     "type": "site",
@@ -146,15 +125,6 @@
     "country": "Mexico",
     "status": "online",
     "description": "Commission Sexta de l’EZLN."
-  },
-  {
-    "name": "Mutual Aid Wiki",
-    "url": "https://mutualaid.wiki/",
-    "type": "other",
-    "languages": ["en"],
-    "country": "International",
-    "status": "online",
-    "description": ""
   },
   {
     "name": "Collectif des Jeunes du Parc de Belleville",
@@ -184,4 +154,5 @@
     "description": "Coordination rassemblant tous les collectifs de mineur·es non accompagné·es en lutte pour leurs droits."
   }
 ]
+
 
