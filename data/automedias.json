@@ -27,15 +27,6 @@
     "description": ""
   },
   {
-    "name": "CrimethInc.",
-    "url": "https://crimethinc.com/",
-    "type": "site",
-    "languages": ["en"],
-    "country": "USA",
-    "status": "online",
-    "description": "A think tank / banner for anonymous collective action, based in the US."
-  },
-  {
     "name": "Bure Zone Libre",
     "url": "https://burezonelibre.noblogs.org/",
     "type": "noblogs",
@@ -43,15 +34,6 @@
     "country": "France",
     "status": "online",
     "description": "Site de la Maison de résistance à la poubelle nucléaire."
-  },
-  {
-    "name": "InMedia HK",
-    "url": "https://www.inmediahk.net/",
-    "type": "site",
-    "languages": [],
-    "country": "Hong Kong",
-    "status": "online",
-    "description": "Pro-democratic media outlet in Hong Kong, listed among the most credible online media in local surveys."
   },
   {
     "name": "Indymedia",
@@ -69,7 +51,7 @@
     "languages": ["pt-BR"],
     "country": "Brazil",
     "status": "online",
-    "description": ""
+    "description": "média indépendant brésilien sur les luttes des concerné·es"
   },
   {
     "name": "ZAD Nadir",
@@ -87,7 +69,7 @@
     "languages": ["fr"],
     "country": "International",
     "status": "online",
-    "description": ""
+    "description": "blog de la ZAD de Notre Dame des Landes"
   },
   {
     "name": "Solidarity Collectives",
@@ -96,7 +78,9 @@
     "languages": ["en"],
     "country": "Ukraine",
     "status": "online",
-    "description": ""
+    "description": "groupe d'anarchistes et d'anti-autoritaires ukrainiens qui se sont uni·es 
+    en 2022 pour soutenir les personnes qui luttent contre l'agression 
+    impériale russe en Ukraine et aider les personnes touchées par la guerre."
   },
   {
     "name": "Rojava Information Center",
@@ -105,16 +89,8 @@
     "languages": ["en"],
     "country": "Kurdistan",
     "status": "online",
-    "description": "Volunteer staff of international journalists and media activists supporting a free press in North and East Syria."
-  },
-  {
-    "name": "Mutual Aid UK",
-    "url": "https://mutual-aid.co.uk/",
-    "type": "other",
-    "languages": ["en"],
-    "country": "United Kingdom",
-    "status": "online",
-    "description": ""
+    "description": "Organisation indépendante et bénévole basée dans le nord-est de la Syrie. 
+    Aide des journalistes et des chercheur·euses à couvrir la situation sur place."
   },
   {
     "name": "Réseau MUTU",
@@ -123,7 +99,7 @@
     "languages": ["fr"],
     "country": "France",
     "status": "online",
-    "description": "Regroupe les articles mis en une des sites d’info militants français."
+    "description": "Portail de sites d’info militants français."
   },
   {
     "name": "Coordination des sans papiers de Belgique",
@@ -141,7 +117,8 @@
     "languages": ["en"],
     "country": "USA",
     "status": "online",
-    "description": ""
+    "description": "organisation décentralisée et éducative à but non lucratif. 
+    Plate-forme accessible pour diverses communautés et fabricant·es de médias."
   },
   {
     "name": "Anarchist Black Cross Paris",
@@ -207,3 +184,4 @@
     "description": "Coordination rassemblant tous les collectifs de mineur·es non accompagné·es en lutte pour leurs droits."
   }
 ]
+
