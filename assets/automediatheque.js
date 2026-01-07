@@ -232,7 +232,6 @@ function renderList(list) {
     if (media.__origin === 'proposed') {
       const badge = document.createElement('span');
       badge.className = 'am-badge am-badge-proposed';
-      badge.textContent = 'Proposition';
       header.appendChild(badge);
     }
 
