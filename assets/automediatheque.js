@@ -205,6 +205,11 @@ function renderList(list) {
     const card = document.createElement('article');
     card.className = 'am-card';
 
+        // Classe spéciale si c'est une proposition
+    if (media.__origin === 'proposed') {
+      card.classList.add('am-card-proposed');
+    }
+  
     // Titre
     const header = document.createElement('div');
     header.className = 'am-card-header';
