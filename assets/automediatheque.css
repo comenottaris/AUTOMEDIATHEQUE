@@ -134,7 +134,7 @@ body {
 
 .am-field {
   display: flex;
-  flex-direction: line;
+  flex-direction: row;
   gap: 0.25rem;
   font-size: 0.8rem;
 }
