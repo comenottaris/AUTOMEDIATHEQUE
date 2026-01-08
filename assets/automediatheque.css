@@ -218,6 +218,7 @@ body {
 
 .am-results-wrapper {
   margin-top: 0.3rem;
+  padding: 0 40px;
 }
 
 .am-grid {
@@ -225,6 +226,7 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 0.9rem;
 }
+
 
 /* Carte */
 
