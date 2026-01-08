@@ -122,27 +122,30 @@ body {
 }
 
 .am-toolbar-left {
-  display: flex;
-  flex-wrap: wrap;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  flex-direction: row !important;
   gap: 0.75rem;
-  align-items: center;
+  align-items: center !important;
 }
 
 .am-toolbar-right {
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
 }
 
 .am-field {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
   gap: 0.25rem;
   font-size: 0.8rem;
 }
 
 .am-field-label {
   color: var(--am-text-soft);
+  white-space: nowrap;
 }
 
 .am-select {
