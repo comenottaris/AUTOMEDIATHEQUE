@@ -52,60 +52,60 @@
       <!-- ================= CONTENU PRINCIPAL ================= -->
       <main class="am-main">
         <!-- --------- Section filtres / légende --------- -->
-        <section class="am-filters-section">
+   <section class="am-filters-section">
+  <div class="am-toolbar">
+    <!-- Filtres -->
+    <div class="am-toolbar-left">
+      <!-- TYPE -->
+      <label class="am-field">
+        <span class="am-field-label">Type</span>
+        <select id="am-filter-type" class="am-select">
+          <!-- option par défaut -->
+          <option value="">Tous les types</option>
+          <!-- les autres options sont ajoutées en JS à partir du JSON -->
+        </select>
+      </label>
 
-          <div class="am-toolbar">
-            <!-- Filtres -->
-            <div class="am-toolbar-filters">
-              <!-- TYPE -->
-              <label class="am-field">
-                <span class="am-field-label">Type</span>
-                <select id="am-filter-type" class="am-select">
-                  <!-- option par défaut -->
-                  <option value="">Tous les types</option>
-                  <!-- les autres options sont ajoutées en JS à partir du JSON -->
-                </select>
-              </label>
+      <!-- PAYS -->
+      <label class="am-field">
+        <span class="am-field-label">Pays</span>
+        <select id="am-filter-country" class="am-select">
+          <option value="">Tous</option>
+          <!-- valeurs par défaut, remplacées/complétées par le JS -->
+          <option value="France">France</option>
+          <option value="Belgique">Belgique</option>
+          <option value="Brazil">Brésil</option>
+          <option value="Hong Kong">Hong Kong</option>
+          <option value="International">International</option>
+          <option value="Kurdistan">Kurdistan</option>
+          <option value="Mexico">Mexique</option>
+          <option value="Ukraine">Ukraine</option>
+          <option value="United Kingdom">Royaume‑Uni</option>
+          <option value="USA">États‑Unis (USA)</option>
+        </select>
+      </label>
 
-              <!-- PAYS -->
-              <label class="am-field">
-                <span class="am-field-label">Pays</span>
-                <select id="am-filter-country" class="am-select">
-                  <option value="">Tous</option>
-                  <!-- valeurs par défaut, remplacées/complétées par le JS -->
-                  <option value="France">France</option>
-                  <option value="Belgique">Belgique</option>
-                  <option value="Brazil">Brésil</option>
-                  <option value="Hong Kong">Hong Kong</option>
-                  <option value="International">International</option>
-                  <option value="Kurdistan">Kurdistan</option>
-                  <option value="Mexico">Mexique</option>
-                  <option value="Ukraine">Ukraine</option>
-                  <option value="United Kingdom">Royaume‑Uni</option>
-                  <option value="USA">États‑Unis (USA)</option>
-                </select>
-              </label>
+      <!-- STATUT (validés / propositions) -->
+      <label class="am-field">
+        <span class="am-field-label">Statut</span>
+        <select id="am-filter-origin" class="am-select">
+          <option value="">Tous</option>
+          <option value="validated">Validés</option>
+          <option value="proposed">Proposés</option>
+        </select>
+      </label>
+    </div>
 
-              <!-- STATUT (validés / propositions) -->
-              <label class="am-field">
-                <span class="am-field-label">Statut</span>
-                <select id="am-filter-origin" class="am-select">
-                  <option value="">Tous</option>
-                  <option value="validated">Validés</option>
-                  <option value="proposed">Proposés</option>
-                </select>
-              </label>
-            </div>
+    <!-- Légende des pastilles -->
+    <div class="am-toolbar-right">
+      <span class="am-legend-label">Légende</span>
+      <span class="am-pill am-pill-type">Type</span>
+      <span class="am-pill am-pill-country">Pays</span>
+      <span class="am-pill am-pill-lang">Langue</span>
+    </div>
+  </div>
+</section>
 
-            <!-- Légende des pastilles -->
-            <div class="am-toolbar-legend">
-              <span class="am-legend-label">Légende</span>
-              <span class="am-pill am-pill-type">Type</span>
-              <span class="am-pill am-pill-country">Pays</span>
-              <span class="am-pill am-pill-lang">Langue</span>
-            </div>
-          </div>
-        </section>
 
         <!-- --------- Section résultats --------- -->
         <section class="am-results-section">
