@@ -46,29 +46,36 @@
   }
 
   #custom-cursor {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: #000;
-    position: fixed;
-    top: 0;
-    left: 0;
-    pointer-events: none;
-    z-index: 99999;
-    transform: translate(-50%, -50%);
-    transition: background-color 0.15s ease, transform 0.15s ease, width 0.15s ease, height 0.15s ease;
-    will-change: transform, left, top;
-  }
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.15s ease, transform 0.15s ease, width 0.15s ease, height 0.15s ease;
+  will-change: transform, left, top;
+}
 
-  #custom-cursor.hovering {
-    background-color: #444;
-    width: 32px;
-    height: 32px;
-  }
+#custom-cursor.hovering {
+  background-color: #444;
+  width: 32px;
+  height: 32px;
+}
 
-  #custom-cursor.hidden {
-    opacity: 0;
-  }
+#custom-cursor.hidden {
+  opacity: 0;
+}
+
+.am-card-title:hover ~ #custom-cursor,
+.am-pill-link:hover ~ #custom-cursor,
+.am-pill.am-pill-type:hover ~ #custom-cursor {
+  background-color: #e63946 !important;
+}
+
 
   /* === MODAL ZOOM CARTES === */
   #card-modal {
