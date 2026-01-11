@@ -47,15 +47,35 @@
 
       <!-- ================= CONTENU PRINCIPAL ================= -->
       <main class="am-main">
-        
-        <!-- --------- Section Outils et méthodes --------- -->
-        <section class="am-section">
-          <header class="am-state-header">
-            <h2 class="am-section-title">Outils et méthodes</h2>
-          </header>
-          <section class="am-page" id="resources"> <div class="am-hero am-hero--center"> <div class="am-hero-inner"> <p class="am-kicker">Ressources</p> <h1>Boîte à outils pour l'automédiation et l'automédias</h1> <p class="am-hero-lead">Catalogage d'outils libres / auto‑hébergeables et guides militants pour produire, archiver et diffuser des contenus de façon autonome et responsable.</p> </div> </div> <hr class="am-divider"> <!-- Barre de filtre (simple placeholder, personnalise si besoin) --> <div class="am-toolbar"> <div class="am-toolbar-left"> <div class="am-field"> <label class="am-field-label">Filtrer :</label> <select class="am-select" aria-label="filtre-categorie"> <option>Toutes les catégories</option> <option>Création</option> <option>Publication</option> <option>Hébergement</option> <option>Communication</option> <option>Guides</option> </select> </div> </div>
+   <section class="am-page" id="resources"> <div class="am-hero am-hero--center"> <div class="am-hero-inner"> <p class="am-kicker">Ressources</p> <h1>Boîte à outils pour l'automédiation et l'automédias</h1> <p class="am-hero-lead">Catalogage d'outils libres / auto‑hébergeables et guides militants pour produire, archiver et diffuser des contenus de façon autonome et responsable.</p> </div> </div> <hr class="am-divider"> <!-- Barre de filtres (3 critères : catégorie / type / langue) --> <div class="am-filters" aria-label="filtres"> <label style="display:flex;gap:0.5rem;align-items:center;"> <span style="font-weight:600;color:var(--am-text-softer);">Filtrer :</span> <select id="filter-category" class="am-select" aria-label="filtre-categorie"> <option value="all">Toutes les catégories</option> <option value="creation">Création</option> <option value="publication">Publication</option> <option value="hebergement">Hébergement</option> <option value="communication">Communication</option> <option value="formats">Formats</option> <option value="guides">Guides</option> </select> </label>
 
-<div class="am-toolbar-right">
+<label style="display:flex;gap:0.5rem;align-items:center;">
+  <span style="font-weight:600;color:var(--am-text-softer);">Type :</span>
+  <select id="filter-type" class="am-select" aria-label="filtre-type">
+    <option value="all">Tous types</option>
+    <option value="audio">Audio</option>
+    <option value="video">Vidéo</option>
+    <option value="microblog">Microblog</option>
+    <option value="storage">Stockage</option>
+    <option value="messagerie">Messagerie</option>
+    <option value="anonymat">Anonymat</option>
+    <option value="infrastructure">Infrastructure</option>
+  </select>
+</label>
+
+<label style="display:flex;gap:0.5rem;align-items:center;">
+  <span style="font-weight:600;color:var(--am-text-softer);">Langue :</span>
+  <select id="filter-lang" class="am-select" aria-label="filtre-lang">
+    <option value="all">Toutes langues</option>
+    <option value="fr">FR</option>
+    <option value="en">EN</option>
+    <option value="multi">Multi</option>
+  </select>
+</label>
+
+<button id="clear-filters" class="am-clear" title="Réinitialiser les filtres">Réinitialiser</button>
+
+<div style="margin-left:auto;">
   <button class="am-button-secondary">Télécharger la brochure complète (PDF)</button>
 </div>
 
@@ -67,88 +87,93 @@
   <p class="am-category-legend">Édition audio, vidéo, image et mise en forme pour produire localement en formats ouverts.</p>
 
   <div class="am-results-wrapper">
-    <div class="am-grid">
+    <div class="am-grid" id="cards-grid">
+
       <!-- OBS -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">OBS</div>
+      <article class="am-card" data-category="creation" data-type="video" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">OBS</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://obsproject.com" target="_blank" rel="noopener">OBS Studio</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Vidéo / Streaming</span>
-            <span class="am-pill am-pill-lang">Multi</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="video">Vidéo / Streaming</span>
+              <span class="am-pill am-pill-lang filterable" data-filter-lang="multi">Multi</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Capture et streaming open source — parfait pour émissions en direct, enregistrements de qualité, overlays et scènes multi‑sources.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://obsproject.com" target="_blank" rel="noopener">Site officiel</a>
-          <a class="am-btn secondary" href="https://obsproject.com/forum" target="_blank" rel="noopener">Docs / Forum</a>
+        <!-- Liens en bas sous forme de pastilles grises -->
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://obsproject.com" target="_blank" rel="noopener">Site officiel</a>
+          <a class="am-pill-link" href="https://obsproject.com/forum" target="_blank" rel="noopener">Docs / Forum</a>
         </div>
       </article>
 
       <!-- Audacity -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">AU</div>
+      <article class="am-card" data-category="creation" data-type="audio" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">AU</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://www.audacityteam.org" target="_blank" rel="noopener">Audacity</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Audio</span>
-            <span class="am-pill am-pill-lang">Multi</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="audio">Audio</span>
+              <span class="am-pill am-pill-lang filterable" data-filter-lang="multi">Multi</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Montage audio gratuit et simple, utile pour podcasts et enregistrements bruts. Compatible avec formats ouverts (WAV, FLAC).</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://www.audacityteam.org" target="_blank" rel="noopener">Télécharger</a>
-          <a class="am-btn secondary" href="https://manual.audacityteam.org" target="_blank" rel="noopener">Guide utilisateur</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://www.audacityteam.org" target="_blank" rel="noopener">Télécharger</a>
+          <a class="am-pill-link" href="https://manual.audacityteam.org" target="_blank" rel="noopener">Guide utilisateur</a>
         </div>
       </article>
 
       <!-- Ardour -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">AR</div>
+      <article class="am-card" data-category="creation" data-type="audio" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">AR</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://ardour.org" target="_blank" rel="noopener">Ardour</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">DAW / Audio pro</span>
-            <span class="am-pill am-pill-lang">Multi</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="audio">DAW / Audio pro</span>
+              <span class="am-pill am-pill-lang filterable" data-filter-lang="multi">Multi</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Station audio numérique professionnelle open source — idéale pour productions audio complexes et mixages multi‑pistes.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://ardour.org" target="_blank" rel="noopener">Site officiel</a>
-          <a class="am-btn secondary" href="https://ardour.org/support.html" target="_blank" rel="noopener">Support</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://ardour.org" target="_blank" rel="noopener">Site officiel</a>
+          <a class="am-pill-link" href="https://ardour.org/support.html" target="_blank" rel="noopener">Support</a>
         </div>
       </article>
 
       <!-- GIMP / Inkscape -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">GI</div>
-            <h4 class="am-card-title"><a href="https://www.gimp.org" target="_blank" rel="noopener">GIMP</a> &amp; <a href="https://inkscape.org" target="_blank" rel="noopener">Inkscape</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Image / Vectoriel</span>
-            <span class="am-pill am-pill-lang">Multi</span>
+      <article class="am-card" data-category="creation" data-type="image" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">GI</div>
+          <div style="flex:1;">
+            <h4 class="am-card-title">
+              <a href="https://www.gimp.org" target="_blank" rel="noopener">GIMP</a> &amp;
+              <a href="https://inkscape.org" target="_blank" rel="noopener">Inkscape</a>
+            </h4>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="image">Image / Vectoriel</span>
+              <span class="am-pill am-pill-lang filterable" data-filter-lang="multi">Multi</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Édition bitmap et vectorielle libres — pour visuels, vignettes, logos et mises en page d'affiches.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://www.gimp.org" target="_blank" rel="noopener">GIMP</a>
-          <a class="am-btn" href="https://inkscape.org" target="_blank" rel="noopener">Inkscape</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://www.gimp.org" target="_blank" rel="noopener">GIMP</a>
+          <a class="am-pill-link" href="https://inkscape.org" target="_blank" rel="noopener">Inkscape</a>
         </div>
       </article>
 
@@ -165,85 +190,85 @@
     <div class="am-grid">
 
       <!-- Mastodon -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">MD</div>
-            <h4 class="am-card-title"><a href="https://mastodon.social" target="_blank" rel="noopener">Mastodon (ActivityPub)</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Microblog / Fediverse</span>
-            <span class="am-pill am-pill-lang">Multi</span>
+      <article class="am-card" data-category="publication" data-type="microblog" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">MD</div>
+          <div style="flex:1;">
+            <h4 class="am-card-title"><a href="https://joinmastodon.org" target="_blank" rel="noopener">Mastodon (ActivityPub)</a></h4>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="microblog">Microblog / Fediverse</span>
+              <span class="am-pill am-pill-lang filterable" data-filter-lang="multi">Multi</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Réseau décentralisé compatible ActivityPub — utile pour créer un média textuel / micro‑édition sans dépendre d'une plateforme centralisée.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://joinmastodon.org" target="_blank" rel="noopener">En savoir +</a>
-          <a class="am-btn" href="https://www.w3.org/TR/activitypub/" target="_blank" rel="noopener">Spec ActivityPub</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://joinmastodon.org" target="_blank" rel="noopener">En savoir +</a>
+          <a class="am-pill-link" href="https://www.w3.org/TR/activitypub/" target="_blank" rel="noopener">Spec ActivityPub</a>
         </div>
       </article>
 
       <!-- PeerTube -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">PT</div>
+      <article class="am-card" data-category="publication" data-type="video" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">PT</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://joinpeertube.org" target="_blank" rel="noopener">PeerTube</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Vidéo décentralisée</span>
-            <span class="am-pill am-pill-lang">Multi</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="video">Vidéo décentralisée</span>
+              <span class="am-pill am-pill-lang filterable" data-filter-lang="multi">Multi</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Alternative auto‑hébergeable pour vidéos, fédérée au sein du Fediverse — intégration P2P pour réduire la bande passante.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://joinpeertube.org" target="_blank" rel="noopener">Site</a>
-          <a class="am-btn" href="https://peertube.video" target="_blank" rel="noopener">Exemples d'instances</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://joinpeertube.org" target="_blank" rel="noopener">Site</a>
+          <a class="am-pill-link" href="https://peertube.video" target="_blank" rel="noopener">Exemples d'instances</a>
         </div>
       </article>
 
       <!-- Funkwhale -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">FW</div>
+      <article class="am-card" data-category="publication" data-type="audio" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">FW</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://funkwhale.audio" target="_blank" rel="noopener">Funkwhale</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Audio / Musique</span>
-            <span class="am-pill am-pill-lang">Multi</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="audio">Audio / Musique</span>
+              <span class="am-pill am-pill-lang filterable" data-filter-lang="multi">Multi</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Plateforme fédérée pour diffusion audio (podcasts, albums) — idéale pour créer et partager catalogues audio hors plateformes centralisées.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://funkwhale.audio" target="_blank" rel="noopener">Site officiel</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://funkwhale.audio" target="_blank" rel="noopener">Site officiel</a>
         </div>
       </article>
 
       <!-- RSS & Podcast hosting -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">RSS</div>
+      <article class="am-card" data-category="publication" data-type="infrastructure" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">RSS</div>
+          <div style="flex:1;">
             <h4 class="am-card-title">RSS / Podcast (Hébergement)</h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Syndication</span>
-            <span class="am-pill am-pill-lang">Multi</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="infrastructure">Syndication</span>
+              <span class="am-pill am-pill-lang filterable" data-filter-lang="multi">Multi</span>
+            </div>
           </div>
         </div>
 
-        <p class="am-card-desc">Produire un flux RSS/podcast permet la syndication indépendante. Héberger en statique (S3/OVH/Scaleway) ou via services open (ovh, hetzner, etc.).</p>
+        <p class="am-card-desc">Produire un flux RSS/podcast permet la syndication indépendante. Héberger en statique (S3/OVH/Scaleway) ou via services open (OVH, Hetzner, etc.).</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://www.hugo-lang.org" target="_blank" rel="noopener">Hugo (SSG)</a>
-          <a class="am-btn" href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://www.hugo-lang.org" target="_blank" rel="noopener">Hugo (SSG)</a>
+          <a class="am-pill-link" href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>
         </div>
       </article>
 
@@ -260,80 +285,80 @@
     <div class="am-grid">
 
       <!-- Nextcloud -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">NC</div>
+      <article class="am-card" data-category="hebergement" data-type="storage" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">NC</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://nextcloud.com" target="_blank" rel="noopener">Nextcloud</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Stockage / Collaboration</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="storage">Stockage / Collaboration</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Cloud personnel auto‑hébergeable : fichiers, partage, calendriers, collaborative editing — utile pour équipes éditoriales décentralisées.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://nextcloud.com" target="_blank" rel="noopener">Site</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://nextcloud.com" target="_blank" rel="noopener">Site</a>
         </div>
       </article>
 
       <!-- Syncthing -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">SY</div>
+      <article class="am-card" data-category="hebergement" data-type="storage" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">SY</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://syncthing.net" target="_blank" rel="noopener">Syncthing</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Sync P2P</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="storage">Sync P2P</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Synchronisation de dossiers pair-à-pair sans serveur central — utile pour partager des dossiers volumineux entre collaborateurs.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://syncthing.net" target="_blank" rel="noopener">Télécharger</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://syncthing.net" target="_blank" rel="noopener">Télécharger</a>
         </div>
       </article>
 
       <!-- Archive.org -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">IA</div>
+      <article class="am-card" data-category="hebergement" data-type="infrastructure" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">IA</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Archivage öffentlich</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="infrastructure">Archivage public</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Archive publique et gratuite de contenus — utile pour déposer des copies publiques et assurer la pérennité documentaire.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://archive.org" target="_blank" rel="noopener">Visiter</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://archive.org" target="_blank" rel="noopener">Visiter</a>
         </div>
       </article>
 
       <!-- Hetzner / Scaleway info -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">HV</div>
+      <article class="am-card" data-category="hebergement" data-type="infrastructure" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">HV</div>
+          <div style="flex:1;">
             <h4 class="am-card-title">Hébergeurs recommandés</h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Infrastructure</span>
-            <span class="am-pill am-pill-country">EU</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="infrastructure">Infrastructure</span>
+              <span class="am-pill am-pill-country">EU</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Exemples d'hébergeurs européens adaptés aux projets auto‑hébergés (serveurs VPS, stockage objet, offres respectueuses des données).</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://hetzner.com" target="_blank" rel="noopener">Hetzner</a>
-          <a class="am-btn" href="https://scaleway.com" target="_blank" rel="noopener">Scaleway</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://hetzner.com" target="_blank" rel="noopener">Hetzner</a>
+          <a class="am-pill-link" href="https://scaleway.com" target="_blank" rel="noopener">Scaleway</a>
         </div>
       </article>
 
@@ -350,81 +375,81 @@
     <div class="am-grid">
 
       <!-- Signal -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">SI</div>
+      <article class="am-card" data-category="communication" data-type="messagerie" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">SI</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://signal.org" target="_blank" rel="noopener">Signal</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Messagerie chiffrée</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="messagerie">Messagerie chiffrée</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Messagerie instantanée à chiffrement de bout en bout — bon compromis confidentialité et facilité d'usage pour équipes.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://signal.org" target="_blank" rel="noopener">Site</a>
-          <a class="am-btn" href="https://signal.org/docs" target="_blank" rel="noopener">Docs</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://signal.org" target="_blank" rel="noopener">Site</a>
+          <a class="am-pill-link" href="https://signal.org/docs" target="_blank" rel="noopener">Docs</a>
         </div>
       </article>
 
       <!-- Matrix / Element -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">MX</div>
+      <article class="am-card" data-category="communication" data-type="messagerie" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">MX</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://matrix.org" target="_blank" rel="noopener">Matrix (Element)</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Chat décentralisé</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="messagerie">Chat décentralisé</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Protocole open source pour messagerie et rooms fédérées — très adapté au travail d'équipe et intégration bots/archives.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://matrix.org" target="_blank" rel="noopener">Matrix</a>
-          <a class="am-btn" href="https://element.io" target="_blank" rel="noopener">Element (client)</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://matrix.org" target="_blank" rel="noopener">Matrix</a>
+          <a class="am-pill-link" href="https://element.io" target="_blank" rel="noopener">Element (client)</a>
         </div>
       </article>
 
       <!-- Tor / Tails -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">TO</div>
+      <article class="am-card" data-category="communication" data-type="anonymat" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">TO</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://www.torproject.org" target="_blank" rel="noopener">Tor &amp; Tails</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Anonymat</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="anonymat">Anonymat</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Outils pour navigation anonyme et pour créer des environnements temporaires (Tails) — à utiliser avec prudence suivant le contexte opérationnel.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://www.torproject.org" target="_blank" rel="noopener">Tor</a>
-          <a class="am-btn" href="https://tails.boum.org" target="_blank" rel="noopener">Tails</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://www.torproject.org" target="_blank" rel="noopener">Tor</a>
+          <a class="am-pill-link" href="https://tails.boum.org" target="_blank" rel="noopener">Tails</a>
         </div>
       </article>
 
       <!-- OnionShare -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">OS</div>
+      <article class="am-card" data-category="communication" data-type="anonymat" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">OS</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://onionshare.org" target="_blank" rel="noopener">OnionShare</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Partage privé</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="anonymat">Partage privé</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Partage de fichiers via Tor de façon anonyme et sans serveur central — utile pour transférer des sources sensibles.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://onionshare.org" target="_blank" rel="noopener">Télécharger</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://onionshare.org" target="_blank" rel="noopener">Télécharger</a>
         </div>
       </article>
 
@@ -439,14 +464,15 @@
 
   <div class="am-results-wrapper">
     <div class="am-grid">
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">FL</div>
+
+      <article class="am-card" data-category="formats" data-type="infrastructure" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">FL</div>
+          <div style="flex:1;">
             <h4 class="am-card-title">Formats recommandés</h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Pérennité</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="infrastructure">Pérennité</span>
+            </div>
           </div>
         </div>
 
@@ -459,24 +485,25 @@
         </p>
       </article>
 
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">CERT</div>
-            <h4 class="am-card-title">Certificats & HTTPS</h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Sécurité Web</span>
+      <article class="am-card" data-category="formats" data-type="infrastructure" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">CERT</div>
+          <div style="flex:1;">
+            <h4 class="am-card-title">Certificats &amp; HTTPS</h4>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="infrastructure">Sécurité Web</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Utiliser Let's Encrypt / Certbot pour TLS gratuit sur vos sites ; automatiser le renouvellement des certificats pour maintenir la confidentialité et la réputation du site.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://letsencrypt.org" target="_blank" rel="noopener">Let's Encrypt</a>
-          <a class="am-btn" href="https://certbot.eff.org" target="_blank" rel="noopener">Certbot</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://letsencrypt.org" target="_blank" rel="noopener">Let's Encrypt</a>
+          <a class="am-pill-link" href="https://certbot.eff.org" target="_blank" rel="noopener">Certbot</a>
         </div>
       </article>
+
     </div>
   </div>
 </section>
@@ -490,93 +517,108 @@
     <div class="am-grid">
 
       <!-- Framasoft -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">FR</div>
+      <article class="am-card" data-category="guides" data-type="guides" data-lang="fr">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">FR</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://framasoft.org" target="_blank" rel="noopener">Framasoft</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Communauté / Guides</span>
-            <span class="am-pill am-pill-country">FR</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="guides">Communauté / Guides</span>
+              <span class="am-pill am-pill-country">FR</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Ressources francophones pour dégoogliser, héberger, et diffuser en autonomie. Nombreux guides pratiques et tutoriels.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn primary" href="https://framasoft.org" target="_blank" rel="noopener">Framasoft</a>
-          <a class="am-btn" href="https://framagit.org" target="_blank" rel="noopener">Dépôts & Guides</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://framasoft.org" target="_blank" rel="noopener">Framasoft</a>
+          <a class="am-pill-link" href="https://framagit.org" target="_blank" rel="noopener">Dépôts &amp; Guides</a>
         </div>
       </article>
 
       <!-- La Quadrature du Net -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">LQ</div>
+      <article class="am-card" data-category="guides" data-type="guides" data-lang="fr">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">LQ</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://www.laquadrature.net" target="_blank" rel="noopener">La Quadrature du Net</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Plaidoyer & Guides</span>
-            <span class="am-pill am-pill-country">FR</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="guides">Plaidoyer & Guides</span>
+              <span class="am-pill am-pill-country">FR</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Organisation défendant les libertés numériques : publications, dossiers juridiques et guides de sensibilisation.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://www.laquadrature.net" target="_blank" rel="noopener">Visiter</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://www.laquadrature.net" target="_blank" rel="noopener">Visiter</a>
         </div>
       </article>
 
       <!-- EFF -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">EF</div>
+      <article class="am-card" data-category="guides" data-type="guides" data-lang="en">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">EF</div>
+          <div style="flex:1;">
             <h4 class="am-card-title"><a href="https://eff.org" target="_blank" rel="noopener">Electronic Frontier Foundation (EFF)</a></h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Guides sécurité</span>
-            <span class="am-pill am-pill-country">EN</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="guides">Guides sécurité</span>
+              <span class="am-pill am-pill-country">EN</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Guides pratiques, tutoriels OPSEC et ressources juridiques pour activistes et journalistes.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://eff.org" target="_blank" rel="noopener">EFF</a>
-          <a class="am-btn" href="https://ssd.eff.org" target="_blank" rel="noopener">Surveillance Self-Defense</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://eff.org" target="_blank" rel="noopener">EFF</a>
+          <a class="am-pill-link" href="https://ssd.eff.org" target="_blank" rel="noopener">Surveillance Self-Defense</a>
         </div>
       </article>
 
-      <!-- Guide pratique "autonomie" (exemples) -->
-      <article class="am-card">
-        <div class="am-card-header">
-          <div style="display:flex; align-items:center;">
-            <div class="am-card-visual">PDF</div>
+      <!-- Brochures pack -->
+      <article class="am-card" data-category="guides" data-type="guides" data-lang="multi">
+        <div class="am-card-header" style="display:flex;gap:0.75rem;align-items:flex-start;">
+          <div class="am-card-visual" aria-hidden="true">PDF</div>
+          <div style="flex:1;">
             <h4 class="am-card-title">Brochures pratiques (PDF)</h4>
-          </div>
-          <div class="am-card-meta">
-            <span class="am-pill am-pill-type">Téléchargement</span>
+            <div class="am-card-meta" style="margin-top:0.3rem;">
+              <span class="am-pill am-pill-type filterable" data-filter-type="guides">Téléchargement</span>
+            </div>
           </div>
         </div>
 
         <p class="am-card-desc">Sélection de brochures en français : autodéfense numérique, guide de l'auto‑édition, checklist d'archivage et workflow de diffusion.</p>
 
-        <div class="am-card-actions">
-          <a class="am-btn" href="https://framasoft.org/fr/reseau" target="_blank" rel="noopener">Brochures Framasoft</a>
-          <a class="am-btn" href="https://www.laquadrature.net" target="_blank" rel="noopener">Dossiers La Quadrature</a>
+        <div class="am-card-links">
+          <a class="am-pill-link" href="https://framasoft.org/fr/reseau" target="_blank" rel="noopener">Brochures Framasoft</a>
+          <a class="am-pill-link" href="https://www.laquadrature.net" target="_blank" rel="noopener">Dossiers La Quadrature</a>
         </div>
 
-        <a class="am-brochure-link" href="#" target="_blank" rel="noopener">Télécharger pack PDF (zip)</a>
+        <div style="margin-top:0.6rem;">
+          <a class="am-brochure-link" href="#" target="_blank" rel="noopener">Télécharger pack PDF (zip)</a>
+        </div>
       </article>
 
     </div>
   </div>
 </section>
 
+<!-- FOOTER: bonnes pratiques courtes -->
+<section style="margin-top:1.25rem;">
+  <h3 style="font-size:1.05rem; font-weight:600;">Bonnes pratiques essentielles</h3>
+  <p class="am-footer-text">
+    • Utiliser des outils d'archivage comme <a href="https://archive.org" target="_blank" rel="noopener">Internet Archive</a><br>
+    • Documenter les contextes de production (metadonnées : auteur, date, lieu, conditions)<br>
+    • Maintenir des copies locales et chiffrées des contenus importants (ex. Syncthing + GPG)<br>
+    • Favoriser formats ouverts et licences libres (Creative Commons)<br>
+    • Penser l'OPSEC : séparation des identités, chiffrement des échanges, tests réguliers
+  </p>
+</section>
+
+</div> </section>
 <!-- FOOTER: bonnes pratiques courtes -->
 <section style="margin-top:1.25rem;">
   <h3 style="font-size:1.05rem; font-weight:600;">Bonnes pratiques essentielles</h3>
