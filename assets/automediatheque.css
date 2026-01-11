@@ -43,6 +43,45 @@ body {
 }
 
 /* ===========================
+   CURSEUR PERSONNALISÉ
+   =========================== */
+
+html, body, * {
+  cursor: none !important;
+}
+
+#custom-cursor {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-50%, -50%);
+  transition: background-color 0.15s ease, width 0.15s ease, height 0.15s ease;
+  will-change: left, top;
+}
+
+#custom-cursor.hovering {
+  background-color: #444;
+  width: 32px;
+  height: 32px;
+}
+
+#custom-cursor.hovering-link {
+  background-color: #e63946;
+  width: 32px;
+  height: 32px;
+}
+
+#custom-cursor.hidden {
+  opacity: 0;
+}
+
+/* ===========================
    Mise en page générale
    =========================== */
 
@@ -156,8 +195,6 @@ body {
   outline: none;
 }
 
-
-
 .am-select:focus {
   border-color: var(--am-accent);
   box-shadow: 0 0 0 1px rgba(200, 137, 60, 0.35);
@@ -226,7 +263,6 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 0.9rem;
 }
-
 
 /* Carte */
 
@@ -310,7 +346,6 @@ body {
 .am-pill-link {
   text-decoration: none;
   color: inherit;
-  cursor: pointer;
 }
 
 .am-pill-link:hover {
@@ -369,8 +404,6 @@ body {
   margin: 0 auto;
 }
 
-/* Optionnel : joli espacement */
-
 .am-hero-title {
   margin-bottom: 0.75rem;
 }
@@ -378,30 +411,4 @@ body {
 .am-hero-lead {
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-}
-
-/* === Overrides forts pour les couleurs de badges === */
-
-.am-pill {
-  ...
-}
-
-/* TYPE : ex. Instagram, Podcast… (orange) */
-.am-pill-type {
-  ...
-}
-
-/* PAYS (bleu) */
-.am-pill-country {
-  ...
-}
-
-/* LANGUE(S) (vert) */
-.am-pill-lang {
-  ...
-}
-
-/* Si le type est cliquable (lien) */
-.am-pill-link {
-  ...
 }
