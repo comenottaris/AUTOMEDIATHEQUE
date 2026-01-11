@@ -1,3 +1,4 @@
+// assets/ressources.js
 const DATA_URL = './data/ressources.json';
 const PROPOSALS_URL = './data/propositions.json';
 
@@ -24,7 +25,7 @@ function cacheDom() {
 }
 
 function setStatus(text) {
-  if (els.statusText) els.statusText.textContent = Statut : ${text};
+  if (els.statusText) els.statusText.textContent = `Statut : ${text}`;
 }
 function setCount(n) {
   if (els.count) els.count.textContent = typeof n === 'number' ? n : '–';
@@ -36,7 +37,6 @@ function uniqueSorted(arr) {
 
 function buildThemeOptions(items) {
   if (!els.filterTheme) return;
-  // keep first option, remove others
   while (els.filterTheme.options.length > 1) els.filterTheme.remove(1);
   const themes = uniqueSorted(items.map(i => i.theme || i.category).filter(Boolean));
   themes.forEach(t => {
@@ -67,9 +67,9 @@ async function loadData(forceReload = false) {
   if (els.results) els.results.innerHTML = '<p class="am-message">Chargement des données…</p>';
   setStatus('chargement…');
 
-  const cacheBust = forceReload ? ?t=${Date.now()} : '';
-  const officialUrl = ${DATA_URL}${cacheBust};
-  const proposalsUrl = ${PROPOSALS_URL}${cacheBust};
+  const cacheBust = forceReload ? `?t=${Date.now()}` : '';
+  const officialUrl = `${DATA_URL}${cacheBust}`;
+  const proposalsUrl = `${PROPOSALS_URL}${cacheBust}`;
 
   const [resOfficial, resProps] = await Promise.all([
     fetch(officialUrl, { cache: 'no-store', headers: { Accept: 'application/json' } }),
@@ -77,7 +77,7 @@ async function loadData(forceReload = false) {
   ]);
 
   if (!resOfficial.ok) {
-    throw new Error(Erreur HTTP ${resOfficial.status} sur ressources.json);
+    throw new Error(`Erreur HTTP ${resOfficial.status} sur ressources.json`);
   }
   const officialData = await resOfficial.json();
   if (!Array.isArray(officialData)) throw new Error('Le fichier ressources.json doit contenir un tableau.');
@@ -89,8 +89,28 @@ async function loadData(forceReload = false) {
     else if (raw && typeof raw === 'object') proposalsData = Object.values(raw);
   }
 
-  const officialTagged = officialData.map(r => ({ ...r, __origin: 'validated' }));
-  const proposalsTagged = proposalsData.map(r => ({ ...r, __origin: 'proposed' }));
+  // Normalize links in loaded data: ensure links is array of { href, title }
+  const normalizeLinks = (raw) => {
+    if (!raw) return [];
+    if (Array.isArray(raw)) {
+      return raw.map(l => {
+        if (!l) return null;
+        if (typeof l === 'string') return { href: l, title: l };
+        return { href: l.href || l.url || null, title: l.title || l.name || l.href || l.url || null };
+      }).filter(Boolean).filter(l => l.href);
+    }
+    if (typeof raw === 'object') {
+      return Object.entries(raw).map(([k,v]) => {
+        if (typeof v === 'string') return { href: v, title: k };
+        if (typeof v === 'object' && v !== null) return { href: v.href || v.url || null, title: v.title || k };
+        return null;
+      }).filter(Boolean).filter(l => l.href);
+    }
+    return [];
+  };
+
+  const officialTagged = officialData.map(r => ({ ...r, __origin: 'validated', links: normalizeLinks(r.links) }));
+  const proposalsTagged = proposalsData.map(r => ({ ...r, __origin: 'proposed', links: normalizeLinks(r.links) }));
 
   allResources = [...officialTagged, ...proposalsTagged];
 
@@ -101,14 +121,14 @@ async function loadData(forceReload = false) {
   buildHashtagOptions(allResources);
 
   const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  setStatus(OK (${allResources.length} entrées, ${now}));
+  setStatus(`OK (${allResources.length} entrées, ${now})`);
 
   return allResources;
 }
 
 function makePill(text, extraClass = '') {
   const span = document.createElement('span');
-  span.className = am-pill ${extraClass}.trim();
+  span.className = `am-pill ${extraClass}`.trim();
   span.textContent = text;
   return span;
 }
@@ -129,69 +149,68 @@ function renderList(list) {
     card.className = 'am-card';
     if (r.__origin === 'proposed') card.classList.add('am-card-proposed');
 
-// header
-const header = document.createElement('div'); header.className = 'am-card-header';
-header.style.display = 'flex'; header.style.gap = '0.75rem'; header.style.alignItems = 'flex-start';
+    // header
+    const header = document.createElement('div'); header.className = 'am-card-header';
+    header.style.display = 'flex'; header.style.gap = '0.75rem'; header.style.alignItems = 'flex-start';
 
-const visual = document.createElement('div'); visual.className = 'am-card-visual';
-visual.setAttribute('aria-hidden','true');
-visual.textContent = (r.initials || (r.name||'').slice(0,2).toUpperCase());
+    const visual = document.createElement('div'); visual.className = 'am-card-visual';
+    visual.setAttribute('aria-hidden','true');
+    visual.textContent = (r.initials || (r.name||'').slice(0,2).toUpperCase());
 
-const titleWrap = document.createElement('div'); titleWrap.style.flex = '1';
-const title = document.createElement('h3'); title.className = 'am-card-title';
-if (r.url) {
-  const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = r.name || 'Sans nom';
-  title.appendChild(a);
-} else {
-  title.textContent = r.name || 'Sans nom';
-}
-titleWrap.appendChild(title);
+    const titleWrap = document.createElement('div'); titleWrap.style.flex = '1';
+    const title = document.createElement('h3'); title.className = 'am-card-title';
+    if (r.url) {
+      const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = r.name || 'Sans nom';
+      title.appendChild(a);
+    } else {
+      title.textContent = r.name || 'Sans nom';
+    }
+    titleWrap.appendChild(title);
 
-// meta pills (theme/type/country/lang)
-const meta = document.createElement('div'); meta.className = 'am-card-meta';
-if (r.theme) meta.appendChild(makePill(r.theme, 'am-pill-theme filterable'));
-if (r.type) meta.appendChild(makePill(r.type, 'am-pill-type'));
-if (r.country) meta.appendChild(makePill(r.country, 'am-pill-country'));
-if (r.languages) {
-  const langs = Array.isArray(r.languages) ? r.languages.join(', ') : r.languages;
-  meta.appendChild(makePill(langs, 'am-pill-lang'));
-}
-titleWrap.appendChild(meta);
+    // meta pills (theme/type/country/lang)
+    const meta = document.createElement('div'); meta.className = 'am-card-meta';
+    if (r.theme) meta.appendChild(makePill(r.theme, 'am-pill-theme filterable'));
+    if (r.type) meta.appendChild(makePill(r.type, 'am-pill-type'));
+    if (r.country) meta.appendChild(makePill(r.country, 'am-pill-country'));
+    if (r.languages) {
+      const langs = Array.isArray(r.languages) ? r.languages.join(', ') : r.languages;
+      meta.appendChild(makePill(langs, 'am-pill-lang'));
+    }
+    titleWrap.appendChild(meta);
 
-header.appendChild(visual);
-header.appendChild(titleWrap);
-card.appendChild(header);
+    header.appendChild(visual);
+    header.appendChild(titleWrap);
+    card.appendChild(header);
 
-// description
-const desc = document.createElement('p'); desc.className = 'am-card-desc'; desc.textContent = r.description || '—';
-card.appendChild(desc);
+    // description
+    const desc = document.createElement('p'); desc.className = 'am-card-desc'; desc.textContent = r.description || '—';
+    card.appendChild(desc);
 
-// hashtags rendered as pills (non-duplicate) and clickable (filterable)
-if (r.tags && (Array.isArray(r.tags) ? r.tags.length : (r.tags||'').length)) {
-  const tagsWrap = document.createElement('div'); tagsWrap.className = 'am-card-meta';
-  const tags = Array.isArray(r.tags) ? r.tags : (r.tags || '').split(',').map(s=>s.trim()).filter(Boolean);
-  tags.forEach(t => tagsWrap.appendChild(makePill('#'+t, 'am-pill-hash filterable')));
-  card.appendChild(tagsWrap);
-}
+    // hashtags rendered as pills (non-duplicate) and clickable (filterable)
+    if (r.tags && (Array.isArray(r.tags) ? r.tags.length : (r.tags||'').length)) {
+      const tagsWrap = document.createElement('div'); tagsWrap.className = 'am-card-meta';
+      const tags = Array.isArray(r.tags) ? r.tags : (r.tags || '').split(',').map(s=>s.trim()).filter(Boolean);
+      tags.forEach(t => tagsWrap.appendChild(makePill('#'+t, 'am-pill-hash filterable')));
+      card.appendChild(tagsWrap);
+    }
 
-// links bottom as grey pills (no doublons avec le titre/url)
-if (r.links && Array.isArray(r.links) && r.links.length) {
-  const linksWrap = document.createElement('div'); linksWrap.className = 'am-card-links';
-  const seen = new Set();
-  if (r.url) seen.add(r.url);
-  r.links.forEach(l => {
-    if (!l || !l.href) return;
-    if (seen.has(l.href)) return;
-    seen.add(l.href);
-    const a = document.createElement('a'); a.className = 'am-pill-link'; a.href = l.href; a.target = '_blank'; a.rel='noopener noreferrer';
-    a.textContent = l.title || l.href;
-    linksWrap.appendChild(a);
-  });
-  if (linksWrap.children.length) card.appendChild(linksWrap);
-}
+    // links bottom as grey pills (no doublons avec le titre/url)
+    if (r.links && Array.isArray(r.links) && r.links.length) {
+      const linksWrap = document.createElement('div'); linksWrap.className = 'am-card-links';
+      const seen = new Set();
+      if (r.url) seen.add(r.url);
+      r.links.forEach(l => {
+        if (!l || !l.href) return;
+        if (seen.has(l.href)) return;
+        seen.add(l.href);
+        const a = document.createElement('a'); a.className = 'am-pill-link'; a.href = l.href; a.target = '_blank'; a.rel='noopener noreferrer';
+        a.textContent = l.title || l.href;
+        linksWrap.appendChild(a);
+      });
+      if (linksWrap.children.length) card.appendChild(linksWrap);
+    }
 
-grid.appendChild(card);
-
+    grid.appendChild(card);
   });
 
   els.results.appendChild(grid);
@@ -232,7 +251,6 @@ function setupEvents() {
       try {
         setStatus('rafraîchissement…');
         await loadData(true);
-        // reset filters
         if (els.filterTheme) els.filterTheme.value = '';
         if (els.filterLang) els.filterLang.value = '';
         if (els.filterHashtags) {
@@ -256,26 +274,25 @@ function setupEvents() {
     if (!pill) return;
     const text = pill.textContent.replace(/^#/, '').trim();
 
-// try theme match
-if (els.filterTheme && Array.from(els.filterTheme.options).some(o => o.value && o.value.toLowerCase() === text.toLowerCase())) {
-  els.filterTheme.value = Array.from(els.filterTheme.options).find(o => o.value.toLowerCase() === text.toLowerCase()).value;
-  applyFilters(); return;
-}
-// toggle hashtag in multi-select
-if (els.filterHashtags) {
-  const opt = Array.from(els.filterHashtags.options).find(o => o.value.toLowerCase() === text.toLowerCase());
-  if (opt) {
-    opt.selected = !opt.selected;
-    applyFilters();
-    return;
-  }
-}
-// language quick filter (FR/EN/Multi)
-if (els.filterLang && ['fr','en','multi'].includes(text.toLowerCase())) {
-  els.filterLang.value = text.toLowerCase();
-  applyFilters();
-}
-
+    // try theme match
+    if (els.filterTheme && Array.from(els.filterTheme.options).some(o => o.value && o.value.toLowerCase() === text.toLowerCase())) {
+      els.filterTheme.value = Array.from(els.filterTheme.options).find(o => o.value.toLowerCase() === text.toLowerCase()).value;
+      applyFilters(); return;
+    }
+    // toggle hashtag in multi-select
+    if (els.filterHashtags) {
+      const opt = Array.from(els.filterHashtags.options).find(o => o.value.toLowerCase() === text.toLowerCase());
+      if (opt) {
+        opt.selected = !opt.selected;
+        applyFilters();
+        return;
+      }
+    }
+    // language quick filter (FR/EN/Multi)
+    if (els.filterLang && ['fr','en','multi'].includes(text.toLowerCase())) {
+      els.filterLang.value = text.toLowerCase();
+      applyFilters();
+    }
   });
 }
 
