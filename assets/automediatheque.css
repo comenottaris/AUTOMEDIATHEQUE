@@ -41,7 +41,6 @@ body {
   background: radial-gradient(circle at top left, #fdf7ef 0, #f7f0e6 45%, #f3ebdf 100%);
   color: var(--am-text);
 }
-
 /* ===========================
    MODAL ZOOM CARTE
    =========================== */
@@ -68,52 +67,96 @@ body {
   position: relative;
   max-width: 90vw;
   max-height: 90vh;
-  overflow: auto;
 }
 
 #card-modal-body {
   background: transparent;
 }
 
+/* Carte style appli dans le modal */
 #card-modal-body .am-card {
-  max-width: 500px;
+  max-width: 420px;
+  width: 90vw;
   margin: 0 auto;
-  transform: scale(1.1);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+  border-radius: 16px;
+  overflow: hidden;
 }
 
-#card-modal-close {
-  position: fixed;
-  top: 1rem;
-  right: 1rem;
-  width: 40px;
-  height: 40px;
-  background: rgba(255, 255, 255, 0.15);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
-  line-height: 1;
-  z-index: 99999;
+#card-modal-body .am-card-visual {
   display: none;
 }
 
-#card-modal.active #card-modal-close {
+#card-modal-body .am-card-body {
+  width: 100%;
+  padding: 2rem 1.5rem;
+}
+
+#card-modal-body .am-card-title {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+#card-modal-body .am-card-description {
   display: block;
+  -webkit-line-clamp: unset;
+  max-height: none;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+#card-modal-body .am-card-tags {
+  margin-top: 1.25rem;
+}
+
+#card-modal-close {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  width: 32px;
+  height: 32px;
+  background: white;
+  color: #333;
+  border: none;
+  border-radius: 50%;
+  font-size: 20px;
+  line-height: 1;
+  z-index: 99999;
+  display: none;
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+#card-modal-close:hover {
+  background: #f0f0f0;
+}
+
+#card-modal.active #card-modal-close {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* Mobile */
 @media (max-width: 640px) {
   #card-modal-body .am-card {
-    transform: scale(1);
     max-width: 95vw;
   }
   
+  #card-modal-body .am-card-body {
+    padding: 1.5rem 1rem;
+  }
+  
+  #card-modal-body .am-card-title {
+    font-size: 1.2rem;
+  }
+  
   #card-modal-close {
-    top: 0.5rem;
-    right: 0.5rem;
-    width: 36px;
-    height: 36px;
+    top: -10px;
+    right: -10px;
+    width: 28px;
+    height: 28px;
+    font-size: 16px;
   }
 }
 
