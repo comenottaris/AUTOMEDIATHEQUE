@@ -213,43 +213,6 @@
     <script src="assets/automediatheque.js"></script>
 
     <script>
-    (function() {
-      // === MODAL ZOOM CARTES ===
-      const modal = document.getElementById('card-modal');
-      const modalBody = document.getElementById('card-modal-body');
-      const modalClose = document.getElementById('card-modal-close');
-
-      document.addEventListener('click', (e) => {
-        if (e.target.closest('a')) return;
-        const card = e.target.closest('.am-card');
-        if (card) {
-          e.preventDefault();
-          modalBody.innerHTML = '';
-          const clone = card.cloneNode(true);
-          modalBody.appendChild(clone);
-          modal.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        }
-      });
-
-      function closeModal() {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-
-      modalClose.addEventListener('click', closeModal);
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) closeModal();
-      });
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && modal.classList.contains('active')) {
-          closeModal();
-        }
-      });
-    })();
-    </script>
-
-    <script>
     // === CURSEUR PERSONNALISÉ ===
     const cursor = document.getElementById('custom-cursor');
 
