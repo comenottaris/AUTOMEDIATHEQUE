@@ -41,6 +41,109 @@ body {
   background: radial-gradient(circle at top left, #fdf7ef 0, #f7f0e6 45%, #f3ebdf 100%);
   color: var(--am-text);
 }
+
+/* ═══════════════════════════════════════════════════════
+   MENU NAVIGATION
+   ═══════════════════════════════════════════════════════ */
+
+.am-nav {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1000;
+}
+
+.am-menu-btn {
+  background: var(--am-cream, #fdf7ef);
+  border: 2px solid var(--am-border, #e0d5c7);
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--am-text, #3d3a35);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.am-menu-btn:hover {
+  background: var(--am-sand, #f0e6d8);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.am-menu-btn.active {
+  background: var(--am-accent, #c45a3b);
+  color: #fff;
+  border-color: var(--am-accent, #c45a3b);
+}
+
+.am-menu-icon {
+  font-size: 1.1rem;
+  transition: transform 0.3s ease;
+}
+
+.am-menu-btn.active .am-menu-icon {
+  transform: rotate(90deg);
+}
+
+.am-nav-dropdown {
+  position: absolute;
+  top: calc(100% + 0.5rem);
+  left: 0;
+  background: var(--am-cream, #fdf7ef);
+  border: 2px solid var(--am-border, #e0d5c7);
+  border-radius: 12px;
+  padding: 0.5rem;
+  min-width: 200px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.25s ease;
+}
+
+.am-nav-dropdown.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.am-nav-link {
+  display: block;
+  color: var(--am-text, #3d3a35);
+  text-decoration: none;
+  font-weight: 500;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+  font-size: 0.9rem;
+}
+
+.am-nav-link:hover {
+  background: var(--am-sand, #f0e6d8);
+  padding-left: 1.3rem;
+}
+
+.am-nav-link.active {
+  background: var(--am-accent, #c45a3b);
+  color: #fff;
+}
+
+.am-nav-link.active:hover {
+  background: #a84830;
+  padding-left: 1.3rem;
+}
+
+.am-nav-separator {
+  height: 1px;
+  background: var(--am-border, #e0d5c7);
+  margin: 0.4rem 0.5rem;
+}
+
 /* ===========================
    MODAL ZOOM CARTE
    =========================== */
