@@ -41,141 +41,9 @@
   }
 
  <script>
-// === CURSEUR PERSONNALISÉ ===
-const cursor = document.getElementById('custom-cursor');
-let mouseX = -100, mouseY = -100;
-
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  cursor.style.left = mouseX + 'px';
-  cursor.style.top = mouseY + 'px';
-  cursor.classList.remove('hidden');
-});
-
-document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
-document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
-
-// Éléments ROUGES
-const isRedElement = (el) => {
-  if (!el) return false;
-  if (el.classList.contains('am-card-title')) return true;
-  if (el.closest('.am-card-title')) return true;
-  if (el.classList.contains('am-pill-link')) return true;
-  if (el.closest('.am-pill-link')) return true;
-  return false;
-};
-
-// Éléments cliquables (gris)
-const isClickable = (el) => {
-  if (!el) return false;
-  const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
-  if (tags.includes(el.tagName)) return true;
-  if (el.classList.contains('am-card')) return true;
-  if (el.classList.contains('am-pill')) return true;
-  if (el.classList.contains('am-button')) return true;
-  if (el.getAttribute('role') === 'button') return true;
-  return false;
-};
-
-document.addEventListener('mouseover', (e) => {
-  cursor.classList.remove('hovering', 'hovering-link');
-  
-  if (isRedElement(e.target)) {
-    cursor.classList.add('hovering-link');
-  } else {
-    let target = e.target;
-    while (target && target !== document.body) {
-      if (isClickable(target)) {
-        cursor.classList.add('hovering');
-        return;
-      }
-      target = target.parentElement;
-    }
-  }
-});
-
-document.addEventListener('mouseout', () => {
-  cursor.classList.remove('hovering', 'hovering-link');
-});
-</script>
-
-
-
-  /* === MODAL ZOOM CARTES === */
-  #card-modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.85);
-    z-index: 9998;
-    justify-content: center;
-    align-items: center;
-  }
-
-  #card-modal.active {
-    display: flex;
-  }
-
-  #card-modal-content {
-    background: #fff;
-    padding: 2.5rem;
-    border-radius: 12px;
-    max-width: 600px;
-    width: 90%;
-    max-height: 80vh;
-    overflow-y: auto;
-    position: relative;
-    animation: modalIn 0.3s ease;
-  }
-
-  @keyframes modalIn {
-    from {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  #card-modal-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    width: 36px;
-    height: 36px;
-    background: #000;
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    font-size: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.2s;
-  }
-
-  #card-modal-close:hover {
-    background: #333;
-  }
-
-  /* Style carte dans modal */
-  #card-modal-body .am-card {
-    box-shadow: none;
-    margin: 0;
-  }
-</style>
-
 
   </head>
   <body>
- <!-- Curseur personnalisé -->
-<div id="custom-cursor"></div>
 
 <!-- Modal zoom carte -->
 <div id="card-modal">
@@ -391,6 +259,65 @@ document.addEventListener('mouseout', () => {
     }
   });
 })();
+</script>
+<script>
+// === CURSEUR PERSONNALISÉ ===
+const cursor = document.getElementById('custom-cursor');
+let mouseX = -100, mouseY = -100;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+  cursor.classList.remove('hidden');
+});
+
+document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
+document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+
+// Éléments ROUGES
+const isRedElement = (el) => {
+  if (!el) return false;
+  if (el.classList.contains('am-card-title')) return true;
+  if (el.closest('.am-card-title')) return true;
+  if (el.classList.contains('am-pill-link')) return true;
+  if (el.closest('.am-pill-link')) return true;
+  return false;
+};
+
+// Éléments cliquables (gris)
+const isClickable = (el) => {
+  if (!el) return false;
+  const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
+  if (tags.includes(el.tagName)) return true;
+  if (el.classList.contains('am-card')) return true;
+  if (el.classList.contains('am-pill')) return true;
+  if (el.classList.contains('am-button')) return true;
+  if (el.getAttribute('role') === 'button') return true;
+  return false;
+};
+
+document.addEventListener('mouseover', (e) => {
+  cursor.classList.remove('hovering', 'hovering-link');
+  
+  if (isRedElement(e.target)) {
+    cursor.classList.add('hovering-link');
+  } else {
+    let target = e.target;
+    while (target && target !== document.body) {
+      if (isClickable(target)) {
+        cursor.classList.add('hovering');
+        return;
+      }
+      target = target.parentElement;
+    }
+  }
+});
+
+document.addEventListener('mouseout', () => {
+  cursor.classList.remove('hovering', 'hovering-link');
+});
 </script>
 
   </body>
