@@ -6,53 +6,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assets/automediatheque.css" />
 
-  <!-- Balises Open Graph (Facebook, LinkedIn, etc.) -->
-  <meta property="og:title" content="Automédiathèque">
-  <meta property="og:description" content="Liste open-source d'automédias">
-  <meta property="og:url" content="https://www.automediatheque.linkpc.net/">
-  <meta property="og:type" content="website">
-  <meta property="og:image" content="https://www.automediatheque.linkpc.net//assets/preview-image.jpg">
-  <meta property="og:image:width" content="667">
-  <meta property="og:image:height" content="130">
-  <meta property="og:image:alt" content="Prévisualisation d'Automédiathèque">
+    <!-- Balises Open Graph -->
+    <meta property="og:title" content="Automédiathèque">
+    <meta property="og:description" content="Liste open-source d'automédias">
+    <meta property="og:url" content="https://www.automediatheque.linkpc.net/">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.automediatheque.linkpc.net/assets/preview-image.jpg">
+    <meta property="og:image:width" content="667">
+    <meta property="og:image:height" content="130">
+    <meta property="og:image:alt" content="Prévisualisation d'Automédiathèque">
 
-  <!-- Favicon et autres -->
-  <link rel="icon" href="/assets/favicon.ico">
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/favicon.ico">
 
-<style>
-  body {
-    padding: 0 40px;
-  }
-  @media (max-width: 768px) {
-    body {
-      padding: 0 10px;
-    }
-  }
-</style>
-   <style>
-  /* Padding existant */
-  body {
-    padding: 0 40px;
-  }
-  @media (max-width: 768px) {
-    body {
-      padding: 0 10px;
-    }
-  }
-
- <script>
-
+    <style>
+      body {
+        padding: 0 40px;
+      }
+      @media (max-width: 768px) {
+        body {
+          padding: 0 10px;
+        }
+      }
+    </style>
   </head>
   <body>
 
-<!-- Modal zoom carte -->
-<div id="card-modal">
-  <div id="card-modal-content">
-    <button id="card-modal-close" aria-label="Fermer">×</button>
-    <div id="card-modal-body"></div>
-  </div>
-</div>
+    <!-- Curseur personnalisé -->
+    <div id="custom-cursor"></div>
 
+    <!-- Modal zoom carte -->
+    <div id="card-modal">
+      <div id="card-modal-content">
+        <button id="card-modal-close" aria-label="Fermer">×</button>
+        <div id="card-modal-body"></div>
+      </div>
+    </div>
+    
     <div class="am-page">
       <!-- ================= HEADER / INTRO ================= -->
       <header class="am-hero am-hero--center">
@@ -219,106 +209,97 @@
   <script>
 (function() {
  
-  // === MODAL ZOOM CARTES ===
-  const modal = document.getElementById('card-modal');
-  const modalBody = document.getElementById('card-modal-body');
-  const modalClose = document.getElementById('card-modal-close');
+    <script src="assets/automediatheque.js"></script>
 
-  // Clic sur une carte (pas sur un lien à l'intérieur)
-  document.addEventListener('click', (e) => {
-    // Ignorer si c'est un lien
-    if (e.target.closest('a')) return;
-    
-    const card = e.target.closest('.am-card');
-    if (card) {
-      e.preventDefault();
-      // Cloner la carte dans le modal
-      modalBody.innerHTML = '';
-      const clone = card.cloneNode(true);
-      modalBody.appendChild(clone);
-      modal.classList.add('active');
-      document.body.style.overflow = 'hidden';
-    }
-  });
+    <script>
+    (function() {
+      // === MODAL ZOOM CARTES ===
+      const modal = document.getElementById('card-modal');
+      const modalBody = document.getElementById('card-modal-body');
+      const modalClose = document.getElementById('card-modal-close');
 
-  // Fermer le modal
-  function closeModal() {
-    modal.classList.remove('active');
-    document.body.style.overflow = '';
-  }
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('a')) return;
+        const card = e.target.closest('.am-card');
+        if (card) {
+          e.preventDefault();
+          modalBody.innerHTML = '';
+          const clone = card.cloneNode(true);
+          modalBody.appendChild(clone);
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
 
-  modalClose.addEventListener('click', closeModal);
-
-  modal.addEventListener('click', (e) => {
-    if (e.target === modal) closeModal();
-  });
-
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      closeModal();
-    }
-  });
-})();
-</script>
-<script>
-// === CURSEUR PERSONNALISÉ ===
-const cursor = document.getElementById('custom-cursor');
-let mouseX = -100, mouseY = -100;
-
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
-  cursor.style.left = mouseX + 'px';
-  cursor.style.top = mouseY + 'px';
-  cursor.classList.remove('hidden');
-});
-
-document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
-document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
-
-// Éléments ROUGES
-const isRedElement = (el) => {
-  if (!el) return false;
-  if (el.classList.contains('am-card-title')) return true;
-  if (el.closest('.am-card-title')) return true;
-  if (el.classList.contains('am-pill-link')) return true;
-  if (el.closest('.am-pill-link')) return true;
-  return false;
-};
-
-// Éléments cliquables (gris)
-const isClickable = (el) => {
-  if (!el) return false;
-  const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
-  if (tags.includes(el.tagName)) return true;
-  if (el.classList.contains('am-card')) return true;
-  if (el.classList.contains('am-pill')) return true;
-  if (el.classList.contains('am-button')) return true;
-  if (el.getAttribute('role') === 'button') return true;
-  return false;
-};
-
-document.addEventListener('mouseover', (e) => {
-  cursor.classList.remove('hovering', 'hovering-link');
-  
-  if (isRedElement(e.target)) {
-    cursor.classList.add('hovering-link');
-  } else {
-    let target = e.target;
-    while (target && target !== document.body) {
-      if (isClickable(target)) {
-        cursor.classList.add('hovering');
-        return;
+      function closeModal() {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
       }
-      target = target.parentElement;
-    }
-  }
-});
 
-document.addEventListener('mouseout', () => {
-  cursor.classList.remove('hovering', 'hovering-link');
-});
-</script>
+      modalClose.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+          closeModal();
+        }
+      });
+    })();
+    </script>
+
+    <script>
+    // === CURSEUR PERSONNALISÉ ===
+    const cursor = document.getElementById('custom-cursor');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursor.classList.remove('hidden');
+    });
+
+    document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
+    document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+
+    const isRedElement = (el) => {
+      if (!el) return false;
+      return el.classList.contains('am-card-title') || 
+             el.closest('.am-card-title') ||
+             el.classList.contains('am-pill-link') || 
+             el.closest('.am-pill-link');
+    };
+
+    const isClickable = (el) => {
+      if (!el) return false;
+      const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
+      if (tags.includes(el.tagName)) return true;
+      if (el.classList.contains('am-card') || 
+          el.classList.contains('am-pill') || 
+          el.classList.contains('am-button') ||
+          el.getAttribute('role') === 'button') return true;
+      return false;
+    };
+
+    document.addEventListener('mouseover', (e) => {
+      cursor.classList.remove('hovering', 'hovering-link');
+      if (isRedElement(e.target)) {
+        cursor.classList.add('hovering-link');
+      } else {
+        let target = e.target;
+        while (target && target !== document.body) {
+          if (isClickable(target)) {
+            cursor.classList.add('hovering');
+            return;
+          }
+          target = target.parentElement;
+        }
+      }
+    });
+
+    document.addEventListener('mouseout', () => {
+      cursor.classList.remove('hovering', 'hovering-link');
+    });
+    </script>
 
   </body>
 </html>
