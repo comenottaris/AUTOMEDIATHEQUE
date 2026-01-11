@@ -1,0 +1,569 @@
+[
+  {
+    "id": "e789e5a9-5591-41f2-9b46-11d60805958a",
+    "name": "OBS Studio",
+    "url": "https://obsproject.com",
+    "theme": "creation",
+    "type": "video",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "capture",
+      "streaming",
+      "overlays"
+    ],
+    "description": "Capture et streaming open source — parfait pour émissions en direct, enregistrements de qualité, overlays et scènes multi-sources.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "41ba0dd7-040f-4c5f-816f-b88f914ed402",
+    "name": "Audacity",
+    "url": "https://www.audacityteam.org",
+    "theme": "creation",
+    "type": "audio",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "audio",
+      "podcast",
+      "montage"
+    ],
+    "description": "Montage audio gratuit et simple, utile pour podcasts et enregistrements bruts. Compatible avec formats ouverts (WAV, FLAC).",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "db10205b-6d3d-4c29-bd2b-696c8ca1e036",
+    "name": "Ardour",
+    "url": "https://ardour.org",
+    "theme": "creation",
+    "type": "audio",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "daw",
+      "mixage",
+      "production"
+    ],
+    "description": "Station audio numérique professionnelle open source — idéale pour productions audio complexes et mixages multi-pistes.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "4bcb7aa4-2983-44bb-be3e-6102a1db5e1c",
+    "name": "GIMP & Inkscape",
+    "url": null,
+    "theme": "creation",
+    "type": "image",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "image",
+      "vectoriel",
+      "edition"
+    ],
+    "description": "Édition bitmap et vectorielle libres — pour visuels, vignettes, logos et mises en page d'affiches.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "4f248c58-bd43-4236-a459-44a8c816fadc",
+    "name": "Mastodon (ActivityPub)",
+    "url": "https://joinmastodon.org",
+    "theme": "publication",
+    "type": "microblog",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "fediverse",
+      "activitypub",
+      "microblog"
+    ],
+    "description": "Réseau décentralisé compatible ActivityPub — utile pour créer un média textuel / micro-édition sans dépendre d'une plateforme centralisée.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "c3aaa419-00a3-4c65-9b82-6fb5f0311870",
+    "name": "PeerTube",
+    "url": "https://joinpeertube.org",
+    "theme": "publication",
+    "type": "video",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "peertube",
+      "video",
+      "fediverse"
+    ],
+    "description": "Alternative auto-hébergeable pour vidéos, fédérée au sein du Fediverse — intégration P2P pour réduire la bande passante.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "ddceadb0-73da-439a-b731-d1ba51647158",
+    "name": "Funkwhale",
+    "url": "https://funkwhale.audio",
+    "theme": "publication",
+    "type": "audio",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "funkwhale",
+      "audio",
+      "podcast"
+    ],
+    "description": "Plateforme fédérée pour diffusion audio (podcasts, albums) — idéale pour créer et partager catalogues audio hors plateformes centralisées.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "e0c16e86-059e-48c9-9f66-aad3d44b5802",
+    "name": "RSS / Podcast (Hébergement)",
+    "url": null,
+    "theme": "publication",
+    "type": "infrastructure",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "rss",
+      "podcast",
+      "hebergement"
+    ],
+    "description": "Produire un flux RSS/podcast permet la syndication indépendante. Héberger en statique (S3/OVH/Scaleway) ou via services open (OVH, Hetzner, etc.).",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "9c5ca7ee-e351-4a77-a7f8-759fc7beb34e",
+    "name": "Nextcloud",
+    "url": "https://nextcloud.com",
+    "theme": "hebergement",
+    "type": "storage",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "nextcloud",
+      "storage",
+      "collaboration"
+    ],
+    "description": "Cloud personnel auto-hébergeable : fichiers, partage, calendriers, collaborative editing — utile pour équipes éditoriales décentralisées.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "4bc5d7be-318c-41f6-9c10-c8ac8c4133d6",
+    "name": "Syncthing",
+    "url": "https://syncthing.net",
+    "theme": "hebergement",
+    "type": "storage",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "syncthing",
+      "sync",
+      "p2p"
+    ],
+    "description": "Synchronisation de dossiers pair-à-pair sans serveur central — utile pour partager des dossiers volumineux entre collaborateurs.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "3d1a4f57-f494-4ed5-9aa3-ce00d061adba",
+    "name": "Internet Archive",
+    "url": "https://archive.org",
+    "theme": "hebergement",
+    "type": "infrastructure",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "internetarchive",
+      "archivage",
+      "perennite"
+    ],
+    "description": "Archive publique et gratuite de contenus — utile pour déposer des copies publiques et assurer la pérennité documentaire.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "22da8870-f51e-471d-b7cf-b9ae54ebf21c",
+    "name": "Hébergeurs recommandés",
+    "url": null,
+    "theme": "hebergement",
+    "type": "infrastructure",
+    "country": "EU",
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "hetzner",
+      "scaleway",
+      "infrastructure"
+    ],
+    "description": "Exemples d'hébergeurs européens adaptés aux projets auto-hébergés (serveurs VPS, stockage objet, offres respectueuses des données).",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "87fea163-a70d-4031-b140-bf5092a982b0",
+    "name": "Signal",
+    "url": "https://signal.org",
+    "theme": "communication",
+    "type": "messagerie",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "signal",
+      "messagerie",
+      "chiffrement"
+    ],
+    "description": "Messagerie instantanée à chiffrement de bout en bout — bon compromis confidentialité et facilité d'usage pour équipes.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "78c3a3b0-0985-4f9f-9685-f2c4066dd4e6",
+    "name": "Matrix (Element)",
+    "url": "https://matrix.org",
+    "theme": "communication",
+    "type": "messagerie",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "matrix",
+      "element",
+      "chat"
+    ],
+    "description": "Protocole open source pour messagerie et rooms fédérées — très adapté au travail d'équipe et intégration bots/archives.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "5b12c50a-136c-47f1-bd58-1804e63ef467",
+    "name": "Tor & Tails",
+    "url": "https://www.torproject.org",
+    "theme": "communication",
+    "type": "anonymat",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "tor",
+      "tails",
+      "anonymat"
+    ],
+    "description": "Outils pour navigation anonyme et pour créer des environnements temporaires (Tails) — à utiliser avec prudence suivant le contexte opérationnel.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "cdce906f-18bb-4e8d-9957-0c1109da6a71",
+    "name": "OnionShare",
+    "url": "https://onionshare.org",
+    "theme": "communication",
+    "type": "anonymat",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "onionshare",
+      "partage",
+      "tor"
+    ],
+    "description": "Partage de fichiers via Tor de façon anonyme et sans serveur central — utile pour transférer des sources sensibles.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "bd6b2f91-e6a9-4208-8efc-04c3eabe43b7",
+    "name": "Formats recommandés",
+    "url": null,
+    "theme": "formats",
+    "type": "infrastructure",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "formats",
+      "perennite",
+      "archivage"
+    ],
+    "description": "Préférer WAV/FLAC (audio), WebM/VP9 (vidéo) ou MP4/H.264 pour compatibilité, SVG/PNG/AVIF pour images, et PDF/A pour documents d'archives.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "69d4e085-9c27-4fba-b6c9-d0693f15cff2",
+    "name": "Certificats & HTTPS",
+    "url": null,
+    "theme": "formats",
+    "type": "infrastructure",
+    "country": null,
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "letsencrypt",
+      "certbot",
+      "tls"
+    ],
+    "description": "Utiliser Let's Encrypt / Certbot pour TLS gratuit sur vos sites ; automatiser le renouvellement des certificats.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "d91bf7e5-1b1d-44db-b8b6-602753810ff5",
+    "name": "Framasoft",
+    "url": "https://framasoft.org",
+    "theme": "guides",
+    "type": "guides",
+    "country": "FR",
+    "languages": [
+      "fr"
+    ],
+    "tags": [
+      "framasoft",
+      "degoogliser",
+      "guides"
+    ],
+    "description": "Ressources francophones pour dégoogliser, héberger, et diffuser en autonomie. Nombreux guides pratiques et tutoriels.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "453a9f3d-3b9c-496b-bf9e-09e1a97cb92e",
+    "name": "La Quadrature du Net",
+    "url": "https://www.laquadrature.net",
+    "theme": "guides",
+    "type": "guides",
+    "country": "FR",
+    "languages": [
+      "fr"
+    ],
+    "tags": [
+      "laquadrature",
+      "plaidoyer",
+      "libertesnumeriques"
+    ],
+    "description": "Organisation défendant les libertés numériques : publications, dossiers juridiques et guides de sensibilisation.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "192131d4-c901-46dd-bc6a-ec937cd114f5",
+    "name": "Electronic Frontier Foundation (EFF)",
+    "url": "https://eff.org",
+    "theme": "guides",
+    "type": "guides",
+    "country": "EN",
+    "languages": [
+      "en"
+    ],
+    "tags": [
+      "eff",
+      "opsec",
+      "surveillance"
+    ],
+    "description": "Guides pratiques, tutoriels OPSEC et ressources juridiques pour activistes et journalistes.",
+    "links": [
+      {
+        "href": "[object Object]",
+        "title": "[object Object]"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  }
+]
