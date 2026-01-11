@@ -43,6 +43,82 @@ body {
 }
 
 /* ===========================
+   MODAL ZOOM CARTE
+   =========================== */
+
+#card-modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.92);
+  z-index: 99998;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+
+#card-modal.active {
+  display: flex;
+}
+
+#card-modal-content {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
+}
+
+#card-modal-body {
+  background: transparent;
+}
+
+#card-modal-body .am-card {
+  max-width: 500px;
+  margin: 0 auto;
+  transform: scale(1.1);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+
+#card-modal-close {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.15);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  line-height: 1;
+  z-index: 99999;
+  display: none;
+}
+
+#card-modal.active #card-modal-close {
+  display: block;
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  #card-modal-body .am-card {
+    transform: scale(1);
+    max-width: 95vw;
+  }
+  
+  #card-modal-close {
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+
+/* ===========================
    CURSEUR PERSONNALISÉ
    =========================== */
 
