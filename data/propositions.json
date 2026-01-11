@@ -30,9 +30,11 @@
   {
     "name": "Collectif Mohamed",
     "url": "https://letterboxd.com/director/collectif-mohamed/",
-    "type": null,
+    "type": "site",
     "country": "France",
-    "languages": [],
+    "languages": [
+      "fr"
+    ],
     "status": "proposed",
     "description": "Collectif de jeunes adolescents d'Alfortville et de Vitry-sur-Seine qui se sont réuni pour filmer leurs propres images,  raconter leurs histoires  et produire un discours politique et donner forme à leur révolte. on fait 3 court métrages entre 1977 et 1981.",
     "notes": "",
