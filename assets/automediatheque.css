@@ -634,3 +634,41 @@ html, body, * {
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
 }
+
+/* ===========================
+  Ressources
+   =========================== */
+
+<style> 
+.am-card-actions { 
+   display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; 
+}
+
+.am-btn { 
+   display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.38rem 0.7rem; border-radius: 999px; font-size: 0.85rem; text-decoration: none; border: 1px solid var(--am-border-subtle);
+   background: var(--am-surface-strong); color: var(--am-text); transition: transform 0.08s ease, box-shadow 0.12s ease; } 
+
+.am-btn:hover { 
+   transform: translateY(-2px); box-shadow: 0 6px 18px rgba(32,25,16,0.06); 
+} 
+.am-btn.primary { 
+   background: var(--am-accent); color: #fff; border-color: var(--am-accent); 
+} .am-btn.secondary { 
+   background: var(--am-accent-soft); color: #5a351a; border-color: var(--am-accent-soft-strong); 
+} 
+
+/* Petite zone "tagline" pour chaque category */ 
+am-category-legend { 
+   margin: 0 0 0.6rem; color: var(--am-text-softer); font-size: 0.92rem;
+} 
+
+/* Fiche détaillée (utilise modal existant) : lien brochure */ 
+
+.am-brochure-link { 
+   display: inline-block; margin-top: 0.6rem; color: var(--am-text); text-decoration: underline; text-underline-offset: 2px; font-weight: 600; 
+                  } 
+
+/* Petite icône visuelle pour carte (optionnel) */ 
+.am-card-visual { 
+   width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, rgba(200,137,60,0.12), rgba(226,192,149,0.12)); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: var(--am-accent); margin-right: 0.5rem; 
+} </style> 
