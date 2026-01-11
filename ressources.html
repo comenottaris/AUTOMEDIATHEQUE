@@ -46,66 +46,66 @@
       <hr class="am-divider" />
 
       <!-- ================= CONTENU PRINCIPAL ================= -->
-  <section class="am-page" id="resources"> <div class="am-hero am-hero--center"> <div class="am-hero-inner"> <p class="am-kicker">Ressources</p> <h1>Boîte à outils pour l'automédiation et l'automédias</h1> <p class="am-hero-lead">Catalogage d'outils libres / auto‑hébergeables et guides militants pour produire, archiver et diffuser des contenus de façon autonome et responsable.</p> </div> </div> <hr class="am-divider"> <!-- Barre de filtres : thème / langue / hashtags (multi) --> <div class="am-filters" aria-label="filtres"> <label style="display:flex;gap:0.5rem;align-items:center;"> <span style="font-weight:600;color:var(--am-text-softer);">Thème :</span> <select id="am-filter-theme" class="am-select" aria-label="filtre-theme"> <option value="">Tous les thèmes</option> </select> </label>
+ <section class="am-page" id="resources">
+  <div class="am-hero am-hero--center">
+    <div class="am-hero-inner">
+      <p class="am-kicker">Ressources</p>
+      <h1>Boîte à outils pour l'automédiation et l'automédias</h1>
+      <p class="am-hero-lead">
+        Catalogage d'outils libres / auto‑hébergeables et guides militants pour produire, archiver
+        et diffuser des contenus de façon autonome et responsable.
+      </p>
+    </div>
+  </div>
 
-<label style="display:flex;gap:0.5rem;align-items:center;">
-  <span style="font-weight:600;color:var(--am-text-softer);">Langue :</span>
-  <select id="am-filter-lang" class="am-select" aria-label="filtre-lang">
-    <option value="">Toutes langues</option>
-    <option value="fr">FR</option>
-    <option value="en">EN</option>
-    <option value="multi">Multi</option>
-  </select>
-</label>
+  <hr class="am-divider">
 
-<label style="display:flex;gap:0.5rem;align-items:center;">
-  <span style="font-weight:600;color:var(--am-text-softer);">Hashtags :</span>
-  <select id="am-filter-hashtags" class="am-select" aria-label="filtre-hashtags" multiple size="3" style="min-width:220px;">
-    <!-- options ajoutées dynamiquement -->
-  </select>
-</label>
+  <!-- Barre de filtres : thème / langue / hashtags (multi) -->
+  <div class="am-filters" aria-label="filtres" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+    <label style="display:flex;gap:0.5rem;align-items:center;">
+      <span style="font-weight:600;color:var(--am-text-softer);">Thème :</span>
+      <select id="am-filter-theme" class="am-select" aria-label="filtre-theme">
+        <option value="">Tous les thèmes</option>
+      </select>
+    </label>
 
-<button id="am-refresh-db" class="am-button-secondary" title="Rafraîchir la base">Rafraîchir</button>
+    <label style="display:flex;gap:0.5rem;align-items:center;">
+      <span style="font-weight:600;color:var(--am-text-softer);">Langue :</span>
+      <select id="am-filter-lang" class="am-select" aria-label="filtre-lang">
+        <option value="">Toutes langues</option>
+        <option value="fr">FR</option>
+        <option value="en">EN</option>
+        <option value="multi">Multi</option>
+      </select>
+    </label>
 
-<div style="margin-left:auto; display:flex; gap:0.75rem; align-items:center;">
-  <div id="am-status-text" style="font-size:0.9rem;color:var(--am-text-softer);">Statut : —</div>
-  <div style="font-weight:700;color:var(--am-text-softer);">Entrées : <span id="am-count">–</span></div>
-</div>
+    <label style="display:flex;gap:0.5rem;align-items:center;">
+      <span style="font-weight:600;color:var(--am-text-softer);">Hashtags :</span>
+      <select id="am-filter-hashtags" class="am-select" aria-label="filtre-hashtags" multiple size="3" style="min-width:220px;">
+        <!-- options ajoutées dynamiquement -->
+      </select>
+    </label>
 
-</div> <!-- Résultats (remplis dynamiquement par JS) --> <main class="am-main"> <div id="am-results" class="am-results-wrapper"> <!-- cartes générées ici --> <p class="am-message">Chargement des ressources…</p> </div> </main> </section> <!-- inclure le script JS (plus bas dans le fichier / avant </body>) --> <script src="assets/automediatheque.js"></script> 
-        </section>
-        
-        <!-- --------- Section Références --------- -->
-        <section class="am-section">
-          <header class="am-state-header">
-            <h2 class="am-section-title">Références et lectures</h2>
-          </header>
-          <div class="am-section-inner">
-            <ul style="list-style: disc; padding-left: 2rem; line-height: 1.8;">
-              <li>
-                <a href="https://automedias.org" target="_blank">Automedias.org</a> : <i>Pour une fabrique populaire de l'information</i>
-              </li>
-              <li>
-                <a href="https://www.witness.org" target="_blank">WITNESS</a> : <i>Video as Evidence Field Guide</i>
-              </li>
-              <li>
-                Pickard, V. (2006) : <i>United yet autonomous: Indymedia and the struggle to sustain a radical democratic network</i>
-              </li>
-              <li>
-                Garcia, D. & Lovink, G. (1997) : <i>The ABC of Tactical Media</i>
-              </li>
-              <li>
-                Cardon, D. & Granjon, F. (2013) : <i>Médiactivistes</i>
-              </li>
-              <li>
-                Thiong-Kay, L. (2020) : <i>Automédias dans les luttes démocratiques</i>
-              </li>
-              <li>
-                COSTECH : <i>Automédias : Pour une fabrique populaire de l'information</i>
-              </li>
-            </ul>
-          </div>
-        </section>
+    <button id="am-refresh-db" class="am-button-secondary" title="Rafraîchir la base">Rafraîchir</button>
+
+    <div style="margin-left:auto; display:flex; gap:0.75rem; align-items:center;">
+      <div id="am-status-text" style="font-size:0.9rem;color:var(--am-text-softer);">Statut : —</div>
+      <div style="font-weight:700;color:var(--am-text-softer);">Entrées : <span id="am-count">–</span></div>
+      <button id="am-download-brochure" class="am-button-secondary">Télécharger la brochure (PDF)</button>
+    </div>
+  </div>
+
+  <!-- Résultats (remplis dynamiquement par JS) -->
+  <main class="am-main">
+    <div id="am-results" class="am-results-wrapper">
+      <p class="am-message">Chargement des ressources…</p>
+    </div>
+  </main>
+</section>
+
+<!-- script client : veille à avoir assets/ressources.js (fourni précédemment) -->
+<script src="assets/ressources.js"></script>
+
 
         <!-- --------- Section Contribuer --------- -->
         <section class="am-section">
