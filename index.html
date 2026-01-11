@@ -46,8 +46,8 @@
   }
 
   #custom-cursor {
-  width: 24px;
-  height: 24px;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background-color: #000;
   position: fixed;
@@ -62,18 +62,18 @@
 
 #custom-cursor.hovering {
   background-color: #444;
-  width: 32px;
-  height: 32px;
+  width: 15px;
+  height: 15px;
 }
 
 #custom-cursor.hidden {
   opacity: 0;
 }
 
-.am-card-title:hover ~ #custom-cursor,
-.am-pill-link:hover ~ #custom-cursor,
-.am-pill.am-pill-type:hover ~ #custom-cursor {
-  background-color: #e63946 !important;
+#custom-cursor.hovering-link {
+  background-color: #e63946;
+  width: 18px;
+  height: 18px;
 }
 
 
@@ -326,58 +326,72 @@
   <script>
 (function() {
   // === CURSEUR PERSONNALISÉ ===
-  const cursor = document.getElementById('custom-cursor');
+const cursor = document.getElementById('custom-cursor');
+
+let mouseX = -100, mouseY = -100;
+
+function updateCursor() {
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+}
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  updateCursor();
+  cursor.classList.remove('hidden');
+});
+
+document.addEventListener('mouseleave', () => {
+  cursor.classList.add('hidden');
+});
+
+document.addEventListener('mouseenter', () => {
+  cursor.classList.remove('hidden');
+});
+
+// Éléments qui déclenchent le ROUGE
+const isRedElement = (el) => {
+  if (!el) return false;
+  if (el.classList.contains('am-card-title')) return true;
+  if (el.classList.contains('am-pill-link')) return true;
+  return false;
+};
+
+// Éléments cliquables (gris)
+const isClickable = (el) => {
+  if (!el) return false;
+  const clickables = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
+  if (clickables.includes(el.tagName)) return true;
+  if (el.classList.contains('am-card')) return true;
+  if (el.classList.contains('am-pill')) return true;
+  if (el.classList.contains('am-button')) return true;
+  if (el.getAttribute('role') === 'button') return true;
+  if (el.onclick || el.hasAttribute('onclick')) return true;
+  return false;
+};
+
+document.addEventListener('mouseover', (e) => {
+  cursor.classList.remove('hovering', 'hovering-link');
   
-  // Position initiale hors vue puis mise à jour
-  let mouseX = -100, mouseY = -100;
-  
-  function updateCursor() {
-    cursor.style.left = mouseX + 'px';
-    cursor.style.top = mouseY + 'px';
-  }
-
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    updateCursor();
-    cursor.classList.remove('hidden');
-  });
-
-  document.addEventListener('mouseleave', () => {
-    cursor.classList.add('hidden');
-  });
-
-  document.addEventListener('mouseenter', () => {
-    cursor.classList.remove('hidden');
-  });
-
-  // Éléments cliquables
-  const isClickable = (el) => {
-    if (!el) return false;
-    const clickables = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
-    if (clickables.includes(el.tagName)) return true;
-    if (el.classList.contains('am-card')) return true;
-    if (el.classList.contains('am-pill')) return true;
-    if (el.classList.contains('am-button')) return true;
-    if (el.getAttribute('role') === 'button') return true;
-    if (el.onclick || el.hasAttribute('onclick')) return true;
-    return false;
-  };
-
-  document.addEventListener('mouseover', (e) => {
-    let target = e.target;
-    while (target && target !== document.body) {
-      if (isClickable(target)) {
-        cursor.classList.add('hovering');
-        return;
-      }
-      target = target.parentElement;
+  let target = e.target;
+  while (target && target !== document.body) {
+    if (isRedElement(target)) {
+      cursor.classList.add('hovering-link');
+      return;
     }
-  });
+    if (isClickable(target)) {
+      cursor.classList.add('hovering');
+      return;
+    }
+    target = target.parentElement;
+  }
+});
 
-  document.addEventListener('mouseout', (e) => {
-    cursor.classList.remove('hovering');
-  });
+document.addEventListener('mouseout', () => {
+  cursor.classList.remove('hovering', 'hovering-link');
+});
+
 
   // === MODAL ZOOM CARTES ===
   const modal = document.getElementById('card-modal');
