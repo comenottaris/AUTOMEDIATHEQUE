@@ -29,9 +29,94 @@
     }
   }
 </style>
-    
+    <style>
+  /* === CURSEUR PERSONNALISÉ === */
+  * {
+    cursor: none !important;
+  }
+
+  #custom-cursor {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #000;
+    position: fixed;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+    transition: background-color 0.2s ease, transform 0.2s ease;
+  }
+
+  #custom-cursor.hovering {
+    background-color: #333;
+    transform: translate(-50%, -50%) scale(1.3);
+  }
+
+  /* === MODAL ZOOM CARTES === */
+  #card-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 9999;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  #card-modal.active {
+    display: flex;
+    opacity: 1;
+  }
+
+  #card-modal-content {
+    max-width: 90%;
+    max-height: 90%;
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+  }
+
+  #card-modal.active #card-modal-content {
+    transform: scale(1);
+  }
+
+  #card-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 30px;
+    height: 30px;
+    background: #000;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 20px;
+    line-height: 1;
+  }
+</style>
+
   </head>
   <body>
+    <!-- Curseur personnalisé -->
+<div id="custom-cursor"></div>
+
+<!-- Modal pour affichage agrandi des cartes -->
+<div id="card-modal">
+  <div id="card-modal-content">
+    <button id="card-modal-close">×</button>
+    <div id="card-modal-body"></div>
+  </div>
+</div>
+
     <div class="am-page">
       <!-- ================= HEADER / INTRO ================= -->
       <header class="am-hero am-hero--center">
@@ -195,5 +280,44 @@
     </div>
 
     <script src="assets/automediatheque.js"></script>
+    <script>
+  // === CURSEUR PERSONNALISÉ ===
+  const cursor = document.getElementById('custom-cursor');
+  
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  const clickableSelectors = 'a, button, input, textarea, select, .am-card, [role="button"], .am-pill';
+  
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(clickableSelectors)) {
+      cursor.classList.add('hovering');
+    }
+  });
+
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(clickableSelectors)) {
+      cursor.classList.remove('hovering');
+    }
+  });
+
+  // === MODAL ZOOM CARTES ===
+  const modal = document.getElementById('card-modal');
+  const modalBody = document.getElementById('card-modal-body');
+  const modalClose = document.getElementById('card-modal-close');
+
+  document.addEventListener('click', (e) => {
+    const card = e.target.closest('.am-card');
+    if (card && !e.target.closest('a')) {
+      modalBody.innerHTML = card.innerHTML;
+      modal.classList.add('active');
+    }
+  });
+
+  modalClose.addEventListener('click', () => {
+    modal.classList.remove('active');
+
   </body>
 </html>
