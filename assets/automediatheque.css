@@ -636,7 +636,7 @@ html, body, * {
 }
 
 /* ===========================
-  Ressources
+  PAGE RESSOURCES
    =========================== */
 
 <style> 
@@ -672,3 +672,76 @@ am-category-legend {
 .am-card-visual { 
    width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, rgba(200,137,60,0.12), rgba(226,192,149,0.12)); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: var(--am-accent); margin-right: 0.5rem; 
 } </style> 
+
+    <style> 
+/* -- minimal pour nouveaux éléments et pastilles de lien -- */ 
+.am-filters { 
+   display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin: 0.6rem 0 1rem; 
+} 
+.am-filters select, .am-filters 
+.am-clear { 
+   padding: 0.45rem 0.6rem; border-radius: 10px; border: 1px solid var(--am-border-subtle); background: var(--am-surface-strong); color: var(--am-text); font-weight: 600; 
+}
+
+/* Icone initiales séparée */
+.am-card-left {
+  display:flex;
+  align-items:center;
+  gap:0.5rem;
+}
+.am-card-visual {
+  width:48px;
+  height:48px;
+  border-radius:12px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:700;
+  color:var(--am-accent);
+  background: linear-gradient(135deg, rgba(200,137,60,0.08), rgba(226,192,149,0.06));
+  flex-shrink:0;
+}
+
+/* Déplacer titre sur une ligne à part */
+.am-card-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Pastilles de liens (gris, pas de doublons avec titre) */
+.am-card-links {
+  margin-top: 0.6rem;
+  display:flex;
+  gap:0.45rem;
+  flex-wrap:wrap;
+}
+.am-card-links .am-pill-link {
+  background: rgba(60,60,60,0.06);
+  color: var(--am-text);
+  border-color: rgba(60,60,60,0.06);
+  font-size:0.78rem;
+  padding:0.26rem 0.6rem;
+  border-radius:999px;
+  text-decoration:none;
+}
+
+/* Pastilles "clicables" filtre (type/lang) : pointer */
+.am-pill.filterable { cursor: pointer; }
+
+/* état actif filtre */
+.am-pill.active-filter {
+  background: var(--am-accent);
+  color: #fff;
+  border-color: var(--am-accent);
+}
+
+/* Petit bouton clear */
+.am-clear {
+  background: transparent;
+  border: 1px dashed var(--am-border-subtle);
+  color: var(--am-text-softer);
+  padding: 0.35rem 0.6rem;
+  border-radius: 10px;
+  cursor: pointer;
+}
+</style>
