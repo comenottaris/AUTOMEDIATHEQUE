@@ -63,31 +63,32 @@ function buildHashtagOptions(items) {
 
 async function loadData(forceReload = false) {
   if (!forceReload && allResources.length) return allResources;
-
   if (els.results) els.results.innerHTML = '<p class="am-message">Chargement des données…</p>';
   setStatus('chargement…');
 
   const cacheBust = forceReload ? `?t=${Date.now()}` : '';
-  const officialUrl = `${DATA_URL}${cacheBust}`;
-  const proposalsUrl = `${PROPOSALS_URL}${cacheBust}`;
+  const url = `./data/ressources.json${cacheBust}`;
 
-  const [resOfficial, resProps] = await Promise.all([
-    fetch(officialUrl, { cache: 'no-store', headers: { Accept: 'application/json' } }),
-    fetch(proposalsUrl, { cache: 'no-store', headers: { Accept: 'application/json' } }).catch(() => null),
-  ]);
-
-  if (!resOfficial.ok) {
-    throw new Error(`Erreur HTTP ${resOfficial.status} sur ressources.json`);
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`HTTP ${res.status} sur ${url}`);
+    }
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error('Le fichier JSON doit contenir un tableau');
+    allResources = data;
+    setStatus('ok');
+    setCount(allResources.length);
+    buildFiltersFromData(allResources);
+    return allResources;
+  } catch (err) {
+    console.error('Erreur loadData', err);
+    if (els.results) els.results.innerHTML = `<p class="am-message am-message-error">Impossible de charger les ressources (${err.message}).</p>`;
+    setStatus('erreur');
+    setCount(null);
+    throw err;
   }
-  const officialData = await resOfficial.json();
-  if (!Array.isArray(officialData)) throw new Error('Le fichier ressources.json doit contenir un tableau.');
-
-  let proposalsData = [];
-  if (resProps && resProps.ok) {
-    const raw = await resProps.json();
-    if (Array.isArray(raw)) proposalsData = raw;
-    else if (raw && typeof raw === 'object') proposalsData = Object.values(raw);
-  }
+}
 
   // Normalize links in loaded data: ensure links is array of { href, title }
   const normalizeLinks = (raw) => {
