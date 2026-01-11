@@ -4,7 +4,9 @@
     "url": "http://www.primitivi.org/",
     "type": "site",
     "country": "France",
-    "languages": ["fr"],
+    "languages": [
+      "fr"
+    ],
     "status": "validated",
     "description": "info locale des luttes de marseille",
     "notes": "vidéos",
@@ -16,11 +18,25 @@
     "url": "https://Instagram.com/lyon2autonome",
     "type": "Instagram",
     "country": "France",
-    "languages": ["fr"],
+    "languages": [
+      "fr"
+    ],
     "status": "validated",
     "description": "Groupe ouvert autonome de l'université Lyon 2 Lumière",
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-01-06T12:08:31.125995+00:00"
+  },
+  {
+    "name": "Collectif Mohamed",
+    "url": "https://letterboxd.com/director/collectif-mohamed/",
+    "type": null,
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif de jeunes adolescents d'Alfortville et de Vitry-sur-Seine qui se sont réuni pour filmer leurs propres images,  raconter leurs histoires  et produire un discours politique et donner forme à leur révolte. on fait 3 court métrages entre 1977 et 1981.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-11T16:46:35.041335+00:00"
   }
 ]
