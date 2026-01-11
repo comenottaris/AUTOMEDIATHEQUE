@@ -1,0 +1,66 @@
+name: Refresh ressources.json from Supabase
+
+on:
+  schedule:
+    # runs daily at 03:00 UTC — adapte la cron si tu veux un autre horaire
+    - cron: '0 3 * * *'
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js 18
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install dependencies (none required, but keep step if you add deps)
+        run: |
+          # yarn install / npm ci if you use a package.json
+          echo "No dependencies to install by default"
+
+      - name: Create data directory if absent
+        run: mkdir -p data
+
+      - name: Run sync script (export validated ressources from Supabase)
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          # GITHUB_TOKEN is available automatically
+        run: |
+          # ensure script is executable / available at scripts/sync-supabase-ressources.js
+          node scripts/sync-supabase-ressources.js
+
+      - name: Check for repo changes
+        id: git-check
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          # Show changed files for debugging
+          git status --porcelain
+          if git diff --quiet; then
+            echo "no_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "no_changes=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push changes
+        if: steps.git-check.outputs.no_changes == 'false'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git add data/ressources.json data/supabase-state-ressources.json || true
+          git commit -m "chore: refresh data/ressources.json from Supabase [skip ci]" || echo "no commit"
+          git push origin HEAD:main
