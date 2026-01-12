@@ -49,109 +49,25 @@
           <h1 class="am-hero-title">Automédiathèque</h1>
 
           <p class="am-hero-lead">
-           Liste open-source d'automédias.
+           Pour mieux connaître les automédias.
           </p>
 
           <p class="am-hero-text">
-            La base est partielle et en mouvement :
-            elle a vocation à être complétée collectivement, corrigée,
-            etc. Les liens renvoient vers les plateformes des
-            collectifs et groupes concernés (sites, réseaux sociaux,
-            podcasts, etc.).
+            
           </p>
 
         </div>
       </header>
-
-      <!-- ================= SÉPARATEUR ================= -->
-      <hr class="am-divider" />
-
-      <!-- ================= CONTENU PRINCIPAL ================= -->
-      <main class="am-main">
-        <!-- --------- Section filtres / légende --------- -->
-   <section class="am-filters-section">
-  <div class="am-toolbar">
-    <!-- Filtres -->
-    <div class="am-toolbar-left">
-      <!-- TYPE -->
-      <label class="am-field">
-        <span class="am-field-label">Type</span>
-        <select id="am-filter-type" class="am-select">
-          <!-- option par défaut -->
-          <option value="">Tous les types</option>
-          <!-- les autres options sont ajoutées en JS à partir du JSON -->
-        </select>
-      </label>
-
-      <!-- PAYS -->
-      <label class="am-field">
-        <span class="am-field-label">Pays</span>
-        <select id="am-filter-country" class="am-select">
-          <option value="">Tous</option>
-          <!-- valeurs par défaut, remplacées/complétées par le JS -->
-          <option value="France">France</option>
-          <option value="Belgique">Belgique</option>
-          <option value="Brazil">Brésil</option>
-          <option value="Hong Kong">Hong Kong</option>
-          <option value="International">International</option>
-          <option value="Kurdistan">Kurdistan</option>
-          <option value="Mexico">Mexique</option>
-          <option value="Ukraine">Ukraine</option>
-          <option value="United Kingdom">Royaume‑Uni</option>
-          <option value="USA">États‑Unis (USA)</option>
-        </select>
-      </label>
-
-      <!-- STATUT (validés / propositions) -->
-      <label class="am-field">
-        <span class="am-field-label">Statut</span>
-        <select id="am-filter-origin" class="am-select">
-          <option value="">Tous</option>
-          <option value="validated">Validés</option>
-          <option value="proposed">Proposés</option>
-        </select>
-      </label>
-    </div>
-
-    <!-- Légende des pastilles -->
-    <div class="am-toolbar-right">
-      <span class="am-legend-label">Légende </span>
-      <span class="am-pill am-pill-type">Type</span>
-      <span class="am-pill am-pill-country">Pays</span>
-      <span class="am-pill am-pill-lang">Langue</span>
-    </div>
-  </div>
-</section>
-
-
-        <!-- --------- Section résultats --------- -->
-        <section class="am-results-section">
-          <header class="am-results-header">
-            <h2 class="am-section-title"> </h2>
-            <p class="am-section-desc">
-              Chaque carte correspond à un automédia. Pour y accéder, cliquez sur le nom.
-            </p>
-          </header>
-
-          <!-- Conteneur dans lequel le JS injecte les cartes -->
-          <div id="am-results" class="am-grid">
-            <!-- Contenu généré par automediatheque.js -->
-          </div>
-        </section>
-
-        <!-- --------- Section État de la base (APRÈS la base) --------- -->
-        <section class="am-state-section">
-              <header class="am-state-header">
+          <header>
             <h2 class="am-section-title">Qu'est-ce qu'un Automédia ?</h2>
           </header>
         <p class="am-footer-text">
-         Les automédias désignent l’ensemble des pratiques, dispositifs et réseaux par lesquels des acteurs et actrices (individuel·les ou collectifs) — 
-          mouvements sociaux, collectifs militants, communautés en lutte ou d’entraide — produisent, publient et archivent des récits, 
-          preuves et instruments de leur action politique. <br> <br>
+         Les automédias sont l’ensemble des pratiques, dispositifs et réseaux par lesquels des acteurs et actrices (individuel·les ou collectifs) produisent, publient et archivent des récits, 
+          preuves et instruments de leur action politique. Des mouvements sociaux aux collectifs militants, en passant par les communautés d’entraide, le champ est vaste. <br> <br>
           Plus académiquement, <a href="https://automedias.org/fr/publication/001-A/" target="_blank"> Automedias.org</a> le définissent ainsi dans leur appel à contribution : <i></i>"Pour une fabrique populaire de l’information à l’époque de la post-vérité"</i> en donne la définition suivante :
           « Que ce soit le geste auto-médiatique produit à la volée par un seul individu avec un smartphone, 
-          ou l’entreprise collective automédiatique déjà aperçue dans le champ des luttes démocratiques (Thiong-Kay, 2020) 
-          qui réinvente les formes des médias tactiques (Garcia et Lovink, 1997) et des médiactivistes (Cardon et Granjon, 2013), 
+          ou l’entreprise collective automédiatique déjà aperçue dans le champ des luttes démocratiques  
+          qui réinvente les formes des médias tactiques et des médiactivistes , 
           l’automédiation désigne l’autoproduction et l’autodiffusion de l’information à caractère politique par l’usage ou 
           la réinvention des appareils et circuits de communication numériques. 
           Le geste amateur et le cadre initialement communautaire de la fabrique automédiatique constitue ainsi 
@@ -161,26 +77,8 @@
 
       <!-- ================= FOOTER / CRÉDITS ================= -->
       <footer class="am-footer">
-      
 
-            <button id="am-refresh-db" class="am-button">
-              Recharger la base
-            </button>
-
-            <p class="am-hero-note">
-              Le bouton recharge les fichiers JSON
-              (<code>automedias.json</code> et
-              <code>propositions.json</code>) sans utiliser le cache du
-              navigateur, pour voir les dernières modifications.
-            </p>
-<!-- BOUTON POUR ALLER AU FORMULAIRE -->
-            <p class="am-hero-actions">
-              <a href="formulaire.html" class="am-button">
-                Proposer un automédia
-              </a>
-                    <p class="am-footer-text">
-          Données chargées depuis <code>automedias.json</code> et
-          <code>propositions.json</code>. <br> Pour comprendre plus en détail la méthodologie, tout est disponible en Open-source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank"> ce repo Github</a>. <br> <br> 
+       <div> <p> <br> Pour comprendre plus en détail la méthodologie, tout est disponible en Open-source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank"> ce repo Github</a>. <br> <br> 
           Projet lancé par <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris </a> en janvier 2026.
         </p>
           </div>
@@ -188,12 +86,6 @@
       </main>
       </footer>
     </div>
-
-    <script src="assets/automediatheque.js"></script>
-  <script>
-(function() {
- 
-    <script src="assets/automediatheque.js"></script>
 
     <script>
     // === CURSEUR PERSONNALISÉ ===
@@ -258,7 +150,7 @@
     <a href="index.html" class="am-nav-link">Accueil</a>
     <a href="liste.html" class="am-nav-link">Automédiathèque</a>
     <div class="am-nav-separator"></div>
-    <a href="formulaire.html" class="am-nav-link">Proposer</a>
+    <a href="formulaire.html" class="am-nav-link">Participer</a>
     <a href="ressources.html" class="am-nav-link">Ressources</a>
   </div>
 </nav>
