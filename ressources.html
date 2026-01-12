@@ -26,8 +26,15 @@
       }
     </style>
 
-    <!-- Curseur personnalisé -->
-    <div id="custom-cursor"></div>
+<div id="custom-cursor"></div>
+
+<style>
+  /* Masquer le curseur personnalisé sur mobile */
+  @media (max-width: 768px), (pointer: coarse) {
+    #custom-cursor {
+      display: none !important;
+    }
+  }
 
     <div class="am-page">
 
@@ -124,10 +131,46 @@
       </footer>
     </div>
 
-    <script>
-    // === CURSEUR PERSONNALISÉ ===
-    const cursor = document.getElementById('custom-cursor');
+   <!-- Menu de navigation -->
+<nav class="am-nav">
+  <button class="am-menu-btn" id="menu-toggle" aria-expanded="false" aria-label="Menu de navigation">
+    <span class="am-menu-icon">☰</span>
+  </button>
+  <div class="am-nav-dropdown" id="menu-dropdown">
+    <a href="index.html" class="am-nav-link">Accueil</a>
+    <a href="liste.html" class="am-nav-link">Automédiathèque</a>
+    <div class="am-nav-separator"></div>
+    <a href="formulaire.html" class="am-nav-link">Participer</a>
+    <a href="ressources.html" class="am-nav-link">Ressources</a>
+  </div>
+</nav>
 
+<script>
+  // Menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuDropdown = document.getElementById('menu-dropdown');
+  
+  menuToggle.addEventListener('click', () => {
+    const isOpen = menuDropdown.classList.toggle('open');
+    menuToggle.classList.toggle('active');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+  
+  document.addEventListener('click', (e) => {
+    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+      menuDropdown.classList.remove('open');
+      menuToggle.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // === CURSEUR PERSONNALISÉ ===
+  const cursor = document.getElementById('custom-cursor');
+  
+  // Détection tactile/mobile
+  const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  
+  if (!isTouchDevice && cursor) {
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
       cursor.style.top = e.clientY + 'px';
@@ -175,41 +218,7 @@
     document.addEventListener('mouseout', () => {
       cursor.classList.remove('hovering', 'hovering-link');
     });
-    </script>
-
-    <!-- Menu de navigation -->
-<nav class="am-nav">
-  <button class="am-menu-btn" id="menu-toggle" aria-expanded="false">
-    <span class="am-menu-icon">☰</span>
-    <span>Menu</span>
-  </button>
-  <div class="am-nav-dropdown" id="menu-dropdown">
-    <a href="index.html" class="am-nav-link">Accueil</a>
-    <a href="liste.html" class="am-nav-link">Automédiathèque</a>
-    <div class="am-nav-separator"></div>
-    <a href="formulaire.html" class="am-nav-link">Participer</a>
-    <a href="ressources.html" class="am-nav-link">Ressources</a>
-  </div>
-</nav>
-
-<script>
-  // Menu toggle
-  const menuToggle = document.getElementById('menu-toggle');
-  const menuDropdown = document.getElementById('menu-dropdown');
-  
-  menuToggle.addEventListener('click', () => {
-    const isOpen = menuDropdown.classList.toggle('open');
-    menuToggle.classList.toggle('active');
-    menuToggle.setAttribute('aria-expanded', isOpen);
-  });
-  
-  document.addEventListener('click', (e) => {
-    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
-      menuDropdown.classList.remove('open');
-      menuToggle.classList.remove('active');
-      menuToggle.setAttribute('aria-expanded', 'false');
-    }
-  });
+  }
 </script>
 
 
