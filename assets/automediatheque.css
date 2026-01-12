@@ -312,7 +312,17 @@ html, body, * {
 #custom-cursor.hidden {
   opacity: 0;
 }
- 
+
+/* Désactiver curseur personnalisé sur appareils tactiles */
+@media (pointer: coarse) {
+  #custom-cursor {
+    display: none !important;
+  }
+  
+  html, body, * {
+    cursor: auto !important;
+  }
+}
 
 /* ===========================
    Mise en page générale
