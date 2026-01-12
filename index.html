@@ -107,38 +107,23 @@
         }
       });
 
-      // === CURSEUR PERSONNALISÉ ===
+     // === CURSEUR PERSONNALISÉ ===
 const cursor = document.getElementById('custom-cursor');
 
-// On affiche le curseur seulement si on détecte un mouvement de souris
-let cursorEnabled = false;
-
+// Détection : on cache sur mobile/tactile via CSS media query uniquement
 document.addEventListener('mousemove', (e) => {
   if (!cursor) return;
-  
-  // Activer le curseur au premier mouvement de souris
-  if (!cursorEnabled) {
-    cursorEnabled = true;
-    cursor.style.display = 'block';
-  }
-  
   cursor.style.left = e.clientX + 'px';
   cursor.style.top = e.clientY + 'px';
   cursor.classList.remove('hidden');
 });
-
-// Désactiver si on détecte un touch
-document.addEventListener('touchstart', () => {
-  cursorEnabled = false;
-  if (cursor) cursor.style.display = 'none';
-}, { once: true });
 
 document.addEventListener('mouseleave', () => {
   if (cursor) cursor.classList.add('hidden');
 });
 
 document.addEventListener('mouseenter', () => {
-  if (cursor && cursorEnabled) cursor.classList.remove('hidden');
+  if (cursor) cursor.classList.remove('hidden');
 });
 
 const isRedElement = (el) => {
