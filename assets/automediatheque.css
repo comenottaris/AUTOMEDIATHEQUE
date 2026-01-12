@@ -314,12 +314,13 @@ html, body, * {
 }
 
 /* Désactiver curseur personnalisé sur appareils tactiles */
-@media (pointer: coarse) {
+@media (hover: none) and (pointer: coarse) {
   #custom-cursor {
     display: none !important;
+    visibility: hidden !important;
   }
   
-  html, body, * {
+  html, body, *, a, button, input, textarea {
     cursor: auto !important;
   }
 }
