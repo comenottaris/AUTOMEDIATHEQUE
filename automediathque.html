@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Automédiathèque</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/automediatheque.css" />
+
+      <!-- Balises Open Graph -->
+    <meta property="og:title" content="Automédiathèque">
+    <meta property="og:description" content="Liste open-source d'automédias">
+    <meta property="og:url" content="https://www.automediatheque.linkpc.net/automediatheque.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.automediatheque.linkpc.net/assets/preview-image.jpg">
+    <meta property="og:image:width" content="667">
+    <meta property="og:image:height" content="130">
+    <meta property="og:image:alt" content="Prévisualisation d'Automédiathèque">
+
+    
+    <style>
+      body {
+        padding: 0 40px;
+      }
+      @media (max-width: 768px) {
+        body {
+          padding: 0 10px;
+        }
+      }
+  </style>
+<!-- Curseur personnalisé -->
+    <div id="custom-cursor"></div>
+
+
+<!-- Modal zoom carte -->
+<div id="card-modal">
+  <div id="card-modal-content">
+    <button id="card-modal-close" aria-label="Fermer">×</button>
+    <div id="card-modal-body"></div>
+  </div>
+</div>
+
+       <div class="am-page">
+      <!-- ================= HEADER / INTRO ================= -->
+      <header class="am-hero am-hero--center">
+
+          <h1 class="am-hero-title">Automédiathèque</h1>
+
+          <p class="am-hero-lead">
+           Liste open-source d'automédias.
+          </p>
+
+          <p class="am-hero-text">
+            La base est partielle et en mouvement :
+            elle a vocation à être complétée collectivement, corrigée,
+            etc. Les liens renvoient vers les plateformes des
+            collectifs et groupes concernés (sites, réseaux sociaux,
+            podcasts, etc.).
+          </p>
+
+        </div>
+      </header>
+
+      <!-- ================= SÉPARATEUR ================= -->
+      <hr class="am-divider" />
+
+      <!-- ================= CONTENU PRINCIPAL ================= -->
+      <main class="am-main">
+        <!-- --------- Section filtres / légende --------- -->
+   <section class="am-filters-section">
+  <div class="am-toolbar">
+    <!-- Filtres -->
+    <div class="am-toolbar-left">
+      <!-- TYPE -->
+      <label class="am-field">
+        <span class="am-field-label">Type</span>
+        <select id="am-filter-type" class="am-select">
+          <!-- option par défaut -->
+          <option value="">Tous les types</option>
+          <!-- les autres options sont ajoutées en JS à partir du JSON -->
+        </select>
+      </label>
+
+      <!-- PAYS -->
+      <label class="am-field">
+        <span class="am-field-label">Pays</span>
+        <select id="am-filter-country" class="am-select">
+          <option value="">Tous</option>
+          <!-- valeurs par défaut, remplacées/complétées par le JS -->
+          <option value="France">France</option>
+          <option value="Belgique">Belgique</option>
+          <option value="Brazil">Brésil</option>
+          <option value="Hong Kong">Hong Kong</option>
+          <option value="International">International</option>
+          <option value="Kurdistan">Kurdistan</option>
+          <option value="Mexico">Mexique</option>
+          <option value="Ukraine">Ukraine</option>
+          <option value="United Kingdom">Royaume‑Uni</option>
+          <option value="USA">États‑Unis (USA)</option>
+        </select>
+      </label>
+
+      <!-- STATUT (validés / propositions) -->
+      <label class="am-field">
+        <span class="am-field-label">Statut</span>
+        <select id="am-filter-origin" class="am-select">
+          <option value="">Tous</option>
+          <option value="validated">Validés</option>
+          <option value="proposed">Proposés</option>
+        </select>
+      </label>
+    </div>
+
+    <!-- Légende des pastilles -->
+    <div class="am-toolbar-right">
+      <span class="am-legend-label">Légende </span>
+      <span class="am-pill am-pill-type">Type</span>
+      <span class="am-pill am-pill-country">Pays</span>
+      <span class="am-pill am-pill-lang">Langue</span>
+    </div>
+  </div>
+</section>
+
+
+        <!-- --------- Section résultats --------- -->
+        <section class="am-results-section">
+          <header class="am-results-header">
+            <h2 class="am-section-title"> </h2>
+            <p class="am-section-desc">
+              Chaque carte correspond à un automédia. Pour y accéder, cliquez sur le nom.
+            </p>
+          </header>
+
+          <!-- Conteneur dans lequel le JS injecte les cartes -->
+          <div id="am-results" class="am-grid">
+            <!-- Contenu généré par automediatheque.js -->
+          </div>
+        </section>
+
+        <!-- --------- Section État de la base (APRÈS la base) --------- -->
+        <section class="am-state-section">
+              <header class="am-state-header">
+
+                     <!-- ================= FOOTER / CRÉDITS ================= -->
+      <footer class="am-footer">
+      
+
+            <button id="am-refresh-db" class="am-button">
+              Recharger la base
+            </button>
+
+            <p class="am-hero-note">
+              Le bouton recharge les fichiers JSON
+              (<code>automedias.json</code> et
+              <code>propositions.json</code>) sans utiliser le cache du
+              navigateur, pour voir les dernières modifications.
+            </p>
+<!-- BOUTON POUR ALLER AU FORMULAIRE -->
+            <p class="am-hero-actions">
+              <a href="formulaire.html" class="am-button">
+                Proposer un automédia
+              </a>
+                    <p class="am-footer-text">
+          Données chargées depuis <code>automedias.json</code> et
+          <code>propositions.json</code>. <br> Pour comprendre plus en détail la méthodologie, tout est disponible en Open-source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank"> ce repo Github</a>. <br> <br> 
+          Projet lancé par <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris </a> en janvier 2026.
+        </p>
+          </div>
+        </section>
+      </main>
+      </footer>
+    </div>
+
+    <script src="assets/automediatheque.js"></script>
+  <script>
+(function() {
+ 
+    <script src="assets/automediatheque.js"></script>
+
+    <script>
+    // === CURSEUR PERSONNALISÉ ===
+    const cursor = document.getElementById('custom-cursor');
+
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+      cursor.classList.remove('hidden');
+    });
+
+    document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
+    document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+
+    const isRedElement = (el) => {
+      if (!el) return false;
+      return el.classList.contains('am-card-title') || 
+             el.closest('.am-card-title') ||
+             el.classList.contains('am-pill-link') || 
+             el.closest('.am-pill-link');
+    };
+
+    const isClickable = (el) => {
+      if (!el) return false;
+      const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
+      if (tags.includes(el.tagName)) return true;
+      if (el.classList.contains('am-card') || 
+          el.classList.contains('am-pill') || 
+          el.classList.contains('am-button') ||
+          el.getAttribute('role') === 'button') return true;
+      return false;
+    };
+
+    document.addEventListener('mouseover', (e) => {
+      cursor.classList.remove('hovering', 'hovering-link');
+      if (isRedElement(e.target)) {
+        cursor.classList.add('hovering-link');
+      } else {
+        let target = e.target;
+        while (target && target !== document.body) {
+          if (isClickable(target)) {
+            cursor.classList.add('hovering');
+            return;
+          }
+          target = target.parentElement;
+        }
+      }
+    });
+
+    document.addEventListener('mouseout', () => {
+      cursor.classList.remove('hovering', 'hovering-link');
+    });
+    </script>
+
+    <!-- Menu de navigation -->
+<nav class="am-nav">
+  <button class="am-menu-btn" id="menu-toggle" aria-expanded="false">
+    <span class="am-menu-icon">☰</span>
+    <span>Menu</span>
+  </button>
+  <div class="am-nav-dropdown" id="menu-dropdown">
+    <a href="index.html" class="am-nav-link">Accueil</a>
+    <a href="automediatheque.html" class="am-nav-link">Automédiathèque</a>
+    <div class="am-nav-separator"></div>
+    <a href="formulaire.html" class="am-nav-link">Proposer</a>
+    <a href="ressources.html" class="am-nav-link">Ressources</a>
+  </div>
+</nav>
+
+<script>
+  // Menu toggle
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuDropdown = document.getElementById('menu-dropdown');
+  
+  menuToggle.addEventListener('click', () => {
+    const isOpen = menuDropdown.classList.toggle('open');
+    menuToggle.classList.toggle('active');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+  
+  document.addEventListener('click', (e) => {
+    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+      menuDropdown.classList.remove('open');
+      menuToggle.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>
+
+<!-- Modal zoom carte -->
+<div id="card-modal">
+  <div id="card-modal-content">
+    <button id="card-modal-close" aria-label="Fermer">×</button>
+    <div id="card-modal-body"></div>
+  </div>
+</div>
+
