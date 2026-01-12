@@ -34,9 +34,9 @@
     </style>
   </head>
 
-  <body>
-    <!-- Curseur personnalisé -->
-    <div id="custom-cursor"></div>
+#custom-cursor {
+  display: none; /* Caché par défaut, activé au premier mousemove */
+}
 
     <!-- Menu de navigation -->
     <nav class="am-nav">
@@ -106,58 +106,78 @@
       });
 
       // === CURSEUR PERSONNALISÉ ===
-      const cursor = document.getElementById('custom-cursor');
-      const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
-      
-      if (!isTouchDevice && cursor) {
-        document.addEventListener('mousemove', (e) => {
-          cursor.style.left = e.clientX + 'px';
-          cursor.style.top = e.clientY + 'px';
-          cursor.classList.remove('hidden');
-        });
+const cursor = document.getElementById('custom-cursor');
 
-        document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
-        document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+// On affiche le curseur seulement si on détecte un mouvement de souris
+let cursorEnabled = false;
 
-        const isRedElement = (el) => {
-          if (!el) return false;
-          return el.classList.contains('am-card-title') || 
-                 el.closest('.am-card-title') ||
-                 el.classList.contains('am-pill-link') || 
-                 el.closest('.am-pill-link');
-        };
+document.addEventListener('mousemove', (e) => {
+  if (!cursor) return;
+  
+  // Activer le curseur au premier mouvement de souris
+  if (!cursorEnabled) {
+    cursorEnabled = true;
+    cursor.style.display = 'block';
+  }
+  
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
+  cursor.classList.remove('hidden');
+});
 
-        const isClickable = (el) => {
-          if (!el) return false;
-          const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
-          if (tags.includes(el.tagName)) return true;
-          if (el.classList.contains('am-card') || 
-              el.classList.contains('am-pill') || 
-              el.classList.contains('am-button') ||
-              el.getAttribute('role') === 'button') return true;
-          return false;
-        };
+// Désactiver si on détecte un touch
+document.addEventListener('touchstart', () => {
+  cursorEnabled = false;
+  if (cursor) cursor.style.display = 'none';
+}, { once: true });
 
-        document.addEventListener('mouseover', (e) => {
-          cursor.classList.remove('hovering', 'hovering-link');
-          if (isRedElement(e.target)) {
-            cursor.classList.add('hovering-link');
-          } else {
-            let target = e.target;
-            while (target && target !== document.body) {
-              if (isClickable(target)) {
-                cursor.classList.add('hovering');
-                return;
-              }
-              target = target.parentElement;
-            }
-          }
-        });
+document.addEventListener('mouseleave', () => {
+  if (cursor) cursor.classList.add('hidden');
+});
 
-        document.addEventListener('mouseout', () => {
-          cursor.classList.remove('hovering', 'hovering-link');
-        });
+document.addEventListener('mouseenter', () => {
+  if (cursor && cursorEnabled) cursor.classList.remove('hidden');
+});
+
+const isRedElement = (el) => {
+  if (!el) return false;
+  return el.classList.contains('am-card-title') || 
+         el.closest('.am-card-title') ||
+         el.classList.contains('am-pill-link') || 
+         el.closest('.am-pill-link');
+};
+
+const isClickable = (el) => {
+  if (!el) return false;
+  const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
+  if (tags.includes(el.tagName)) return true;
+  if (el.classList.contains('am-card') || 
+      el.classList.contains('am-pill') || 
+      el.classList.contains('am-button') ||
+      el.getAttribute('role') === 'button') return true;
+  return false;
+};
+
+document.addEventListener('mouseover', (e) => {
+  if (!cursor) return;
+  cursor.classList.remove('hovering', 'hovering-link');
+  if (isRedElement(e.target)) {
+    cursor.classList.add('hovering-link');
+  } else {
+    let target = e.target;
+    while (target && target !== document.body) {
+      if (isClickable(target)) {
+        cursor.classList.add('hovering');
+        return;
       }
+      target = target.parentElement;
+    }
+  }
+});
+
+document.addEventListener('mouseout', () => {
+  if (cursor) cursor.classList.remove('hovering', 'hovering-link');
+});
     </script>
   </body>
 </html>
