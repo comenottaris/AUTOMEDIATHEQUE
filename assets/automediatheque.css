@@ -302,17 +302,7 @@ html, body, * {
 #custom-cursor.hidden {
   opacity: 0;
 }
-/* Masquer curseur personnalisé sur mobile/tactile */
-@media (pointer: coarse), (max-width: 768px) {
-  #custom-cursor {
-    display: none !important;
-  }
-  
-  html, body, * {
-    cursor: auto !important;
-  }
-}
-
+ 
 
 /* ===========================
    Mise en page générale
