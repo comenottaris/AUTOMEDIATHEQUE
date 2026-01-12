@@ -99,7 +99,7 @@ async function loadData(forceReload = false) {
         return { href: l.href || l.url || null, title: l.title || l.name || l.href || l.url || null };
       }).filter(Boolean).filter(l => l.href);
     }
-    if (typeof raw === 'object') {
+    if (typeof raw === 'object' && raw !== null) {
       return Object.entries(raw).map(([k,v]) => {
         if (typeof v === 'string') return { href: v, title: k };
         if (typeof v === 'object' && v !== null) return { href: v.href || v.url || null, title: v.title || k };
