@@ -107,63 +107,30 @@
         }
       });
 
-     // === CURSEUR PERSONNALISÉ ===
-const cursor = document.getElementById('custom-cursor');
-
-// Détection : on cache sur mobile/tactile via CSS media query uniquement
-document.addEventListener('mousemove', (e) => {
-  if (!cursor) return;
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-  cursor.classList.remove('hidden');
-});
-
-document.addEventListener('mouseleave', () => {
-  if (cursor) cursor.classList.add('hidden');
-});
-
-document.addEventListener('mouseenter', () => {
-  if (cursor) cursor.classList.remove('hidden');
-});
-
-const isRedElement = (el) => {
-  if (!el) return false;
-  return el.classList.contains('am-card-title') || 
-         el.closest('.am-card-title') ||
-         el.classList.contains('am-pill-link') || 
-         el.closest('.am-pill-link');
-};
-
-const isClickable = (el) => {
-  if (!el) return false;
-  const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
-  if (tags.includes(el.tagName)) return true;
-  if (el.classList.contains('am-card') || 
-      el.classList.contains('am-pill') || 
-      el.classList.contains('am-button') ||
-      el.getAttribute('role') === 'button') return true;
-  return false;
-};
-
-document.addEventListener('mouseover', (e) => {
-  if (!cursor) return;
-  cursor.classList.remove('hovering', 'hovering-link');
-  if (isRedElement(e.target)) {
-    cursor.classList.add('hovering-link');
-  } else {
-    let target = e.target;
-    while (target && target !== document.body) {
-      if (isClickable(target)) {
-        cursor.classList.add('hovering');
-        return;
-      }
-      target = target.parentElement;
-    }
+  // === TEST CURSEUR ===
+document.addEventListener('DOMContentLoaded', function() {
+  const cursor = document.getElementById('custom-cursor');
+  
+  console.log('Cursor trouvé ?', cursor);
+  
+  if (cursor) {
+    // Forcer la visibilité
+    cursor.style.cssText = `
+      display: block !important;
+      width: 30px !important;
+      height: 30px !important;
+      background: red !important;
+      position: fixed !important;
+      border-radius: 50% !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+    `;
+    
+    document.addEventListener('mousemove', (e) => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
   }
-});
-
-document.addEventListener('mouseout', () => {
-  if (cursor) cursor.classList.remove('hovering', 'hovering-link');
 });
     </script>
   </body>
