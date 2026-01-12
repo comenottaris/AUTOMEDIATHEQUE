@@ -91,44 +91,42 @@ async function loadData(forceReload = false) {
 }
 
   // Normalize links in loaded data: ensure links is array of { href, title }
-  const normalizeLinks = (raw) => {
-    if (!raw) return [];
-    if (Array.isArray(raw)) {
-      return raw.map(l => {
-        if (!l) return null;
-        if (typeof l === 'string') return { href: l, title: l };
-        return { href: l.href || l.url || null, title: l.title || l.name || l.href || l.url || null };
-      }).filter(Boolean).filter(l => l.href);
-    }
-    if (typeof raw === 'object') {
-      return Object.entries(raw).map(([k,v]) => {
-        if (typeof v === 'string') return { href: v, title: k };
-        if (typeof v === 'object' && v !== null) return { href: v.href || v.url || null, title: v.title || k };
-        return null;
-      }).filter(Boolean).filter(l => l.href);
-    }
-    return [];
-  };
+const normalizeLinks = (raw) => {
+  if (!raw) return [];
+  if (Array.isArray(raw)) {
+    return raw.map(l => {
+      if (!l) return null;
+      if (typeof l === 'string') return { href: l, title: l };
+      return { href: l.href || l.url || null, title: l.title || l.name || l.href || l.url || null };
+    }).filter(Boolean).filter(l => l.href);
+  }
+  if (typeof raw === 'object') {
+    return Object.entries(raw).map(([k,v]) => {
+      if (typeof v === 'string') return { href: v, title: k };
+      if (typeof v === 'object' && v !== null) return { href: v.href || v.url || null, title: v.title || k };
+      return null;
+    }).filter(Boolean).filter(l => l.href);
+  }
+  return [];
+};
 
-  const officialTagged = officialData.map(r => ({ ...r, __origin: 'validated', links: normalizeLinks(r.links) }));
-  const proposalsTagged = proposalsData.map(r => ({ ...r, __origin: 'proposed', links: normalizeLinks(r.links) }));
+const officialTagged = officialData.map(r => ({ ...r, __origin: 'validated', links: normalizeLinks(r.links) }));
+const proposalsTagged = proposalsData.map(r => ({ ...r, __origin: 'proposed', links: normalizeLinks(r.links) }));
 
-  allResources = [...officialTagged, ...proposalsTagged];
+allResources = [...officialTagged, ...proposalsTagged];
 
-  setCount(allResources.length);
+setCount(allResources.length);
 
-  // build filters
-  buildThemeOptions(allResources);
-  buildHashtagOptions(allResources);
+// build filters
+buildThemeOptions(allResources);
+buildHashtagOptions(allResources);
 
-  const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-  setStatus(`OK (${allResources.length} entrées, ${now})`);
-
-  return allResources;
+const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+setStatus(OK (${allResources.length} entrées, ${now}));
 
 function makePill(text, extraClass = '') {
   const span = document.createElement('span');
-  span.className = `am-pill ${extraClass}`.trim();
+  span.className = am-pill ${extraClass}.trim();
   span.textContent = text;
   return span;
 }
