@@ -63,70 +63,72 @@ function buildHashtagOptions(items) {
 
 async function loadData(forceReload = false) {
   if (!forceReload && allResources.length) return allResources;
+
   if (els.results) els.results.innerHTML = '<p class="am-message">Chargement des données…</p>';
   setStatus('chargement…');
 
   const cacheBust = forceReload ? `?t=${Date.now()}` : '';
-  const url = `./data/ressources.json${cacheBust}`;
+  const officialUrl = `${DATA_URL}${cacheBust}`;
+  const proposalsUrl = `${PROPOSALS_URL}${cacheBust}`;
 
-  try {
-    const res = await fetch(url);
-    if (!res.ok) {
-      throw new Error(`HTTP ${res.status} sur ${url}`);
-    }
-    const data = await res.json();
-    if (!Array.isArray(data)) throw new Error('Le fichier JSON doit contenir un tableau');
-    allResources = data;
-    setStatus('ok');
-    setCount(allResources.length);
-    buildFiltersFromData(allResources);
-    return allResources;
-  } catch (err) {
-    console.error('Erreur loadData', err);
-    if (els.results) els.results.innerHTML = `<p class="am-message am-message-error">Impossible de charger les ressources (${err.message}).</p>`;
-    setStatus('erreur');
-    setCount(null);
-    throw err;
+  const [resOfficial, resProps] = await Promise.all([
+    fetch(officialUrl, { cache: 'no-store', headers: { Accept: 'application/json' } }),
+    fetch(proposalsUrl, { cache: 'no-store', headers: { Accept: 'application/json' } }).catch(() => null),
+  ]);
+
+  if (!resOfficial.ok) {
+    throw new Error(`Erreur HTTP ${resOfficial.status} sur ressources.json`);
   }
-}
+  const officialData = await resOfficial.json();
+  if (!Array.isArray(officialData)) throw new Error('Le fichier ressources.json doit contenir un tableau.');
+
+  let proposalsData = [];
+  if (resProps && resProps.ok) {
+    const raw = await resProps.json();
+    if (Array.isArray(raw)) proposalsData = raw;
+    else if (raw && typeof raw === 'object') proposalsData = Object.values(raw);
+  }
 
   // Normalize links in loaded data: ensure links is array of { href, title }
-const normalizeLinks = (raw) => {
-  if (!raw) return [];
-  if (Array.isArray(raw)) {
-    return raw.map(l => {
-      if (!l) return null;
-      if (typeof l === 'string') return { href: l, title: l };
-      return { href: l.href || l.url || null, title: l.title || l.name || l.href || l.url || null };
-    }).filter(Boolean).filter(l => l.href);
-  }
-  if (typeof raw === 'object') {
-    return Object.entries(raw).map(([k,v]) => {
-      if (typeof v === 'string') return { href: v, title: k };
-      if (typeof v === 'object' && v !== null) return { href: v.href || v.url || null, title: v.title || k };
-      return null;
-    }).filter(Boolean).filter(l => l.href);
-  }
-  return [];
-};
+  const normalizeLinks = (raw) => {
+    if (!raw) return [];
+    if (Array.isArray(raw)) {
+      return raw.map(l => {
+        if (!l) return null;
+        if (typeof l === 'string') return { href: l, title: l };
+        return { href: l.href || l.url || null, title: l.title || l.name || l.href || l.url || null };
+      }).filter(Boolean).filter(l => l.href);
+    }
+    if (typeof raw === 'object') {
+      return Object.entries(raw).map(([k,v]) => {
+        if (typeof v === 'string') return { href: v, title: k };
+        if (typeof v === 'object' && v !== null) return { href: v.href || v.url || null, title: v.title || k };
+        return null;
+      }).filter(Boolean).filter(l => l.href);
+    }
+    return [];
+  };
 
-const officialTagged = officialData.map(r => ({ ...r, __origin: 'validated', links: normalizeLinks(r.links) }));
-const proposalsTagged = proposalsData.map(r => ({ ...r, __origin: 'proposed', links: normalizeLinks(r.links) }));
+  const officialTagged = officialData.map(r => ({ ...r, __origin: 'validated', links: normalizeLinks(r.links) }));
+  const proposalsTagged = proposalsData.map(r => ({ ...r, __origin: 'proposed', links: normalizeLinks(r.links) }));
 
-allResources = [...officialTagged, ...proposalsTagged];
+  allResources = [...officialTagged, ...proposalsTagged];
 
-setCount(allResources.length);
+  setCount(allResources.length);
 
-// build filters
-buildThemeOptions(allResources);
-buildHashtagOptions(allResources);
+  // build filters
+  buildThemeOptions(allResources);
+  buildHashtagOptions(allResources);
 
-const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-setStatus(OK (${allResources.length} entrées, ${now}));
+  const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  setStatus(`OK (${allResources.length} entrées, ${now})`);
+
+  return allResources;
+}
 
 function makePill(text, extraClass = '') {
   const span = document.createElement('span');
-  span.className = am-pill ${extraClass}.trim();
+  span.className = `am-pill ${extraClass}`.trim();
   span.textContent = text;
   return span;
 }
