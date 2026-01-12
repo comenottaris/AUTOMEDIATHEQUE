@@ -2,7 +2,7 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <title>Ressources </title>
+    <title>Ressources</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assets/automediatheque.css" />
 
@@ -25,95 +25,109 @@
         }
       }
     </style>
+  </head>
 
+  <body>
     <!-- Curseur personnalisé -->
     <div id="custom-cursor"></div>
 
+    <!-- Menu de navigation -->
+    <nav class="am-nav">
+      <button class="am-menu-btn" id="menu-toggle" aria-expanded="false">
+        <span class="am-menu-icon">☰</span>
+        <span>Menu</span>
+      </button>
+      <div class="am-nav-dropdown" id="menu-dropdown">
+        <a href="index.html" class="am-nav-link">Accueil</a>
+        <a href="liste.html" class="am-nav-link">Automédiathèque</a>
+        <div class="am-nav-separator"></div>
+        <a href="formulaire.html" class="am-nav-link">Participer</a>
+        <a href="ressources.html" class="am-nav-link">Ressources</a>
+      </div>
+    </nav>
+
     <div class="am-page">
-
       <!-- ================= CONTENU PRINCIPAL ================= -->
- <section class="am-page" id="resources">
-  <div class="am-hero am-hero--center">
-    <div class="am-hero-inner">
-      <p class="am-kicker">Ressources</p>
-      <h1>Boîte à outils pour l'automédiation et l'automédias</h1>
-      <p class="am-hero-lead">
-        Catalogage d'outils libres / auto‑hébergeables et guides militants pour produire, archiver
-        et diffuser des contenus de façon autonome et responsable.
-      </p>
-    </div>
-  </div>
-
-  <hr class="am-divider">
-
-  <!-- Barre de filtres : thème / langue / hashtags (multi) -->
-  <div class="am-filters" aria-label="filtres" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
-    <label style="display:flex;gap:0.5rem;align-items:center;">
-      <span style="font-weight:600;color:var(--am-text-softer);">Thème :</span>
-      <select id="am-filter-theme" class="am-select" aria-label="filtre-theme">
-        <option value="">Tous les thèmes</option>
-      </select>
-    </label>
-
-    <label style="display:flex;gap:0.5rem;align-items:center;">
-      <span style="font-weight:600;color:var(--am-text-softer);">Langue :</span>
-      <select id="am-filter-lang" class="am-select" aria-label="filtre-lang">
-        <option value="">Toutes langues</option>
-        <option value="fr">FR</option>
-        <option value="en">EN</option>
-        <option value="multi">Multi</option>
-      </select>
-    </label>
-
-    <label style="display:flex;gap:0.5rem;align-items:center;">
-      <span style="font-weight:600;color:var(--am-text-softer);">Hashtags :</span>
-      <select id="am-filter-hashtags" class="am-select" aria-label="filtre-hashtags" multiple size="3" style="min-width:220px;">
-        <!-- options ajoutées dynamiquement -->
-      </select>
-    </label>
-
-    <button id="am-refresh-db" class="am-button-secondary" title="Rafraîchir la base">Rafraîchir</button>
-
-  <!-- Résultats (remplis dynamiquement par JS) -->
-  <main class="am-main">
-    <div id="am-results" class="am-results-wrapper">
-      <p class="am-message">Chargement des ressources…</p>
-    </div>
-  </main>
-</section>
-
-<!-- script client : veille à avoir assets/ressources.js (fourni précédemment) -->
-<script src="assets/ressources.js"></script>
-
-
-        <!-- --------- Section Contribuer --------- -->
-        <section class="am-section">
-          <header class="am-state-header">
-            <h2 class="am-section-title">Contribuer à Automédiathèque</h2>
-          </header>
-          <div class="am-section-inner">
-            <p class="am-footer-text">
-              Ce projet est open-source et collaboratif. Plusieurs façons de contribuer :
-            </p>
-            <ul style="list-style: disc; padding-left: 2rem; line-height: 1.8;">
-              <li>
-                <a href="formulaire.html">Proposer un automédia</a> via le formulaire
-              </li>
-              <li>
-                Contribuer au code sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">GitHub</a><br>
-               Aide, ça peut être signaler des erreurs ou des liens obsolètes, <br>me partager des ressources et références supplémentaires, <br>
-                m'aider à Traduire l'interface dans d'autres langues, <br>etc.
-              </li>
-            </ul>
-            <p class="am-hero-actions" style="margin-top: 2rem;">
-              <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" class="am-button">
-                Voir le dépôt GitHub
-              </a>
+      <section class="am-page" id="resources">
+        <div class="am-hero am-hero--center">
+          <div class="am-hero-inner">
+            <p class="am-kicker">Ressources</p>
+            <h1>Boîte à outils pour l'automédiation et l'automédias</h1>
+            <p class="am-hero-lead">
+              Catalogage d'outils libres / auto‑hébergeables et guides militants pour produire, archiver
+              et diffuser des contenus de façon autonome et responsable.
             </p>
           </div>
-        </section>
+        </div>
 
-      </main>
+        <hr class="am-divider">
+
+        <!-- Barre de filtres : thème / langue / hashtags (multi) -->
+        <div class="am-filters" aria-label="filtres" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
+          <label style="display:flex;gap:0.5rem;align-items:center;">
+            <span style="font-weight:600;color:var(--am-text-softer);">Thème :</span>
+            <select id="am-filter-theme" class="am-select" aria-label="filtre-theme">
+              <option value="">Tous les thèmes</option>
+            </select>
+          </label>
+
+          <label style="display:flex;gap:0.5rem;align-items:center;">
+            <span style="font-weight:600;color:var(--am-text-softer);">Langue :</span>
+            <select id="am-filter-lang" class="am-select" aria-label="filtre-lang">
+              <option value="">Toutes langues</option>
+              <option value="fr">FR</option>
+              <option value="en">EN</option>
+              <option value="multi">Multi</option>
+            </select>
+          </label>
+
+          <label style="display:flex;gap:0.5rem;align-items:center;">
+            <span style="font-weight:600;color:var(--am-text-softer);">Hashtags :</span>
+            <select id="am-filter-hashtags" class="am-select" aria-label="filtre-hashtags" multiple size="3" style="min-width:220px;">
+              <!-- options ajoutées dynamiquement -->
+            </select>
+          </label>
+
+          <button id="am-refresh-db" class="am-button-secondary" title="Rafraîchir la base">Rafraîchir</button>
+        </div>
+
+        <!-- Résultats (remplis dynamiquement par JS) -->
+        <main class="am-main">
+          <div id="am-results" class="am-results-wrapper">
+            <p class="am-message">Chargement des ressources…</p>
+          </div>
+        </main>
+      </section>
+
+      <!-- script client : veille à avoir assets/ressources.js (fourni précédemment) -->
+      <script src="assets/ressources.js"></script>
+
+      <!-- --------- Section Contribuer --------- -->
+      <section class="am-section">
+        <header class="am-state-header">
+          <h2 class="am-section-title">Contribuer à Automédiathèque</h2>
+        </header>
+        <div class="am-section-inner">
+          <p class="am-footer-text">
+            Ce projet est open-source et collaboratif. Plusieurs façons de contribuer :
+          </p>
+          <ul style="list-style: disc; padding-left: 2rem; line-height: 1.8;">
+            <li>
+              <a href="formulaire.html">Proposer un automédia</a> via le formulaire
+            </li>
+            <li>
+              Contribuer au code sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">GitHub</a><br>
+              Aide, ça peut être signaler des erreurs ou des liens obsolètes, <br>me partager des ressources et références supplémentaires, <br>
+              m'aider à Traduire l'interface dans d'autres langues, <br>etc.
+            </li>
+          </ul>
+          <p class="am-hero-actions" style="margin-top: 2rem;">
+            <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" class="am-button">
+              Voir le dépôt GitHub
+            </a>
+          </p>
+        </div>
+      </section>
 
       <!-- ================= FOOTER / CRÉDITS ================= -->
       <footer class="am-footer">
@@ -125,93 +139,37 @@
     </div>
 
     <script>
-    // === CURSEUR PERSONNALISÉ ===
-    const cursor = document.getElementById('custom-cursor');
-
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      cursor.classList.remove('hidden');
-    });
-
-    document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
-    document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
-
-    const isRedElement = (el) => {
-      if (!el) return false;
-      return el.classList.contains('am-card-title') || 
-             el.closest('.am-card-title') ||
-             el.classList.contains('am-pill-link') || 
-             el.closest('.am-pill-link');
-    };
-
-    const isClickable = (el) => {
-      if (!el) return false;
-      const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
-      if (tags.includes(el.tagName)) return true;
-      if (el.classList.contains('am-card') || 
-          el.classList.contains('am-pill') || 
-          el.classList.contains('am-button') ||
-          el.getAttribute('role') === 'button') return true;
-      return false;
-    };
-
-    document.addEventListener('mouseover', (e) => {
-      cursor.classList.remove('hovering', 'hovering-link');
-      if (isRedElement(e.target)) {
-        cursor.classList.add('hovering-link');
-      } else {
-        let target = e.target;
-        while (target && target !== document.body) {
-          if (isClickable(target)) {
-            cursor.classList.add('hovering');
-            return;
-          }
-          target = target.parentElement;
+      // === MENU ===
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuDropdown = document.getElementById('menu-dropdown');
+      
+      menuToggle.addEventListener('click', () => {
+        const isOpen = menuDropdown.classList.toggle('open');
+        menuToggle.classList.toggle('active');
+        menuToggle.setAttribute('aria-expanded', isOpen);
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+          menuDropdown.classList.remove('open');
+          menuToggle.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
         }
-      }
-    });
+      });
 
-    document.addEventListener('mouseout', () => {
-      cursor.classList.remove('hovering', 'hovering-link');
-    });
+      // === CURSEUR PERSONNALISÉ ===
+      const cursor = document.getElementById('custom-cursor');
+
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+
+      // Effet hover sur les liens et boutons
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hovering-link'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hovering-link'));
+      });
     </script>
-
-    <!-- Menu de navigation -->
-<nav class="am-nav">
-  <button class="am-menu-btn" id="menu-toggle" aria-expanded="false">
-    <span class="am-menu-icon">☰</span>
-    <span>Menu</span>
-  </button>
-  <div class="am-nav-dropdown" id="menu-dropdown">
-    <a href="index.html" class="am-nav-link">Accueil</a>
-    <a href="liste.html" class="am-nav-link">Automédiathèque</a>
-    <div class="am-nav-separator"></div>
-    <a href="formulaire.html" class="am-nav-link">Participer</a>
-    <a href="ressources.html" class="am-nav-link">Ressources</a>
-  </div>
-</nav>
-
-<script>
-  // Menu toggle
-  const menuToggle = document.getElementById('menu-toggle');
-  const menuDropdown = document.getElementById('menu-dropdown');
-  
-  menuToggle.addEventListener('click', () => {
-    const isOpen = menuDropdown.classList.toggle('open');
-    menuToggle.classList.toggle('active');
-    menuToggle.setAttribute('aria-expanded', isOpen);
-  });
-  
-  document.addEventListener('click', (e) => {
-    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
-      menuDropdown.classList.remove('open');
-      menuToggle.classList.remove('active');
-      menuToggle.setAttribute('aria-expanded', 'false');
-    }
-  });
-</script>
-
-
   </body>
 </html>
