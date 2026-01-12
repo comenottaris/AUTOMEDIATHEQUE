@@ -32,15 +32,6 @@
 <!-- Curseur personnalisé -->
     <div id="custom-cursor"></div>
 
-
-<!-- Modal zoom carte -->
-<div id="card-modal">
-  <div id="card-modal-content">
-    <button id="card-modal-close" aria-label="Fermer">×</button>
-    <div id="card-modal-body"></div>
-  </div>
-</div>
-
     
     <div class="am-page">
       <!-- ================= HEADER / INTRO ================= -->
@@ -88,25 +79,8 @@
     </div>
 
     <script>
-  // === CURSEUR PERSONNALISÉ (DÉSACTIVÉ SUR MOBILE) ===
-  function initCustomCursor() {
-    const isMobile = {
-      Android: function() { return navigator.userAgent.match(/Android/i); },
-      BlackBerry: function() { return navigator.userAgent.match(/BlackBerry/i); },
-      iOS: function() { return navigator.userAgent.match(/iPhone|iPad|iPod/i); },
-      Opera: function() { return navigator.userAgent.match(/Opera Mini/i); },
-      Windows: function() { return navigator.userAgent.match(/IEMobile/i); },
-      any: function() { return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows()); }
-    };
-
-    const isSmallScreen = window.matchMedia('(max-width: 768px)').matches;
-
-    if (isMobile.any() || isSmallScreen) {
-      return;
-    }
-
+  // === CURSEUR PERSONNALISÉ ===
     const cursor = document.getElementById('custom-cursor');
-    if (!cursor) return;
 
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';
@@ -119,9 +93,9 @@
 
     const isRedElement = (el) => {
       if (!el) return false;
-      return el.classList.contains('am-card-title') ||
+      return el.classList.contains('am-card-title') || 
              el.closest('.am-card-title') ||
-             el.classList.contains('am-pill-link') ||
+             el.classList.contains('am-pill-link') || 
              el.closest('.am-pill-link');
     };
 
@@ -129,8 +103,8 @@
       if (!el) return false;
       const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
       if (tags.includes(el.tagName)) return true;
-      if (el.classList.contains('am-card') ||
-          el.classList.contains('am-pill') ||
+      if (el.classList.contains('am-card') || 
+          el.classList.contains('am-pill') || 
           el.classList.contains('am-button') ||
           el.getAttribute('role') === 'button') return true;
       return false;
@@ -155,34 +129,40 @@
     document.addEventListener('mouseout', () => {
       cursor.classList.remove('hovering', 'hovering-link');
     });
-  }
+    </script>
 
+    <!-- Menu de navigation -->
+<nav class="am-nav">
+  <button class="am-menu-btn" id="menu-toggle" aria-expanded="false">
+    <span class="am-menu-icon">☰</span>
+    <span>Menu</span>
+  </button>
+  <div class="am-nav-dropdown" id="menu-dropdown">
+    <a href="index.html" class="am-nav-link">Accueil</a>
+    <a href="liste.html" class="am-nav-link">Automédiathèque</a>
+    <div class="am-nav-separator"></div>
+    <a href="formulaire.html" class="am-nav-link">Participer</a>
+    <a href="ressources.html" class="am-nav-link">Ressources</a>
+  </div>
+</nav>
+
+<script>
   // Menu toggle
-  function initMenu() {
-    const menuToggle = document.getElementById('menu-toggle');
-    const menuDropdown = document.getElementById('menu-dropdown');
-    
-    if (!menuToggle || !menuDropdown) return;
-    
-    menuToggle.addEventListener('click', () => {
-      const isOpen = menuDropdown.classList.toggle('open');
-      menuToggle.classList.toggle('active');
-      menuToggle.setAttribute('aria-expanded', isOpen);
-    });
-    
-    document.addEventListener('click', (e) => {
-      if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
-        menuDropdown.classList.remove('open');
-        menuToggle.classList.remove('active');
-        menuToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  }
-
-  // Initialiser tout quand la page est chargée
-  window.addEventListener('DOMContentLoaded', () => {
-    initCustomCursor();
-    initMenu();
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuDropdown = document.getElementById('menu-dropdown');
+  
+  menuToggle.addEventListener('click', () => {
+    const isOpen = menuDropdown.classList.toggle('open');
+    menuToggle.classList.toggle('active');
+    menuToggle.setAttribute('aria-expanded', isOpen);
+  });
+  
+  document.addEventListener('click', (e) => {
+    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+      menuDropdown.classList.remove('open');
+      menuToggle.classList.remove('active');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
   });
 </script>
 
