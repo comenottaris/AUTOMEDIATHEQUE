@@ -125,7 +125,6 @@ async function loadData(forceReload = false) {
   setStatus(`OK (${allResources.length} entrées, ${now})`);
 
   return allResources;
-}
 
 function makePill(text, extraClass = '') {
   const span = document.createElement('span');
