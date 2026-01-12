@@ -79,63 +79,70 @@
     </div>
 
     <script>
-  // === CURSEUR PERSONNALISÉ ===
-    const cursor = document.getElementById('custom-cursor');
+   // === CURSEUR PERSONNALISÉ ===
+const cursor = document.getElementById('custom-cursor');
 
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      cursor.classList.remove('hidden');
-    });
+// Détection du mobile
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth <= 768;
 
-    document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
-    document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+// Ne pas afficher le curseur sur mobile
+if (!isMobile) {
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    cursor.classList.remove('hidden');
+  });
 
-    const isRedElement = (el) => {
-      if (!el) return false;
-      return el.classList.contains('am-card-title') || 
-             el.closest('.am-card-title') ||
-             el.classList.contains('am-pill-link') || 
-             el.closest('.am-pill-link');
-    };
+  document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
+  document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
 
-    const isClickable = (el) => {
-      if (!el) return false;
-      const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
-      if (tags.includes(el.tagName)) return true;
-      if (el.classList.contains('am-card') || 
-          el.classList.contains('am-pill') || 
-          el.classList.contains('am-button') ||
-          el.getAttribute('role') === 'button') return true;
-      return false;
-    };
+  const isRedElement = (el) => {
+    if (!el) return false;
+    return el.classList.contains('am-card-title') || 
+           el.closest('.am-card-title') ||
+           el.classList.contains('am-pill-link') || 
+           el.closest('.am-pill-link');
+  };
 
-    document.addEventListener('mouseover', (e) => {
-      cursor.classList.remove('hovering', 'hovering-link');
-      if (isRedElement(e.target)) {
-        cursor.classList.add('hovering-link');
-      } else {
-        let target = e.target;
-        while (target && target !== document.body) {
-          if (isClickable(target)) {
-            cursor.classList.add('hovering');
-            return;
-          }
-          target = target.parentElement;
+  const isClickable = (el) => {
+    if (!el) return false;
+    const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
+    if (tags.includes(el.tagName)) return true;
+    if (el.classList.contains('am-card') || 
+        el.classList.contains('am-pill') || 
+        el.classList.contains('am-button') ||
+        el.getAttribute('role') === 'button') return true;
+    return false;
+  };
+
+  document.addEventListener('mouseover', (e) => {
+    cursor.classList.remove('hovering', 'hovering-link');
+    if (isRedElement(e.target)) {
+      cursor.classList.add('hovering-link');
+    } else {
+      let target = e.target;
+      while (target && target !== document.body) {
+        if (isClickable(target)) {
+          cursor.classList.add('hovering');
+          return;
         }
+        target = target.parentElement;
       }
-    });
+    }
+  });
 
-    document.addEventListener('mouseout', () => {
-      cursor.classList.remove('hovering', 'hovering-link');
-    });
-    </script>
+  document.addEventListener('mouseout', () => {
+    cursor.classList.remove('hovering', 'hovering-link');
+  });
+} else {
+  // Masquer complètement le curseur sur mobile
+  cursor.style.display = 'none';
+}
 
-    <!-- Menu de navigation -->
+<!-- Menu de navigation -->
 <nav class="am-nav">
-  <button class="am-menu-btn" id="menu-toggle" aria-expanded="false">
+  <button class="am-menu-btn" id="menu-toggle" aria-expanded="false" aria-label="Menu de navigation">
     <span class="am-menu-icon">☰</span>
-    <span>Menu</span>
   </button>
   <div class="am-nav-dropdown" id="menu-dropdown">
     <a href="index.html" class="am-nav-link">Accueil</a>
