@@ -27,18 +27,13 @@
         body {
           padding: 0 10px;
         }
-        #custom-cursor {
-          display: none !important;
-        }
       }
-      
-      #custom-cursor {
-  display: none; /* Caché par défaut, activé au premier mousemove */
-}
     </style>
   </head>
 
-
+  <body>
+    <!-- Curseur personnalisé -->
+    <div id="custom-cursor"></div>
 
     <!-- Menu de navigation -->
     <nav class="am-nav">
@@ -107,31 +102,19 @@
         }
       });
 
-  // === TEST CURSEUR ===
-document.addEventListener('DOMContentLoaded', function() {
-  const cursor = document.getElementById('custom-cursor');
-  
-  console.log('Cursor trouvé ?', cursor);
-  
-  if (cursor) {
-    // Forcer la visibilité
-    cursor.style.cssText = `
-      display: block !important;
-      width: 30px !important;
-      height: 30px !important;
-      background: red !important;
-      position: fixed !important;
-      border-radius: 50% !important;
-      pointer-events: none !important;
-      z-index: 999999 !important;
-    `;
-    
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-  }
-});
+      // === CURSEUR PERSONNALISÉ ===
+      const cursor = document.getElementById('custom-cursor');
+      
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+
+      // Effet hover sur les liens et boutons
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hovering-link'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hovering-link'));
+      });
     </script>
   </body>
 </html>
