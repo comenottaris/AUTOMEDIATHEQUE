@@ -314,36 +314,6 @@
     "updated_at": "2026-01-11T20:36:56.43719+00:00"
   },
   {
-    "id": "22da8870-f51e-471d-b7cf-b9ae54ebf21c",
-    "name": "Hébergeurs recommandés",
-    "url": null,
-    "theme": "hebergement",
-    "type": "infrastructure",
-    "languages": [
-      "multi"
-    ],
-    "tags": [
-      "hetzner",
-      "scaleway",
-      "infrastructure"
-    ],
-    "description": "Exemples d'hébergeurs européens adaptés aux projets auto-hébergés (serveurs VPS, stockage objet, offres respectueuses des données).",
-    "links": [
-      {
-        "href": "https://hetzner.com",
-        "title": "hetzner"
-      },
-      {
-        "href": "https://scaleway.com",
-        "title": "scaleway"
-      }
-    ],
-    "status": "validated",
-    "owner": null,
-    "created_at": "2026-01-11T20:36:56.43719+00:00",
-    "updated_at": "2026-01-11T20:36:56.43719+00:00"
-  },
-  {
     "id": "87fea163-a70d-4031-b140-bf5092a982b0",
     "name": "Signal",
     "url": "https://signal.org",
@@ -366,36 +336,6 @@
       {
         "href": "https://signal.org",
         "title": "site"
-      }
-    ],
-    "status": "validated",
-    "owner": null,
-    "created_at": "2026-01-11T20:36:56.43719+00:00",
-    "updated_at": "2026-01-11T20:36:56.43719+00:00"
-  },
-  {
-    "id": "78c3a3b0-0985-4f9f-9685-f2c4066dd4e6",
-    "name": "Matrix (Element)",
-    "url": "https://matrix.org",
-    "theme": "communication",
-    "type": "messagerie",
-    "languages": [
-      "multi"
-    ],
-    "tags": [
-      "matrix",
-      "element",
-      "chat"
-    ],
-    "description": "Protocole open source pour messagerie et rooms fédérées — très adapté au travail d'équipe et intégration bots/archives.",
-    "links": [
-      {
-        "href": "https://matrix.org",
-        "title": "site"
-      },
-      {
-        "href": "https://element.io",
-        "title": "client"
       }
     ],
     "status": "validated",
@@ -460,27 +400,6 @@
     "updated_at": "2026-01-11T20:36:56.43719+00:00"
   },
   {
-    "id": "bd6b2f91-e6a9-4208-8efc-04c3eabe43b7",
-    "name": "Formats recommandés",
-    "url": null,
-    "theme": "formats",
-    "type": "infrastructure",
-    "languages": [
-      "multi"
-    ],
-    "tags": [
-      "formats",
-      "perennite",
-      "archivage"
-    ],
-    "description": "Préférer WAV/FLAC (audio), WebM/VP9 (vidéo) ou MP4/H.264 pour compatibilité, SVG/PNG/AVIF pour images, et PDF/A pour documents d'archives.",
-    "links": [],
-    "status": "validated",
-    "owner": null,
-    "created_at": "2026-01-11T20:36:56.43719+00:00",
-    "updated_at": "2026-01-11T20:36:56.43719+00:00"
-  },
-  {
     "id": "69d4e085-9c27-4fba-b6c9-d0693f15cff2",
     "name": "Certificats & HTTPS",
     "url": null,
@@ -509,6 +428,32 @@
     "owner": null,
     "created_at": "2026-01-11T20:36:56.43719+00:00",
     "updated_at": "2026-01-11T20:36:56.43719+00:00"
+  },
+  {
+    "id": "78c3a3b0-0985-4f9f-9685-f2c4066dd4e6",
+    "name": "Matrix (Element)",
+    "url": "https://matrix.org",
+    "theme": "communication",
+    "type": "messagerie",
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "matrix",
+      "element",
+      "chat"
+    ],
+    "description": "Protocole open source pour messagerie et rooms fédérées — très adapté au travail d'équipe et intégration bots/archives.",
+    "links": [
+      {
+        "href": "https://matrix.org",
+        "title": "site"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-01-19T16:22:30.884548+00:00"
   },
   {
     "id": "d91bf7e5-1b1d-44db-b8b6-602753810ff5",
@@ -583,17 +528,17 @@
     "description": "Guides pratiques, tutoriels OPSEC et ressources juridiques pour activistes et journalistes.",
     "links": [
       {
-        "href": "https://ssd.eff.org",
-        "title": "ssd"
-      },
-      {
         "href": "https://eff.org",
         "title": "site"
+      },
+      {
+        "href": "https://ssd.eff.org",
+        "title": "Surveillance Self-Defense"
       }
     ],
     "status": "validated",
     "owner": null,
     "created_at": "2026-01-11T20:36:56.43719+00:00",
-    "updated_at": "2026-01-11T20:36:56.43719+00:00"
+    "updated_at": "2026-01-19T16:20:46.148214+00:00"
   }
 ]
