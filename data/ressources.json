@@ -540,5 +540,35 @@
     "owner": null,
     "created_at": "2026-01-11T20:36:56.43719+00:00",
     "updated_at": "2026-01-19T16:20:46.148214+00:00"
+  },
+  {
+    "id": "2b9ac207-4b33-444f-abcf-9b01ba18e978",
+    "name": "Bal Masqué",
+    "url": "https://github.com/comenottaris/BAL-MASQUE",
+    "theme": "creation",
+    "type": "anonymat",
+    "languages": [
+      "fr"
+    ],
+    "tags": [
+      "image",
+      "securite",
+      "anonymat"
+    ],
+    "description": " Logiciel libre de floutage de visages pour Windows",
+    "links": [
+      {
+        "href": "https://github.com/comenottaris/BAL-MASQUE/releases/tag/v1.0",
+        "title": "installation"
+      },
+      {
+        "href": "https://github.com/comenottaris/BAL-MASQUE/",
+        "title": "presentation"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-19T16:51:36.809626+00:00",
+    "updated_at": "2026-01-19T16:51:36.809626+00:00"
   }
 ]
