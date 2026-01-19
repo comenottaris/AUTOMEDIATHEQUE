@@ -5,7 +5,6 @@
     "url": "https://obsproject.com",
     "theme": "creation",
     "type": "video",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -17,8 +16,12 @@
     "description": "Capture et streaming open source — parfait pour émissions en direct, enregistrements de qualité, overlays et scènes multi-sources.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://obsproject.com",
+        "title": "site"
+      },
+      {
+        "href": "https://obsproject.com/forum",
+        "title": "forum"
       }
     ],
     "status": "validated",
@@ -32,7 +35,6 @@
     "url": "https://www.audacityteam.org",
     "theme": "creation",
     "type": "audio",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -44,8 +46,12 @@
     "description": "Montage audio gratuit et simple, utile pour podcasts et enregistrements bruts. Compatible avec formats ouverts (WAV, FLAC).",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://manual.audacityteam.org",
+        "title": "guide"
+      },
+      {
+        "href": "https://www.audacityteam.org",
+        "title": "download"
       }
     ],
     "status": "validated",
@@ -59,7 +65,6 @@
     "url": "https://ardour.org",
     "theme": "creation",
     "type": "audio",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -71,8 +76,12 @@
     "description": "Station audio numérique professionnelle open source — idéale pour productions audio complexes et mixages multi-pistes.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://ardour.org",
+        "title": "site"
+      },
+      {
+        "href": "https://ardour.org/support.html",
+        "title": "support"
       }
     ],
     "status": "validated",
@@ -86,7 +95,6 @@
     "url": null,
     "theme": "creation",
     "type": "image",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -98,8 +106,12 @@
     "description": "Édition bitmap et vectorielle libres — pour visuels, vignettes, logos et mises en page d'affiches.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://www.gimp.org",
+        "title": "gimp"
+      },
+      {
+        "href": "https://inkscape.org",
+        "title": "inkscape"
       }
     ],
     "status": "validated",
@@ -113,7 +125,6 @@
     "url": "https://joinmastodon.org",
     "theme": "publication",
     "type": "microblog",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -125,8 +136,12 @@
     "description": "Réseau décentralisé compatible ActivityPub — utile pour créer un média textuel / micro-édition sans dépendre d'une plateforme centralisée.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://joinmastodon.org",
+        "title": "site"
+      },
+      {
+        "href": "https://www.w3.org/TR/activitypub/",
+        "title": "spec"
       }
     ],
     "status": "validated",
@@ -140,7 +155,6 @@
     "url": "https://joinpeertube.org",
     "theme": "publication",
     "type": "video",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -152,8 +166,12 @@
     "description": "Alternative auto-hébergeable pour vidéos, fédérée au sein du Fediverse — intégration P2P pour réduire la bande passante.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://joinpeertube.org",
+        "title": "site"
+      },
+      {
+        "href": "https://peertube.video",
+        "title": "instances"
       }
     ],
     "status": "validated",
@@ -167,7 +185,6 @@
     "url": "https://funkwhale.audio",
     "theme": "publication",
     "type": "audio",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -179,8 +196,8 @@
     "description": "Plateforme fédérée pour diffusion audio (podcasts, albums) — idéale pour créer et partager catalogues audio hors plateformes centralisées.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://funkwhale.audio",
+        "title": "site"
       }
     ],
     "status": "validated",
@@ -194,7 +211,6 @@
     "url": null,
     "theme": "publication",
     "type": "infrastructure",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -206,8 +222,12 @@
     "description": "Produire un flux RSS/podcast permet la syndication indépendante. Héberger en statique (S3/OVH/Scaleway) ou via services open (OVH, Hetzner, etc.).",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://www.hugo-lang.org",
+        "title": "hugo"
+      },
+      {
+        "href": "https://jekyllrb.com",
+        "title": "jekyll"
       }
     ],
     "status": "validated",
@@ -221,7 +241,6 @@
     "url": "https://nextcloud.com",
     "theme": "hebergement",
     "type": "storage",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -233,8 +252,8 @@
     "description": "Cloud personnel auto-hébergeable : fichiers, partage, calendriers, collaborative editing — utile pour équipes éditoriales décentralisées.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://nextcloud.com",
+        "title": "site"
       }
     ],
     "status": "validated",
@@ -248,7 +267,6 @@
     "url": "https://syncthing.net",
     "theme": "hebergement",
     "type": "storage",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -260,8 +278,8 @@
     "description": "Synchronisation de dossiers pair-à-pair sans serveur central — utile pour partager des dossiers volumineux entre collaborateurs.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://syncthing.net",
+        "title": "download"
       }
     ],
     "status": "validated",
@@ -275,7 +293,6 @@
     "url": "https://archive.org",
     "theme": "hebergement",
     "type": "infrastructure",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -287,8 +304,8 @@
     "description": "Archive publique et gratuite de contenus — utile pour déposer des copies publiques et assurer la pérennité documentaire.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://archive.org",
+        "title": "site"
       }
     ],
     "status": "validated",
@@ -302,7 +319,6 @@
     "url": null,
     "theme": "hebergement",
     "type": "infrastructure",
-    "country": "EU",
     "languages": [
       "multi"
     ],
@@ -314,8 +330,12 @@
     "description": "Exemples d'hébergeurs européens adaptés aux projets auto-hébergés (serveurs VPS, stockage objet, offres respectueuses des données).",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://hetzner.com",
+        "title": "hetzner"
+      },
+      {
+        "href": "https://scaleway.com",
+        "title": "scaleway"
       }
     ],
     "status": "validated",
@@ -329,7 +349,6 @@
     "url": "https://signal.org",
     "theme": "communication",
     "type": "messagerie",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -341,8 +360,12 @@
     "description": "Messagerie instantanée à chiffrement de bout en bout — bon compromis confidentialité et facilité d'usage pour équipes.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://signal.org/docs",
+        "title": "docs"
+      },
+      {
+        "href": "https://signal.org",
+        "title": "site"
       }
     ],
     "status": "validated",
@@ -356,7 +379,6 @@
     "url": "https://matrix.org",
     "theme": "communication",
     "type": "messagerie",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -368,8 +390,12 @@
     "description": "Protocole open source pour messagerie et rooms fédérées — très adapté au travail d'équipe et intégration bots/archives.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://matrix.org",
+        "title": "site"
+      },
+      {
+        "href": "https://element.io",
+        "title": "client"
       }
     ],
     "status": "validated",
@@ -383,7 +409,6 @@
     "url": "https://www.torproject.org",
     "theme": "communication",
     "type": "anonymat",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -395,8 +420,12 @@
     "description": "Outils pour navigation anonyme et pour créer des environnements temporaires (Tails) — à utiliser avec prudence suivant le contexte opérationnel.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://www.torproject.org",
+        "title": "tor"
+      },
+      {
+        "href": "https://tails.boum.org",
+        "title": "tails"
       }
     ],
     "status": "validated",
@@ -410,7 +439,6 @@
     "url": "https://onionshare.org",
     "theme": "communication",
     "type": "anonymat",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -422,8 +450,8 @@
     "description": "Partage de fichiers via Tor de façon anonyme et sans serveur central — utile pour transférer des sources sensibles.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://onionshare.org",
+        "title": "site"
       }
     ],
     "status": "validated",
@@ -437,7 +465,6 @@
     "url": null,
     "theme": "formats",
     "type": "infrastructure",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -447,12 +474,7 @@
       "archivage"
     ],
     "description": "Préférer WAV/FLAC (audio), WebM/VP9 (vidéo) ou MP4/H.264 pour compatibilité, SVG/PNG/AVIF pour images, et PDF/A pour documents d'archives.",
-    "links": [
-      {
-        "href": "[object Object]",
-        "title": "[object Object]"
-      }
-    ],
+    "links": [],
     "status": "validated",
     "owner": null,
     "created_at": "2026-01-11T20:36:56.43719+00:00",
@@ -464,7 +486,6 @@
     "url": null,
     "theme": "formats",
     "type": "infrastructure",
-    "country": null,
     "languages": [
       "multi"
     ],
@@ -476,8 +497,12 @@
     "description": "Utiliser Let's Encrypt / Certbot pour TLS gratuit sur vos sites ; automatiser le renouvellement des certificats.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://certbot.eff.org",
+        "title": "certbot"
+      },
+      {
+        "href": "https://letsencrypt.org",
+        "title": "letsencrypt"
       }
     ],
     "status": "validated",
@@ -491,7 +516,6 @@
     "url": "https://framasoft.org",
     "theme": "guides",
     "type": "guides",
-    "country": "FR",
     "languages": [
       "fr"
     ],
@@ -503,8 +527,12 @@
     "description": "Ressources francophones pour dégoogliser, héberger, et diffuser en autonomie. Nombreux guides pratiques et tutoriels.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://framagit.org",
+        "title": "git"
+      },
+      {
+        "href": "https://framasoft.org",
+        "title": "site"
       }
     ],
     "status": "validated",
@@ -518,7 +546,6 @@
     "url": "https://www.laquadrature.net",
     "theme": "guides",
     "type": "guides",
-    "country": "FR",
     "languages": [
       "fr"
     ],
@@ -530,8 +557,8 @@
     "description": "Organisation défendant les libertés numériques : publications, dossiers juridiques et guides de sensibilisation.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://www.laquadrature.net",
+        "title": "site"
       }
     ],
     "status": "validated",
@@ -545,7 +572,6 @@
     "url": "https://eff.org",
     "theme": "guides",
     "type": "guides",
-    "country": "EN",
     "languages": [
       "en"
     ],
@@ -557,8 +583,12 @@
     "description": "Guides pratiques, tutoriels OPSEC et ressources juridiques pour activistes et journalistes.",
     "links": [
       {
-        "href": "[object Object]",
-        "title": "[object Object]"
+        "href": "https://ssd.eff.org",
+        "title": "ssd"
+      },
+      {
+        "href": "https://eff.org",
+        "title": "site"
       }
     ],
     "status": "validated",
