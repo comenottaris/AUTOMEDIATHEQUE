@@ -88,81 +88,53 @@ async function loadData(forceReload = false) {
     if (Array.isArray(raw)) proposalsData = raw;
     else if (raw && typeof raw === 'object') proposalsData = Object.values(raw);
   }
-    // Normalize links coming from JSON / Supabase (jsonb)
+
+  // Normalise la colonne "links" (jsonb -> tableau d'objets { href, title })
   const normalizeLinks = (raw) => {
     if (!raw) return [];
-
-    // cas 1 : tableau
+    // cas : tableau
     if (Array.isArray(raw)) {
       return raw
         .map(l => {
           if (!l) return null;
-          if (typeof l === 'string') {
-            return { href: l, title: l };
-          }
-          // tableau d'objets : { href, title } ou { url, name }
-          return {
-            href: l.href || l.url || null,
-            title: l.title || l.name || l.href || l.url || null,
-          };
+          if (typeof l === 'string') return { href: l, title: l };
+          return { href: l.href || l.url || null, title: l.title || l.name || l.href || l.url || null };
         })
         .filter(Boolean)
         .filter(l => l.href);
     }
-
-    // cas 2 : objet jsonb : { "ssd": "https://ssd.eff.org", "site": "https://eff.org" }
-    if (typeof raw === 'object') {
+    // cas : objet jsonb (ex: { "ssd": "https://ssd.eff.org", "site": "https://eff.org" })
+    if (typeof raw === 'object' && raw !== null) {
       return Object.entries(raw)
-        .map(([label, value]) => {
+        .map(([key, value]) => {
           if (!value) return null;
-
-          if (typeof value === 'string') {
-            // label = "ssd" -> titre, value = URL
-            return { href: value, title: label };
-          }
-
-          if (typeof value === 'object') {
-            // ex : { "ssd": { "href": "...", "title": "Guide SSD" } }
-            return {
-              href: value.href || value.url || null,
-              title: value.title || label,
-            };
-          }
-
+          if (typeof value === 'string') return { href: value, title: key };
+          if (typeof value === 'object' && value !== null) return { href: value.href || value.url || null, title: value.title || key };
           return null;
         })
         .filter(Boolean)
         .filter(l => l.href);
     }
-
     return [];
   };
 
+  // Tag and normalize links
+  const officialTagged = officialData.map(r => ({
+    ...r,
+    __origin: 'validated',
+    links: normalizeLinks(r.links),
+  }));
 
-  // Normalize links in loaded data: ensure links is array of { href, title }
-  const normalizeLinks = (raw) => {
-    if (!raw) return [];
-    if (Array.isArray(raw)) {
-      return raw.map(l => {
-        if (!l) return null;
-        if (typeof l === 'string') return { href: l, title: l };
-        return { href: l.href || l.url || null, title: l.title || l.name || l.href || l.url || null };
-      }).filter(Boolean).filter(l => l.href);
-    }
-    if (typeof raw === 'object' && raw !== null) {
-      return Object.entries(raw).map(([k,v]) => {
-        if (typeof v === 'string') return { href: v, title: k };
-        if (typeof v === 'object' && v !== null) return { href: v.href || v.url || null, title: v.title || k };
-        return null;
-      }).filter(Boolean).filter(l => l.href);
-    }
-    return [];
-  };
+  const proposalsTagged = proposalsData.map(r => ({
+    ...r,
+    __origin: 'proposed',
+    links: normalizeLinks(r.links),
+  }));
 
-  const officialTagged = officialData.map(r => ({...r,__origin: 'validated',links: normalizeLinks(r.links),}));
-  const proposalsTagged = proposalsData.map(r => ({...r,__origin: 'proposed',links: normalizeLinks(r.links),}));
-
-  allResources = [...officialTagged, ...proposalsTagged];
+  // N'affiche que les ressources validées (on garde proposalsTagged en mémoire si besoin)
+  allResources = officialTagged;
+  // optionnel : expose les propositions pour debug/backoffice sans les afficher
+  window._allProposals = proposalsTagged;
 
   setCount(allResources.length);
 
@@ -244,7 +216,7 @@ function renderList(list) {
       card.appendChild(tagsWrap);
     }
 
-       // Liens en bas de carte, affichés comme pastilles grises
+    // Liens en bas de carte, affichés comme pastilles cliquables
     if (Array.isArray(r.links) && r.links.length) {
       const linksWrap = document.createElement('div');
       linksWrap.className = 'am-card-links';
