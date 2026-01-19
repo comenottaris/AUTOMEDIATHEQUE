@@ -39,12 +39,16 @@ jobs:
           git --no-pager status --porcelain --untracked-files=all
           git --no-pager diff --name-only || true
 
-          - name: Commit & push changes
+      - name: Commit & push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -e
+
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git status
 
           git add data/ressources.json || true
 
@@ -55,7 +59,8 @@ jobs:
 
           git commit -m "chore: refresh data/ressources.json from Supabase [skip ci]"
 
-          # IMPORTANT : récupérer les changements distants
+          echo "Pulling latest main with rebase..."
           git pull --rebase origin main
 
+          echo "Pushing to main..."
           git push origin HEAD:main
