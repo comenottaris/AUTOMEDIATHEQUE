@@ -88,6 +88,56 @@ async function loadData(forceReload = false) {
     if (Array.isArray(raw)) proposalsData = raw;
     else if (raw && typeof raw === 'object') proposalsData = Object.values(raw);
   }
+    // Normalize links coming from JSON / Supabase (jsonb)
+  const normalizeLinks = (raw) => {
+    if (!raw) return [];
+
+    // cas 1 : tableau
+    if (Array.isArray(raw)) {
+      return raw
+        .map(l => {
+          if (!l) return null;
+          if (typeof l === 'string') {
+            return { href: l, title: l };
+          }
+          // tableau d'objets : { href, title } ou { url, name }
+          return {
+            href: l.href || l.url || null,
+            title: l.title || l.name || l.href || l.url || null,
+          };
+        })
+        .filter(Boolean)
+        .filter(l => l.href);
+    }
+
+    // cas 2 : objet jsonb : { "ssd": "https://ssd.eff.org", "site": "https://eff.org" }
+    if (typeof raw === 'object') {
+      return Object.entries(raw)
+        .map(([label, value]) => {
+          if (!value) return null;
+
+          if (typeof value === 'string') {
+            // label = "ssd" -> titre, value = URL
+            return { href: value, title: label };
+          }
+
+          if (typeof value === 'object') {
+            // ex : { "ssd": { "href": "...", "title": "Guide SSD" } }
+            return {
+              href: value.href || value.url || null,
+              title: value.title || label,
+            };
+          }
+
+          return null;
+        })
+        .filter(Boolean)
+        .filter(l => l.href);
+    }
+
+    return [];
+  };
+
 
   // Normalize links in loaded data: ensure links is array of { href, title }
   const normalizeLinks = (raw) => {
@@ -109,8 +159,8 @@ async function loadData(forceReload = false) {
     return [];
   };
 
-  const officialTagged = officialData.map(r => ({ ...r, __origin: 'validated', links: normalizeLinks(r.links) }));
-  const proposalsTagged = proposalsData.map(r => ({ ...r, __origin: 'proposed', links: normalizeLinks(r.links) }));
+  const officialTagged = officialData.map(r => ({...r,__origin: 'validated',links: normalizeLinks(r.links),}));
+  const proposalsTagged = proposalsData.map(r => ({...r,__origin: 'proposed',links: normalizeLinks(r.links),}));
 
   allResources = [...officialTagged, ...proposalsTagged];
 
@@ -194,20 +244,32 @@ function renderList(list) {
       card.appendChild(tagsWrap);
     }
 
-    // links bottom as grey pills (no doublons avec le titre/url)
-    if (r.links && Array.isArray(r.links) && r.links.length) {
-      const linksWrap = document.createElement('div'); linksWrap.className = 'am-card-links';
+       // Liens en bas de carte, affichés comme pastilles grises
+    if (Array.isArray(r.links) && r.links.length) {
+      const linksWrap = document.createElement('div');
+      linksWrap.className = 'am-card-links';
+
       const seen = new Set();
-      if (r.url) seen.add(r.url);
-      r.links.forEach(l => {
-        if (!l || !l.href) return;
-        if (seen.has(l.href)) return;
-        seen.add(l.href);
-        const a = document.createElement('a'); a.className = 'am-pill-link'; a.href = l.href; a.target = '_blank'; a.rel='noopener noreferrer';
-        a.textContent = l.title || l.href;
+      if (r.url) seen.add(r.url); // évite de dupliquer le lien principal
+
+      r.links.forEach(link => {
+        if (!link || !link.href) return;
+        if (seen.has(link.href)) return;
+        seen.add(link.href);
+
+        const a = document.createElement('a');
+        a.className = 'am-pill-link';
+        a.href = link.href;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = link.title || link.href;
+
         linksWrap.appendChild(a);
       });
-      if (linksWrap.children.length) card.appendChild(linksWrap);
+
+      if (linksWrap.children.length) {
+        card.appendChild(linksWrap);
+      }
     }
 
     grid.appendChild(card);
