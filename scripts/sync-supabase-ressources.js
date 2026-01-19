@@ -1,9 +1,8 @@
 // scripts/sync-supabase-ressources.js
-// Node 18+ : fetch est dispo globalement
+// Node 18+ (CommonJS)
 
-import fs from 'fs/promises';
-import path from 'path';
-import { fileURLToPath } from 'url';
+const fs = require('fs/promises');
+const path = require('path');
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -13,10 +12,8 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   process.exit(1);
 }
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const OUT_FILE = path.join(__dirname, '..', 'data', 'ressources.json');
+const ROOT = path.join(__dirname, '..');
+const OUT_FILE = path.join(ROOT, 'data', 'ressources.json');
 
 /**
  * Normalise la colonne links venant de Supabase en :
@@ -25,19 +22,15 @@ const OUT_FILE = path.join(__dirname, '..', 'data', 'ressources.json');
 function normalizeLinks(raw) {
   if (!raw) return [];
 
-  // 1) Déjà un tableau
   if (Array.isArray(raw)) {
     return raw
       .map((l) => {
         if (!l) return null;
-        if (typeof l === 'string') {
-          return { href: l, title: l };
-        }
+        if (typeof l === 'string') return { href: l, title: l };
         if (typeof l === 'object') {
           const href = l.href || l.url || '';
           const title = l.title || l.label || href;
-          if (!href) return null;
-          return { href, title };
+          return href ? { href, title } : null;
         }
         const s = String(l);
         return s ? { href: s, title: s } : null;
@@ -45,19 +38,15 @@ function normalizeLinks(raw) {
       .filter(Boolean);
   }
 
-  // 2) Objet clé -> string ou objet
   if (typeof raw === 'object') {
     return Object.entries(raw)
       .map(([key, value]) => {
         if (!value) return null;
-        if (typeof value === 'string') {
-          return { href: value, title: key || value };
-        }
+        if (typeof value === 'string') return { href: value, title: key || value };
         if (typeof value === 'object') {
           const href = value.href || value.url || '';
           const title = value.title || key || href;
-          if (!href) return null;
-          return { href, title };
+          return href ? { href, title } : null;
         }
         const s = String(value);
         return s ? { href: s, title: key || s } : null;
@@ -65,14 +54,14 @@ function normalizeLinks(raw) {
       .filter(Boolean);
   }
 
-  // 3) String simple (éventuellement liste séparée par des virgules)
   if (typeof raw === 'string') {
-    const parts = raw.split(',').map((s) => s.trim()).filter(Boolean);
-    if (!parts.length) return [];
-    return parts.map((p) => ({ href: p, title: p }));
+    return raw
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((p) => ({ href: p, title: p }));
   }
 
-  // 4) Fallback
   const s = String(raw);
   return s ? [{ href: s, title: s }] : [];
 }
@@ -84,7 +73,6 @@ function normalizeRow(row) {
     url: row.url,
     theme: row.theme || row.category || null,
     type: row.type || null,
-    // country ENLEVÉ volontairement
     languages: row.languages || [],
     tags: row.tags || [],
     description: row.description || '',
@@ -100,7 +88,7 @@ async function fetchAllRessources() {
   const url =
     `${SUPABASE_URL}/rest/v1/ressources` +
     '?select=*' +
-    '&status=eq.validated' + // adapte si besoin
+    '&status=eq.validated' +
     '&order=created_at.asc';
 
   const res = await fetch(url, {
