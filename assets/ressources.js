@@ -32,7 +32,8 @@ function setCount(n) {
 }
 
 function uniqueSorted(arr) {
-  return Array.from(new Set(arr.filter(Boolean))).sort((a,b) => a.localeCompare(b,'fr',{sensitivity:'base'}));
+  return Array.from(new Set(arr.filter(Boolean)))
+    .sort((a, b) => a.localeCompare(b, 'fr', { sensitivity: 'base' }));
 }
 
 function buildThemeOptions(items) {
@@ -40,7 +41,9 @@ function buildThemeOptions(items) {
   while (els.filterTheme.options.length > 1) els.filterTheme.remove(1);
   const themes = uniqueSorted(items.map(i => i.theme || i.category).filter(Boolean));
   themes.forEach(t => {
-    const opt = document.createElement('option'); opt.value = t; opt.textContent = t;
+    const opt = document.createElement('option');
+    opt.value = t;
+    opt.textContent = t;
     els.filterTheme.appendChild(opt);
   });
 }
@@ -56,15 +59,80 @@ function buildHashtagOptions(items) {
   const uniq = uniqueSorted(tags);
   els.filterHashtags.innerHTML = '';
   uniq.forEach(t => {
-    const opt = document.createElement('option'); opt.value = t; opt.textContent = t;
+    const opt = document.createElement('option');
+    opt.value = t;
+    opt.textContent = t;
     els.filterHashtags.appendChild(opt);
   });
+}
+
+/**
+ * Normalise la colonne "links"
+ * Accepte :
+ * - string
+ * - tableau de strings
+ * - tableau d'objets { href, title } ou { url, name }
+ * - objet jsonb : { "ssd": "https://ssd.eff.org", "site": "https://eff.org" }
+ * - objet jsonb imbriqué : { "ssd": { "href": "...", "title": "..." } }
+ *
+ * Retourne toujours : tableau d'objets { href, title }
+ */
+function normalizeLinks(raw) {
+  if (!raw) return [];
+
+  // déjà tableau ?
+  if (Array.isArray(raw)) {
+    return raw
+      .map(l => {
+        if (!l) return null;
+        if (typeof l === 'string') {
+          return { href: l, title: l };
+        }
+        if (typeof l === 'object') {
+          const href = l.href || l.url || null;
+          const title = l.title || l.name || href;
+          if (!href) return null;
+          return { href, title };
+        }
+        return null;
+      })
+      .filter(Boolean);
+  }
+
+  // objet jsonb
+  if (typeof raw === 'object') {
+    return Object.entries(raw)
+      .map(([key, value]) => {
+        if (!value) return null;
+
+        // value = string -> { "ssd": "https://ssd.eff.org" }
+        if (typeof value === 'string') {
+          return { href: value, title: key };
+        }
+
+        // value = objet -> { "ssd": { "href": "...", "title": "..." } }
+        if (typeof value === 'object') {
+          const href = value.href || value.url || null;
+          const title = value.title || value.name || key || href;
+          if (!href) return null;
+          return { href, title };
+        }
+
+        return null;
+      })
+      .filter(Boolean);
+  }
+
+  // fallback : number / autre type -> string
+  return [{ href: String(raw), title: String(raw) }];
 }
 
 async function loadData(forceReload = false) {
   if (!forceReload && allResources.length) return allResources;
 
-  if (els.results) els.results.innerHTML = '<p class="am-message">Chargement des données…</p>';
+  if (els.results) {
+    els.results.innerHTML = '<p class="am-message">Chargement des données…</p>';
+  }
   setStatus('chargement…');
 
   const cacheBust = forceReload ? `?t=${Date.now()}` : '';
@@ -80,7 +148,9 @@ async function loadData(forceReload = false) {
     throw new Error(`Erreur HTTP ${resOfficial.status} sur ressources.json`);
   }
   const officialData = await resOfficial.json();
-  if (!Array.isArray(officialData)) throw new Error('Le fichier ressources.json doit contenir un tableau.');
+  if (!Array.isArray(officialData)) {
+    throw new Error('Le fichier ressources.json doit contenir un tableau.');
+  }
 
   let proposalsData = [];
   if (resProps && resProps.ok) {
@@ -89,36 +159,6 @@ async function loadData(forceReload = false) {
     else if (raw && typeof raw === 'object') proposalsData = Object.values(raw);
   }
 
-  // Normalise la colonne "links" (jsonb -> tableau d'objets { href, title })
-  const normalizeLinks = (raw) => {
-    if (!raw) return [];
-    // cas : tableau
-    if (Array.isArray(raw)) {
-      return raw
-        .map(l => {
-          if (!l) return null;
-          if (typeof l === 'string') return { href: l, title: l };
-          return { href: l.href || l.url || null, title: l.title || l.name || l.href || l.url || null };
-        })
-        .filter(Boolean)
-        .filter(l => l.href);
-    }
-    // cas : objet jsonb (ex: { "ssd": "https://ssd.eff.org", "site": "https://eff.org" })
-    if (typeof raw === 'object' && raw !== null) {
-      return Object.entries(raw)
-        .map(([key, value]) => {
-          if (!value) return null;
-          if (typeof value === 'string') return { href: value, title: key };
-          if (typeof value === 'object' && value !== null) return { href: value.href || value.url || null, title: value.title || key };
-          return null;
-        })
-        .filter(Boolean)
-        .filter(l => l.href);
-    }
-    return [];
-  };
-
-  // Tag and normalize links
   const officialTagged = officialData.map(r => ({
     ...r,
     __origin: 'validated',
@@ -131,18 +171,20 @@ async function loadData(forceReload = false) {
     links: normalizeLinks(r.links),
   }));
 
-  // N'affiche que les ressources validées (on garde proposalsTagged en mémoire si besoin)
+  // On n’affiche QUE les ressources validées
   allResources = officialTagged;
-  // optionnel : expose les propositions pour debug/backoffice sans les afficher
+
+  // Optionnel : accessible dans la console pour debug / backoffice
   window._allProposals = proposalsTagged;
 
   setCount(allResources.length);
-
-  // build filters
   buildThemeOptions(allResources);
   buildHashtagOptions(allResources);
 
-  const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+  const now = new Date().toLocaleTimeString('fr-FR', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
   setStatus(`OK (${allResources.length} entrées, ${now})`);
 
   return allResources;
@@ -157,6 +199,7 @@ function makePill(text, extraClass = '') {
 
 function renderList(list) {
   if (!els.results) return;
+
   if (!list.length) {
     els.results.innerHTML = '<p class="am-message">Aucune ressource pour ces critères.</p>';
     return;
@@ -171,70 +214,124 @@ function renderList(list) {
     card.className = 'am-card';
     if (r.__origin === 'proposed') card.classList.add('am-card-proposed');
 
-    // header
-    const header = document.createElement('div'); header.className = 'am-card-header';
-    header.style.display = 'flex'; header.style.gap = '0.75rem'; header.style.alignItems = 'flex-start';
+    // Header
+    const header = document.createElement('div');
+    header.className = 'am-card-header';
+    header.style.display = 'flex';
+    header.style.gap = '0.75rem';
+    header.style.alignItems = 'flex-start';
 
-    const visual = document.createElement('div'); visual.className = 'am-card-visual';
-    visual.setAttribute('aria-hidden','true');
-    visual.textContent = (r.initials || (r.name||'').slice(0,2).toUpperCase());
+    const visual = document.createElement('div');
+    visual.className = 'am-card-visual';
+    visual.setAttribute('aria-hidden', 'true');
+    visual.textContent = (r.initials || (r.name || '').slice(0, 2).toUpperCase());
 
-    const titleWrap = document.createElement('div'); titleWrap.style.flex = '1';
-    const title = document.createElement('h3'); title.className = 'am-card-title';
+    const titleWrap = document.createElement('div');
+    titleWrap.style.flex = '1';
+
+    const title = document.createElement('h3');
+    title.className = 'am-card-title';
+
     if (r.url) {
-      const a = document.createElement('a'); a.href = r.url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = r.name || 'Sans nom';
+      const a = document.createElement('a');
+      a.href = r.url;
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      a.textContent = r.name || 'Sans nom';
       title.appendChild(a);
     } else {
       title.textContent = r.name || 'Sans nom';
     }
     titleWrap.appendChild(title);
 
-    // meta pills (theme/type/country/lang)
-    const meta = document.createElement('div'); meta.className = 'am-card-meta';
-    if (r.theme) meta.appendChild(makePill(r.theme, 'am-pill-theme filterable'));
-    if (r.type) meta.appendChild(makePill(r.type, 'am-pill-type'));
-    if (r.country) meta.appendChild(makePill(r.country, 'am-pill-country'));
+    // Meta pills (theme / type / lang) — country supprimé
+    const meta = document.createElement('div');
+    meta.className = 'am-card-meta';
+
+    if (r.theme) {
+      meta.appendChild(makePill(r.theme, 'am-pill-theme filterable'));
+    }
+    if (r.type) {
+      meta.appendChild(makePill(r.type, 'am-pill-type'));
+    }
+    // country retiré : if (r.country) meta.appendChild(...);
+
     if (r.languages) {
-      const langs = Array.isArray(r.languages) ? r.languages.join(', ') : r.languages;
+      const langs = Array.isArray(r.languages)
+        ? r.languages.join(', ')
+        : r.languages;
       meta.appendChild(makePill(langs, 'am-pill-lang'));
     }
-    titleWrap.appendChild(meta);
 
+    titleWrap.appendChild(meta);
     header.appendChild(visual);
     header.appendChild(titleWrap);
     card.appendChild(header);
 
-    // description
-    const desc = document.createElement('p'); desc.className = 'am-card-desc'; desc.textContent = r.description || '—';
+    // Description
+    const desc = document.createElement('p');
+    desc.className = 'am-card-desc';
+    desc.textContent = r.description || '—';
     card.appendChild(desc);
 
-    // hashtags rendered as pills (non-duplicate) and clickable (filterable)
-    if (r.tags && (Array.isArray(r.tags) ? r.tags.length : (r.tags||'').length)) {
-      const tagsWrap = document.createElement('div'); tagsWrap.className = 'am-card-meta';
-      const tags = Array.isArray(r.tags) ? r.tags : (r.tags || '').split(',').map(s=>s.trim()).filter(Boolean);
-      tags.forEach(t => tagsWrap.appendChild(makePill('#'+t, 'am-pill-hash filterable')));
+    // Hashtags
+    if (r.tags && (Array.isArray(r.tags) ? r.tags.length : (r.tags || '').length)) {
+      const tagsWrap = document.createElement('div');
+      tagsWrap.className = 'am-card-meta';
+      const tags = Array.isArray(r.tags)
+        ? r.tags
+        : (r.tags || '')
+            .split(',')
+            .map(s => s.trim())
+            .filter(Boolean);
+
+      tags.forEach(t =>
+        tagsWrap.appendChild(makePill(`#${t}`, 'am-pill-hash filterable'))
+      );
       card.appendChild(tagsWrap);
     }
 
-    // Liens en bas de carte, affichés comme pastilles cliquables
-    if (Array.isArray(r.links) && r.links.length) {
+    // Liens en bas de carte, pastilles grises cliquables
+    let linksArr = [];
+
+    // Si r.links est déjà un tableau normalisé
+    if (Array.isArray(r.links)) {
+      linksArr = r.links;
+    } else if (r.links) {
+      // fallback : on renormalise au cas où
+      linksArr = normalizeLinks(r.links);
+    }
+
+    if (linksArr && linksArr.length) {
       const linksWrap = document.createElement('div');
       linksWrap.className = 'am-card-links';
 
       const seen = new Set();
-      if (r.url) seen.add(r.url); // évite de dupliquer le lien principal
+      if (r.url) seen.add(r.url); // évite la duplication avec le lien principal
 
-      r.links.forEach(link => {
-        if (!link || !link.href) return;
-        if (seen.has(link.href)) return;
-        seen.add(link.href);
+      linksArr.forEach(l => {
+        if (!l) return;
+
+        let href, title;
+
+        if (typeof l === 'string') {
+          href = l;
+          title = l;
+        } else if (typeof l === 'object') {
+          href = l.href || l.url || null;
+          title = l.title || l.name || href;
+        }
+
+        if (!href) return;
+        if (seen.has(href)) return;
+        seen.add(href);
 
         const a = document.createElement('a');
         a.className = 'am-pill-link';
-        a.href = link.href;
+        a.href = href;
         a.target = '_blank';
         a.rel = 'noopener noreferrer';
-        a.textContent = link.title || link.href;
+        a.textContent = title || href;
 
         linksWrap.appendChild(a);
       });
@@ -252,9 +349,11 @@ function renderList(list) {
 
 function applyFilters() {
   if (!allResources.length) return;
+
   const theme = els.filterTheme ? els.filterTheme.value : '';
   const lang = els.filterLang ? els.filterLang.value : '';
   const hashtags = [];
+
   if (els.filterHashtags) {
     for (const opt of Array.from(els.filterHashtags.selectedOptions)) {
       if (opt.value) hashtags.push(opt.value);
@@ -263,15 +362,33 @@ function applyFilters() {
 
   let list = allResources.slice();
 
-  if (theme) list = list.filter(i => (i.theme || i.category || '').toLowerCase() === theme.toLowerCase());
-  if (lang) list = list.filter(i => {
-    if (!i.languages) return false;
-    const langs = Array.isArray(i.languages) ? i.languages.map(x=>x.toLowerCase()) : String(i.languages).toLowerCase().split(',').map(x=>x.trim());
-    return langs.includes(lang.toLowerCase());
-  });
+  if (theme) {
+    list = list.filter(
+      i => (i.theme || i.category || '').toLowerCase() === theme.toLowerCase()
+    );
+  }
+
+  if (lang) {
+    list = list.filter(i => {
+      if (!i.languages) return false;
+      const langs = Array.isArray(i.languages)
+        ? i.languages.map(x => x.toLowerCase())
+        : String(i.languages)
+            .toLowerCase()
+            .split(',')
+            .map(x => x.trim());
+      return langs.includes(lang.toLowerCase());
+    });
+  }
+
   if (hashtags.length) {
     list = list.filter(i => {
-      const tags = Array.isArray(i.tags) ? i.tags.map(t=>t.toLowerCase()) : (i.tags||'').toLowerCase().split(',').map(s=>s.trim());
+      const tags = Array.isArray(i.tags)
+        ? i.tags.map(t => t.toLowerCase())
+        : (i.tags || '')
+            .toLowerCase()
+            .split(',')
+            .map(s => s.trim());
       return hashtags.some(h => tags.includes(h.toLowerCase()));
     });
   }
@@ -288,42 +405,60 @@ function setupEvents() {
         if (els.filterTheme) els.filterTheme.value = '';
         if (els.filterLang) els.filterLang.value = '';
         if (els.filterHashtags) {
-          for (const o of Array.from(els.filterHashtags.options)) o.selected = false;
+          for (const o of Array.from(els.filterHashtags.options)) {
+            o.selected = false;
+          }
         }
         applyFilters();
       } catch (err) {
         console.error('Erreur rafraîchissement', err);
-        if (els.results) els.results.innerHTML = '<p class="am-message am-message-error">Erreur lors du rafraîchissement de la base.</p>';
+        if (els.results) {
+          els.results.innerHTML =
+            '<p class="am-message am-message-error">Erreur lors du rafraîchissement de la base.</p>';
+        }
         setStatus('erreur');
       }
     });
   }
+
   if (els.filterTheme) els.filterTheme.addEventListener('change', applyFilters);
   if (els.filterLang) els.filterLang.addEventListener('change', applyFilters);
   if (els.filterHashtags) els.filterHashtags.addEventListener('change', applyFilters);
 
-  // delegation : clicking on an element with class .filterable toggles/apply filters
+  // Pastilles cliquables
   document.addEventListener('click', (e) => {
     const pill = e.target.closest('.filterable');
     if (!pill) return;
     const text = pill.textContent.replace(/^#/, '').trim();
 
-    // try theme match
-    if (els.filterTheme && Array.from(els.filterTheme.options).some(o => o.value && o.value.toLowerCase() === text.toLowerCase())) {
-      els.filterTheme.value = Array.from(els.filterTheme.options).find(o => o.value.toLowerCase() === text.toLowerCase()).value;
-      applyFilters(); return;
+    // filtre par thème
+    if (
+      els.filterTheme &&
+      Array.from(els.filterTheme.options).some(
+        o => o.value && o.value.toLowerCase() === text.toLowerCase()
+      )
+    ) {
+      els.filterTheme.value = Array.from(els.filterTheme.options).find(
+        o => o.value.toLowerCase() === text.toLowerCase()
+      ).value;
+      applyFilters();
+      return;
     }
-    // toggle hashtag in multi-select
+
+    // toggle hashtag multi-select
     if (els.filterHashtags) {
-      const opt = Array.from(els.filterHashtags.options).find(o => o.value.toLowerCase() === text.toLowerCase());
+      const opt = Array.from(els.filterHashtags.options).find(
+        o => o.value.toLowerCase() === text.toLowerCase()
+      );
       if (opt) {
         opt.selected = !opt.selected;
         applyFilters();
         return;
       }
     }
-    // language quick filter (FR/EN/Multi)
-    if (els.filterLang && ['fr','en','multi'].includes(text.toLowerCase())) {
+
+    // filtre langue rapide (FR / EN / Multi)
+    if (els.filterLang && ['fr', 'en', 'multi'].includes(text.toLowerCase())) {
       els.filterLang.value = text.toLowerCase();
       applyFilters();
     }
@@ -336,10 +471,13 @@ async function init() {
 
   try {
     await loadData(false);
-    applyFilters(); // initial render
+    applyFilters(); // rendu initial
   } catch (err) {
     console.error('Erreur init', err);
-    if (els.results) els.results.innerHTML = '<p class="am-message am-message-error">Erreur lors du chargement de la base.</p>';
+    if (els.results) {
+      els.results.innerHTML =
+        '<p class="am-message am-message-error">Erreur lors du chargement de la base.</p>';
+    }
     setStatus('erreur');
     setCount(null);
   }
