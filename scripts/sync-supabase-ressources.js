@@ -1,101 +1,137 @@
 // scripts/sync-supabase-ressources.js
-// Usage: SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... node scripts/sync-supabase-ressources.js
+// Node 18+ : fetch est dispo globalement
 
-const fs = require('fs');
-const path = require('path');
-const https = require('https');
+import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
-const SUPABASE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
+const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-if (!SUPABASE_URL || !SUPABASE_KEY) {
-  console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY env vars');
-  process.exit(2);
+if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
+  console.error('Missing SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY in env.');
+  process.exit(1);
 }
 
-const ROOT = process.cwd();
-const DATA_DIR = path.join(ROOT, 'data');
-const OUT_FILE = path.join(DATA_DIR, 'ressources.json');
-const STATE_FILE = path.join(DATA_DIR, 'supabase-state-ressources.json');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
+const OUT_FILE = path.join(__dirname, '..', 'data', 'ressources.json');
 
-function fetchJson(url, headers = {}) {
-  return new Promise((resolve, reject) => {
-    const req = https.request(url, { method: 'GET', headers }, (res) => {
-      let body = '';
-      res.on('data', (c) => body += c);
-      res.on('end', () => {
-        if (res.statusCode < 200 || res.statusCode >= 300) {
-          return reject(new Error(`HTTP ${res.statusCode} - ${body.slice(0,400)}`));
+/**
+ * Normalise la colonne links venant de Supabase en :
+ *   [ { href: string, title: string }, ... ]
+ */
+function normalizeLinks(raw) {
+  if (!raw) return [];
+
+  // 1) Déjà un tableau
+  if (Array.isArray(raw)) {
+    return raw
+      .map((l) => {
+        if (!l) return null;
+        if (typeof l === 'string') {
+          return { href: l, title: l };
         }
-        try { resolve(JSON.parse(body)); } catch (e) { reject(e); }
-      });
-    });
-    req.on('error', reject);
-    req.end();
-  });
-}
-
-(async () => {
-  try {
-    console.log('Fetching ressources from Supabase...');
-    // Adapt the REST endpoint according to your schema/table name
-    const url = `${SUPABASE_URL.replace(/\/$/, '')}/rest/v1/ressources?select=*&status=eq.validated&order=created_at.asc`;
-    const headers = {
-      apikey: SUPABASE_KEY,
-      Authorization: `Bearer ${SUPABASE_KEY}`,
-      Accept: 'application/json'
-    };
-
-    const rows = await fetchJson(url, headers);
-    console.log(`Fetched ${Array.isArray(rows) ? rows.length : 0} rows`);
-
-    // Normalize rows into the front-end shape expected
-    const normalized = (rows || []).map(r => {
-      // copy relevant fields and normalize tags/languages/links
-      const norm = { ...r };
-      const toArray = v => {
-        if (!v && v !== 0) return [];
-        if (Array.isArray(v)) return v;
-        if (typeof v === 'string') {
-          try {
-            const parsed = JSON.parse(v);
-            if (Array.isArray(parsed)) return parsed;
-            if (typeof parsed === 'object') return [parsed];
-          } catch (e) {
-            // fallback: comma separated
-            return v.split(',').map(s => s.trim()).filter(Boolean);
-          }
+        if (typeof l === 'object') {
+          const href = l.href || l.url || '';
+          const title = l.title || l.label || href;
+          if (!href) return null;
+          return { href, title };
         }
-        return Array.isArray(v) ? v : [String(v)];
-      };
-      norm.tags = toArray(r.tags).map(t => String(t).toLowerCase());
-      norm.languages = toArray(r.languages).map(l => String(l).toLowerCase());
-      // links: try to produce [{ href, title }]
-      const linksRaw = toArray(r.links);
-      norm.links = linksRaw.map(li => {
-        if (!li) return null;
-        if (typeof li === 'string') return { href: li, title: li };
-        if (li.href) return { href: li.href, title: li.title || li.href };
-        if (li.url) return { href: li.url, title: li.title || li.url };
-        return { href: String(li), title: String(li) };
-      }).filter(Boolean);
-
-      return norm;
-    });
-
-    fs.writeFileSync(OUT_FILE, JSON.stringify(normalized, null, 2), 'utf8');
-    console.log('Wrote', OUT_FILE);
-
-    const lastImportedAt = (rows && rows.length) ? rows[rows.length -1].created_at || new Date().toISOString() : new Date().toISOString();
-    const state = { lastImportedAt, fetchedAt: new Date().toISOString(), count: rows.length || 0 };
-    fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2), 'utf8');
-    console.log('Wrote', STATE_FILE);
-
-    process.exit(0);
-  } catch (err) {
-    console.error('Sync error:', err && err.message ? err.message : err);
-    process.exit(3);
+        const s = String(l);
+        return s ? { href: s, title: s } : null;
+      })
+      .filter(Boolean);
   }
-})();
+
+  // 2) Objet clé -> string ou objet
+  if (typeof raw === 'object') {
+    return Object.entries(raw)
+      .map(([key, value]) => {
+        if (!value) return null;
+        if (typeof value === 'string') {
+          return { href: value, title: key || value };
+        }
+        if (typeof value === 'object') {
+          const href = value.href || value.url || '';
+          const title = value.title || key || href;
+          if (!href) return null;
+          return { href, title };
+        }
+        const s = String(value);
+        return s ? { href: s, title: key || s } : null;
+      })
+      .filter(Boolean);
+  }
+
+  // 3) String simple (éventuellement liste séparée par des virgules)
+  if (typeof raw === 'string') {
+    const parts = raw.split(',').map((s) => s.trim()).filter(Boolean);
+    if (!parts.length) return [];
+    return parts.map((p) => ({ href: p, title: p }));
+  }
+
+  // 4) Fallback
+  const s = String(raw);
+  return s ? [{ href: s, title: s }] : [];
+}
+
+function normalizeRow(row) {
+  return {
+    id: row.id,
+    name: row.name,
+    url: row.url,
+    theme: row.theme || row.category || null,
+    type: row.type || null,
+    // country ENLEVÉ volontairement
+    languages: row.languages || [],
+    tags: row.tags || [],
+    description: row.description || '',
+    links: normalizeLinks(row.links),
+    status: row.status || null,
+    owner: row.owner || null,
+    created_at: row.created_at,
+    updated_at: row.updated_at,
+  };
+}
+
+async function fetchAllRessources() {
+  const url =
+    `${SUPABASE_URL}/rest/v1/ressources` +
+    '?select=*' +
+    '&status=eq.validated' + // adapte si besoin
+    '&order=created_at.asc';
+
+  const res = await fetch(url, {
+    headers: {
+      apikey: SUPABASE_SERVICE_ROLE_KEY,
+      Authorization: `Bearer ${SUPABASE_SERVICE_ROLE_KEY}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  if (!res.ok) {
+    const txt = await res.text().catch(() => '');
+    throw new Error(`Supabase error ${res.status} ${res.statusText} – ${txt}`);
+  }
+
+  const data = await res.json();
+  return data.map(normalizeRow);
+}
+
+async function main() {
+  console.log('Fetching ressources from Supabase…');
+  const ressources = await fetchAllRessources();
+  console.log(`Fetched ${ressources.length} rows`);
+
+  await fs.mkdir(path.dirname(OUT_FILE), { recursive: true });
+  await fs.writeFile(OUT_FILE, JSON.stringify(ressources, null, 2), 'utf8');
+
+  console.log(`Wrote ${OUT_FILE}`);
+}
+
+main().catch((err) => {
+  console.error('Error in sync-supabase-ressources:', err);
+  process.exit(1);
+});
