@@ -76,5 +76,41 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-01-19T23:33:37.014779+00:00"
+  },
+  {
+    "name": "Collectif Aouh Aouh Aouh",
+    "url": "https://librairie-quilombo.org/la-revolte-des-gilets-jaunes",
+    "type": "Livre",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Le Collectif Ahou ahou ahou, formé à l’occasion de l’écriture de ce livre, est composé de quatre individus ayant traversé la lutte des Gilets jaunes à Paris, à Marseille et dans plusieurs petites villes du sud de la France. ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-19T23:46:53.241185+00:00"
+  },
+  {
+    "name": "Enquête critique",
+    "url": "https://enquetecritique.org",
+    "type": "site, livre",
+    "country": null,
+    "languages": [],
+    "status": "proposed",
+    "description": "Recherches critiques en sciences sociales depuis les luttes et pour les luttes",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-19T23:54:20.263992+00:00"
+  },
+  {
+    "name": "Kiffe ta race",
+    "url": "https://www.binge.audio/podcast/kiffetarace/",
+    "type": "Podcast",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Un mardi sur deux, Rokhaya Diallo et Grace Ly reçoivent un·e invité·e pour explorer les questions raciales sur le mode de la conversation et du vécu. ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-20T00:24:04.476214+00:00"
   }
 ]
