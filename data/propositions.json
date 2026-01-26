@@ -124,5 +124,17 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-01-26T10:36:32.3165+00:00"
+  },
+  {
+    "name": "Migrant Voice",
+    "url": "https://www.migrantvoice.org/",
+    "type": "site",
+    "country": "UK",
+    "languages": [],
+    "status": "proposed",
+    "description": "Organisme national dirigé par des migrants qui établit une plateforme pour faire entendre la voix des migrants et promouvoir la justice pour toutes et tous. ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-26T10:54:49.025246+00:00"
   }
 ]
