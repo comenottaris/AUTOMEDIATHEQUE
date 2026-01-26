@@ -112,5 +112,17 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-01-20T00:24:04.476214+00:00"
+  },
+  {
+    "name": "Collectif ZOR",
+    "url": "https://www.instagram.com/zor.collectif/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif Romani et Voyageur",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-26T10:36:32.3165+00:00"
   }
 ]
