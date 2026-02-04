@@ -151,8 +151,27 @@
     "country": "France",
     "status": "online",
     "description": "Coordination rassemblant tous les collectifs de mineur·es non accompagné·es en lutte pour leurs droits."
+  },
+  {
+    "name": "Black Feminist Collective",
+    "url": "https://blackfeministcollective.com",
+    "type": "Site",
+    "languages": ["en"],
+    "country": "USA",
+    "status": "online",
+    "description": "Collectif intergénérationnel de féministes et de féministes noires qui produisent des essais, des poèmes et des travaux universitaires en faveur de la libération du peuple noir."
+  },
+  {
+    "name": "InterFem Collective e.V.",
+    "url": "https://www.interfem.org/",
+    "type": "Site",
+    "languages": ["en", "de"],
+    "country": "Allemagne",
+    "status": "online",
+    "description": "Collectif féministe intersectionnel autogéré basé à Berlin, qui valorise les voix des migrant·es, des réfugié·es et des personnes queer."
   }
 ]
+
 
 
 
