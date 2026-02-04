@@ -136,5 +136,17 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-01-26T10:54:49.025246+00:00"
+  },
+  {
+    "name": "RAMA",
+    "url": "https://www.ramaokanagan.org/",
+    "type": "Site",
+    "country": "Canada",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif pour la justice des migrant·es soutenant les travailleur·euses migrant·es dans divers secteurs d'activité, quel que soit leur statut migratoire.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-02-04T11:34:55.829129+00:00"
   }
 ]
