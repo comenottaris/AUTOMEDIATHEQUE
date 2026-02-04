@@ -148,5 +148,17 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-02-04T11:34:55.829129+00:00"
+  },
+  {
+    "name": "      Vivimos Juntxs, Comemos Juntxs",
+    "url": "https://vjcj.org/",
+    "type": "Site",
+    "country": "USA",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif local qui vise à fournir un soutien matériel et social aux communautés sans papiers, et créer un espace dirigé et décidé par les migrants",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-02-04T12:03:03.009316+00:00"
   }
 ]
