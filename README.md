@@ -5,7 +5,7 @@ Automédiathèque est un portail en ligne recensant des automédias : collectifs
 
 Ce projet répond à un enjeu central des luttes contemporaines : donner accès aux vécus et récits des personnes concernées, depuis leur propre point de vue, pour mieux comprendre les situations, soutenir les mobilisations ou s'outiller pour des actions locales.
 
-Conçu et développé par Côme Nottaris, journaliste.
+Conçu et développé par [Côme Nottaris](https://muckrack.com/siratton), journaliste.
 
 [Version en ligne](https://automediatheque.org/)
 
