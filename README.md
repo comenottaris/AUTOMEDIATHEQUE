@@ -136,4 +136,5 @@ Mise à jour automatique après `git push`
 
 ## Crédits
 **Auteur** : [Côme Nottaris](https://github.com/comenottaris)  
+**Contact** : contact@automediatheque.org
 **Licence** : MIT
