@@ -83,48 +83,6 @@ Pour proposer un nouvel automédia :
 1. Utiliser le **[formulaire dédié](https://www.automediatheque.linkpc.net/formulaire.html)**
 2. Les propositions sont validées manuellement avant intégration
 
-Pour contribuer au code ou données :
-```bash
-# Forker le dépôt
-git clone https://github.com/votre-utilisateur/automediatheque.git
-cd automediatheque
-
-# Éditer automedias.json
-# Valider le JSON avec un linter
-
-# Soumettre une Pull Request
-git add automedias.json
-git commit -m "Ajout de [nom]"
-git push origin main
-```
-
----
-
-## Développement local
-
-Lancer un serveur local :
-```bash
-python -m http.server 8000
-```
-Ouvrir [http://localhost:8000](http://localhost:8000)
-
-Personnalisation :
-- Modifier `index.html` pour la structure
-- Adapter `assets/automediatheque.css` pour le style
-- Modifier `assets/automediatheque.js` pour la logique
-
----
-
-## Déploiement
-Site statique compatible avec :
-- GitHub Pages
-- Netlify
-- Vercel
-- Tout hébergeur de fichiers statiques
-
-Mise à jour automatique après `git push`
-
----
 
 ## Références
 - Automedias.org : *Pour une fabrique populaire de l'information*
