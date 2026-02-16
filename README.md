@@ -7,7 +7,7 @@ Ce projet répond à un enjeu central des luttes contemporaines : donner accès 
 
 Conçu et développé par Côme Nottaris, journaliste.
 
-[Version en ligne](https://www.automediatheque.linkpc.net/)
+[Version en ligne](https://automediatheque.org/)
 
 ---
 
