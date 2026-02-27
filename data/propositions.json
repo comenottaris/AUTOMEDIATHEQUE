@@ -160,5 +160,17 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-02-04T12:03:03.009316+00:00"
+  },
+  {
+    "name": "BAD BOYS",
+    "url": "https://www.instagram.com/assobadboys/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Association Communautaire de Mecs Travailleur•ses du Sexe (Cis, Trans, Non-Binaires)",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-02-27T14:01:23.694496+00:00"
   }
 ]
