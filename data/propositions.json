@@ -172,5 +172,17 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-02-27T14:01:23.694496+00:00"
+  },
+  {
+    "name": "Génération panasiatique",
+    "url": "https://generation-panasiatique.fr/",
+    "type": "Site",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif pour l’émancipation des communautés asiatiques marginalisées",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-02-27T14:57:29.016182+00:00"
   }
 ]
