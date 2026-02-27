@@ -70,7 +70,6 @@ Format d'un automédia :
 - `name` : Nom de l'automédia
 - `url` : Lien principal
 - `type` : Type de support (site, telegram, video, etc.)
-- `languages` : Langues (codes ISO : "fr", "es", "en")
 - `country` : Pays ou zone géographique
 - `status` : État (online, offline, archived)
 - `description` : Description contextuelle (1-2 phrases)
@@ -85,11 +84,7 @@ Pour proposer un nouvel automédia :
 
 
 ## Références
-- Automedias.org : *Pour une fabrique populaire de l'information*
-- WITNESS : *Video as Evidence Field Guide*
-- Pickard (2006) : *United yet autonomous: Indymedia*
-- COSTECH : *Automédias : Pour une fabrique populaire de l'information*
-
+- [Automedias.org](https://Automedias.org) : *Pour une fabrique populaire de l'information*
 ---
 
 ## Crédits
