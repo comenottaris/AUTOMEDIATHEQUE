@@ -211,6 +211,7 @@
 
       // === CURSEUR PERSONNALISÉ ===
       const cursor = document.getElementById('custom-cursor');
+      document.documentElement.classList.add('am-custom-cursor');
       
       document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
