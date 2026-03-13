@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>À propos · Automédiathèque</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/automediatheque.css" />
+
+    <!-- Balises Open Graph -->
+    <meta property="og:title" content="À propos · Automédiathèque">
+    <meta property="og:description" content="Liste open-source d'automédias">
+    <meta property="og:url" content="https://www.automediatheque.linkpc.net/apropos.html">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://www.automediatheque.linkpc.net/assets/preview-image.jpg">
+    <meta property="og:image:width" content="667">
+    <meta property="og:image:height" content="130">
+    <meta property="og:image:alt" content="Prévisualisation d'Automédiathèque">
+
+    <!-- Favicon -->
+    <link rel="icon" href="/assets/favicon.ico">
+
+    <style>
+      body {
+        padding: 0 40px;
+      }
+      @media (max-width: 768px) {
+        body {
+          padding: 0 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Curseur personnalisé -->
+    <div id="custom-cursor"></div>
+
+    <!-- Menu de navigation -->
+    <nav class="am-nav">
+      <button class="am-menu-btn" id="menu-toggle" aria-expanded="false" aria-label="Menu">
+        <span class="am-menu-icon">☰</span>
+      </button>
+      <div class="am-nav-dropdown" id="menu-dropdown">
+        <a href="index.html" class="am-nav-link">
+          <span data-fr>Accueil</span><span data-en hidden>Home</span>
+        </a>
+        <a href="apropos.html" class="am-nav-link active">
+          <span data-fr>À propos</span><span data-en hidden>About</span>
+        </a>
+        <a href="liste.html" class="am-nav-link">
+          <span data-fr>Automédiathèque</span><span data-en hidden>Automédiathèque</span>
+        </a>
+        <div class="am-nav-separator"></div>
+        <a href="formulaire.html" class="am-nav-link">
+          <span data-fr>Participer</span><span data-en hidden>Contribute</span>
+        </a>
+        <a href="ressources.html" class="am-nav-link">
+          <span data-fr>Ressources</span><span data-en hidden>Resources</span>
+        </a>
+      </div>
+    </nav>
+
+    <!-- Language toggle -->
+    <button class="am-lang-toggle" id="lang-toggle" aria-label="Switch language">
+      EN
+    </button>
+
+    <div class="am-page">
+      <!-- ================= HEADER / INTRO ================= -->
+      <header class="am-hero am-hero--center">
+        <h1 class="am-hero-title">
+          <span data-fr>À propos</span>
+          <span data-en hidden>About</span>
+        </h1>
+        <p class="am-hero-lead">
+          <span data-fr>Pour mieux connaître les automédias.</span>
+          <span data-en hidden>To better understand automedias.</span>
+        </p>
+      </header>
+
+      <section>
+        <h2 class="am-section-title">
+          <span data-fr>Qu'est-ce qu'un Automédia ?</span>
+          <span data-en hidden>What is an Automedia?</span>
+        </h2>
+        <p class="am-footer-text">
+          <span data-fr>
+            Les automédias sont l'ensemble des pratiques, dispositifs et réseaux par lesquels des acteurs et actrices (individuel·les ou collectifs) produisent, publient et archivent des récits, 
+            preuves et instruments de leur action politique. Des mouvements sociaux aux collectifs militants, en passant par les communautés d'entraide, le champ est vaste.
+          </span>
+          <span data-en hidden>
+            Automedias are the set of practices, devices and networks through which actors (individual or collective) produce, publish and archive accounts, 
+            evidence and instruments of their political action. From social movements to activist collectives, including mutual aid communities, the field is vast.
+          </span>
+          <br><br>
+        </p>
+      </section>
+
+      <section>
+        <h2 class="am-section-title">
+          <span data-fr>Pourquoi ce site ?</span>
+          <span data-en hidden>Why this site?</span>
+        </h2>
+        <p class="am-footer-text">
+          <span data-fr>
+            Ce projet répond à un enjeu central des luttes actuelles : donner accès aux vécus et récits des personnes concernées, depuis leur propre point de vue, pour mieux comprendre les situations, soutenir les mobilisations et s'outiller pour des actions locales. <br> 
+            La liste est disponible <a href="liste.html"><b>ICI</b></a> (ou via le menu) et des ressources pour créer votre automédia sont regroupées <a href="ressources.html"><b>ICI</b></a>.
+          </span>
+          <span data-en hidden>
+            This project addresses a central issue in current struggles: giving access to the experiences and accounts of the people concerned, from their own point of view, to better understand situations, support mobilizations and equip local actions. <br>
+            The list is available <a href="liste.html"><b>HERE</b></a> (or via the menu) and resources to create your own automedia are gathered <a href="ressources.html"><b>HERE</b></a>.
+          </span>
+          <br><br>
+        </p>
+      </section>
+
+      <section>
+        <p data-fr>Plus académiquement, la définition que l'on retient pour ce site est celle d'<a href="https://automedias.org/fr/publication/001-A/" target="_blank">Automedias.org</a> dans leur appel à contributions intitulé <i>"Pour une fabrique populaire de l'information à l'époque de la post-vérité"</i> :
+          « Que ce soit le geste auto-médiatique produit à la volée par un seul individu avec un smartphone, 
+          ou l'entreprise collective automédiatique déjà aperçue dans le champ des luttes démocratiques  
+          qui réinvente les formes des médias tactiques et des médiactivistes, 
+          l'automédiation désigne l'autoproduction et l'autodiffusion de l'information à caractère politique par l'usage ou 
+          la réinvention des appareils et circuits de communication numériques. 
+          Le geste amateur et le cadre initialement communautaire de la fabrique automédiatique constitue ainsi 
+          une extension de la culture maker au domaine de la fabrique médiatique »</p>
+        <p data-en hidden>More academically, the definition used for this site is from <a href="https://automedias.org/fr/publication/001-A/" target="_blank">Automedias.org</a> in their call for contributions entitled <i>"Towards a popular factory of information in the post-truth era"</i>:
+          "Whether it is the automedia gesture produced on the fly by a single individual with a smartphone, 
+          or the collective automedia enterprise already seen in the field of democratic struggles 
+          that reinvents the forms of tactical media and mediactivists, 
+          automediation designates the self-production and self-distribution of political information through the use or 
+          reinvention of digital communication devices and circuits. 
+          The amateur gesture and the initially community-based framework of the automedia factory thus constitutes 
+          an extension of maker culture to the domain of media production."</p>
+      </section>
+
+      <!-- ================= FOOTER / CRÉDITS ================= -->
+      <footer class="am-footer">
+        <p>
+          <br>
+          <span data-fr>Pour comprendre plus en détail la méthodologie, tout est disponible en Open-source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">ce repo Github</a>.<br><br>
+          Projet lancé par <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris</a> en janvier 2026.</span>
+          <span data-en hidden>To understand the methodology in more detail, everything is available as Open-source on <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">this Github repo</a>.<br><br>
+          Project launched by <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris</a> in January 2026.</span>
+        </p>
+      </footer>
+    </div>
+
+    <script>
+      // === LANGUAGE TOGGLE ===
+      const langToggle = document.getElementById('lang-toggle');
+      let currentLang = localStorage.getItem('am-lang') || 'fr';
+
+      function applyLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('am-lang', lang);
+        langToggle.textContent = lang === 'fr' ? 'EN' : 'FR';
+        document.querySelectorAll('[data-fr]').forEach(el => {
+          el.hidden = lang !== 'fr';
+        });
+        document.querySelectorAll('[data-en]').forEach(el => {
+          el.hidden = lang !== 'en';
+        });
+      }
+
+      langToggle.addEventListener('click', () => {
+        applyLang(currentLang === 'fr' ? 'en' : 'fr');
+      });
+
+      applyLang(currentLang);
+
+      // === MENU ===
+      const menuToggle = document.getElementById('menu-toggle');
+      const menuDropdown = document.getElementById('menu-dropdown');
+      
+      menuToggle.addEventListener('click', () => {
+        const isOpen = menuDropdown.classList.toggle('open');
+        menuToggle.classList.toggle('active');
+        menuToggle.setAttribute('aria-expanded', isOpen);
+      });
+      
+      document.addEventListener('click', (e) => {
+        if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+          menuDropdown.classList.remove('open');
+          menuToggle.classList.remove('active');
+          menuToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // === CURSEUR PERSONNALISÉ ===
+      const cursor = document.getElementById('custom-cursor');
+      
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hovering-link'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hovering-link'));
+      });
+    </script>
+  </body>
+</html>

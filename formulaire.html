@@ -28,21 +28,37 @@
         <span class="am-menu-icon">☰</span>
       </button>
       <div class="am-nav-dropdown" id="menu-dropdown">
-        <a href="index.html" class="am-nav-link">Accueil</a>
-        <a href="liste.html" class="am-nav-link">Automédiathèque</a>
+        <a href="index.html" class="am-nav-link">
+          <span data-fr>Accueil</span><span data-en hidden>Home</span>
+        </a>
+        <a href="apropos.html" class="am-nav-link">
+          <span data-fr>À propos</span><span data-en hidden>About</span>
+        </a>
+        <a href="liste.html" class="am-nav-link">
+          <span data-fr>Automédiathèque</span><span data-en hidden>Automédiathèque</span>
+        </a>
         <div class="am-nav-separator"></div>
-        <a href="formulaire.html" class="am-nav-link">Participer</a>
-        <a href="ressources.html" class="am-nav-link">Ressources</a>
+        <a href="formulaire.html" class="am-nav-link active">
+          <span data-fr>Participer</span><span data-en hidden>Contribute</span>
+        </a>
+        <a href="ressources.html" class="am-nav-link">
+          <span data-fr>Ressources</span><span data-en hidden>Resources</span>
+        </a>
       </div>
     </nav>
+
+    <!-- Language toggle -->
+    <button class="am-lang-toggle" id="lang-toggle" aria-label="Switch language">
+      EN
+    </button>
     
     <div class="am-page">
 <!-- ================= CONTENU PRINCIPAL ================= -->
     <section class="am-page" id="formulaire">
           <div class="am-hero am-hero--center">
-            <h1>Ajouter un Automédia</h1>
+            <h1><span data-fr>Ajouter un Automédia</span><span data-en hidden>Add an Automedia</span></h1>
           <p class="am-hero-lead">
-            Ce formulaire permet de proposer un automédia à ajouter à la base.
+            <span data-fr>Ce formulaire permet de proposer un automédia à ajouter à la base.</span><span data-en hidden>This form allows you to suggest an automedia to add to the database.</span>
           </p>
           <p class="am-hero-text">
             Aucune donnée personnelle n’est demandée. Tu peux contribuer de façon anonyme.
@@ -56,14 +72,17 @@
         <section class="am-section">
           <div class="am-section-inner">
             <p class="am-section-intro">
-              Les propositions seront stockées dans une base Supabase (open
+              <span data-fr>Les propositions seront stockées dans une base Supabase (open
               source), puis synchronisées automatiquement dans
-              <code>data/propositions.json</code>.
+              <code>data/propositions.json</code>.</span>
+              <span data-en hidden>Suggestions will be stored in a Supabase database (open
+              source), then automatically synchronized to
+              <code>data/propositions.json</code>.</span>
             </p>
 
             <form id="proposition-form" class="am-form">
               <fieldset class="am-fieldset">
-                <legend class="am-section-title">Informations principales</legend>
+                <legend class="am-section-title"><span data-fr>Informations principales</span><span data-en hidden>Main information</span></legend>
 
                 <label class="am-field">
                   <span class="am-field-label">Nom de l’automédia *</span>
@@ -71,7 +90,7 @@
                 </label>
 
                 <label class="am-field">
-                  <span class="am-field-label">URL principale *</span>
+                  <span class="am-field-label"><span data-fr>URL principale *</span><span data-en hidden>Main URL *</span></span>
                   <input
                     class="am-input"
                     type="url"
@@ -82,9 +101,7 @@
                 </label>
 
                 <label class="am-field">
-                  <span class="am-field-label">
-                    Type 
-                  </span>
+                  <span class="am-field-label"><span data-fr>Type</span><span data-en hidden>Type</span></span>
                   <input
                     class="am-input"
                     type="text"
@@ -94,7 +111,7 @@
                 </label>
 
                 <label class="am-field">
-                  <span class="am-field-label">Pays / zone</span>
+                  <span class="am-field-label"><span data-fr>Pays / zone</span><span data-en hidden>Country / area</span></span>
                   <input
                     class="am-input"
                     type="text"
@@ -106,7 +123,7 @@
               </fieldset>
 
               <fieldset class="am-fieldset">
-                <legend class="am-section-title">Description</legend>
+                <legend class="am-section-title"><span data-fr>Description</span><span data-en hidden>Description</span></legend>
 
                 <label class="am-field">
                   <span class="am-field-label">
@@ -121,9 +138,7 @@
                 </label>
 
                 <label class="am-field">
-                  <span class="am-field-label">
-                    Notes complémentaires (optionnel)
-                  </span>
+                  <span class="am-field-label"><span data-fr>Notes complémentaires (optionnel)</span><span data-en hidden>Additional notes (optional)</span></span>
                   <textarea
                     class="am-textarea"
                     name="notes"
@@ -147,7 +162,7 @@
               </div>
 
               <button type="submit" class="am-button">
-                Envoyer la proposition
+                <span data-fr>Envoyer la proposition</span><span data-en hidden>Submit suggestion</span>
               </button>
 
               <p id="form-message" class="am-hero-note"></p>
@@ -158,7 +173,7 @@
 
       <footer class="am-footer">
         <p class="am-footer-text">
-          Retour à la liste : <a href="index.html">Automédiathèque</a>.
+          <span data-fr>Retour à la liste : <a href="liste.html">Automédiathèque</a>.</span><span data-en hidden>Back to the list: <a href="liste.html">Automédiathèque</a>.</span>
         </p>
       </footer>
     </div>
@@ -225,7 +240,30 @@
     </script>
     <script>
       
-    // === CURSEUR PERSONNALISÉ ===
+    
+      // === LANGUAGE TOGGLE ===
+      const langToggle = document.getElementById('lang-toggle');
+      let currentLang = localStorage.getItem('am-lang') || 'fr';
+
+      function applyLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('am-lang', lang);
+        langToggle.textContent = lang === 'fr' ? 'EN' : 'FR';
+        document.querySelectorAll('[data-fr]').forEach(el => {
+          el.hidden = lang !== 'fr';
+        });
+        document.querySelectorAll('[data-en]').forEach(el => {
+          el.hidden = lang !== 'en';
+        });
+      }
+
+      langToggle.addEventListener('click', () => {
+        applyLang(currentLang === 'fr' ? 'en' : 'fr');
+      });
+
+      applyLang(currentLang);
+
+      // === CURSEUR PERSONNALISÉ ===
     const cursor = document.getElementById('custom-cursor');
 
     document.addEventListener('mousemove', (e) => {

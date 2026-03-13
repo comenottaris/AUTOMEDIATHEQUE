@@ -41,67 +41,175 @@
         <span class="am-menu-icon">☰</span>
       </button>
       <div class="am-nav-dropdown" id="menu-dropdown">
-        <a href="index.html" class="am-nav-link">A propos</a>
-        <a href="liste.html" class="am-nav-link">Automédiathèque</a>
+        <a href="index.html" class="am-nav-link active">
+          <span data-fr>Accueil</span><span data-en hidden>Home</span>
+        </a>
+        <a href="apropos.html" class="am-nav-link">
+          <span data-fr>À propos</span><span data-en hidden>About</span>
+        </a>
+        <a href="liste.html" class="am-nav-link">
+          <span data-fr>Automédiathèque</span><span data-en hidden>Automédiathèque</span>
+        </a>
         <div class="am-nav-separator"></div>
-        <a href="formulaire.html" class="am-nav-link">Participer</a>
-        <a href="ressources.html" class="am-nav-link">Ressources</a>
+        <a href="formulaire.html" class="am-nav-link">
+          <span data-fr>Participer</span><span data-en hidden>Contribute</span>
+        </a>
+        <a href="ressources.html" class="am-nav-link">
+          <span data-fr>Ressources</span><span data-en hidden>Resources</span>
+        </a>
       </div>
     </nav>
 
-    <div class="am-page">
-      <!-- ================= HEADER / INTRO ================= -->
-      <header class="am-hero am-hero--center">
-        <h1 class="am-hero-title">Automédiathèque</h1>
-        <p class="am-hero-lead">
-          Pour mieux connaître les automédias.
+    <!-- Language toggle -->
+    <button class="am-lang-toggle" id="lang-toggle" aria-label="Switch language">
+      EN
+    </button>
+
+    <div class="am-page am-home-page">
+
+      <!-- ================= HERO ================= -->
+      <header class="am-home-hero">
+        <h1 class="am-home-title">Automédiathèque</h1>
+        <p class="am-home-subtitle">
+          <span data-fr>Cartographie open-source des automédias en lutte</span>
+          <span data-en hidden>Open-source mapping of autonomous media in struggle</span>
         </p>
+        <div class="am-home-actions">
+          <a href="liste.html" class="am-button am-home-cta">
+            <span data-fr>Explorer la galerie</span>
+            <span data-en hidden>Explore the gallery</span>
+          </a>
+          <a href="apropos.html" class="am-home-link-secondary">
+            <span data-fr>En savoir plus →</span>
+            <span data-en hidden>Learn more →</span>
+          </a>
+        </div>
       </header>
 
-      <section>
-        <h2 class="am-section-title">Qu'est-ce qu'un Automédia ?</h2>
-        <p class="am-footer-text">
-          Les automédias sont l'ensemble des pratiques, dispositifs et réseaux par lesquels des acteurs et actrices (individuel·les ou collectifs) produisent, publient et archivent des récits, 
-          preuves et instruments de leur action politique. Des mouvements sociaux aux collectifs militants, en passant par les communautés d'entraide, le champ est vaste. <br><br>
-        </p>
+      <hr class="am-divider" />
+
+      <!-- ================= AUTOMEDIA OF THE WEEK ================= -->
+      <section class="am-home-featured" id="featured-section">
+        <span class="am-home-kicker">
+          <span data-fr>Automédia de la semaine</span>
+          <span data-en hidden>Automedia of the week</span>
+        </span>
+
+        <div class="am-home-featured-card" id="featured-card">
+          <!-- Filled by JS from data/featured.json -->
+        </div>
       </section>
-    <section>
-        <h2 class="am-section-title">Pourquoi ce site ?</h2>
-        <p class="am-footer-text">
-         Ce projet répond à un enjeu central des luttes actuelles : donner accès aux vécus et récits des personnes concernées, depuis leur propre point de vue, pour mieux comprendre les situations, soutenir les mobilisations et s'outiller pour des actions locales. <br> 
-          La liste est disponible  <a href="https://automediatheque.org/liste.html" target="_blank"><b>ICI</b></b> </a> (ou via le menu) et des ressources pour créer votre automédia sont regroupées <a href="https://automediatheque.org/ressources.html" target="_blank"><b>ICI</b></b> </a>. <br><br>
-        </p>
+
+      <hr class="am-divider" />
+
+      <!-- ================= PAST FEATURES ================= -->
+      <section class="am-home-archive">
+        <h2 class="am-home-section-title">
+          <span data-fr>Automédias précédemment mis en avant</span>
+          <span data-en hidden>Previously featured automedias</span>
+        </h2>
+        <div class="am-home-archive-list" id="archive-list">
+          <p class="am-home-archive-empty">
+            <span data-fr>Les prochaines mises en avant apparaîtront ici.</span>
+            <span data-en hidden>Future features will appear here.</span>
+          </p>
+        </div>
       </section>
-      <section>
-        <p>Plus académiquement, la définition que l'on retient pour ce site est celle d'<a href="https://automedias.org/fr/publication/001-A/" target="_blank">Automedias.org</a> dans leur appel à contributions intitulé <i>"Pour une fabrique populaire de l'information à l'époque de la post-vérité"</i> :
-          « Que ce soit le geste auto-médiatique produit à la volée par un seul individu avec un smartphone, 
-          ou l'entreprise collective automédiatique déjà aperçue dans le champ des luttes démocratiques  
-          qui réinvente les formes des médias tactiques et des médiactivistes, 
-          l'automédiation désigne l'autoproduction et l'autodiffusion de l'information à caractère politique par l'usage ou 
-          la réinvention des appareils et circuits de communication numériques. 
-          Le geste amateur et le cadre initialement communautaire de la fabrique automédiatique constitue ainsi 
-          une extension de la culture maker au domaine de la fabrique médiatique »</p>
+
+      <hr class="am-divider" />
+
+      <!-- ================= QUICK LINKS ================= -->
+      <section class="am-home-links">
+        <div class="am-home-link-card">
+          <h3>
+            <span data-fr>La galerie</span>
+            <span data-en hidden>The gallery</span>
+          </h3>
+          <p>
+            <span data-fr>Parcourez la liste complète des automédias répertoriés, filtrez par type, pays ou langue.</span>
+            <span data-en hidden>Browse the complete list of catalogued automedias, filter by type, country or language.</span>
+          </p>
+          <a href="liste.html" class="am-home-link-arrow">
+            <span data-fr>Voir la liste →</span>
+            <span data-en hidden>View the list →</span>
+          </a>
+        </div>
+        <div class="am-home-link-card">
+          <h3>
+            <span data-fr>Boîte à outils</span>
+            <span data-en hidden>Toolbox</span>
+          </h3>
+          <p>
+            <span data-fr>Ressources et guides pour créer, héberger et diffuser votre propre automédia.</span>
+            <span data-en hidden>Resources and guides to create, host and distribute your own automedia.</span>
+          </p>
+          <a href="ressources.html" class="am-home-link-arrow">
+            <span data-fr>Ressources →</span>
+            <span data-en hidden>Resources →</span>
+          </a>
+        </div>
+        <div class="am-home-link-card">
+          <h3>
+            <span data-fr>Contribuer</span>
+            <span data-en hidden>Contribute</span>
+          </h3>
+          <p>
+            <span data-fr>Proposez un automédia à ajouter à la base ou contribuez au projet sur GitHub.</span>
+            <span data-en hidden>Suggest an automedia to add to the database or contribute to the project on GitHub.</span>
+          </p>
+          <a href="formulaire.html" class="am-home-link-arrow">
+            <span data-fr>Participer →</span>
+            <span data-en hidden>Participate →</span>
+          </a>
+        </div>
       </section>
-      <!-- ================= FOOTER / CRÉDITS ================= -->
+
+      <!-- ================= FOOTER ================= -->
       <footer class="am-footer">
-        <p>
-          <br>Pour comprendre plus en détail la méthodologie, tout est disponible en Open-source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">ce repo Github</a>.<br><br>
-          Projet lancé par <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris</a> en janvier 2026.
+        <p class="am-footer-text">
+          <span data-fr>
+            Projet lancé par <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris</a> en janvier 2026.
+            Code source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">GitHub</a>.
+          </span>
+          <span data-en hidden>
+            Project launched by <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris</a> in January 2026.
+            Source code on <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">GitHub</a>.
+          </span>
         </p>
       </footer>
     </div>
 
     <script>
+      // === LANGUAGE TOGGLE ===
+      const langToggle = document.getElementById('lang-toggle');
+      let currentLang = localStorage.getItem('am-lang') || 'fr';
+
+      function applyLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('am-lang', lang);
+        langToggle.textContent = lang === 'fr' ? 'EN' : 'FR';
+        document.querySelectorAll('[data-fr]').forEach(el => {
+          el.hidden = lang !== 'fr';
+        });
+        document.querySelectorAll('[data-en]').forEach(el => {
+          el.hidden = lang !== 'en';
+        });
+      }
+
+      langToggle.addEventListener('click', () => {
+        applyLang(currentLang === 'fr' ? 'en' : 'fr');
+      });
+
       // === MENU ===
       const menuToggle = document.getElementById('menu-toggle');
       const menuDropdown = document.getElementById('menu-dropdown');
-      
+
       menuToggle.addEventListener('click', () => {
         const isOpen = menuDropdown.classList.toggle('open');
         menuToggle.classList.toggle('active');
         menuToggle.setAttribute('aria-expanded', isOpen);
       });
-      
+
       document.addEventListener('click', (e) => {
         if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
           menuDropdown.classList.remove('open');
@@ -110,15 +218,67 @@
         }
       });
 
+      // === FEATURED AUTOMEDIA ===
+      async function loadFeatured() {
+        try {
+          const res = await fetch('data/featured.json');
+          const data = await res.json();
+          if (!data.length) return;
+
+          const current = data.find(d => d.featured) || data[0];
+          const past = data.filter(d => d !== current);
+          const lang = currentLang;
+
+          // Render featured card
+          const card = document.getElementById('featured-card');
+          card.innerHTML = `
+            <div class="am-featured-visual">
+              <img src="${current.logo}" alt="${current.name}" onerror="this.parentElement.innerHTML='<span class=\\'am-featured-initial\\'>${current.name.substring(0, 2).toUpperCase()}</span>'" />
+            </div>
+            <div class="am-featured-body">
+              <h2 class="am-featured-name">
+                <a href="${current.url}" target="_blank">${current.name}</a>
+              </h2>
+              <p class="am-featured-desc" data-fr>${current.description_fr}</p>
+              <p class="am-featured-desc" data-en hidden>${current.description_en}</p>
+              <a href="${current.url}" target="_blank" class="am-featured-link">
+                <span data-fr>Visiter ${current.name} →</span>
+                <span data-en hidden>Visit ${current.name} →</span>
+              </a>
+            </div>
+          `;
+
+          // Re-apply language after dynamic content
+          applyLang(currentLang);
+
+          // Render past features archive
+          if (past.length > 0) {
+            const archiveList = document.getElementById('archive-list');
+            archiveList.innerHTML = past.map(item => `
+              <a href="${item.url}" target="_blank" class="am-archive-item">
+                <span class="am-archive-name">${item.name}</span>
+                <span class="am-archive-date">${new Date(item.date).toLocaleDateString(currentLang === 'fr' ? 'fr-FR' : 'en-US', { month: 'long', year: 'numeric' })}</span>
+              </a>
+            `).join('');
+          }
+        } catch (err) {
+          console.error('Error loading featured data:', err);
+        }
+      }
+
+      loadFeatured();
+
+      // Apply saved language
+      applyLang(currentLang);
+
       // === CURSEUR PERSONNALISÉ ===
       const cursor = document.getElementById('custom-cursor');
-      
+
       document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
       });
 
-      // Effet hover sur les liens et boutons
       document.querySelectorAll('a, button').forEach(el => {
         el.addEventListener('mouseenter', () => cursor.classList.add('hovering-link'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hovering-link'));
