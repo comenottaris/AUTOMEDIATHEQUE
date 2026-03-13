@@ -9,7 +9,7 @@
 ├── formulaire.html               # Form to propose new automedias
 ├── ressources.html               # Resources & tools page
 ├── favicon.ico                   # Website icon
-├── CNAME                         # Custom domain: automediatheque.linkpc.net
+├── CNAME                         # Custom domain: automediatheque.org
 ├── _config.yml                   # Jekyll configuration
 ├── README.md                     # Project documentation
 ├── SECURITY.md                   # Security guidelines

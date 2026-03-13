@@ -2,14 +2,14 @@
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
-    <title>Ressources</title>
+    <title>Ressources · Automédiathèque</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assets/automediatheque.css" />
 
     <!-- Balises Open Graph -->
     <meta property="og:title" content="Ressources · Automédiathèque">
     <meta property="og:description" content="Boîte à outils pour l'automédiation : outils libres, guides militants, ressources pour créer et diffuser des automédias">
-    <meta property="og:url" content="https://www.automediatheque.linkpc.net/ressources.html">
+    <meta property="og:url" content="https://automediatheque.org/ressources.html">
     <meta property="og:type" content="website">
 
     <!-- Favicon -->
@@ -19,14 +19,179 @@
     <meta name="description" content="Boîte à outils pour l'automédiation : outils libres, auto-hébergeables et guides militants pour produire, archiver et diffuser des contenus de façon autonome.">
     <meta name="keywords" content="automédias, automedia, luttes sociales, activisme, militantisme, autonomie, indymedia, médias alternatifs, médiactivisme, médias tactiques, autoproduction, autodiffusion, médias indépendants, médias libres, open-source, automediation, outils libres, auto-hébergement">
 
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'">
+
     <style>
-      body {
-        padding: 0 40px;
+      body { padding: 0 40px; }
+      @media (max-width: 768px) { body { padding: 0 10px; } }
+
+      /* Table of contents sidebar */
+      .am-toc-toggle {
+        position: fixed;
+        left: 1rem;
+        top: 4.5rem;
+        z-index: 999;
+        background: var(--am-surface, #fdfaf5);
+        border: 2px solid var(--am-border-subtle, #e4d5c1);
+        border-radius: 50px;
+        padding: 0.45rem 0.9rem;
+        font-size: 0.8rem;
+        font-weight: 700;
+        color: var(--am-text, #231811);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       }
+      .am-toc-toggle:hover {
+        background: var(--am-accent-soft, #f1e0c7);
+        border-color: var(--am-accent, #c8893c);
+      }
+      .am-toc-panel {
+        position: fixed;
+        left: 1rem;
+        top: 7.5rem;
+        z-index: 998;
+        background: var(--am-surface, #fdfaf5);
+        border: 1px solid var(--am-border-subtle, #e4d5c1);
+        border-radius: 12px;
+        padding: 1rem 1.2rem;
+        max-width: 280px;
+        max-height: calc(100vh - 9rem);
+        overflow-y: auto;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+        opacity: 0;
+        visibility: hidden;
+        transform: translateX(-10px);
+        transition: all 0.25s ease;
+      }
+      .am-toc-panel.open {
+        opacity: 1;
+        visibility: visible;
+        transform: translateX(0);
+      }
+      .am-toc-panel nav {
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+      }
+      .am-toc-panel a {
+        display: block;
+        color: var(--am-text-soft, #6f5a45);
+        text-decoration: none;
+        font-size: 0.82rem;
+        padding: 0.35rem 0.5rem;
+        border-radius: 6px;
+        line-height: 1.35;
+        transition: background 0.15s ease, color 0.15s ease;
+      }
+      .am-toc-panel a:hover {
+        background: var(--am-accent-soft, #f1e0c7);
+        color: var(--am-text, #231811);
+      }
+      .am-toc-title {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--am-text-softer, #9a856d);
+        margin: 0 0 0.5rem;
+        font-weight: 700;
+      }
+
+      /* Resource sections */
+      .am-res-section {
+        margin: 2rem 0;
+        scroll-margin-top: 5rem;
+      }
+      .am-res-section h2 {
+        font-size: 1.35rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin: 0 0 0.4rem;
+        color: var(--am-text, #231811);
+        border-bottom: 2px solid var(--am-accent, #c8893c);
+        padding-bottom: 0.4rem;
+      }
+      .am-res-section > p {
+        font-size: 0.92rem;
+        line-height: 1.6;
+        color: var(--am-text-soft, #6f5a45);
+        margin: 0.5rem 0 1rem;
+      }
+
+      /* Resource cards */
+      .am-res-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      .am-res-card {
+        background: var(--am-surface, #fdfaf5);
+        border-radius: 14px;
+        border: 1px solid rgba(228, 213, 193, 0.9);
+        box-shadow: 0 10px 30px rgba(32, 25, 16, 0.06);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .am-res-card h3 {
+        margin: 0;
+        font-size: 0.98rem;
+        font-weight: 600;
+      }
+      .am-res-card h3 a {
+        color: var(--am-text, #231811);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.15s ease;
+      }
+      .am-res-card h3 a:hover {
+        border-bottom-color: var(--am-accent, #c8893c);
+      }
+      .am-res-card p {
+        margin: 0;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        color: var(--am-text-soft, #6f5a45);
+      }
+      .am-res-card .am-res-links {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        margin-top: 0.3rem;
+      }
+      .am-res-card .am-res-links a {
+        background: rgba(60,60,60,0.06);
+        color: var(--am-text, #231811);
+        font-size: 0.75rem;
+        padding: 0.22rem 0.55rem;
+        border-radius: 999px;
+        text-decoration: none;
+        transition: background 0.15s ease;
+      }
+      .am-res-card .am-res-links a:hover {
+        background: rgba(200,137,60,0.15);
+      }
+
+      /* Note / editorial aside */
+      .am-res-note {
+        background: var(--am-accent-soft, #f1e0c7);
+        border-left: 3px solid var(--am-accent, #c8893c);
+        border-radius: 0 10px 10px 0;
+        padding: 0.8rem 1rem;
+        font-size: 0.85rem;
+        line-height: 1.55;
+        color: var(--am-text, #231811);
+        margin: 0.8rem 0;
+      }
+
       @media (max-width: 768px) {
-        body {
-          padding: 0 10px;
-        }
+        .am-toc-panel { max-width: calc(100vw - 2rem); }
+        .am-res-grid { grid-template-columns: 1fr; }
       }
     </style>
   </head>
@@ -36,7 +201,7 @@
     <div id="custom-cursor"></div>
 
     <!-- Menu de navigation -->
-  <nav class="am-nav">
+    <nav class="am-nav">
       <button class="am-menu-btn" id="menu-toggle" aria-expanded="false" aria-label="Menu">
         <span class="am-menu-icon">☰</span>
       </button>
@@ -61,108 +226,412 @@
     </nav>
 
     <!-- Language toggle -->
-    <button class="am-lang-toggle" id="lang-toggle" aria-label="Switch language">
-      EN
+    <button class="am-lang-toggle" id="lang-toggle" aria-label="Switch language">EN</button>
+
+    <!-- Collapsible Table of Contents -->
+    <button class="am-toc-toggle" id="toc-toggle" aria-expanded="false" aria-label="Sommaire">
+      <span data-fr>☰ Sommaire</span><span data-en hidden>☰ Contents</span>
     </button>
+    <div class="am-toc-panel" id="toc-panel">
+      <p class="am-toc-title"><span data-fr>Sommaire</span><span data-en hidden>Contents</span></p>
+      <nav>
+        <a href="#sec-video"><span data-fr>🎬 Créer un média vidéo</span><span data-en hidden>🎬 Create a video media</span></a>
+        <a href="#sec-podcast"><span data-fr>🎙️ Créer un podcast</span><span data-en hidden>🎙️ Create a podcast</span></a>
+        <a href="#sec-radio"><span data-fr>📻 Lancer ou animer une radio</span><span data-en hidden>📻 Start or run a radio</span></a>
+        <a href="#sec-fanzine"><span data-fr>📰 Créer un fanzine ou un journal</span><span data-en hidden>📰 Create a fanzine or newspaper</span></a>
+        <a href="#sec-social"><span data-fr>📱 Réseaux sociaux</span><span data-en hidden>📱 Social media</span></a>
+        <a href="#sec-diffusion"><span data-fr>📡 Publier et diffuser</span><span data-en hidden>📡 Publish and distribute</span></a>
+        <a href="#sec-security"><span data-fr>🔒 Sécurité et anonymat</span><span data-en hidden>🔒 Security and anonymity</span></a>
+        <a href="#sec-guides"><span data-fr>📚 Guides et références</span><span data-en hidden>📚 Guides and references</span></a>
+      </nav>
+    </div>
 
     <div class="am-page">
-      <!-- ================= CONTENU PRINCIPAL ================= -->
-      <section class="am-page" id="resources">
-          <div class="am-hero am-hero--center">
-            <h1><span data-fr>Boîte à outils pour l'automédiation et la création d'automédias</span><span data-en hidden>Toolbox for automediation and automedia creation</span></h1>
-            <p class="am-hero-lead--center">
-              <span data-fr>Catalogage d'outils libres / auto‑hébergeables et guides militants pour produire, archiver
-              et diffuser des contenus de façon autonome et responsable.</span>
-              <span data-en hidden>Catalog of free / self-hostable tools and activist guides to produce, archive
-              and distribute content autonomously and responsibly.</span>
-            </p>
+      <!-- ================= HERO ================= -->
+      <header class="am-hero am-hero--center">
+        <h1>
+          <span data-fr>Ressources pour l'automédiation</span>
+          <span data-en hidden>Resources for automediation</span>
+        </h1>
+        <p class="am-hero-lead">
+          <span data-fr>Sur cette page nous avons cherché à mettre à disposition les ressources, guides et outils qui peuvent aider à s'automédiatiser, triés par thématique. Explorez cette page, en espérant que vous trouverez ce dont vous avez besoin ! :)</span>
+          <span data-en hidden>On this page we have gathered resources, guides and tools that can help you create your own media, sorted by topic. Explore this page and hopefully you'll find what you need! :)</span>
+        </p>
+      </header>
+
+      <hr class="am-divider" />
+
+      <!-- ================= CRÉER UN MÉDIA VIDÉO ================= -->
+      <section class="am-res-section" id="sec-video">
+        <h2><span data-fr>🎬 Créer un média vidéo</span><span data-en hidden>🎬 Create a video media</span></h2>
+        <p>
+          <span data-fr>Pour filmer, monter et diffuser vos reportages, documentaires ou captations. Tous les logiciels listés ici sont libres et gratuits.</span>
+          <span data-en hidden>To film, edit and broadcast your reports, documentaries or recordings. All software listed here is free and open source.</span>
+        </p>
+
+        <div class="am-res-grid">
+          <article class="am-res-card">
+            <h3><a href="https://obsproject.com" target="_blank" rel="noopener noreferrer">OBS Studio</a></h3>
+            <p><span data-fr>Capture et streaming open source — parfait pour émissions en direct, enregistrements de qualité, overlays et scènes multi-sources.</span><span data-en hidden>Open source capture and streaming — perfect for live shows, quality recordings, overlays and multi-source scenes.</span></p>
+            <div class="am-res-links">
+              <a href="https://obsproject.com" target="_blank" rel="noopener noreferrer">site</a>
+              <a href="https://obsproject.com/forum" target="_blank" rel="noopener noreferrer">forum</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://kdenlive.org" target="_blank" rel="noopener noreferrer">Kdenlive</a></h3>
+            <p><span data-fr>Montage vidéo libre, multi-pistes, puissant et accessible. Idéal pour monter des reportages ou des capsules vidéo sans passer par Adobe.</span><span data-en hidden>Free, multi-track, powerful and accessible video editing. Ideal for editing reports or video clips without Adobe.</span></p>
+            <div class="am-res-links">
+              <a href="https://kdenlive.org" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><span data-fr>Bal Masqué</span><span data-en hidden>Bal Masqué</span></h3>
+            <p><span data-fr>Logiciel libre de floutage de visages pour Windows — indispensable pour protéger l'identité des personnes filmées en manifestation.</span><span data-en hidden>Free face-blurring software for Windows — essential to protect the identity of people filmed at protests.</span></p>
+            <div class="am-res-links">
+              <a href="https://github.com/comenottaris/BAL-MASQUE" target="_blank" rel="noopener noreferrer"><span data-fr>présentation</span><span data-en hidden>info</span></a>
+              <a href="https://github.com/comenottaris/BAL-MASQUE/releases/tag/v1.0" target="_blank" rel="noopener noreferrer"><span data-fr>télécharger</span><span data-en hidden>download</span></a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://www.gimp.org" target="_blank" rel="noopener noreferrer">GIMP</a> &amp; <a href="https://inkscape.org" target="_blank" rel="noopener noreferrer">Inkscape</a></h3>
+            <p><span data-fr>Édition bitmap et vectorielle libres — pour visuels, vignettes, logos et mises en page d'affiches.</span><span data-en hidden>Free bitmap and vector editing — for visuals, thumbnails, logos and poster layouts.</span></p>
+            <div class="am-res-links">
+              <a href="https://www.gimp.org" target="_blank" rel="noopener noreferrer">GIMP</a>
+              <a href="https://inkscape.org" target="_blank" rel="noopener noreferrer">Inkscape</a>
+            </div>
+          </article>
         </div>
 
-        <hr class="am-divider">
-
-        <!-- Barre de filtres : thème / langue / hashtags (multi) -->
-        <div class="am-filters" aria-label="filtres" style="display:flex;gap:1rem;align-items:center;flex-wrap:wrap;">
-          <label style="display:flex;gap:0.5rem;align-items:center;">
-            <span style="font-weight:600;color:var(--am-text-softer);"><span data-fr>Thème :</span><span data-en hidden>Theme:</span></span>
-            <select id="am-filter-theme" class="am-select" aria-label="filtre-theme">
-              <option value="" data-fr-text="Tous les thèmes" data-en-text="All themes">Tous les thèmes</option>
-            </select>
-          </label>
-
-          <label style="display:flex;gap:0.5rem;align-items:center;">
-            <span style="font-weight:600;color:var(--am-text-softer);"><span data-fr>Langue :</span><span data-en hidden>Language:</span></span>
-            <select id="am-filter-lang" class="am-select" aria-label="filtre-lang">
-              <option value="" data-fr-text="Toutes langues" data-en-text="All languages">Toutes langues</option>
-              <option value="fr">FR</option>
-              <option value="en">EN</option>
-              <option value="multi">Multi</option>
-            </select>
-          </label>
-
-          <label style="display:flex;gap:0.5rem;align-items:center;">
-            <span style="font-weight:600;color:var(--am-text-softer);"><span data-fr>Hashtags :</span><span data-en hidden>Hashtags:</span></span>
-            <select id="am-filter-hashtags" class="am-select" aria-label="filtre-hashtags" multiple size="3" style="min-width:220px;">
-              <!-- options ajoutées dynamiquement -->
-            </select>
-          </label>
-
-          <button id="am-refresh-db" class="am-button-secondary" title="Rafraîchir la base"><span data-fr>Rafraîchir</span><span data-en hidden>Refresh</span></button>
+        <div class="am-res-note">
+          <span data-fr>💡 <strong>Conseil</strong> : avant de diffuser des vidéos de terrain, pensez toujours à flouter les visages des personnes qui pourraient être identifiées. Bal Masqué ou l'outil intégré de Signal peuvent vous y aider.</span>
+          <span data-en hidden>💡 <strong>Tip</strong>: before sharing field videos, always blur the faces of people who could be identified. Bal Masqué or Signal's built-in tool can help.</span>
         </div>
-
-        <!-- Résultats (remplis dynamiquement par JS) -->
-        <main class="am-main">
-          <div id="am-results" class="am-results-wrapper">
-            <p class="am-message"><span data-fr>Chargement des ressources…</span><span data-en hidden>Loading resources…</span></p>
-          </div>
-        </main>
       </section>
 
-      <!-- script client : veille à avoir assets/ressources.js (fourni précédemment) -->
-      <script src="assets/ressources.js"></script>
+      <hr class="am-divider" />
+
+      <!-- ================= CRÉER UN PODCAST ================= -->
+      <section class="am-res-section" id="sec-podcast">
+        <h2><span data-fr>🎙️ Créer un podcast</span><span data-en hidden>🎙️ Create a podcast</span></h2>
+        <p>
+          <span data-fr>Enregistrer, monter et publier vos émissions audio. Le podcast est un format accessible qui ne nécessite pas de matériel coûteux.</span>
+          <span data-en hidden>Record, edit and publish your audio shows. Podcasting is an accessible format that doesn't require expensive equipment.</span>
+        </p>
+
+        <div class="am-res-grid">
+          <article class="am-res-card">
+            <h3><a href="https://www.audacityteam.org" target="_blank" rel="noopener noreferrer">Audacity</a></h3>
+            <p><span data-fr>Montage audio gratuit et simple, utile pour podcasts et enregistrements bruts. Compatible avec formats ouverts (WAV, FLAC).</span><span data-en hidden>Free and simple audio editing, useful for podcasts and raw recordings. Compatible with open formats (WAV, FLAC).</span></p>
+            <div class="am-res-links">
+              <a href="https://www.audacityteam.org" target="_blank" rel="noopener noreferrer">site</a>
+              <a href="https://manual.audacityteam.org" target="_blank" rel="noopener noreferrer">guide</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://ardour.org" target="_blank" rel="noopener noreferrer">Ardour</a></h3>
+            <p><span data-fr>Station audio numérique professionnelle open source — idéale pour productions audio complexes et mixages multi-pistes.</span><span data-en hidden>Professional open source digital audio workstation — ideal for complex audio productions and multi-track mixing.</span></p>
+            <div class="am-res-links">
+              <a href="https://ardour.org" target="_blank" rel="noopener noreferrer">site</a>
+              <a href="https://ardour.org/support.html" target="_blank" rel="noopener noreferrer">support</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://funkwhale.audio" target="_blank" rel="noopener noreferrer">Funkwhale</a></h3>
+            <p><span data-fr>Plateforme fédérée pour diffusion audio (podcasts, albums) — idéale pour créer et partager catalogues audio hors plateformes centralisées.</span><span data-en hidden>Federated platform for audio distribution (podcasts, albums) — ideal for creating and sharing audio catalogs outside centralized platforms.</span></p>
+            <div class="am-res-links">
+              <a href="https://funkwhale.audio" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="am-res-note">
+          <span data-fr>💡 Pour héberger votre flux RSS podcast indépendamment, un simple hébergement statique (OVH, Scaleway, ou même GitHub Pages) suffit. Utilisez <a href="https://www.hugo-lang.org" target="_blank" rel="noopener noreferrer">Hugo</a> ou <a href="https://jekyllrb.com" target="_blank" rel="noopener noreferrer">Jekyll</a> pour générer le flux automatiquement.</span>
+          <span data-en hidden>💡 To host your podcast RSS feed independently, simple static hosting (OVH, Scaleway, or even GitHub Pages) is enough. Use <a href="https://www.hugo-lang.org" target="_blank" rel="noopener noreferrer">Hugo</a> or <a href="https://jekyllrb.com" target="_blank" rel="noopener noreferrer">Jekyll</a> to generate the feed automatically.</span>
+        </div>
+      </section>
+
+      <hr class="am-divider" />
+
+      <!-- ================= LANCER UNE RADIO ================= -->
+      <section class="am-res-section" id="sec-radio">
+        <h2><span data-fr>📻 Lancer ou animer une radio</span><span data-en hidden>📻 Start or run a radio</span></h2>
+        <p>
+          <span data-fr>La radio — qu'elle soit web ou hertzienne locale — reste un des formats les plus accessibles pour diffuser de l'information. Voici des outils pour se lancer.</span>
+          <span data-en hidden>Radio — whether web or local FM — remains one of the most accessible formats for broadcasting information. Here are tools to get started.</span>
+        </p>
+
+        <div class="am-res-grid">
+          <article class="am-res-card">
+            <h3><a href="https://www.azuracast.com" target="_blank" rel="noopener noreferrer">AzuraCast</a></h3>
+            <p><span data-fr>Solution auto-hébergeable tout-en-un pour webradio : gestion de playlists, streaming en direct, statistiques. Open source et gratuit.</span><span data-en hidden>Self-hostable all-in-one web radio solution: playlist management, live streaming, statistics. Open source and free.</span></p>
+            <div class="am-res-links">
+              <a href="https://www.azuracast.com" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://icecast.org" target="_blank" rel="noopener noreferrer">Icecast</a></h3>
+            <p><span data-fr>Serveur de streaming audio open source, utilisé par de nombreuses radios associatives et communautaires dans le monde.</span><span data-en hidden>Open source audio streaming server, used by many community and associative radios around the world.</span></p>
+            <div class="am-res-links">
+              <a href="https://icecast.org" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://www.audacityteam.org" target="_blank" rel="noopener noreferrer">Audacity</a> + <a href="https://obsproject.com" target="_blank" rel="noopener noreferrer">OBS</a></h3>
+            <p><span data-fr>Combinaison simple pour enregistrer et diffuser en direct : Audacity pour le montage, OBS pour le stream.</span><span data-en hidden>Simple combination for recording and live broadcasting: Audacity for editing, OBS for streaming.</span></p>
+          </article>
+        </div>
+      </section>
+
+      <hr class="am-divider" />
+
+      <!-- ================= CRÉER UN FANZINE / JOURNAL ================= -->
+      <section class="am-res-section" id="sec-fanzine">
+        <h2><span data-fr>📰 Créer un fanzine ou un journal</span><span data-en hidden>📰 Create a fanzine or newspaper</span></h2>
+        <p>
+          <span data-fr>Le papier n'est pas mort ! Fanzines, tracts, journaux de quartier — voici les outils pour mettre en page et imprimer.</span>
+          <span data-en hidden>Print isn't dead! Fanzines, leaflets, neighborhood newspapers — here are the tools for layout and printing.</span>
+        </p>
+
+        <div class="am-res-grid">
+          <article class="am-res-card">
+            <h3><a href="https://www.scribus.net" target="_blank" rel="noopener noreferrer">Scribus</a></h3>
+            <p><span data-fr>Logiciel de mise en page (PAO) libre et gratuit — l'alternative open source à InDesign pour créer fanzines, journaux, affiches et brochures.</span><span data-en hidden>Free desktop publishing software — the open source alternative to InDesign for creating fanzines, newspapers, posters and brochures.</span></p>
+            <div class="am-res-links">
+              <a href="https://www.scribus.net" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://www.libreoffice.org" target="_blank" rel="noopener noreferrer">LibreOffice</a></h3>
+            <p><span data-fr>Suite bureautique complète et libre. Writer suffit pour des mises en page simples (tracts, textes, newsletters).</span><span data-en hidden>Complete free office suite. Writer is enough for simple layouts (leaflets, texts, newsletters).</span></p>
+            <div class="am-res-links">
+              <a href="https://www.libreoffice.org" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://inkscape.org" target="_blank" rel="noopener noreferrer">Inkscape</a></h3>
+            <p><span data-fr>Éditeur vectoriel libre — parfait pour les couvertures, illustrations et mises en page créatives de fanzines.</span><span data-en hidden>Free vector editor — perfect for covers, illustrations and creative fanzine layouts.</span></p>
+            <div class="am-res-links">
+              <a href="https://inkscape.org" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <hr class="am-divider" />
+
+      <!-- ================= RÉSEAUX SOCIAUX ================= -->
+      <section class="am-res-section" id="sec-social">
+        <h2><span data-fr>📱 S'occuper des réseaux sociaux</span><span data-en hidden>📱 Managing social media</span></h2>
+        <p>
+          <span data-fr>Les réseaux sociaux sont un terrain important pour la diffusion des automédias. Il existe des alternatives éthiques et décentralisées — mais il est aussi pragmatique de ne pas déserter les grandes plateformes pour toucher un maximum de personnes.</span>
+          <span data-en hidden>Social media is an important terrain for automedia distribution. Ethical decentralized alternatives exist — but it's also pragmatic not to abandon major platforms in order to reach as many people as possible.</span>
+        </p>
+
+        <div class="am-res-grid">
+          <article class="am-res-card">
+            <h3><a href="https://joinmastodon.org" target="_blank" rel="noopener noreferrer">Mastodon</a></h3>
+            <p><span data-fr>Réseau décentralisé compatible ActivityPub — utile pour créer un média textuel / micro-édition sans dépendre d'une plateforme centralisée.</span><span data-en hidden>Decentralized ActivityPub network — useful for creating text-based media / micro-publishing without relying on a centralized platform.</span></p>
+            <div class="am-res-links">
+              <a href="https://joinmastodon.org" target="_blank" rel="noopener noreferrer">site</a>
+              <a href="https://www.w3.org/TR/activitypub/" target="_blank" rel="noopener noreferrer">spec ActivityPub</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://joinpeertube.org" target="_blank" rel="noopener noreferrer">PeerTube</a></h3>
+            <p><span data-fr>Alternative auto-hébergeable pour vidéos, fédérée au sein du Fediverse — intégration P2P pour réduire la bande passante.</span><span data-en hidden>Self-hostable video alternative, federated within the Fediverse — P2P integration to reduce bandwidth.</span></p>
+            <div class="am-res-links">
+              <a href="https://joinpeertube.org" target="_blank" rel="noopener noreferrer">site</a>
+              <a href="https://peertube.video" target="_blank" rel="noopener noreferrer">instances</a>
+            </div>
+          </article>
+        </div>
+
+        <div class="am-res-note">
+          <span data-fr>💡 <strong>Réseaux éthiques vs. pragmatisme</strong> : les réseaux décentralisés (Mastodon, PeerTube) offrent plus de contrôle et de respect de la vie privée. Mais pour atteindre un large public, il peut être nécessaire de maintenir aussi une présence sur les plateformes mainstream (Instagram, YouTube, TikTok). L'idéal est de publier d'abord sur les plateformes libres, puis de relayer sur les réseaux centralisés.</span>
+          <span data-en hidden>💡 <strong>Ethical networks vs. pragmatism</strong>: decentralized networks (Mastodon, PeerTube) offer more control and privacy. But to reach a wide audience, it may be necessary to also maintain a presence on mainstream platforms (Instagram, YouTube, TikTok). Ideally, publish first on free platforms, then relay on centralized networks.</span>
+        </div>
+      </section>
+
+      <hr class="am-divider" />
+
+      <!-- ================= PUBLIER ET DIFFUSER ================= -->
+      <section class="am-res-section" id="sec-diffusion">
+        <h2><span data-fr>📡 Publier et diffuser</span><span data-en hidden>📡 Publish and distribute</span></h2>
+        <p>
+          <span data-fr>Pour que d'autres personnes puissent recevoir votre média : publication web, hébergement, stockage, archivage.</span>
+          <span data-en hidden>So that others can receive your media: web publishing, hosting, storage, archiving.</span>
+        </p>
+
+        <div class="am-res-grid">
+          <article class="am-res-card">
+            <h3><a href="https://nextcloud.com" target="_blank" rel="noopener noreferrer">Nextcloud</a></h3>
+            <p><span data-fr>Cloud personnel auto-hébergeable : fichiers, partage, calendriers, édition collaborative — utile pour équipes éditoriales décentralisées.</span><span data-en hidden>Self-hostable personal cloud: files, sharing, calendars, collaborative editing — useful for decentralized editorial teams.</span></p>
+            <div class="am-res-links">
+              <a href="https://nextcloud.com" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://syncthing.net" target="_blank" rel="noopener noreferrer">Syncthing</a></h3>
+            <p><span data-fr>Synchronisation de dossiers pair-à-pair sans serveur central — utile pour partager des dossiers volumineux entre collaborateurs.</span><span data-en hidden>Peer-to-peer folder synchronization without a central server — useful for sharing large folders between collaborators.</span></p>
+            <div class="am-res-links">
+              <a href="https://syncthing.net" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://archive.org" target="_blank" rel="noopener noreferrer">Internet Archive</a></h3>
+            <p><span data-fr>Archive publique et gratuite de contenus — utile pour déposer des copies publiques et assurer la pérennité documentaire.</span><span data-en hidden>Free public content archive — useful for depositing public copies and ensuring documentary permanence.</span></p>
+            <div class="am-res-links">
+              <a href="https://archive.org" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><span data-fr>Certificats HTTPS (Let's Encrypt)</span><span data-en hidden>HTTPS Certificates (Let's Encrypt)</span></h3>
+            <p><span data-fr>Utiliser Let's Encrypt / Certbot pour TLS gratuit sur vos sites ; automatiser le renouvellement des certificats.</span><span data-en hidden>Use Let's Encrypt / Certbot for free TLS on your sites; automate certificate renewal.</span></p>
+            <div class="am-res-links">
+              <a href="https://letsencrypt.org" target="_blank" rel="noopener noreferrer">Let's Encrypt</a>
+              <a href="https://certbot.eff.org" target="_blank" rel="noopener noreferrer">Certbot</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <hr class="am-divider" />
+
+      <!-- ================= SÉCURITÉ ET ANONYMAT ================= -->
+      <section class="am-res-section" id="sec-security">
+        <h2><span data-fr>🔒 Sécurité et anonymat</span><span data-en hidden>🔒 Security and anonymity</span></h2>
+        <p>
+          <span data-fr>Protéger ses communications, ses sources et son identité est fondamental pour les automédias. Voici des outils essentiels.</span>
+          <span data-en hidden>Protecting your communications, sources and identity is fundamental for automedias. Here are essential tools.</span>
+        </p>
+
+        <div class="am-res-grid">
+          <article class="am-res-card">
+            <h3><a href="https://signal.org" target="_blank" rel="noopener noreferrer">Signal</a></h3>
+            <p><span data-fr>Messagerie instantanée à chiffrement de bout en bout — bon compromis confidentialité et facilité d'usage pour équipes.</span><span data-en hidden>End-to-end encrypted instant messaging — good balance of privacy and ease of use for teams.</span></p>
+            <div class="am-res-links">
+              <a href="https://signal.org" target="_blank" rel="noopener noreferrer">site</a>
+              <a href="https://signal.org/docs" target="_blank" rel="noopener noreferrer">docs</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://matrix.org" target="_blank" rel="noopener noreferrer">Matrix (Element)</a></h3>
+            <p><span data-fr>Protocole open source pour messagerie et rooms fédérées — très adapté au travail d'équipe et intégration bots/archives.</span><span data-en hidden>Open source protocol for federated messaging and rooms — well suited for teamwork and bot/archive integration.</span></p>
+            <div class="am-res-links">
+              <a href="https://matrix.org" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://www.torproject.org" target="_blank" rel="noopener noreferrer">Tor</a> &amp; <a href="https://tails.boum.org" target="_blank" rel="noopener noreferrer">Tails</a></h3>
+            <p><span data-fr>Outils pour navigation anonyme et pour créer des environnements temporaires (Tails) — à utiliser avec prudence suivant le contexte opérationnel.</span><span data-en hidden>Tools for anonymous browsing and creating temporary environments (Tails) — use with caution depending on the operational context.</span></p>
+            <div class="am-res-links">
+              <a href="https://www.torproject.org" target="_blank" rel="noopener noreferrer">Tor</a>
+              <a href="https://tails.boum.org" target="_blank" rel="noopener noreferrer">Tails</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://onionshare.org" target="_blank" rel="noopener noreferrer">OnionShare</a></h3>
+            <p><span data-fr>Partage de fichiers via Tor de façon anonyme et sans serveur central — utile pour transférer des sources sensibles.</span><span data-en hidden>Anonymous file sharing via Tor without a central server — useful for transferring sensitive sources.</span></p>
+            <div class="am-res-links">
+              <a href="https://onionshare.org" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <hr class="am-divider" />
+
+      <!-- ================= GUIDES ET RÉFÉRENCES ================= -->
+      <section class="am-res-section" id="sec-guides">
+        <h2><span data-fr>📚 Guides et références</span><span data-en hidden>📚 Guides and references</span></h2>
+        <p>
+          <span data-fr>Des organisations et collectifs qui publient des guides pratiques, des tutoriels et des ressources pour s'informer et s'outiller.</span>
+          <span data-en hidden>Organizations and collectives that publish practical guides, tutorials and resources for information and empowerment.</span>
+        </p>
+
+        <div class="am-res-grid">
+          <article class="am-res-card">
+            <h3><a href="https://framasoft.org" target="_blank" rel="noopener noreferrer">Framasoft</a></h3>
+            <p><span data-fr>Ressources francophones pour dégoogliser, héberger, et diffuser en autonomie. Nombreux guides pratiques et tutoriels.</span><span data-en hidden>French-language resources to degoogle, self-host, and distribute independently. Many practical guides and tutorials.</span></p>
+            <div class="am-res-links">
+              <a href="https://framasoft.org" target="_blank" rel="noopener noreferrer">site</a>
+              <a href="https://framagit.org" target="_blank" rel="noopener noreferrer">git</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://www.laquadrature.net" target="_blank" rel="noopener noreferrer">La Quadrature du Net</a></h3>
+            <p><span data-fr>Organisation défendant les libertés numériques : publications, dossiers juridiques et guides de sensibilisation.</span><span data-en hidden>Organization defending digital freedoms: publications, legal files and awareness guides.</span></p>
+            <div class="am-res-links">
+              <a href="https://www.laquadrature.net" target="_blank" rel="noopener noreferrer">site</a>
+            </div>
+          </article>
+
+          <article class="am-res-card">
+            <h3><a href="https://eff.org" target="_blank" rel="noopener noreferrer">Electronic Frontier Foundation (EFF)</a></h3>
+            <p><span data-fr>Guides pratiques, tutoriels OPSEC et ressources juridiques pour activistes et journalistes.</span><span data-en hidden>Practical guides, OPSEC tutorials and legal resources for activists and journalists.</span></p>
+            <div class="am-res-links">
+              <a href="https://eff.org" target="_blank" rel="noopener noreferrer">site</a>
+              <a href="https://ssd.eff.org" target="_blank" rel="noopener noreferrer">Surveillance Self-Defense</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <hr class="am-divider" />
 
       <!-- --------- Section Contribuer --------- -->
-      <section class="am-section">
-        <header class="am-state-header">
-          <h2 class="am-section-title"><span data-fr>Contribuer à Automédiathèque</span><span data-en hidden>Contribute to Automédiathèque</span></h2>
-        </header>
-        <div class="am-section-inner">
-          <p class="am-footer-text">
-            <span data-fr>Ce projet est open-source et collaboratif. Plusieurs façons de contribuer :</span><span data-en hidden>This project is open-source and collaborative. Several ways to contribute:</span>
-          </p>
-          <ul style="list-style: disc; padding-left: 2rem; line-height: 1.8;">
-            <li>
-              <span data-fr><a href="formulaire.html">Proposer un automédia</a> via le formulaire</span><span data-en hidden><a href="formulaire.html">Suggest an automedia</a> via the form</span>
-            </li>
-            <li>
-              <span data-fr>Contribuer au code sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">GitHub</a><br>
-              Aide, ça peut être signaler des erreurs ou des liens obsolètes, <br>me partager des ressources et références supplémentaires, <br>
-              m'aider à Traduire l'interface dans d'autres langues, <br>etc.</span>
-              <span data-en hidden>Contribute to the code on <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">GitHub</a><br>
-              Help can mean reporting errors or broken links, <br>sharing additional resources and references, <br>
-              helping translate the interface into other languages, <br>etc.</span>
-            </li>
-          </ul>
-          <p class="am-hero-actions" style="margin-top: 2rem;">
-            <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" class="am-button">
-              <span data-fr>Voir le dépôt GitHub</span><span data-en hidden>View GitHub repository</span>
-            </a>
-          </p>
-        </div>
+      <section class="am-res-section">
+        <h2><span data-fr>Contribuer à Automédiathèque</span><span data-en hidden>Contribute to Automédiathèque</span></h2>
+        <p>
+          <span data-fr>Ce projet est open-source et collaboratif. Plusieurs façons de contribuer :</span>
+          <span data-en hidden>This project is open-source and collaborative. Several ways to contribute:</span>
+        </p>
+        <ul style="list-style: disc; padding-left: 2rem; line-height: 1.8; font-size: 0.92rem; color: var(--am-text-soft);">
+          <li>
+            <span data-fr><a href="formulaire.html">Proposer un automédia</a> via le formulaire</span>
+            <span data-en hidden><a href="formulaire.html">Suggest an automedia</a> via the form</span>
+          </li>
+          <li>
+            <span data-fr>Signaler des erreurs, liens obsolètes, ou partager des ressources supplémentaires</span>
+            <span data-en hidden>Report errors, broken links, or share additional resources</span>
+          </li>
+          <li>
+            <span data-fr>Contribuer au code sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+            <span data-en hidden>Contribute to the code on <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+          </li>
+        </ul>
       </section>
 
-      <!-- ================= FOOTER / CRÉDITS ================= -->
+      <!-- ================= FOOTER ================= -->
       <footer class="am-footer">
         <p class="am-footer-text">
-          <span data-fr>Projet lancé par <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris</a> en janvier 2026.<br>
+          <span data-fr>Projet lancé par <a href="https://siratton.hotglue.me" target="_blank" rel="noopener noreferrer">Côme Nottaris</a> en janvier 2026.<br>
           Code source disponible sous licence MIT.</span>
-          <span data-en hidden>Project launched by <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris</a> in January 2026.<br>
+          <span data-en hidden>Project launched by <a href="https://siratton.hotglue.me" target="_blank" rel="noopener noreferrer">Côme Nottaris</a> in January 2026.<br>
           Source code available under MIT license.</span>
         </p>
       </footer>
     </div>
 
     <script>
-      
       // === LANGUAGE TOGGLE ===
       const langToggle = document.getElementById('lang-toggle');
       let currentLang = localStorage.getItem('am-lang') || 'fr';
@@ -185,16 +654,41 @@
 
       applyLang(currentLang);
 
+      // === TABLE OF CONTENTS ===
+      const tocToggle = document.getElementById('toc-toggle');
+      const tocPanel = document.getElementById('toc-panel');
+
+      tocToggle.addEventListener('click', () => {
+        const isOpen = tocPanel.classList.toggle('open');
+        tocToggle.setAttribute('aria-expanded', isOpen);
+      });
+
+      // Close TOC when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!tocToggle.contains(e.target) && !tocPanel.contains(e.target)) {
+          tocPanel.classList.remove('open');
+          tocToggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Close TOC when clicking a link (smooth scroll)
+      tocPanel.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          tocPanel.classList.remove('open');
+          tocToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+
       // === MENU ===
       const menuToggle = document.getElementById('menu-toggle');
       const menuDropdown = document.getElementById('menu-dropdown');
-      
+
       menuToggle.addEventListener('click', () => {
         const isOpen = menuDropdown.classList.toggle('open');
         menuToggle.classList.toggle('active');
         menuToggle.setAttribute('aria-expanded', isOpen);
       });
-      
+
       document.addEventListener('click', (e) => {
         if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
           menuDropdown.classList.remove('open');
@@ -212,7 +706,6 @@
         cursor.style.top = e.clientY + 'px';
       });
 
-      // Effet hover sur les liens et boutons
       document.querySelectorAll('a, button').forEach(el => {
         el.addEventListener('mouseenter', () => cursor.classList.add('hovering-link'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hovering-link'));
