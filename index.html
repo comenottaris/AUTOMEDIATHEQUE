@@ -9,9 +9,9 @@
     <!-- Balises Open Graph -->
     <meta property="og:title" content="Automédiathèque">
     <meta property="og:description" content="Cartographie open-source des automédias en lutte">
-    <meta property="og:url" content="https://www.automediatheque.linkpc.net/">
+    <meta property="og:url" content="https://automediatheque.org/">
     <meta property="og:type" content="website">
-    <meta property="og:image" content="https://www.automediatheque.linkpc.net/assets/preview-image.jpg">
+    <meta property="og:image" content="https://automediatheque.org/assets/preview-image.jpg">
     <meta property="og:image:width" content="667">
     <meta property="og:image:height" content="130">
     <meta property="og:image:alt" content="Prévisualisation d'Automédiathèque">
@@ -22,6 +22,11 @@
 
     <!-- Favicon -->
     <link rel="icon" href="/assets/favicon.ico">
+
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'">
 
     <style>
       body {
@@ -172,12 +177,12 @@
       <footer class="am-footer">
         <p class="am-footer-text">
           <span data-fr>
-            Projet lancé par <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris</a> en janvier 2026.
-            Code source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">GitHub</a>.
+            Projet lancé par <a href="https://siratton.hotglue.me" target="_blank" rel="noopener noreferrer">Côme Nottaris</a> en janvier 2026.
+            Code source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener noreferrer">GitHub</a>.
           </span>
           <span data-en hidden>
-            Project launched by <a href="https://siratton.hotglue.me" target="_blank">Côme Nottaris</a> in January 2026.
-            Source code on <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank">GitHub</a>.
+            Project launched by <a href="https://siratton.hotglue.me" target="_blank" rel="noopener noreferrer">Côme Nottaris</a> in January 2026.
+            Source code on <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener noreferrer">GitHub</a>.
           </span>
         </p>
       </footer>
@@ -223,6 +228,22 @@
       });
 
       // === FEATURED AUTOMEDIA ===
+      function escapeHtml(str) {
+        if (!str) return '';
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      function sanitizeUrl(url) {
+        if (!url) return '#';
+        try {
+          const u = new URL(url);
+          if (u.protocol === 'http:' || u.protocol === 'https:') return u.href;
+        } catch (e) {}
+        return '#';
+      }
+
       async function loadFeatured() {
         try {
           const res = await fetch('data/featured.json');
@@ -232,36 +253,68 @@
           const current = data.find(d => d.featured) || data[0];
           const past = data.filter(d => d !== current);
 
-          // Render featured card
+          // Render featured card using safe DOM methods
           const card = document.getElementById('featured-card');
-          const initials = current.name.substring(0, 2).toUpperCase();
-          card.innerHTML = `
-            <div class="am-featured-visual">
-              <img src="${current.logo}" alt="${current.name}" />
-            </div>
-            <div class="am-featured-body">
-              <h2 class="am-featured-name">
-                <a href="${current.url}" target="_blank">${current.name}</a>
-              </h2>
-              <p class="am-featured-desc" data-fr>${current.description_fr}</p>
-              <p class="am-featured-desc" data-en hidden>${current.description_en}</p>
-              <a href="${current.url}" target="_blank" class="am-featured-link">
-                <span data-fr>Visiter ${current.name} →</span>
-                <span data-en hidden>Visit ${current.name} →</span>
-              </a>
-            </div>
-          `;
+          const initials = (current.name || '').substring(0, 2).toUpperCase();
+          card.textContent = '';
 
-          // Fallback if image fails to load
-          const img = card.querySelector('img');
-          if (img) {
-            img.addEventListener('error', function() {
-              const fallback = document.createElement('span');
-              fallback.className = 'am-featured-initial';
-              fallback.textContent = initials;
-              this.parentElement.replaceChild(fallback, this);
-            });
-          }
+          const visual = document.createElement('div');
+          visual.className = 'am-featured-visual';
+          const img = document.createElement('img');
+          img.src = sanitizeUrl(current.logo);
+          img.alt = escapeHtml(current.name);
+          img.addEventListener('error', function() {
+            const fallback = document.createElement('span');
+            fallback.className = 'am-featured-initial';
+            fallback.textContent = initials;
+            this.parentElement.replaceChild(fallback, this);
+          });
+          visual.appendChild(img);
+
+          const body = document.createElement('div');
+          body.className = 'am-featured-body';
+
+          const h2 = document.createElement('h2');
+          h2.className = 'am-featured-name';
+          const nameLink = document.createElement('a');
+          nameLink.href = sanitizeUrl(current.url);
+          nameLink.target = '_blank';
+          nameLink.rel = 'noopener noreferrer';
+          nameLink.textContent = current.name || '';
+          h2.appendChild(nameLink);
+          body.appendChild(h2);
+
+          const descFr = document.createElement('p');
+          descFr.className = 'am-featured-desc';
+          descFr.setAttribute('data-fr', '');
+          descFr.textContent = current.description_fr || '';
+          body.appendChild(descFr);
+
+          const descEn = document.createElement('p');
+          descEn.className = 'am-featured-desc';
+          descEn.setAttribute('data-en', '');
+          descEn.hidden = true;
+          descEn.textContent = current.description_en || '';
+          body.appendChild(descEn);
+
+          const visitLink = document.createElement('a');
+          visitLink.href = sanitizeUrl(current.url);
+          visitLink.target = '_blank';
+          visitLink.rel = 'noopener noreferrer';
+          visitLink.className = 'am-featured-link';
+          const visitFr = document.createElement('span');
+          visitFr.setAttribute('data-fr', '');
+          visitFr.textContent = 'Visiter ' + (current.name || '') + ' →';
+          const visitEn = document.createElement('span');
+          visitEn.setAttribute('data-en', '');
+          visitEn.hidden = true;
+          visitEn.textContent = 'Visit ' + (current.name || '') + ' →';
+          visitLink.appendChild(visitFr);
+          visitLink.appendChild(visitEn);
+          body.appendChild(visitLink);
+
+          card.appendChild(visual);
+          card.appendChild(body);
 
           // Re-apply language after dynamic content
           applyLang(currentLang);
@@ -269,12 +322,23 @@
           // Render past features archive
           if (past.length > 0) {
             const archiveList = document.getElementById('archive-list');
-            archiveList.innerHTML = past.map(item => `
-              <a href="${item.url}" target="_blank" class="am-archive-item">
-                <span class="am-archive-name">${item.name}</span>
-                <span class="am-archive-date">${new Date(item.date).toLocaleDateString(currentLang === 'fr' ? 'fr-FR' : 'en-US', { month: 'long', year: 'numeric' })}</span>
-              </a>
-            `).join('');
+            archiveList.textContent = '';
+            past.forEach(item => {
+              const a = document.createElement('a');
+              a.href = sanitizeUrl(item.url);
+              a.target = '_blank';
+              a.rel = 'noopener noreferrer';
+              a.className = 'am-archive-item';
+              const nameSpan = document.createElement('span');
+              nameSpan.className = 'am-archive-name';
+              nameSpan.textContent = item.name || '';
+              const dateSpan = document.createElement('span');
+              dateSpan.className = 'am-archive-date';
+              dateSpan.textContent = new Date(item.date).toLocaleDateString(currentLang === 'fr' ? 'fr-FR' : 'en-US', { month: 'long', year: 'numeric' });
+              a.appendChild(nameSpan);
+              a.appendChild(dateSpan);
+              archiveList.appendChild(a);
+            });
           }
         } catch (err) {
           console.error('Error loading featured data:', err);
@@ -288,6 +352,7 @@
 
       // === CURSEUR PERSONNALISÉ ===
       const cursor = document.getElementById('custom-cursor');
+      document.documentElement.classList.add('am-custom-cursor');
 
       document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';

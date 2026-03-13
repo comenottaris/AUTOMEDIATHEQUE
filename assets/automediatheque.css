@@ -278,8 +278,16 @@ body {
    CURSEUR PERSONNALISÉ
    =========================== */
 
-html, body, * {
-  cursor: none !important;
+/* Custom cursor: only hide native cursor when JS custom cursor is active */
+html.am-custom-cursor,
+html.am-custom-cursor body,
+html.am-custom-cursor a,
+html.am-custom-cursor button,
+html.am-custom-cursor input,
+html.am-custom-cursor select,
+html.am-custom-cursor textarea,
+html.am-custom-cursor label {
+  cursor: none;
 }
 
 #custom-cursor {
@@ -320,8 +328,15 @@ html, body, * {
     visibility: hidden !important;
   }
   
-  html, body, *, a, button, input, textarea {
-    cursor: auto !important;
+  html.am-custom-cursor,
+  html.am-custom-cursor body,
+  html.am-custom-cursor a,
+  html.am-custom-cursor button,
+  html.am-custom-cursor input,
+  html.am-custom-cursor select,
+  html.am-custom-cursor textarea,
+  html.am-custom-cursor label {
+    cursor: auto;
   }
 }
 
@@ -661,7 +676,6 @@ html, body, * {
   PAGE RESSOURCES
    =========================== */
 
-<style> 
 .am-card-actions { 
    display: flex; gap: 0.5rem; margin-top: 0.6rem; flex-wrap: wrap; 
 }
@@ -693,9 +707,8 @@ am-category-legend {
 /* Petite icône visuelle pour carte (optionnel) */ 
 .am-card-visual { 
    width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, rgba(200,137,60,0.12), rgba(226,192,149,0.12)); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: var(--am-accent); margin-right: 0.5rem; 
-} </style> 
+}
 
-    <style> 
 /* -- minimal pour nouveaux éléments et pastilles de lien -- */ 
 .am-filters { 
    display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin: 0.6rem 0 1rem; 
@@ -766,7 +779,6 @@ am-category-legend {
   border-radius: 10px;
   cursor: pointer;
 }
-</style>
 
 /* ===========================
    LANGUAGE TOGGLE

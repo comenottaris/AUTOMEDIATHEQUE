@@ -10,6 +10,11 @@
     <meta name="description" content="Proposez un automédia à ajouter à la base collaborative de l'Automédiathèque. Contribution anonyme et sans tracking.">
     <meta name="keywords" content="automédias, automedia, luttes sociales, activisme, militantisme, autonomie, indymedia, médias alternatifs, médiactivisme, médias tactiques, autoproduction, autodiffusion, médias indépendants, médias libres, open-source, automediation">
 
+    <!-- Security -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self' https://fnxxhuyqhhpfjvgmcbjz.supabase.co; frame-ancestors 'none'; form-action 'self'; base-uri 'self'">
+
     <style>
       body {
         padding: 0 40px;
@@ -269,6 +274,7 @@
 
       // === CURSEUR PERSONNALISÉ ===
     const cursor = document.getElementById('custom-cursor');
+    document.documentElement.classList.add('am-custom-cursor');
 
     document.addEventListener('mousemove', (e) => {
       cursor.style.left = e.clientX + 'px';

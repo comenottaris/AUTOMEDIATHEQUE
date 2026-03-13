@@ -79,7 +79,7 @@ Format d'un automédia :
 ## Contribuer
 
 Pour proposer un nouvel automédia :
-1. Utiliser le **[formulaire dédié](https://www.automediatheque.linkpc.net/formulaire.html)**
+1. Utiliser le **[formulaire dédié](https://automediatheque.org/formulaire.html)**
 2. Les propositions sont validées manuellement avant intégration
 
 
