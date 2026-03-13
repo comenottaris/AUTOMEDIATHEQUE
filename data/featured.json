@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "Automedia.org",
+    "url": "https://automedias.org",
+    "logo": "https://automedias.org/images/logo_automedias.png",
+    "description_fr": "Automedias.org est une plateforme de recherche et de publication dédiée aux pratiques automédiatiques. Elle rassemble des chercheur·euses, militant·es et praticien·nes autour d'une réflexion collective sur l'autoproduction et l'autodiffusion de l'information à caractère politique. Le projet explore les formes émergentes de médias autonomes, des médias tactiques aux pratiques numériques communautaires, en passant par le médiactivisme contemporain.",
+    "description_en": "Automedias.org is a research and publishing platform dedicated to automedia practices. It brings together researchers, activists and practitioners around a collective reflection on the self-production and self-distribution of political information. The project explores emerging forms of autonomous media, from tactical media to community digital practices, including contemporary mediactivism.",
+    "date": "2026-03-13",
+    "featured": true
+  }
+]

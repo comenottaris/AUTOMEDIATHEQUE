@@ -1,0 +1,133 @@
+== AUTOMEDIATHEQUE — Repository Exploration Report ==
+(Internal context file for agent use — not part of the application)
+
+=== DIRECTORY STRUCTURE ===
+
+/AUTOMEDIATHEQUE/
+├── index.html                    # Homepage (about page) → will become apropos.html
+├── liste.html                    # Main directory/list of automedias
+├── formulaire.html               # Form to propose new automedias
+├── ressources.html               # Resources & tools page
+├── favicon.ico                   # Website icon
+├── CNAME                         # Custom domain: automediatheque.linkpc.net
+├── _config.yml                   # Jekyll configuration
+├── README.md                     # Project documentation
+├── SECURITY.md                   # Security guidelines
+├── staticman.yml                 # Webhook configuration (legacy)
+├── .nojekyll                     # Disables Jekyll processing
+├── assets/
+│   ├── automediatheque.css       # Main stylesheet (770 lines)
+│   ├── automediatheque.js        # Main JS for liste.html (369 lines)
+│   ├── ressources.js             # Resources page logic (487 lines)
+│   ├── preview-image.png         # Social media preview image
+│   └── md_to_json.py             # Python utility (data conversion)
+├── data/
+│   ├── automedias.json           # Database of validated automedias (177 lines)
+│   ├── propositions.json         # Proposed automedias from Supabase (188 lines)
+│   ├── ressources.json           # Tools & resources database (573 lines)
+│   ├── supabase-state.json       # State tracking for automedias sync
+│   └── supabase-state-ressources.json  # State tracking for resources sync
+├── layouts/                      # Jekyll layout templates (legacy/inactive)
+│   ├── default.html
+│   ├── automedia.html
+│   └── index.html
+├── scripts/
+│   ├── sync-supabase.js          # Node.js script - syncs proposals from Supabase
+│   └── sync-supabase-ressources.js   # Node.js script - syncs resources from Supabase
+└── .github/                      # GitHub Actions workflows
+
+
+=== THEME / CSS VARIABLES ===
+
+--am-bg: #f7f0e6              (Beige background)
+--am-surface: #fdfaf5         (Off-white surfaces)
+--am-surface-strong: #f4e4ce
+--am-border-subtle: #e4d5c1
+--am-border-strong: #c9a982
+--am-accent: #c8893c          (Orange/brown accent)
+--am-accent-soft: #f1e0c7
+--am-accent-soft-strong: #e2c095
+--am-text: #231811            (Dark brown text)
+--am-text-soft: #6f5a45
+--am-text-softer: #9a856d
+--am-radius-card: 14px
+--am-radius-pill: 999px
+
+No external CSS framework — fully custom CSS.
+Font: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif.
+Background: radial-gradient(circle at top left, #fdf7ef 0, #f7f0e6 45%, #f3ebdf 100%).
+
+
+=== NAVIGATION MENU (current, all pages) ===
+
+Hamburger menu (fixed top-left):
+- "A propos" / "Accueil" → index.html
+- "Automédiathèque" → liste.html
+- (separator)
+- "Participer" → formulaire.html
+- "Ressources" → ressources.html
+
+Note: index.html calls it "A propos", other pages call it "Accueil".
+
+
+=== PAGE SUMMARIES ===
+
+-- index.html (current) --
+- Title: Automédiathèque
+- Subtitle: "Pour mieux connaître les automédias."
+- Sections: Qu'est-ce qu'un Automédia, Pourquoi ce site, Academic definition
+- Footer: GitHub link, Côme Nottaris credit
+- Custom cursor + menu script inline
+
+-- liste.html --
+- Title: "Liste open-source d'automédias"
+- Filters: Type, Pays, Statut (validés/proposés)
+- Card grid populated by automediatheque.js
+- Modal zoom for cards
+- Footer: Reload button, propose link, credits
+
+-- formulaire.html --
+- Title: "Ajouter un Automédia"
+- Supabase form: name, url, type, country, languages, description, notes
+- Honeypot anti-spam
+- Inline Supabase submission script
+
+-- ressources.html --
+- Title: "Boîte à outils pour l'automédiation"
+- Filters: Theme, Language, Hashtags (multi-select)
+- Card grid populated by ressources.js
+- "Contribuer" section
+- Footer: credits
+
+
+=== COMMON PATTERNS ACROSS ALL PAGES ===
+
+1. Custom cursor div: <div id="custom-cursor"></div>
+2. Nav menu with hamburger button (am-nav, am-menu-btn, am-nav-dropdown)
+3. Menu toggle script (click to open/close, click outside to close)
+4. Custom cursor movement script
+5. Body padding: 40px desktop, 10px mobile (inline <style>)
+6. All pages use: <link rel="stylesheet" href="assets/automediatheque.css" />
+
+
+=== TASK PLAN ===
+
+1. Rename index.html → apropos.html
+2. Create new index.html (editorial homepage):
+   - Large centered "Automédiathèque" title
+   - Automedia of the week: automedia.org with logo + description
+   - Past featured automedias section (loaded from data/featured.json)
+   - Link to gallery (liste.html)
+   - Minimalist media homepage aesthetic
+3. Create data/featured.json for storing past featured automedias
+4. Update nav menu on ALL pages:
+   - Accueil → index.html
+   - À propos → apropos.html
+   - Automédiathèque → liste.html
+   - (separator)
+   - Participer → formulaire.html
+   - Ressources → ressources.html
+5. Add FR/EN toggle button (top-right) on all pages
+6. Add English translations for all text content
+7. Add homepage styles to automediatheque.css
+8. Screenshot the new homepage

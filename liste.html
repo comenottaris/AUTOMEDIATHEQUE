@@ -8,7 +8,7 @@
 
       <!-- Balises Open Graph -->
     <meta property="og:title" content="Automédiathèque">
-    <meta property="og:description" content="Liste open-source d'automédias">
+    <meta property="og:description" content="Liste open-source d'automédias en lutte — filtrez par type, pays, langue">
     <meta property="og:url" content="https://www.automediatheque.linkpc.net/liste.html">
     <meta property="og:type" content="website">
     <meta property="og:image" content="https://www.automediatheque.linkpc.net/assets/preview-image.jpg">
@@ -16,7 +16,10 @@
     <meta property="og:image:height" content="130">
     <meta property="og:image:alt" content="Prévisualisation d'Automédiathèque">
 
-    
+    <!-- SEO -->
+    <meta name="description" content="Liste open-source d'automédias en lutte. Filtrez par type, pays ou langue. Base collaborative de médias autonomes et indépendants.">
+    <meta name="keywords" content="automédias, automedia, luttes sociales, activisme, militantisme, autonomie, indymedia, médias alternatifs, médiactivisme, médias tactiques, autoproduction, autodiffusion, médias indépendants, médias libres, open-source, automediation">
+
     <style>
       body {
         padding: 0 40px;
@@ -38,13 +41,29 @@
         <span class="am-menu-icon">☰</span>
       </button>
       <div class="am-nav-dropdown" id="menu-dropdown">
-        <a href="index.html" class="am-nav-link">Accueil</a>
-        <a href="liste.html" class="am-nav-link">Automédiathèque</a>
+        <a href="index.html" class="am-nav-link">
+          <span data-fr>Accueil</span><span data-en hidden>Home</span>
+        </a>
+        <a href="apropos.html" class="am-nav-link">
+          <span data-fr>À propos</span><span data-en hidden>About</span>
+        </a>
+        <a href="liste.html" class="am-nav-link active">
+          <span data-fr>Automédiathèque</span><span data-en hidden>Automédiathèque</span>
+        </a>
         <div class="am-nav-separator"></div>
-        <a href="formulaire.html" class="am-nav-link">Participer</a>
-        <a href="ressources.html" class="am-nav-link">Ressources</a>
+        <a href="formulaire.html" class="am-nav-link">
+          <span data-fr>Participer</span><span data-en hidden>Contribute</span>
+        </a>
+        <a href="ressources.html" class="am-nav-link">
+          <span data-fr>Ressources</span><span data-en hidden>Resources</span>
+        </a>
       </div>
     </nav>
+
+    <!-- Language toggle -->
+    <button class="am-lang-toggle" id="lang-toggle" aria-label="Switch language">
+      EN
+    </button>
 
 
 <!-- Modal zoom carte -->
@@ -59,15 +78,21 @@
       <!-- ================= HEADER / INTRO ================= -->
       <header class="am-hero am-hero--center">
           <p class="am-hero-lead">
-           Liste open-source d'automédias.
+            <span data-fr>Liste open-source d'automédias.</span>
+            <span data-en hidden>Open-source list of automedias.</span>
           </p>
 
           <p class="am-hero-text">
-            La base est partielle et en mouvement :
+            <span data-fr>La base est partielle et en mouvement :
             elle a vocation à être complétée collectivement, corrigée,
             etc. Les liens renvoient vers les plateformes des
             collectifs et groupes concernés (sites, réseaux sociaux,
-            podcasts, etc.).
+            podcasts, etc.).</span>
+            <span data-en hidden>The database is partial and evolving:
+            it is meant to be collectively completed, corrected,
+            etc. Links point to the platforms of
+            the concerned collectives and groups (websites, social media,
+            podcasts, etc.).</span>
           </p>
 
         </div>
@@ -85,17 +110,17 @@
     <div class="am-toolbar-left">
       <!-- TYPE -->
       <label class="am-field">
-        <span class="am-field-label">Type</span>
+        <span class="am-field-label"><span data-fr>Type</span><span data-en hidden>Type</span></span>
         <select id="am-filter-type" class="am-select">
           <!-- option par défaut -->
-          <option value="">Tous les types</option>
+          <option value="" data-fr-text="Tous les types" data-en-text="All types">Tous les types</option>
           <!-- les autres options sont ajoutées en JS à partir du JSON -->
         </select>
       </label>
 
       <!-- PAYS -->
       <label class="am-field">
-        <span class="am-field-label">Pays</span>
+        <span class="am-field-label"><span data-fr>Pays</span><span data-en hidden>Country</span></span>
         <select id="am-filter-country" class="am-select">
           <option value="">Tous</option>
           <!-- valeurs par défaut, remplacées/complétées par le JS -->
@@ -114,7 +139,7 @@
 
       <!-- STATUT (validés / propositions) -->
       <label class="am-field">
-        <span class="am-field-label">Statut</span>
+        <span class="am-field-label"><span data-fr>Statut</span><span data-en hidden>Status</span></span>
         <select id="am-filter-origin" class="am-select">
           <option value="">Tous</option>
           <option value="validated">Validés</option>
@@ -125,7 +150,7 @@
 
     <!-- Légende des pastilles -->
     <div class="am-toolbar-right">
-      <span class="am-legend-label">Légende </span>
+      <span class="am-legend-label"><span data-fr>Légende</span><span data-en hidden>Legend</span> </span>
       <span class="am-pill am-pill-type">Type</span>
       <span class="am-pill am-pill-country">Pays</span>
       <span class="am-pill am-pill-lang">Langue</span>
@@ -139,7 +164,7 @@
           <header class="am-results-header">
             <h2 class="am-section-title"> </h2>
             <p class="am-section-desc">
-              Chaque carte correspond à un automédia. Pour y accéder, cliquez sur le nom.
+              <span data-fr>Chaque carte correspond à un automédia. Pour y accéder, cliquez sur le nom.</span><span data-en hidden>Each card corresponds to an automedia. Click on the name to access it.</span>
             </p>
           </header>
 
@@ -158,7 +183,7 @@
       
 
             <button id="am-refresh-db" class="am-button">
-              Recharger la base
+              <span data-fr>Recharger la base</span><span data-en hidden>Reload database</span>
             </button>
 
             <p class="am-hero-note">
@@ -170,7 +195,7 @@
 <!-- BOUTON POUR ALLER AU FORMULAIRE -->
             <p class="am-hero-actions">
               <a href="formulaire.html" class="am-button">
-                Proposer un automédia
+                <span data-fr>Proposer un automédia</span><span data-en hidden>Suggest an automedia</span>
               </a>
                     <p class="am-footer-text">
           Données chargées depuis <code>automedias.json</code> et
@@ -241,6 +266,33 @@
       cursor.classList.remove('hovering', 'hovering-link');
     });
     </script>
+
+<script>
+  // === LANGUAGE TOGGLE ===
+  const langToggle = document.getElementById('lang-toggle');
+  let currentLang = localStorage.getItem('am-lang') || 'fr';
+
+  function applyLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('am-lang', lang);
+    langToggle.textContent = lang === 'fr' ? 'EN' : 'FR';
+    document.querySelectorAll('[data-fr]').forEach(el => {
+      el.hidden = lang !== 'fr';
+    });
+    document.querySelectorAll('[data-en]').forEach(el => {
+      el.hidden = lang !== 'en';
+    });
+    document.querySelectorAll('[data-fr-text]').forEach(el => {
+      el.textContent = lang === 'fr' ? el.getAttribute('data-fr-text') : el.getAttribute('data-en-text');
+    });
+  }
+
+  langToggle.addEventListener('click', () => {
+    applyLang(currentLang === 'fr' ? 'en' : 'fr');
+  });
+
+  applyLang(currentLang);
+</script>
 
 <script>
   // Menu toggle
