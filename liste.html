@@ -113,7 +113,7 @@
         <span class="am-field-label"><span data-fr>Type</span><span data-en hidden>Type</span></span>
         <select id="am-filter-type" class="am-select">
           <!-- option par défaut -->
-          <option value=""><span data-fr>Tous les types</span><span data-en hidden>All types</span></option>
+          <option value="" data-fr-text="Tous les types" data-en-text="All types">Tous les types</option>
           <!-- les autres options sont ajoutées en JS à partir du JSON -->
         </select>
       </label>
@@ -281,6 +281,9 @@
     });
     document.querySelectorAll('[data-en]').forEach(el => {
       el.hidden = lang !== 'en';
+    });
+    document.querySelectorAll('[data-fr-text]').forEach(el => {
+      el.textContent = lang === 'fr' ? el.getAttribute('data-fr-text') : el.getAttribute('data-en-text');
     });
   }
 

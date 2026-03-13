@@ -231,13 +231,13 @@
 
           const current = data.find(d => d.featured) || data[0];
           const past = data.filter(d => d !== current);
-          const lang = currentLang;
 
           // Render featured card
           const card = document.getElementById('featured-card');
+          const initials = current.name.substring(0, 2).toUpperCase();
           card.innerHTML = `
             <div class="am-featured-visual">
-              <img src="${current.logo}" alt="${current.name}" onerror="this.parentElement.innerHTML='<span class=\\'am-featured-initial\\'>${current.name.substring(0, 2).toUpperCase()}</span>'" />
+              <img src="${current.logo}" alt="${current.name}" />
             </div>
             <div class="am-featured-body">
               <h2 class="am-featured-name">
@@ -251,6 +251,17 @@
               </a>
             </div>
           `;
+
+          // Fallback if image fails to load
+          const img = card.querySelector('img');
+          if (img) {
+            img.addEventListener('error', function() {
+              const fallback = document.createElement('span');
+              fallback.className = 'am-featured-initial';
+              fallback.textContent = initials;
+              this.parentElement.replaceChild(fallback, this);
+            });
+          }
 
           // Re-apply language after dynamic content
           applyLang(currentLang);
