@@ -287,14 +287,14 @@
           const descFr = document.createElement('p');
           descFr.className = 'am-featured-desc';
           descFr.setAttribute('data-fr', '');
-          descFr.textContent = current.description_fr || '';
+          descFr.innerHTML = current.description_fr || '';
           body.appendChild(descFr);
 
           const descEn = document.createElement('p');
           descEn.className = 'am-featured-desc';
           descEn.setAttribute('data-en', '');
           descEn.hidden = true;
-          descEn.textContent = current.description_en || '';
+          descEn.innerHTML = current.description_en || '';
           body.appendChild(descEn);
 
           const visitLink = document.createElement('a');
