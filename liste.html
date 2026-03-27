@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="assets/automediatheque.css" />
 
-      <!-- Balises Open Graph -->
+    <!-- Balises Open Graph -->
     <meta property="og:title" content="Automédiathèque">
     <meta property="og:description" content="Liste open-source d'automédias en lutte — filtrez par type, pays, langue">
     <meta property="og:url" content="https://automediatheque.org/liste.html">
@@ -23,24 +23,427 @@
     <!-- Security -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'">
 
     <style>
-      body {
-        padding: 0 40px;
+      body { padding: 0 40px; }
+      @media (max-width: 768px) { body { padding: 0 10px; } }
+
+      /* ═══════════════════════════════
+         SEARCH
+         ═══════════════════════════════ */
+      .am-search-wrap {
+        position: relative;
+        max-width: 480px;
+        margin: 0 auto 1.2rem;
       }
-      @media (max-width: 768px) {
-        body {
-          padding: 0 10px;
+      .am-search-icon {
+        position: absolute;
+        left: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--am-text-softer);
+        font-size: 1rem;
+        pointer-events: none;
+      }
+      .am-search {
+        width: 100%;
+        padding: 0.65rem 0.8rem 0.65rem 2.4rem;
+        border-radius: var(--am-radius-pill);
+        border: 1px solid var(--am-border-subtle);
+        background: var(--am-surface);
+        font-size: 0.9rem;
+        color: var(--am-text);
+        outline: none;
+        transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      }
+      .am-search:focus {
+        border-color: var(--am-accent);
+        box-shadow: 0 0 0 3px rgba(200, 137, 60, 0.15);
+      }
+      .am-search::placeholder { color: var(--am-text-softer); }
+
+      /* ═══════════════════════════════
+         LANGUAGE FILTER (pill toggles)
+         ═══════════════════════════════ */
+      .am-lang-filters {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        align-items: center;
+        margin-top: 0.6rem;
+      }
+      .am-lang-filters-label {
+        font-size: 0.8rem;
+        color: var(--am-text-soft);
+        margin-right: 0.3rem;
+      }
+      .am-lang-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.22rem 0.65rem;
+        border-radius: var(--am-radius-pill);
+        font-size: 0.74rem;
+        font-weight: 600;
+        border: 1px solid rgba(36, 132, 81, 0.5);
+        background: rgba(36, 132, 81, 0.11);
+        color: #155637;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+      }
+      .am-lang-pill:hover {
+        background: rgba(36, 132, 81, 0.2);
+      }
+      .am-lang-pill.active {
+        background: #248451;
+        color: #fff;
+        border-color: #248451;
+      }
+      .am-lang-clear {
+        background: transparent;
+        border: 1px dashed var(--am-border-subtle);
+        color: var(--am-text-softer);
+        padding: 0.22rem 0.5rem;
+        border-radius: var(--am-radius-pill);
+        cursor: pointer;
+        font-size: 0.72rem;
+        transition: all 0.15s ease;
+      }
+      .am-lang-clear:hover {
+        border-color: var(--am-border-strong);
+        color: var(--am-text-soft);
+      }
+
+      /* ═══════════════════════════════
+         VIEW TOGGLE
+         ═══════════════════════════════ */
+      .am-view-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .am-count-text {
+        font-size: 0.82rem;
+        color: var(--am-text-soft);
+        margin: 0;
+      }
+      .am-count-text strong { color: var(--am-text); }
+
+      .am-view-toggle {
+        display: flex;
+        gap: 0.25rem;
+        background: var(--am-surface);
+        border: 1px solid var(--am-border-subtle);
+        border-radius: 10px;
+        padding: 3px;
+      }
+      .am-view-btn {
+        padding: 0.3rem 0.65rem;
+        border: none;
+        background: transparent;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 0.82rem;
+        color: var(--am-text-soft);
+        transition: all 0.15s ease;
+      }
+      .am-view-btn.active {
+        background: var(--am-accent);
+        color: #fff;
+      }
+      .am-view-btn:hover:not(.active) {
+        background: var(--am-accent-soft);
+      }
+
+      /* ═══════════════════════════════
+         GROUP HEADERS
+         ═══════════════════════════════ */
+      .am-group { margin-bottom: 1.8rem; }
+      .am-group-header {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin-bottom: 0.7rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid var(--am-border-subtle);
+      }
+      .am-group-label {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: var(--am-text);
+      }
+      .am-group-count {
+        font-size: 0.72rem;
+        color: var(--am-text-softer);
+        background: var(--am-surface-strong);
+        padding: 0.15rem 0.5rem;
+        border-radius: var(--am-radius-pill);
+      }
+
+      /* ═══════════════════════════════
+         CARD — name label (no initials)
+         ═══════════════════════════════ */
+      .am-card-visual {
+        min-width: 44px;
+        max-width: 120px;
+        height: 44px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(200,137,60,0.1), rgba(226,192,149,0.08));
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.68rem;
+        color: var(--am-accent);
+        flex-shrink: 0;
+        padding: 0 0.4rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .am-card-top {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+
+      /* ═══════════════════════════════
+         LIST VIEW
+         ═══════════════════════════════ */
+      .am-list-view {
+        display: none;
+        flex-direction: column;
+        gap: 0.4rem;
+      }
+      .am-list-view.active { display: flex; }
+
+      .am-list-item {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        padding: 0.6rem 0.8rem;
+        background: var(--am-surface);
+        border: 1px solid rgba(228, 213, 193, 0.6);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: background 0.12s ease, transform 0.05s ease;
+      }
+      .am-list-item:hover {
+        background: var(--am-accent-soft);
+        transform: translateX(3px);
+      }
+      .am-list-item-body { flex: 1; min-width: 0; }
+      .am-list-item-name { font-weight: 600; font-size: 0.88rem; }
+      .am-list-item-meta {
+        font-size: 0.75rem;
+        color: var(--am-text-softer);
+        margin-top: 0.1rem;
+      }
+      .am-list-item-pills {
+        display: flex;
+        gap: 0.25rem;
+        flex-shrink: 0;
+      }
+
+      /* ═══════════════════════════════
+         BUBBLE VIEW
+         ═══════════════════════════════ */
+      .am-bubble-wrap {
+        display: none;
+        width: 100%;
+        min-height: 460px;
+        position: relative;
+        background: var(--am-surface);
+        border-radius: var(--am-radius-card);
+        border: 1px solid var(--am-border-subtle);
+        overflow: hidden;
+      }
+      .am-bubble-wrap.active { display: block; }
+      .am-bubble-wrap svg { width: 100%; height: 100%; }
+
+      .am-bubble-tooltip {
+        position: absolute;
+        pointer-events: none;
+        background: var(--am-surface);
+        border: 1px solid var(--am-border-subtle);
+        border-radius: 10px;
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+        opacity: 0;
+        transition: opacity 0.15s ease;
+        z-index: 10;
+        max-width: 260px;
+      }
+      .am-bubble-tooltip.visible { opacity: 1; }
+      .am-bubble-tooltip-name { font-weight: 700; margin-bottom: 0.25rem; }
+      .am-bubble-tooltip-type { font-size: 0.72rem; color: var(--am-text-softer); margin-bottom: 0.2rem; }
+      .am-bubble-tooltip-desc { color: var(--am-text-soft); font-size: 0.75rem; line-height: 1.4; }
+
+      /* Bubble legend */
+      .am-bubble-legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.6rem;
+        padding: 0.6rem 0.8rem;
+        border-top: 1px solid var(--am-border-subtle);
+        font-size: 0.73rem;
+        color: var(--am-text-softer);
+        background: var(--am-surface);
+      }
+      .am-bubble-legend-item {
+        display: flex;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .am-bubble-legend-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      /* ═══════════════════════════════
+         DETAIL OVERLAY
+         ═══════════════════════════════ */
+      .am-detail-overlay {
+        display: none;
+        position: fixed;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.65);
+        z-index: 99998;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+        backdrop-filter: blur(2px);
+      }
+      .am-detail-overlay.open { display: flex; }
+
+      .am-detail-panel {
+        background: var(--am-surface);
+        border-radius: 18px;
+        max-width: 460px;
+        width: 100%;
+        padding: 2rem 1.8rem;
+        position: relative;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      .am-detail-close {
+        position: absolute;
+        top: 12px; right: 12px;
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        border: none;
+        background: var(--am-surface-strong);
+        color: var(--am-text);
+        cursor: pointer;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s ease;
+      }
+      .am-detail-close:hover { background: var(--am-accent-soft); }
+
+      .am-detail-name {
+        font-size: 1.35rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem;
+        letter-spacing: -0.01em;
+      }
+      .am-detail-desc {
+        font-size: 0.92rem;
+        line-height: 1.65;
+        color: var(--am-text-soft);
+        margin: 0 0 1rem;
+      }
+      .am-detail-meta {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-bottom: 1.2rem;
+      }
+      .am-detail-meta-row {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.85rem;
+      }
+      .am-detail-meta-label {
+        color: var(--am-text-softer);
+        min-width: 60px;
+      }
+      .am-detail-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.5rem 1.2rem;
+        background: var(--am-text);
+        color: #fff;
+        border-radius: var(--am-radius-pill);
+        text-decoration: none;
+        font-size: 0.88rem;
+        font-weight: 600;
+        transition: transform 0.1s ease, box-shadow 0.15s ease;
+      }
+      .am-detail-link:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 20px rgba(35, 24, 17, 0.18);
+      }
+
+      /* ═══════════════════════════════
+         EMPTY STATE
+         ═══════════════════════════════ */
+      .am-empty {
+        text-align: center;
+        padding: 3rem 1rem;
+        color: var(--am-text-softer);
+        display: none;
+      }
+      .am-empty-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+
+      /* ═══════════════════════════════
+         ACCESSIBILITY
+         ═══════════════════════════════ */
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
         }
       }
-      </style>
-</head>
+      .am-skip-link {
+        position: absolute;
+        top: -100px; left: 0;
+        background: var(--am-accent);
+        color: #fff;
+        padding: 0.5rem 1rem;
+        z-index: 99999;
+        font-size: 0.9rem;
+        text-decoration: none;
+        border-radius: 0 0 8px 0;
+      }
+      .am-skip-link:focus { top: 0; }
+
+      /* ═══════════════════════════════
+         RESPONSIVE
+         ═══════════════════════════════ */
+      @media (max-width: 640px) {
+        .am-detail-panel { padding: 1.5rem 1.2rem; }
+      }
+    </style>
+  </head>
   <body>
+    <a href="#main-content" class="am-skip-link">Aller au contenu principal</a>
+
     <!-- Curseur personnalisé -->
     <div id="custom-cursor"></div>
 
- <!-- Menu de navigation -->
+    <!-- Menu de navigation -->
     <nav class="am-nav">
       <button class="am-menu-btn" id="menu-toggle" aria-expanded="false" aria-label="Menu">
         <span class="am-menu-icon">☰</span>
@@ -66,265 +469,724 @@
     </nav>
 
     <!-- Language toggle -->
-    <button class="am-lang-toggle" id="lang-toggle" aria-label="Switch language">
-      EN
-    </button>
+    <button class="am-lang-toggle" id="lang-toggle" aria-label="Switch language">EN</button>
 
-
-<!-- Modal zoom carte -->
-<div id="card-modal">
-  <div id="card-modal-content">
-    <button id="card-modal-close" aria-label="Fermer">×</button>
-    <div id="card-modal-body"></div>
-  </div>
-</div>
-
-       <div class="am-page">
-      <!-- ================= HEADER / INTRO ================= -->
+    <div class="am-page">
+      <!-- HEADER -->
       <header class="am-hero am-hero--center">
-          <p class="am-hero-lead">
-            <span data-fr>Liste open-source d'automédias.</span>
-            <span data-en hidden>Open-source list of automedias.</span>
-          </p>
-
-          <p class="am-hero-text">
-            <span data-fr>La base est partielle et en mouvement :
-            elle a vocation à être complétée collectivement, corrigée,
-            etc. Les liens renvoient vers les plateformes des
-            collectifs et groupes concernés (sites, réseaux sociaux,
-            podcasts, etc.).</span>
-            <span data-en hidden>The database is partial and evolving:
-            it is meant to be collectively completed, corrected,
-            etc. Links point to the platforms of
-            the concerned collectives and groups (websites, social media,
-            podcasts, etc.).</span>
-          </p>
-
-        </div>
+        <p class="am-hero-lead">
+          <span data-fr>Liste open-source d'automédias.</span>
+          <span data-en hidden>Open-source list of automedias.</span>
+        </p>
+        <p class="am-hero-text">
+          <span data-fr>La base est partielle et en mouvement : elle a vocation à être complétée collectivement, corrigée, etc. Les liens renvoient vers les plateformes des collectifs et groupes concernés.</span>
+          <span data-en hidden>The database is partial and evolving: it is meant to be collectively completed, corrected, etc. Links point to the platforms of the concerned collectives and groups.</span>
+        </p>
       </header>
 
-      <!-- ================= SÉPARATEUR ================= -->
       <hr class="am-divider" />
 
-      <!-- ================= CONTENU PRINCIPAL ================= -->
-      <main class="am-main">
-        <!-- --------- Section filtres / légende --------- -->
-   <section class="am-filters-section">
-  <div class="am-toolbar">
-    <!-- Filtres -->
-    <div class="am-toolbar-left">
-      <!-- TYPE -->
-      <label class="am-field">
-        <span class="am-field-label"><span data-fr>Type</span><span data-en hidden>Type</span></span>
-        <select id="am-filter-type" class="am-select">
-          <!-- option par défaut -->
-          <option value="" data-fr-text="Tous les types" data-en-text="All types">Tous les types</option>
-          <!-- les autres options sont ajoutées en JS à partir du JSON -->
-        </select>
-      </label>
+      <!-- SEARCH -->
+      <div class="am-search-wrap">
+        <span class="am-search-icon" aria-hidden="true">⌕</span>
+        <input type="search" class="am-search" id="am-search"
+          placeholder="Rechercher un automédia…"
+          aria-label="Rechercher un automédia par nom, description ou pays">
+      </div>
 
-      <!-- PAYS -->
-      <label class="am-field">
-        <span class="am-field-label"><span data-fr>Pays</span><span data-en hidden>Country</span></span>
-        <select id="am-filter-country" class="am-select">
-          <option value="">Tous</option>
-          <!-- valeurs par défaut, remplacées/complétées par le JS -->
-          <option value="France">France</option>
-          <option value="Belgique">Belgique</option>
-          <option value="Brazil">Brésil</option>
-          <option value="Hong Kong">Hong Kong</option>
-          <option value="International">International</option>
-          <option value="Kurdistan">Kurdistan</option>
-          <option value="Mexico">Mexique</option>
-          <option value="Ukraine">Ukraine</option>
-          <option value="United Kingdom">Royaume‑Uni</option>
-          <option value="USA">États‑Unis (USA)</option>
-        </select>
-      </label>
+      <!-- FILTERS: selects for type / country / status -->
+      <main class="am-main" id="main-content">
+        <section class="am-filters-section">
+          <div class="am-toolbar">
+            <div class="am-toolbar-left">
+              <!-- TYPE (select) -->
+              <label class="am-field">
+                <span class="am-field-label"><span data-fr>Type</span><span data-en hidden>Type</span></span>
+                <select id="am-filter-type" class="am-select">
+                  <option value="" data-fr-text="Tous les types" data-en-text="All types">Tous les types</option>
+                </select>
+              </label>
+              <!-- COUNTRY (select) -->
+              <label class="am-field">
+                <span class="am-field-label"><span data-fr>Pays</span><span data-en hidden>Country</span></span>
+                <select id="am-filter-country" class="am-select">
+                  <option value="">Tous</option>
+                </select>
+              </label>
+              <!-- STATUS (select) -->
+              <label class="am-field">
+                <span class="am-field-label"><span data-fr>Statut</span><span data-en hidden>Status</span></span>
+                <select id="am-filter-origin" class="am-select">
+                  <option value="">Tous</option>
+                  <option value="validated">Validés</option>
+                  <option value="proposed">Proposés</option>
+                </select>
+              </label>
+            </div>
 
-      <!-- STATUT (validés / propositions) -->
-      <label class="am-field">
-        <span class="am-field-label"><span data-fr>Statut</span><span data-en hidden>Status</span></span>
-        <select id="am-filter-origin" class="am-select">
-          <option value="">Tous</option>
-          <option value="validated">Validés</option>
-          <option value="proposed">Proposés</option>
-        </select>
-      </label>
-    </div>
+            <!-- Legend -->
+            <div class="am-toolbar-right">
+              <span class="am-legend-label"><span data-fr>Légende</span><span data-en hidden>Legend</span> </span>
+              <span class="am-pill am-pill-type">Type</span>
+              <span class="am-pill am-pill-country"><span data-fr>Pays</span><span data-en hidden>Country</span></span>
+              <span class="am-pill am-pill-lang"><span data-fr>Langue</span><span data-en hidden>Language</span></span>
+            </div>
+          </div>
 
-    <!-- Légende des pastilles -->
-    <div class="am-toolbar-right">
-      <span class="am-legend-label"><span data-fr>Légende</span><span data-en hidden>Legend</span> </span>
-      <span class="am-pill am-pill-type">Type</span>
-      <span class="am-pill am-pill-country">Pays</span>
-      <span class="am-pill am-pill-lang">Langue</span>
-    </div>
-  </div>
-</section>
-
-
-        <!-- --------- Section résultats --------- -->
-        <section class="am-results-section">
-          <header class="am-results-header">
-            <h2 class="am-section-title"> </h2>
-            <p class="am-section-desc">
-              <span data-fr>Chaque carte correspond à un automédia. Pour y accéder, cliquez sur le nom.</span><span data-en hidden>Each card corresponds to an automedia. Click on the name to access it.</span>
-            </p>
-          </header>
-
-          <!-- Conteneur dans lequel le JS injecte les cartes -->
-          <div id="am-results" class="am-grid">
-            <!-- Contenu généré par automediatheque.js -->
+          <!-- LANGUAGE FILTER: pill toggles (different from selects) -->
+          <div class="am-lang-filters" id="am-lang-filters">
+            <span class="am-lang-filters-label"><span data-fr>Langue :</span><span data-en hidden>Language:</span></span>
+            <!-- populated by JS -->
           </div>
         </section>
 
-        <!-- --------- Section État de la base (APRÈS la base) --------- -->
-        <section class="am-state-section">
-              <header class="am-state-header">
-
-                     <!-- ================= FOOTER / CRÉDITS ================= -->
-      <footer class="am-footer">
-      
-
-            <button id="am-refresh-db" class="am-button">
-              <span data-fr>Recharger la base</span><span data-en hidden>Reload database</span>
+        <!-- VIEW BAR: count + view toggle -->
+        <div class="am-view-bar">
+          <p class="am-count-text" id="am-count" aria-live="polite"></p>
+          <div class="am-view-toggle" role="tablist" aria-label="Mode d'affichage">
+            <button class="am-view-btn active" data-view="grid" role="tab" aria-selected="true">
+              <span data-fr>⊞ Grille</span><span data-en hidden>⊞ Grid</span>
             </button>
+            <button class="am-view-btn" data-view="list" role="tab" aria-selected="false">
+              <span data-fr>☰ Liste</span><span data-en hidden>☰ List</span>
+            </button>
+            <button class="am-view-btn" data-view="bubble" role="tab" aria-selected="false">
+              <span data-fr>◉ Bulles</span><span data-en hidden>◉ Bubbles</span>
+            </button>
+          </div>
+        </div>
 
-            <p class="am-hero-note">
-              Le bouton recharge les fichiers JSON
-              (<code>automedias.json</code> et
-              <code>propositions.json</code>) sans utiliser le cache du
-              navigateur, pour voir les dernières modifications.
-            </p>
-<!-- BOUTON POUR ALLER AU FORMULAIRE -->
-            <p class="am-hero-actions">
-              <a href="formulaire.html" class="am-button">
-                <span data-fr>Proposer un automédia</span><span data-en hidden>Suggest an automedia</span>
-              </a>
-                    <p class="am-footer-text">
-          Données chargées depuis <code>automedias.json</code> et
-          <code>propositions.json</code>. <br> Pour comprendre plus en détail la méthodologie, tout est disponible en Open-source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener noreferrer"> ce repo Github</a>. <br> <br> 
-          Projet lancé par <a href="https://siratton.hotglue.me" target="_blank" rel="noopener noreferrer">Côme Nottaris </a> en janvier 2026.
-        </p>
+        <!-- RESULTS -->
+        <section class="am-results-section">
+          <!-- GRID VIEW -->
+          <div id="am-grid-view"></div>
+
+          <!-- LIST VIEW -->
+          <div class="am-list-view" id="am-list-view"></div>
+
+          <!-- BUBBLE VIEW -->
+          <div class="am-bubble-wrap" id="am-bubble-view">
+            <div class="am-bubble-tooltip" id="bubble-tooltip">
+              <div class="am-bubble-tooltip-name"></div>
+              <div class="am-bubble-tooltip-type"></div>
+              <div class="am-bubble-tooltip-desc"></div>
+            </div>
+          </div>
+
+          <!-- EMPTY -->
+          <div class="am-empty" id="am-empty">
+            <div class="am-empty-icon">∅</div>
+            <p><span data-fr>Aucun automédia ne correspond à votre recherche.</span><span data-en hidden>No automedia matches your search.</span></p>
           </div>
         </section>
+
+        <!-- FOOTER -->
+        <footer class="am-footer">
+          <button id="am-refresh-db" class="am-button">
+            <span data-fr>Recharger la base</span><span data-en hidden>Reload database</span>
+          </button>
+          <p class="am-hero-note">
+            <span data-fr>Le bouton recharge les fichiers JSON sans utiliser le cache du navigateur.</span>
+            <span data-en hidden>The button reloads JSON files without using browser cache.</span>
+          </p>
+          <p class="am-hero-actions">
+            <a href="formulaire.html" class="am-button">
+              <span data-fr>Proposer un automédia</span><span data-en hidden>Suggest an automedia</span>
+            </a>
+          </p>
+          <p class="am-footer-text">
+            <span data-fr>Données chargées depuis <code>automedias.json</code> et <code>propositions.json</code>.<br>
+            Tout est disponible en Open-source sur <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener noreferrer">ce repo Github</a>.<br><br>
+            Projet lancé par <a href="https://siratton.hotglue.me" target="_blank" rel="noopener noreferrer">Côme Nottaris</a> en janvier 2026.</span>
+            <span data-en hidden>Data loaded from <code>automedias.json</code> and <code>propositions.json</code>.<br>
+            Everything is available open-source on <a href="https://github.com/comenottaris/AUTOMEDIATHEQUE" target="_blank" rel="noopener noreferrer">this Github repo</a>.<br><br>
+            Project launched by <a href="https://siratton.hotglue.me" target="_blank" rel="noopener noreferrer">Côme Nottaris</a> in January 2026.</span>
+          </p>
+        </footer>
       </main>
-      </footer>
     </div>
 
-    <script src="assets/automediatheque.js"></script>
-  <script>
-(function() {
- 
+    <!-- DETAIL OVERLAY -->
+    <div class="am-detail-overlay" id="detail-overlay" role="dialog" aria-modal="true" aria-label="Détail de l'automédia">
+      <div class="am-detail-panel" id="detail-panel">
+        <button class="am-detail-close" id="detail-close" aria-label="Fermer">✕</button>
+        <h2 class="am-detail-name" id="detail-name"></h2>
+        <p class="am-detail-desc" id="detail-desc"></p>
+        <div class="am-detail-meta" id="detail-meta"></div>
+        <a class="am-detail-link" id="detail-link" href="#" target="_blank" rel="noopener">
+          <span data-fr>Visiter ↗</span><span data-en hidden>Visit ↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- D3.js -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+
+    <!-- Load existing automediatheque.js for data fetching -->
     <script src="assets/automediatheque.js"></script>
 
     <script>
-    // === CURSEUR PERSONNALISÉ ===
-    const cursor = document.getElementById('custom-cursor');
-    document.documentElement.classList.add('am-custom-cursor');
+    // ═══════════════════════════════════════
+    // ENHANCED INTERACTIVE LAYER
+    // Hooks into automediatheque.js data pipeline
+    // ═══════════════════════════════════════
 
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      cursor.classList.remove('hidden');
-    });
+    (function() {
+      'use strict';
 
-    document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
-    document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+      // ── STATE ──
+      let currentView = 'grid';
+      let searchQuery = '';
+      let activeLang = null;
+      let allData = [];
 
-    const isRedElement = (el) => {
-      if (!el) return false;
-      return el.classList.contains('am-card-title') || 
-             el.closest('.am-card-title') ||
-             el.classList.contains('am-pill-link') || 
-             el.closest('.am-pill-link');
-    };
+      // ── COUNTRY COLOR MAP (for bubbles) ──
+      const COUNTRY_COLORS = {
+        'France':        { fill: 'rgba(200, 137, 60, 0.45)', stroke: 'rgba(200, 137, 60, 0.7)', label: '#7a5520' },
+        'International': { fill: 'rgba(160, 120, 80, 0.35)', stroke: 'rgba(160, 120, 80, 0.6)', label: '#6b5030' },
+        'Brazil':        { fill: 'rgba(36, 132, 81, 0.4)',  stroke: 'rgba(36, 132, 81, 0.65)', label: '#1a6638' },
+        'Kurdistan':     { fill: 'rgba(180, 60, 60, 0.38)',  stroke: 'rgba(180, 60, 60, 0.6)',  label: '#8a2020' },
+        'USA':           { fill: 'rgba(12, 90, 160, 0.38)',  stroke: 'rgba(12, 90, 160, 0.6)',  label: '#0a4a80' },
+        'Mexico':        { fill: 'rgba(170, 100, 50, 0.42)', stroke: 'rgba(170, 100, 50, 0.65)', label: '#7a4520' },
+        'Ukraine':       { fill: 'rgba(50, 120, 180, 0.38)', stroke: 'rgba(50, 120, 180, 0.6)', label: '#1a5a90' },
+        'Belgique':      { fill: 'rgba(140, 80, 140, 0.35)', stroke: 'rgba(140, 80, 140, 0.6)', label: '#6a306a' },
+        'Allemagne':     { fill: 'rgba(100, 100, 100, 0.35)', stroke: 'rgba(100, 100, 100, 0.6)', label: '#444' },
+        'Hong Kong':     { fill: 'rgba(200, 60, 100, 0.35)', stroke: 'rgba(200, 60, 100, 0.6)', label: '#9a2050' },
+        'United Kingdom':{ fill: 'rgba(60, 60, 140, 0.35)', stroke: 'rgba(60, 60, 140, 0.6)', label: '#2a2a70' },
+      };
+      const DEFAULT_COLOR = { fill: 'rgba(150, 130, 100, 0.35)', stroke: 'rgba(150, 130, 100, 0.6)', label: '#5a4a3a' };
 
-    const isClickable = (el) => {
-      if (!el) return false;
-      const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
-      if (tags.includes(el.tagName)) return true;
-      if (el.classList.contains('am-card') || 
-          el.classList.contains('am-pill') || 
-          el.classList.contains('am-button') ||
-          el.getAttribute('role') === 'button') return true;
-      return false;
-    };
+      function getCountryColor(c) { return COUNTRY_COLORS[c] || DEFAULT_COLOR; }
 
-    document.addEventListener('mouseover', (e) => {
-      cursor.classList.remove('hovering', 'hovering-link');
-      if (isRedElement(e.target)) {
-        cursor.classList.add('hovering-link');
-      } else {
-        let target = e.target;
-        while (target && target !== document.body) {
-          if (isClickable(target)) {
-            cursor.classList.add('hovering');
-            return;
-          }
-          target = target.parentElement;
-        }
+      // ── HELPERS ──
+      function langLabel(code) {
+        const map = { 'fr':'FR', 'en':'EN', 'es':'ES', 'pt-BR':'PT-BR', 'de':'DE', 'ar':'AR', 'ku':'KU' };
+        return map[code] || code.toUpperCase();
       }
-    });
 
-    document.addEventListener('mouseout', () => {
-      cursor.classList.remove('hovering', 'hovering-link');
-    });
+      function shortName(name, maxLen) {
+        if (!name) return '';
+        if (name.length <= maxLen) return name;
+        return '';  // return nothing if it doesn't fit
+      }
+
+      function matchesSearch(item) {
+        if (!searchQuery) return true;
+        const q = searchQuery.toLowerCase();
+        return (item.name || '').toLowerCase().includes(q) ||
+               (item.description || '').toLowerCase().includes(q) ||
+               (item.country || '').toLowerCase().includes(q) ||
+               (item.type || '').toLowerCase().includes(q);
+      }
+
+      function matchesLang(item) {
+        if (!activeLang) return true;
+        return Array.isArray(item.languages) && item.languages.includes(activeLang);
+      }
+
+      function getFiltered() {
+        // Get base-filtered list from automediatheque.js selects
+        const typeVal = document.getElementById('am-filter-type')?.value || '';
+        const countryVal = document.getElementById('am-filter-country')?.value || '';
+        const originVal = document.getElementById('am-filter-origin')?.value || '';
+
+        return allData.filter(item => {
+          if (typeVal && (item.type || '') !== typeVal) return false;
+          if (countryVal && (item.country || '') !== countryVal) return false;
+          if (originVal && (item.__origin || '') !== originVal) return false;
+          if (!matchesSearch(item)) return false;
+          if (!matchesLang(item)) return false;
+          return true;
+        });
+      }
+
+      // ── BUILD LANGUAGE PILL FILTERS ──
+      function buildLangFilters() {
+        const container = document.getElementById('am-lang-filters');
+        if (!container) return;
+
+        const langs = [...new Set(allData.flatMap(d => d.languages || []))].sort();
+        // Keep the label
+        const label = container.querySelector('.am-lang-filters-label');
+        container.innerHTML = '';
+        if (label) container.appendChild(label);
+
+        langs.forEach(lang => {
+          const btn = document.createElement('button');
+          btn.className = 'am-lang-pill';
+          btn.textContent = langLabel(lang);
+          btn.dataset.lang = lang;
+          btn.setAttribute('aria-pressed', 'false');
+          btn.addEventListener('click', () => {
+            activeLang = activeLang === lang ? null : lang;
+            render();
+          });
+          container.appendChild(btn);
+        });
+
+        // Clear button
+        const clear = document.createElement('button');
+        clear.className = 'am-lang-clear';
+        clear.textContent = '✕';
+        clear.title = 'Effacer le filtre langue';
+        clear.style.display = 'none';
+        clear.id = 'am-lang-clear';
+        clear.addEventListener('click', () => {
+          activeLang = null;
+          render();
+        });
+        container.appendChild(clear);
+      }
+
+      function updateLangUI() {
+        document.querySelectorAll('.am-lang-pill').forEach(btn => {
+          const isActive = btn.dataset.lang === activeLang;
+          btn.classList.toggle('active', isActive);
+          btn.setAttribute('aria-pressed', isActive);
+        });
+        const clear = document.getElementById('am-lang-clear');
+        if (clear) clear.style.display = activeLang ? '' : 'none';
+      }
+
+      // ── RENDER ──
+      function render() {
+        const filtered = getFiltered();
+        updateLangUI();
+        updateCount(filtered.length);
+
+        if (currentView === 'grid') renderGrid(filtered);
+        else if (currentView === 'list') renderList(filtered);
+        else if (currentView === 'bubble') renderBubbles(filtered);
+
+        document.getElementById('am-empty').style.display = filtered.length === 0 ? '' : 'none';
+      }
+
+      function updateCount(n) {
+        const el = document.getElementById('am-count');
+        if (el) el.innerHTML = `<strong>${n}</strong> automédia${n > 1 ? 's' : ''}`;
+      }
+
+      // ── GRID VIEW (grouped by country) ──
+      function renderGrid(items) {
+        const container = document.getElementById('am-grid-view');
+        container.style.display = currentView === 'grid' ? '' : 'none';
+        document.getElementById('am-list-view').classList.remove('active');
+        document.getElementById('am-bubble-view').classList.remove('active');
+        if (currentView !== 'grid') return;
+
+        const groups = {};
+        items.forEach(item => {
+          const key = item.country || 'Autre';
+          if (!groups[key]) groups[key] = [];
+          groups[key].push(item);
+        });
+
+        let html = '';
+        Object.keys(groups).sort().forEach(groupName => {
+          const groupItems = groups[groupName];
+          html += `<div class="am-group">
+            <div class="am-group-header">
+              <span class="am-group-label">${groupName}</span>
+              <span class="am-group-count">${groupItems.length}</span>
+            </div>
+            <div class="am-grid">`;
+          groupItems.forEach(item => { html += buildCard(item); });
+          html += `</div></div>`;
+        });
+
+        container.innerHTML = html;
+        container.querySelectorAll('.am-card').forEach(card => {
+          card.addEventListener('click', () => openDetail(card.dataset.name));
+          card.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(card.dataset.name); }
+          });
+        });
+      }
+
+      function buildCard(item) {
+        const langs = (item.languages || []).map(l =>
+          `<span class="am-pill am-pill-lang">${langLabel(l)}</span>`
+        ).join('');
+
+        const proposedBadge = item.__origin === 'proposed'
+          ? '<span class="am-pill" style="background:rgba(200,100,50,0.12);color:#7a3a10;border-color:rgba(200,100,50,0.4);font-size:0.68rem;">proposé</span>'
+          : '';
+
+        // Use short name in the visual block — hide if too long
+        const visualName = shortName(item.name, 12);
+        const visualHTML = visualName
+          ? `<div class="am-card-visual" aria-hidden="true">${visualName}</div>`
+          : '';
+
+        return `<article class="am-card${item.__origin === 'proposed' ? ' am-card-proposed' : ''}"
+          tabindex="0" data-name="${(item.name || '').replace(/"/g, '&quot;')}"
+          role="button" aria-label="Voir les détails de ${(item.name || '').replace(/"/g, '&quot;')}">
+          <div class="am-card-top">
+            ${visualHTML}
+            <h3 class="am-card-title">
+              <a href="${item.url || '#'}" target="_blank" rel="noopener noreferrer"
+                onclick="event.stopPropagation()">${item.name || 'Sans nom'}</a>
+            </h3>
+          </div>
+          <p class="am-card-desc">${item.description || '—'}</p>
+          <div class="am-card-tags">
+            <span class="am-pill am-pill-type">${item.type || '?'}</span>
+            <span class="am-pill am-pill-country">${item.country || '?'}</span>
+            ${langs}
+            ${proposedBadge}
+          </div>
+        </article>`;
+      }
+
+      // ── LIST VIEW ──
+      function renderList(items) {
+        const container = document.getElementById('am-list-view');
+        document.getElementById('am-grid-view').style.display = 'none';
+        document.getElementById('am-bubble-view').classList.remove('active');
+        container.classList.toggle('active', currentView === 'list');
+        if (currentView !== 'list') return;
+
+        let html = '';
+        items.forEach(item => {
+          const langs = (item.languages || []).map(l =>
+            `<span class="am-pill am-pill-lang">${langLabel(l)}</span>`
+          ).join('');
+
+          html += `<div class="am-list-item" data-name="${(item.name || '').replace(/"/g, '&quot;')}" tabindex="0" role="button">
+            <div class="am-list-item-body">
+              <div class="am-list-item-name">${item.name || 'Sans nom'}</div>
+              <div class="am-list-item-meta">${item.country || '?'} · ${item.type || '?'}</div>
+            </div>
+            <div class="am-list-item-pills">${langs}</div>
+          </div>`;
+        });
+
+        container.innerHTML = html;
+        container.querySelectorAll('.am-list-item').forEach(el => {
+          el.addEventListener('click', () => openDetail(el.dataset.name));
+          el.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openDetail(el.dataset.name); }
+          });
+        });
+      }
+
+      // ── BUBBLE VIEW (D3) ──
+      function renderBubbles(items) {
+        const wrap = document.getElementById('am-bubble-view');
+        document.getElementById('am-grid-view').style.display = 'none';
+        document.getElementById('am-list-view').classList.remove('active');
+        wrap.classList.toggle('active', currentView === 'bubble');
+        if (currentView !== 'bubble' || items.length === 0) return;
+
+        // Clear previous SVG & legend
+        wrap.querySelectorAll('svg, .am-bubble-legend').forEach(el => el.remove());
+
+        const width = wrap.clientWidth || 800;
+        const height = 460;
+
+        const svg = d3.select(wrap)
+          .append('svg')
+          .attr('width', width)
+          .attr('height', height)
+          .attr('role', 'img')
+          .attr('aria-label', 'Visualisation en bulles des automédias regroupés par pays');
+
+        // Pack layout
+        const root = d3.hierarchy({ children: items }).sum(() => 1);
+        d3.pack().size([width - 40, height - 40]).padding(14)(root);
+
+        const tooltip = document.getElementById('bubble-tooltip');
+        const tooltipName = tooltip.querySelector('.am-bubble-tooltip-name');
+        const tooltipType = tooltip.querySelector('.am-bubble-tooltip-type');
+        const tooltipDesc = tooltip.querySelector('.am-bubble-tooltip-desc');
+
+        const nodes = svg.append('g')
+          .attr('transform', 'translate(20, 20)')
+          .selectAll('g')
+          .data(root.leaves())
+          .join('g')
+          .attr('transform', d => `translate(${d.x},${d.y})`)
+          .style('cursor', 'pointer');
+
+        nodes.append('circle')
+          .attr('r', d => d.r)
+          .attr('fill', d => getCountryColor(d.data.country).fill)
+          .attr('stroke', d => getCountryColor(d.data.country).stroke)
+          .attr('stroke-width', 1.5);
+
+        // Full name text — only show if it fits
+        nodes.append('text')
+          .text(d => d.data.name)
+          .attr('text-anchor', 'middle')
+          .attr('dy', '0.35em')
+          .attr('font-size', d => {
+            // Estimate: roughly 6px per char at font-size 10
+            const maxChars = (d.r * 2 - 8) / 5.5;
+            if (d.data.name.length > maxChars) return 0;  // hide
+            return Math.min(Math.max(d.r * 0.38, 8), 12);
+          })
+          .attr('font-weight', 600)
+          .attr('fill', d => getCountryColor(d.data.country).label)
+          .attr('pointer-events', 'none')
+          .each(function(d) {
+            // Remove text if it doesn't fit
+            const textLen = this.getComputedTextLength?.() || 0;
+            if (textLen > d.r * 2 - 6) {
+              d3.select(this).remove();
+            }
+          });
+
+        nodes
+          .on('mouseenter', function(event, d) {
+            tooltipName.textContent = d.data.name;
+            tooltipType.textContent = `${d.data.type} · ${d.data.country}`;
+            tooltipDesc.textContent = d.data.description || '';
+            tooltip.classList.add('visible');
+            d3.select(this).select('circle')
+              .transition().duration(120)
+              .attr('r', d.r * 1.06)
+              .attr('stroke-width', 2.5);
+          })
+          .on('mousemove', function(event) {
+            const rect = wrap.getBoundingClientRect();
+            tooltip.style.left = (event.clientX - rect.left + 14) + 'px';
+            tooltip.style.top = (event.clientY - rect.top - 10) + 'px';
+          })
+          .on('mouseleave', function(event, d) {
+            tooltip.classList.remove('visible');
+            d3.select(this).select('circle')
+              .transition().duration(120)
+              .attr('r', d.r)
+              .attr('stroke-width', 1.5);
+          })
+          .on('click', function(event, d) {
+            openDetail(d.data.name);
+          });
+
+        // ── LEGEND ──
+        const usedCountries = [...new Set(items.map(d => d.country).filter(Boolean))].sort();
+        const legend = document.createElement('div');
+        legend.className = 'am-bubble-legend';
+        usedCountries.forEach(c => {
+          const color = getCountryColor(c);
+          legend.innerHTML += `<div class="am-bubble-legend-item">
+            <span class="am-bubble-legend-dot" style="background:${color.fill};border:1px solid ${color.stroke}"></span>
+            ${c}
+          </div>`;
+        });
+        wrap.appendChild(legend);
+      }
+
+      // ── DETAIL MODAL ──
+      function openDetail(name) {
+        const item = allData.find(d => d.name === name);
+        if (!item) return;
+
+        document.getElementById('detail-name').textContent = item.name;
+        document.getElementById('detail-desc').textContent = item.description || '—';
+        document.getElementById('detail-link').href = item.url || '#';
+
+        const meta = document.getElementById('detail-meta');
+        const langs = (item.languages || []).map(l =>
+          `<span class="am-pill am-pill-lang">${langLabel(l)}</span>`
+        ).join(' ');
+
+        meta.innerHTML = `
+          <div class="am-detail-meta-row">
+            <span class="am-detail-meta-label">Type</span>
+            <span class="am-pill am-pill-type">${item.type || '?'}</span>
+          </div>
+          <div class="am-detail-meta-row">
+            <span class="am-detail-meta-label">Pays</span>
+            <span class="am-pill am-pill-country">${item.country || '?'}</span>
+          </div>
+          ${langs ? `<div class="am-detail-meta-row">
+            <span class="am-detail-meta-label">Langue</span>
+            ${langs}
+          </div>` : ''}
+          <div class="am-detail-meta-row">
+            <span class="am-detail-meta-label">Statut</span>
+            <span class="am-pill" style="background:rgba(80,160,80,0.1);color:#2d6a2d;border:1px solid rgba(80,160,80,0.3)">${item.status || '?'}</span>
+          </div>
+        `;
+
+        document.getElementById('detail-overlay').classList.add('open');
+        document.getElementById('detail-close').focus();
+      }
+
+      function closeDetail() {
+        document.getElementById('detail-overlay').classList.remove('open');
+      }
+
+      document.getElementById('detail-close').addEventListener('click', closeDetail);
+      document.getElementById('detail-overlay').addEventListener('click', e => {
+        if (e.target === e.currentTarget) closeDetail();
+      });
+      document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+      // ── VIEW TOGGLE ──
+      document.querySelectorAll('.am-view-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          currentView = btn.dataset.view;
+          document.querySelectorAll('.am-view-btn').forEach(b => {
+            b.classList.toggle('active', b === btn);
+            b.setAttribute('aria-selected', b === btn);
+          });
+          render();
+        });
+      });
+
+      // ── SEARCH ──
+      document.getElementById('am-search').addEventListener('input', e => {
+        searchQuery = e.target.value;
+        render();
+      });
+
+      // ── HOOK INTO EXISTING DATA PIPELINE ──
+      // Override the original renderList to intercept data
+      const origRenderList = window.renderList || function(){};
+
+      // Patch: intercept when automediatheque.js calls applyFilters / renderList
+      // We watch for changes on selects and re-render our views
+      ['am-filter-type', 'am-filter-country', 'am-filter-origin'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('change', () => {
+          render();
+        });
+      });
+
+      // Patch into automediatheque.js data loading
+      // Wait for DOMContentLoaded + data to be ready
+      const origInit = window.amInit;
+
+      function hookData() {
+        // allMedias is the global from automediatheque.js
+        if (typeof allMedias !== 'undefined' && allMedias.length > 0) {
+          allData = allMedias;
+          buildLangFilters();
+          render();
+          return true;
+        }
+        return false;
+      }
+
+      // Poll until data is ready (automediatheque.js loads async)
+      function waitForData() {
+        if (hookData()) return;
+        const observer = new MutationObserver(() => {
+          if (hookData()) observer.disconnect();
+        });
+        observer.observe(document.getElementById('am-grid-view') || document.body, { childList: true, subtree: true });
+
+        // Fallback polling
+        let attempts = 0;
+        const poll = setInterval(() => {
+          attempts++;
+          if (hookData() || attempts > 60) clearInterval(poll);
+        }, 250);
+      }
+
+      // Also intercept the refresh button
+      const refreshBtn = document.getElementById('am-refresh-db');
+      if (refreshBtn) {
+        refreshBtn.addEventListener('click', () => {
+          setTimeout(() => {
+            waitForData();
+          }, 500);
+        });
+      }
+
+      // Start
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', waitForData);
+      } else {
+        waitForData();
+      }
+
+      // Hide the default am-results grid (from automediatheque.js)
+      const style = document.createElement('style');
+      style.textContent = '#am-results { display: none !important; }';
+      document.head.appendChild(style);
+
+    })();
     </script>
 
-<script>
-  // === LANGUAGE TOGGLE ===
-  const langToggle = document.getElementById('lang-toggle');
-  let currentLang = localStorage.getItem('am-lang') || 'fr';
+    <!-- Curseur, langue, menu scripts -->
+    <script>
+    // === CURSEUR PERSONNALISÉ ===
+    const cursor = document.getElementById('custom-cursor');
+    if (cursor) {
+      document.documentElement.classList.add('am-custom-cursor');
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursor.classList.remove('hidden');
+      });
+      document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
+      document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
 
-  function applyLang(lang) {
-    currentLang = lang;
-    localStorage.setItem('am-lang', lang);
-    langToggle.textContent = lang === 'fr' ? 'EN' : 'FR';
-    document.querySelectorAll('[data-fr]').forEach(el => {
-      el.hidden = lang !== 'fr';
-    });
-    document.querySelectorAll('[data-en]').forEach(el => {
-      el.hidden = lang !== 'en';
-    });
-    document.querySelectorAll('[data-fr-text]').forEach(el => {
-      el.textContent = lang === 'fr' ? el.getAttribute('data-fr-text') : el.getAttribute('data-en-text');
-    });
-  }
-
-  langToggle.addEventListener('click', () => {
-    applyLang(currentLang === 'fr' ? 'en' : 'fr');
-  });
-
-  applyLang(currentLang);
-</script>
-
-<script>
-  // Menu toggle
-  const menuToggle = document.getElementById('menu-toggle');
-  const menuDropdown = document.getElementById('menu-dropdown');
-  
-  menuToggle.addEventListener('click', () => {
-    const isOpen = menuDropdown.classList.toggle('open');
-    menuToggle.classList.toggle('active');
-    menuToggle.setAttribute('aria-expanded', isOpen);
-  });
-  
-  document.addEventListener('click', (e) => {
-    if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
-      menuDropdown.classList.remove('open');
-      menuToggle.classList.remove('active');
-      menuToggle.setAttribute('aria-expanded', 'false');
+      const isRedElement = (el) => {
+        if (!el) return false;
+        return el.classList.contains('am-card-title') || el.closest('.am-card-title') ||
+               el.classList.contains('am-pill-link') || el.closest('.am-pill-link');
+      };
+      const isClickable = (el) => {
+        if (!el) return false;
+        const tags = ['A','BUTTON','INPUT','TEXTAREA','SELECT','LABEL'];
+        if (tags.includes(el.tagName)) return true;
+        if (el.classList.contains('am-card') || el.classList.contains('am-pill') ||
+            el.classList.contains('am-button') || el.getAttribute('role') === 'button') return true;
+        return false;
+      };
+      document.addEventListener('mouseover', (e) => {
+        cursor.classList.remove('hovering', 'hovering-link');
+        if (isRedElement(e.target)) { cursor.classList.add('hovering-link'); }
+        else {
+          let target = e.target;
+          while (target && target !== document.body) {
+            if (isClickable(target)) { cursor.classList.add('hovering'); return; }
+            target = target.parentElement;
+          }
+        }
+      });
+      document.addEventListener('mouseout', () => cursor.classList.remove('hovering', 'hovering-link'));
     }
-  });
-</script>
+    </script>
 
-<!-- Modal zoom carte -->
-<div id="card-modal">
-  <div id="card-modal-content">
-    <button id="card-modal-close" aria-label="Fermer">×</button>
-    <div id="card-modal-body"></div>
-  </div>
-</div>
+    <script>
+    // === LANGUAGE TOGGLE ===
+    const langToggle = document.getElementById('lang-toggle');
+    let currentLang = localStorage.getItem('am-lang') || 'fr';
+    function applyLang(lang) {
+      currentLang = lang;
+      localStorage.setItem('am-lang', lang);
+      langToggle.textContent = lang === 'fr' ? 'EN' : 'FR';
+      document.querySelectorAll('[data-fr]').forEach(el => { el.hidden = lang !== 'fr'; });
+      document.querySelectorAll('[data-en]').forEach(el => { el.hidden = lang !== 'en'; });
+      document.querySelectorAll('[data-fr-text]').forEach(el => {
+        el.textContent = lang === 'fr' ? el.getAttribute('data-fr-text') : el.getAttribute('data-en-text');
+      });
+    }
+    langToggle.addEventListener('click', () => applyLang(currentLang === 'fr' ? 'en' : 'fr'));
+    applyLang(currentLang);
+    </script>
 
+    <script>
+    // === MENU TOGGLE ===
+    const menuToggle = document.getElementById('menu-toggle');
+    const menuDropdown = document.getElementById('menu-dropdown');
+    menuToggle.addEventListener('click', () => {
+      const isOpen = menuDropdown.classList.toggle('open');
+      menuToggle.classList.toggle('active');
+      menuToggle.setAttribute('aria-expanded', isOpen);
+    });
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !menuDropdown.contains(e.target)) {
+        menuDropdown.classList.remove('open');
+        menuToggle.classList.remove('active');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+    </script>
+  </body>
+</html>
