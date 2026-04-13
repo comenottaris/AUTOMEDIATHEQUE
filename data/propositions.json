@@ -184,5 +184,17 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-02-27T14:57:29.016182+00:00"
+  },
+  {
+    "name": "Indigenas LGBTQ+",
+    "url": "https://www.instagram.com/indigenaslgbtq/",
+    "type": "Instagram",
+    "country": "Brazil",
+    "languages": [],
+    "status": "proposed",
+    "description": "Premier groupe LGBTQIA+ autochtone du Brésil, créé en 2019. ",
+    "notes": "Renforcer la coordination politique et la représentativité des personnes autochtones LGBTQIA+",
+    "source": "supabase",
+    "createdAt": "2026-04-13T16:08:08.06139+00:00"
   }
 ]
