@@ -220,5 +220,17 @@
     "notes": "A aussi une agence : https://www.echoagency.fr",
     "source": "supabase",
     "createdAt": "2026-04-13T16:18:51.281749+00:00"
+  },
+  {
+    "name": "Nunatak",
+    "url": "https://revuenunatak.noblogs.org/",
+    "type": "site",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "\nRevue d'histoires, cultures et luttes des montagnes",
+    "notes": "Si vous souhaitez vous faire envoyer des exemplaires, vous pouvez nous contacter sur revuenunatak-diffusion@riseup.net, en précisant le nombre d’exemplaire souhaité ainsi que l’adresse de réception. ",
+    "source": "supabase",
+    "createdAt": "2026-04-28T20:32:51.674873+00:00"
   }
 ]
