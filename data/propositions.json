@@ -232,5 +232,17 @@
     "notes": "Si vous souhaitez vous faire envoyer des exemplaires, vous pouvez nous contacter sur revuenunatak-diffusion@riseup.net, en précisant le nombre d’exemplaire souhaité ainsi que l’adresse de réception. ",
     "source": "supabase",
     "createdAt": "2026-04-28T20:32:51.674873+00:00"
+  },
+  {
+    "name": "Refugees in Lybia",
+    "url": "https://www.refugeesinlibya.org/",
+    "type": "site, instagram",
+    "country": "Lybie",
+    "languages": [],
+    "status": "proposed",
+    "description": "Self-organized refugee-led movement exposing crimes in Libya, Tunisia, Niger and other parts of world.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-05-05T11:56:24.405753+00:00"
   }
 ]
