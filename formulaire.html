@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Proposer un automédia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="assets/automediatheque.css" />
+    <link rel="stylesheet" href="/automediatheque-assets/automediatheque.css" />
 
     <!-- SEO -->
     <meta name="description" content="Proposez un automédia à ajouter à la base collaborative de l'Automédiathèque. Contribution anonyme et sans tracking.">
@@ -23,7 +23,7 @@
         body {
           padding: 0 10px;
         }
-  
+      }
     </style>
   </head>
   
@@ -61,19 +61,17 @@
       EN
     </button>
     
-    <div class="am-page">
 <!-- ================= CONTENU PRINCIPAL ================= -->
-    <section class="am-page" id="formulaire">
+    <div class="am-page" id="formulaire">
           <div class="am-hero am-hero--center">
             <h1><span data-fr>Ajouter un Automédia</span><span data-en hidden>Add an Automedia</span></h1>
           <p class="am-hero-lead">
             <span data-fr>Ce formulaire permet de proposer un automédia à ajouter à la base.</span><span data-en hidden>This form allows you to suggest an automedia to add to the database.</span>
           </p>
           <p class="am-hero-text">
-            Aucune donnée personnelle n’est demandée. Tu peux contribuer de façon anonyme.
+            <span data-fr>Aucune donnée personnelle n'est demandée. Tu peux contribuer de façon anonyme.</span><span data-en hidden>No personal data is required. You can contribute anonymously.</span>
           </p>
         </div>
-      </header>
 
       <hr class="am-divider" />
 
@@ -94,8 +92,8 @@
                 <legend class="am-section-title"><span data-fr>Informations principales</span><span data-en hidden>Main information</span></legend>
 
                 <label class="am-field">
-                  <span class="am-field-label">Nom de l’automédia *</span>
-                  <input class="am-input" type="text" name="name" required />
+                  <span class="am-field-label"><span data-fr>Nom de l’automédia *</span><span data-en hidden>Automedia name *</span></span>
+                  <input class="am-input" type="text" name="name" id="field-name" required />
                 </label>
 
                 <label class="am-field">
@@ -104,6 +102,7 @@
                     class="am-input"
                     type="url"
                     name="url"
+                    id="field-url"
                     placeholder="https://…"
                     required
                   />
@@ -115,6 +114,7 @@
                     class="am-input"
                     type="text"
                     name="type"
+                    id="field-type"
                     placeholder="site, radio, Instagram, zine, canal Telegram, etc."
                   />
                 </label>
@@ -125,6 +125,7 @@
                     class="am-input"
                     type="text"
                     name="country"
+                    id="field-country"
                     placeholder="France, International, Kurdistan…"
                   />
                 </label>
@@ -136,11 +137,12 @@
 
                 <label class="am-field">
                   <span class="am-field-label">
-                    Brève description de l’automédia *
+                    <span data-fr>Brève description de l'automédia *</span><span data-en hidden>Brief description of the automedia *</span>
                   </span>
                   <textarea
                     class="am-textarea"
                     name="description"
+                    id="field-description"
                     rows="5"
                     required
                   ></textarea>
@@ -151,6 +153,7 @@
                   <textarea
                     class="am-textarea"
                     name="notes"
+                    id="field-notes"
                     rows="3"
                     placeholder="Contexte, remarques, précisions…"
                   ></textarea>
