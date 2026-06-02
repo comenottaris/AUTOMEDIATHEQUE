@@ -244,5 +244,17 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-05-05T11:56:24.405753+00:00"
+  },
+  {
+    "name": "Télé Millevaches",
+    "url": "https://www.instagram.com/telemillevaches",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Média rural sur la montagne limousine.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-06-02T14:35:09.383867+00:00"
   }
 ]
