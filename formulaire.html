@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <title>Proposer un automédia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/automediatheque-assets/automediatheque.css" />
+    <link rel="stylesheet" href="assets/automediatheque.css" />
 
     <!-- SEO -->
     <meta name="description" content="Proposez un automédia à ajouter à la base collaborative de l'Automédiathèque. Contribution anonyme et sans tracking.">
@@ -92,7 +92,7 @@
                 <legend class="am-section-title"><span data-fr>Informations principales</span><span data-en hidden>Main information</span></legend>
 
                 <label class="am-field">
-                  <span class="am-field-label"><span data-fr>Nom de l’automédia *</span><span data-en hidden>Automedia name *</span></span>
+                  <span class="am-field-label"><span data-fr>Nom de l'automédia *</span><span data-en hidden>Automedia name *</span></span>
                   <input class="am-input" type="text" name="name" id="field-name" required />
                 </label>
 
@@ -191,7 +191,6 @@
     </div>
 
     <script type="module">
-      // À REMPLACER par ton projet Supabase
       const SUPABASE_URL = "https://fnxxhuyqhhpfjvgmcbjz.supabase.co";
       const SUPABASE_ANON_KEY = "sb_publishable_uyzjAWCUrveeUHsP0m-X3Q_QGQ21Rkw";
 
@@ -205,7 +204,6 @@
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
 
-        // honeypot : si rempli, on ignore (bot)
         if (data.website) {
           messageEl.textContent = "Merci.";
           form.reset();
@@ -237,7 +235,7 @@
           if (!res.ok) {
             const text = await res.text();
             console.error("Erreur Supabase:", res.status, text);
-            throw new Error("Échec de l’enregistrement");
+            throw new Error("Échec de l'enregistrement");
           }
 
           messageEl.textContent =
@@ -246,13 +244,11 @@
         } catch (err) {
           console.error(err);
           messageEl.textContent =
-            "Une erreur est survenue pendant l’envoi. Désolé, c'est sûrement un problème technique de mon côté, il va falloir réessayer plus tard...";
+            "Une erreur est survenue pendant l'envoi. Désolé, c'est sûrement un problème technique de mon côté, il va falloir réessayer plus tard...";
         }
       });
     </script>
     <script>
-      
-    
       // === LANGUAGE TOGGLE ===
       const langToggle = document.getElementById('lang-toggle');
       let currentLang = localStorage.getItem('am-lang') || 'fr';
@@ -276,56 +272,56 @@
       applyLang(currentLang);
 
       // === CURSEUR PERSONNALISÉ ===
-    const cursor = document.getElementById('custom-cursor');
-    document.documentElement.classList.add('am-custom-cursor');
+      const cursor = document.getElementById('custom-cursor');
+      document.documentElement.classList.add('am-custom-cursor');
 
-    document.addEventListener('mousemove', (e) => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-      cursor.classList.remove('hidden');
-    });
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+        cursor.classList.remove('hidden');
+      });
 
-    document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
-    document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+      document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
+      document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
 
-    const isRedElement = (el) => {
-      if (!el) return false;
-      return el.classList.contains('am-card-title') || 
-             el.closest('.am-card-title') ||
-             el.classList.contains('am-pill-link') || 
-             el.closest('.am-pill-link');
-    };
+      const isRedElement = (el) => {
+        if (!el) return false;
+        return el.classList.contains('am-card-title') || 
+               el.closest('.am-card-title') ||
+               el.classList.contains('am-pill-link') || 
+               el.closest('.am-pill-link');
+      };
 
-    const isClickable = (el) => {
-      if (!el) return false;
-      const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
-      if (tags.includes(el.tagName)) return true;
-      if (el.classList.contains('am-card') || 
-          el.classList.contains('am-pill') || 
-          el.classList.contains('am-button') ||
-          el.getAttribute('role') === 'button') return true;
-      return false;
-    };
+      const isClickable = (el) => {
+        if (!el) return false;
+        const tags = ['A', 'BUTTON', 'INPUT', 'TEXTAREA', 'SELECT', 'LABEL'];
+        if (tags.includes(el.tagName)) return true;
+        if (el.classList.contains('am-card') || 
+            el.classList.contains('am-pill') || 
+            el.classList.contains('am-button') ||
+            el.getAttribute('role') === 'button') return true;
+        return false;
+      };
 
-    document.addEventListener('mouseover', (e) => {
-      cursor.classList.remove('hovering', 'hovering-link');
-      if (isRedElement(e.target)) {
-        cursor.classList.add('hovering-link');
-      } else {
-        let target = e.target;
-        while (target && target !== document.body) {
-          if (isClickable(target)) {
-            cursor.classList.add('hovering');
-            return;
+      document.addEventListener('mouseover', (e) => {
+        cursor.classList.remove('hovering', 'hovering-link');
+        if (isRedElement(e.target)) {
+          cursor.classList.add('hovering-link');
+        } else {
+          let target = e.target;
+          while (target && target !== document.body) {
+            if (isClickable(target)) {
+              cursor.classList.add('hovering');
+              return;
+            }
+            target = target.parentElement;
           }
-          target = target.parentElement;
         }
-      }
-    });
+      });
 
-    document.addEventListener('mouseout', () => {
-      cursor.classList.remove('hovering', 'hovering-link');
-    });
+      document.addEventListener('mouseout', () => {
+        cursor.classList.remove('hovering', 'hovering-link');
+      });
     </script>
 
 <script>

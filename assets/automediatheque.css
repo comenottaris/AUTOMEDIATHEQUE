@@ -176,7 +176,6 @@ body {
   background: transparent;
 }
 
-/* Carte style appli dans le modal */
 #card-modal-body .am-card {
   max-width: 420px;
   width: 90vw;
@@ -278,7 +277,6 @@ body {
    CURSEUR PERSONNALISÉ
    =========================== */
 
-/* Custom cursor: only hide native cursor when JS custom cursor is active */
 html.am-custom-cursor,
 html.am-custom-cursor body,
 html.am-custom-cursor a,
@@ -321,7 +319,6 @@ html.am-custom-cursor label {
   opacity: 0;
 }
 
-/* Désactiver curseur personnalisé sur appareils tactiles */
 @media (hover: none) and (pointer: coarse) {
   #custom-cursor {
     display: none !important;
@@ -580,28 +577,24 @@ html.am-custom-cursor label {
   white-space: nowrap;
 }
 
-/* Type : ex Instagram, Podcast... */
 .am-pill-type {
   background: rgba(200, 137, 60, 0.12);
   color: #5a351a;
   border-color: rgba(200, 137, 60, 0.4);
 }
 
-/* Pays */
 .am-pill-country {
   background: rgba(12, 90, 160, 0.09);
   color: #10436a;
   border-color: rgba(12, 90, 160, 0.4);
 }
 
-/* Langue(s) */
 .am-pill-lang {
   background: rgba(36, 132, 81, 0.11);
   color: #155637;
   border-color: rgba(36, 132, 81, 0.5);
 }
 
-/* Lien cliquable pour un badge (utilisé sur type) */
 .am-pill-link {
   text-decoration: none;
   color: inherit;
@@ -610,8 +603,6 @@ html.am-custom-cursor label {
 .am-pill-link:hover {
   filter: brightness(0.96);
 }
-
-/* Description */
 
 .am-card-desc {
   margin: 0.1rem 0 0;
@@ -693,23 +684,18 @@ html.am-custom-cursor label {
    background: var(--am-accent-soft); color: #5a351a; border-color: var(--am-accent-soft-strong); 
 } 
 
-/* Petite zone "tagline" pour chaque category */ 
 am-category-legend { 
    margin: 0 0 0.6rem; color: var(--am-text-softer); font-size: 0.92rem;
 } 
 
-/* Fiche détaillée (utilise modal existant) : lien brochure */ 
-
 .am-brochure-link { 
    display: inline-block; margin-top: 0.6rem; color: var(--am-text); text-decoration: underline; text-underline-offset: 2px; font-weight: 600; 
-                  } 
+}
 
-/* Petite icône visuelle pour carte (optionnel) */ 
 .am-card-visual { 
    width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, rgba(200,137,60,0.12), rgba(226,192,149,0.12)); display: inline-flex; align-items: center; justify-content: center; font-weight: 700; color: var(--am-accent); margin-right: 0.5rem; 
 }
 
-/* -- minimal pour nouveaux éléments et pastilles de lien -- */ 
 .am-filters { 
    display: flex; gap: 0.6rem; flex-wrap: wrap; align-items: center; margin: 0.6rem 0 1rem; 
 } 
@@ -718,7 +704,6 @@ am-category-legend {
    padding: 0.45rem 0.6rem; border-radius: 10px; border: 1px solid var(--am-border-subtle); background: var(--am-surface-strong); color: var(--am-text); font-weight: 600; 
 }
 
-/* Icone initiales séparée */
 .am-card-left {
   display:flex;
   align-items:center;
@@ -737,13 +722,11 @@ am-category-legend {
   flex-shrink:0;
 }
 
-/* Déplacer titre sur une ligne à part */
 .am-card-title {
   margin: 0;
   font-size: 1rem;
 }
 
-/* Pastilles de liens (gris, pas de doublons avec titre) */
 .am-card-links {
   margin-top: 0.6rem;
   display:flex;
@@ -760,17 +743,14 @@ am-category-legend {
   text-decoration:none;
 }
 
-/* Pastilles "clicables" filtre (type/lang) : pointer */
 .am-pill.filterable { cursor: pointer; }
 
-/* état actif filtre */
 .am-pill.active-filter {
   background: var(--am-accent);
   color: #fff;
   border-color: var(--am-accent);
 }
 
-/* Petit bouton clear */
 .am-clear {
   background: transparent;
   border: 1px dashed var(--am-border-subtle);
@@ -817,7 +797,6 @@ am-category-legend {
   max-width: 820px;
 }
 
-/* Hero */
 .am-home-hero {
   text-align: center;
   padding: 5rem 1rem 2.5rem;
@@ -880,7 +859,6 @@ am-category-legend {
   color: var(--am-accent);
 }
 
-/* Featured section */
 .am-home-featured {
   padding: 1rem 0 0.5rem;
 }
@@ -974,7 +952,6 @@ am-category-legend {
   opacity: 0.75;
 }
 
-/* Archive section */
 .am-home-archive {
   padding: 0.5rem 0;
 }
@@ -1027,7 +1004,6 @@ am-category-legend {
   color: var(--am-text-softer);
 }
 
-/* Quick links grid */
 .am-home-links {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -1102,5 +1078,251 @@ am-category-legend {
 
   .am-home-links {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ===========================
+   PAGE FORMULAIRE
+   =========================== */
+
+/* Hero subtext */
+.am-hero-text {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--am-text-softer);
+  line-height: 1.5;
+}
+
+/* Section layout */
+.am-section {
+  margin: 0;
+}
+
+.am-section-inner {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.am-section-intro {
+  margin: 0 0 1.8rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: var(--am-text-soft);
+}
+
+.am-section-intro code {
+  background: var(--am-accent-soft);
+  padding: 0.15rem 0.45rem;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  color: var(--am-text);
+}
+
+/* Fieldset legend */
+.am-section-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--am-text);
+  margin-bottom: 1.2rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--am-border-subtle);
+  letter-spacing: -0.01em;
+}
+
+/* Form container */
+.am-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Fieldset reset */
+.am-fieldset {
+  border: 1px solid var(--am-border-subtle);
+  border-radius: var(--am-radius-card);
+  padding: 1.5rem 1.4rem 1.2rem;
+  margin: 0;
+  background: var(--am-surface);
+  box-shadow: var(--am-shadow-soft);
+}
+
+/* Form field (override toolbar .am-field) */
+.am-form .am-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  font-size: inherit;
+  margin-bottom: 1rem;
+}
+
+.am-form .am-field:last-child {
+  margin-bottom: 0;
+}
+
+/* Form field label */
+.am-form .am-field-label {
+  color: var(--am-text);
+  font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.01em;
+}
+
+/* Modern inputs */
+.am-input {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid var(--am-border-subtle);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 0.92rem;
+  color: var(--am-text);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  font-family: inherit;
+}
+
+.am-input::placeholder {
+  color: var(--am-text-softer);
+  opacity: 0.7;
+}
+
+.am-input:hover {
+  border-color: var(--am-border-strong);
+}
+
+.am-input:focus {
+  border-color: var(--am-accent);
+  box-shadow: 0 0 0 3px rgba(200, 137, 60, 0.15);
+  background: #fffdfb;
+}
+
+.am-input:required {
+  /* Subtle indicator — the * in label already signals it */
+}
+
+/* Modern textarea */
+.am-textarea {
+  width: 100%;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid var(--am-border-subtle);
+  border-radius: 10px;
+  background: #fff;
+  font-size: 0.92rem;
+  color: var(--am-text);
+  outline: none;
+  resize: vertical;
+  min-height: 80px;
+  line-height: 1.55;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+  font-family: inherit;
+}
+
+.am-textarea::placeholder {
+  color: var(--am-text-softer);
+  opacity: 0.7;
+}
+
+.am-textarea:hover {
+  border-color: var(--am-border-strong);
+}
+
+.am-textarea:focus {
+  border-color: var(--am-accent);
+  box-shadow: 0 0 0 3px rgba(200, 137, 60, 0.15);
+  background: #fffdfb;
+}
+
+/* Submit button */
+.am-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.85rem 1.6rem;
+  border: none;
+  border-radius: 10px;
+  background: var(--am-text);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.15s ease;
+  box-shadow: 0 2px 8px rgba(35, 24, 17, 0.1);
+}
+
+.am-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(35, 24, 17, 0.18);
+  background: #3a2a1d;
+}
+
+.am-button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 4px rgba(35, 24, 17, 0.12);
+}
+
+/* Form feedback message */
+.am-hero-note {
+  margin: 0.8rem 0 0;
+  padding: 0.7rem 1rem;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.am-hero-note:not(:empty) {
+  background: var(--am-accent-soft);
+  color: #5a351a;
+  border: 1px solid var(--am-accent-soft-strong);
+}
+
+/* Footer */
+.am-footer {
+  margin-top: 2.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--am-border-subtle);
+}
+
+.am-footer-text {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--am-text-softer);
+  text-align: center;
+}
+
+.am-footer-text a {
+  color: var(--am-accent);
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.15s ease;
+}
+
+.am-footer-text a:hover {
+  opacity: 0.75;
+}
+
+/* Formulaire responsive */
+@media (max-width: 640px) {
+  .am-fieldset {
+    padding: 1.1rem 1rem 0.9rem;
+  }
+
+  .am-section-title {
+    font-size: 0.95rem;
+  }
+
+  .am-input,
+  .am-textarea {
+    padding: 0.6rem 0.8rem;
+    font-size: 0.88rem;
+  }
+
+  .am-button {
+    padding: 0.8rem 1.2rem;
+    font-size: 0.9rem;
   }
 }
