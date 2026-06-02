@@ -1128,6 +1128,11 @@ am-category-legend {
   border-bottom: 2px solid var(--am-border-subtle);
   letter-spacing: -0.01em;
 }
+/* Repositionne le legend à l'intérieur du fieldset */
+.am-fieldset > legend.am-section-title {
+  float: none;
+  width: 100%;
+}
 
 /* Form container */
 .am-form {
@@ -1140,7 +1145,7 @@ am-category-legend {
 .am-fieldset {
   border: 1px solid var(--am-border-subtle);
   border-radius: var(--am-radius-card);
-  padding: 1.5rem 1.4rem 1.2rem;
+  padding: 2rem 1.4rem 1.2rem;
   margin: 0;
   background: var(--am-surface);
   box-shadow: var(--am-shadow-soft);
