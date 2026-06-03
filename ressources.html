@@ -22,7 +22,7 @@
     <!-- Security -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="strict-origin-when-cross-origin">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self'; frame-ancestors 'none'; form-action 'self'; base-uri 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' https: data:; connect-src 'self' https://fnxxhuyqhhpfjvgmcbjz.supabase.co; frame-ancestors 'none'; form-action 'self'; base-uri 'self'">
 
     <style>
       body { padding: 0 40px; }
@@ -189,9 +189,356 @@
         margin: 0.8rem 0;
       }
 
+      /* =============================================
+         CTA BOUTON — Explorer les ressources
+         ============================================= */
+      .am-catalogue-cta {
+        text-align: center;
+        margin: 2.5rem 0 1rem;
+      }
+      .am-catalogue-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.8rem 1.8rem;
+        border-radius: 999px;
+        background: var(--am-text);
+        color: #fff;
+        font-size: 0.95rem;
+        font-weight: 600;
+        font-family: inherit;
+        border: none;
+        cursor: pointer;
+        transition: transform 0.1s ease, box-shadow 0.2s ease, background 0.15s ease;
+        box-shadow: 0 2px 8px rgba(35, 24, 17, 0.1);
+      }
+      .am-catalogue-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(35, 24, 17, 0.18);
+        background: #3a2a1d;
+      }
+      .am-catalogue-btn:active {
+        transform: translateY(0);
+        box-shadow: 0 1px 4px rgba(35, 24, 17, 0.12);
+      }
+      .am-catalogue-btn-icon {
+        font-size: 1.1rem;
+      }
+      .am-catalogue-sub {
+        display: block;
+        margin-top: 0.5rem;
+        font-size: 0.78rem;
+        color: var(--am-text-softer);
+      }
+
+      /* =============================================
+         OVERLAY CATALOGUE POP-UP
+         ============================================= */
+      .am-catalogue-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 50000;
+        background: rgba(35, 24, 17, 0.55);
+        backdrop-filter: blur(6px);
+        -webkit-backdrop-filter: blur(6px);
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding: 10px 10px 0;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+      }
+      .am-catalogue-overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .am-catalogue-panel {
+        width: 100%;
+        max-width: 960px;
+        max-height: calc(100vh - 20px);
+        background: var(--am-bg, #f7f0e6);
+        border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        box-shadow: 0 25px 80px rgba(35, 24, 17, 0.3);
+        transform: translateY(20px);
+        transition: transform 0.3s ease;
+      }
+      .am-catalogue-overlay.active .am-catalogue-panel {
+        transform: translateY(0);
+      }
+
+      /* Header */
+      .am-catalogue-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 1.4rem;
+        border-bottom: 1px solid var(--am-border-subtle);
+        flex-shrink: 0;
+      }
+      .am-catalogue-title {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+        color: var(--am-text);
+        letter-spacing: -0.01em;
+      }
+      .am-catalogue-close {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 1px solid var(--am-border-subtle);
+        background: var(--am-surface);
+        color: var(--am-text-soft);
+        font-size: 1.2rem;
+        line-height: 1;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.15s ease, border-color 0.15s ease;
+      }
+      .am-catalogue-close:hover {
+        background: var(--am-accent-soft);
+        border-color: var(--am-accent);
+      }
+
+      /* Search */
+      .am-catalogue-search {
+        padding: 0.8rem 1.4rem 0;
+        flex-shrink: 0;
+      }
+      .am-catalogue-search input {
+        width: 100%;
+        padding: 0.65rem 1rem 0.65rem 2.2rem;
+        border: 1.5px solid var(--am-border-subtle);
+        border-radius: 10px;
+        background: #fff;
+        font-size: 0.92rem;
+        color: var(--am-text);
+        outline: none;
+        font-family: inherit;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239a856d' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cline x1='21' y1='21' x2='16.65' y2='16.65'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: 0.8rem center;
+      }
+      .am-catalogue-search input::placeholder {
+        color: var(--am-text-softer);
+        opacity: 0.7;
+      }
+      .am-catalogue-search input:focus {
+        border-color: var(--am-accent);
+        box-shadow: 0 0 0 3px rgba(200, 137, 60, 0.15);
+      }
+
+      /* Filter pills */
+      .am-catalogue-filters {
+        padding: 0.6rem 1.4rem 0;
+        flex-shrink: 0;
+      }
+      .am-catalogue-filter-row {
+        margin-bottom: 0.5rem;
+      }
+      .am-catalogue-filter-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--am-text-softer);
+        font-weight: 700;
+        margin-bottom: 0.3rem;
+        display: block;
+      }
+      .am-catalogue-filter-pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.35rem;
+      }
+      .am-catalogue-pill {
+        display: inline-flex;
+        align-items: center;
+        padding: 0.22rem 0.65rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        cursor: pointer;
+        border: 1px solid var(--am-border-subtle);
+        background: var(--am-surface);
+        color: var(--am-text-soft);
+        transition: all 0.15s ease;
+        user-select: none;
+      }
+      .am-catalogue-pill:hover {
+        border-color: var(--am-accent);
+        color: var(--am-text);
+      }
+      .am-catalogue-pill.active {
+        background: var(--am-accent);
+        color: #fff;
+        border-color: var(--am-accent);
+      }
+      .am-catalogue-pill.active:hover {
+        background: #b07832;
+      }
+
+      /* Scrollable results */
+      .am-catalogue-body {
+        flex: 1;
+        overflow-y: auto;
+        padding: 0.8rem 1.4rem 1rem;
+      }
+      .am-catalogue-body::-webkit-scrollbar {
+        width: 6px;
+      }
+      .am-catalogue-body::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .am-catalogue-body::-webkit-scrollbar-thumb {
+        background: var(--am-border-subtle);
+        border-radius: 3px;
+      }
+      .am-catalogue-body::-webkit-scrollbar-thumb:hover {
+        background: var(--am-border-strong);
+      }
+
+      .am-catalogue-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 0.9rem;
+      }
+
+      /* Card in catalogue */
+      .am-catalogue-card {
+        background: var(--am-surface);
+        border-radius: 14px;
+        border: 1px solid rgba(228, 213, 193, 0.9);
+        box-shadow: 0 4px 16px rgba(32, 25, 16, 0.04);
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+        transition: transform 0.1s ease, box-shadow 0.15s ease;
+      }
+      .am-catalogue-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 24px rgba(32, 25, 16, 0.08);
+      }
+      .am-catalogue-card-header {
+        display: flex;
+        gap: 0.7rem;
+        align-items: flex-start;
+      }
+      .am-catalogue-card-visual {
+        width: 42px;
+        height: 42px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, rgba(200,137,60,0.08), rgba(226,192,149,0.06));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: var(--am-accent);
+        flex-shrink: 0;
+      }
+      .am-catalogue-card-info {
+        flex: 1;
+        min-width: 0;
+      }
+      .am-catalogue-card-name {
+        margin: 0;
+        font-size: 0.95rem;
+        font-weight: 600;
+      }
+      .am-catalogue-card-name a {
+        color: var(--am-text);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: border-color 0.15s ease;
+      }
+      .am-catalogue-card-name a:hover {
+        border-bottom-color: var(--am-accent);
+      }
+      .am-catalogue-card-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.3rem;
+        margin-top: 0.25rem;
+      }
+      .am-catalogue-card-desc {
+        margin: 0;
+        font-size: 0.82rem;
+        line-height: 1.5;
+        color: var(--am-text-soft);
+      }
+      .am-catalogue-card-links {
+        display: flex;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+        margin-top: 0.3rem;
+      }
+      .am-catalogue-card-links a {
+        background: rgba(60,60,60,0.06);
+        color: var(--am-text);
+        font-size: 0.75rem;
+        padding: 0.22rem 0.55rem;
+        border-radius: 999px;
+        text-decoration: none;
+        transition: background 0.15s ease;
+      }
+      .am-catalogue-card-links a:hover {
+        background: rgba(200,137,60,0.15);
+      }
+
+      /* Empty state */
+      .am-catalogue-empty {
+        grid-column: 1 / -1;
+        text-align: center;
+        padding: 2.5rem 1rem;
+        color: var(--am-text-softer);
+        font-size: 0.92rem;
+      }
+      .am-catalogue-empty-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+      }
+
+      /* Footer */
+      .am-catalogue-footer {
+        padding: 0.6rem 1.4rem;
+        border-top: 1px solid var(--am-border-subtle);
+        flex-shrink: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.78rem;
+        color: var(--am-text-softer);
+      }
+      .am-catalogue-count {
+        font-weight: 600;
+        color: var(--am-text-soft);
+      }
+
+      /* Body locked when popup open */
+      body.am-catalogue-open {
+        overflow: hidden;
+      }
+
       @media (max-width: 768px) {
         .am-toc-panel { max-width: calc(100vw - 2rem); }
         .am-res-grid { grid-template-columns: 1fr; }
+        .am-catalogue-overlay { padding: 10px 10px 0; }
+        .am-catalogue-panel { border-radius: 12px; max-height: calc(100vh - 20px); }
+        .am-catalogue-grid { grid-template-columns: 1fr; }
+        .am-catalogue-header { padding: 0.8rem 1rem; }
+        .am-catalogue-search { padding: 0.6rem 1rem 0; }
+        .am-catalogue-filters { padding: 0.5rem 1rem 0; }
+        .am-catalogue-body { padding: 0.7rem 1rem 0.8rem; }
+        .am-catalogue-footer { padding: 0.5rem 1rem; }
       }
     </style>
   </head>
@@ -597,6 +944,19 @@
 
       <hr class="am-divider" />
 
+      <!-- ============ CTA — EXPLORER TOUTES LES RESSOURCES ============ -->
+      <div class="am-catalogue-cta">
+        <button class="am-catalogue-btn" id="catalogue-open" aria-label="Explorer toutes les ressources">
+          <span class="am-catalogue-btn-icon">🔍</span>
+          <span data-fr>Explorer toutes les ressources</span>
+          <span data-en hidden>Browse all resources</span>
+        </button>
+        <span class="am-catalogue-sub" id="catalogue-sub">
+          <span data-fr>Base de données collaborative · <span id="catalogue-total">–</span> ressources</span>
+          <span data-en hidden>Collaborative database · <span id="catalogue-total-en">–</span> resources</span>
+        </span>
+      </div>
+
       <!-- --------- Section Contribuer --------- -->
       <section class="am-res-section">
         <h2><span data-fr>Contribuer à Automédiathèque</span><span data-en hidden>Contribute to Automédiathèque</span></h2>
@@ -631,6 +991,61 @@
       </footer>
     </div>
 
+    <!-- ================ CATALOGUE POP-UP OVERLAY ================ -->
+    <div class="am-catalogue-overlay" id="catalogue-overlay">
+      <div class="am-catalogue-panel" id="catalogue-panel">
+        <!-- Header -->
+        <div class="am-catalogue-header">
+          <h2 class="am-catalogue-title">
+            <span data-fr>Catalogue des ressources</span>
+            <span data-en hidden>Resource catalogue</span>
+          </h2>
+          <button class="am-catalogue-close" id="catalogue-close" aria-label="Fermer">✕</button>
+        </div>
+
+        <!-- Search -->
+        <div class="am-catalogue-search">
+          <input type="text" id="catalogue-search" placeholder="Rechercher une ressource…" autocomplete="off" />
+        </div>
+
+        <!-- Filters -->
+        <div class="am-catalogue-filters" id="catalogue-filters">
+          <!-- Thème row -->
+          <div class="am-catalogue-filter-row">
+            <span class="am-catalogue-filter-label">
+              <span data-fr>Thème</span><span data-en hidden>Theme</span>
+            </span>
+            <div class="am-catalogue-filter-pills" id="filter-theme"></div>
+          </div>
+          <!-- Type row -->
+          <div class="am-catalogue-filter-row">
+            <span class="am-catalogue-filter-label">
+              <span data-fr>Type</span><span data-en hidden>Type</span>
+            </span>
+            <div class="am-catalogue-filter-pills" id="filter-type"></div>
+          </div>
+          <!-- Langue row -->
+          <div class="am-catalogue-filter-row">
+            <span class="am-catalogue-filter-label">
+              <span data-fr>Langue</span><span data-en hidden>Language</span>
+            </span>
+            <div class="am-catalogue-filter-pills" id="filter-lang"></div>
+          </div>
+        </div>
+
+        <!-- Scrollable results -->
+        <div class="am-catalogue-body" id="catalogue-results">
+          <!-- Cards injected here by JS -->
+        </div>
+
+        <!-- Footer -->
+        <div class="am-catalogue-footer">
+          <span><span class="am-catalogue-count" id="catalogue-count">0</span> <span data-fr>ressources</span><span data-en hidden>resources</span></span>
+          <span id="catalogue-status"></span>
+        </div>
+      </div>
+    </div>
+
     <script>
       // === LANGUAGE TOGGLE ===
       const langToggle = document.getElementById('lang-toggle');
@@ -663,7 +1078,6 @@
         tocToggle.setAttribute('aria-expanded', isOpen);
       });
 
-      // Close TOC when clicking outside
       document.addEventListener('click', (e) => {
         if (!tocToggle.contains(e.target) && !tocPanel.contains(e.target)) {
           tocPanel.classList.remove('open');
@@ -671,7 +1085,6 @@
         }
       });
 
-      // Close TOC when clicking a link (smooth scroll)
       tocPanel.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
           tocPanel.classList.remove('open');
@@ -697,19 +1110,347 @@
         }
       });
 
-      // === CURSEUR PERSONNALISÉ ===
+      // === CUSTOM CURSOR ===
       const cursor = document.getElementById('custom-cursor');
       document.documentElement.classList.add('am-custom-cursor');
 
       document.addEventListener('mousemove', (e) => {
         cursor.style.left = e.clientX + 'px';
         cursor.style.top = e.clientY + 'px';
+        cursor.classList.remove('hidden');
       });
 
-      document.querySelectorAll('a, button').forEach(el => {
+      document.addEventListener('mouseleave', () => cursor.classList.add('hidden'));
+      document.addEventListener('mouseenter', () => cursor.classList.remove('hidden'));
+
+      document.querySelectorAll('.am-card-title a, .am-pill-link').forEach(el => {
         el.addEventListener('mouseenter', () => cursor.classList.add('hovering-link'));
         el.addEventListener('mouseleave', () => cursor.classList.remove('hovering-link'));
       });
+
+      // ==============================================
+      // CATALOGUE POP-UP — DATA + FILTERS + RENDER
+      // ==============================================
+
+      const DATA_URL = './data/ressources.json';
+      let allResources = [];
+      let activeFilters = { theme: null, type: null, lang: null, search: '' };
+
+      // --- Normalize links ---
+      function normalizeLinks(raw) {
+        if (!raw) return [];
+        if (Array.isArray(raw)) {
+          return raw.map(l => {
+            if (!l) return null;
+            if (typeof l === 'string') return { href: l, title: l };
+            if (typeof l === 'object') {
+              const href = l.href || l.url || null;
+              const title = l.title || l.name || href;
+              if (!href) return null;
+              return { href, title };
+            }
+            return null;
+          }).filter(Boolean);
+        }
+        if (typeof raw === 'object') {
+          return Object.entries(raw)
+            .map(([key, value]) => {
+              if (!value) return null;
+              if (typeof value === 'string') return { href: value, title: key };
+              if (typeof value === 'object') {
+                const href = value.href || value.url || null;
+                const title = value.title || value.name || key || href;
+                if (!href) return null;
+                return { href, title };
+              }
+              return null;
+            })
+            .filter(Boolean);
+        }
+        return [{ href: String(raw), title: String(raw) }];
+      }
+
+      // --- Load data ---
+      async function loadCatalogueData() {
+        try {
+          const res = await fetch(DATA_URL, { cache: 'no-store', headers: { Accept: 'application/json' } });
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          const data = await res.json();
+          if (!Array.isArray(data)) throw new Error('Not an array');
+          allResources = data.map(r => ({
+            ...r,
+            links: normalizeLinks(r.links),
+          }));
+          // Update total count on CTA
+          const totalEl = document.getElementById('catalogue-total');
+          const totalEnEl = document.getElementById('catalogue-total-en');
+          if (totalEl) totalEl.textContent = allResources.length;
+          if (totalEnEl) totalEnEl.textContent = allResources.length;
+          buildFilterPills();
+          applyCatalogueFilters();
+          const statusEl = document.getElementById('catalogue-status');
+          if (statusEl) {
+            const now = new Date().toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            statusEl.textContent = 'OK ' + now;
+          }
+        } catch (err) {
+          console.error('Erreur chargement catalogue:', err);
+          const resultsEl = document.getElementById('catalogue-results');
+          if (resultsEl) {
+            resultsEl.innerHTML = '<div class="am-catalogue-empty"><div class="am-catalogue-empty-icon">⚠️</div><span data-fr>Erreur lors du chargement des données.</span><span data-en hidden>Error loading data.</span></div>';
+          }
+        }
+      }
+
+      // --- Unique sorted values ---
+      function uniqueSorted(arr) {
+        return Array.from(new Set(arr.filter(Boolean))).sort((a, b) =>
+          a.localeCompare(b, 'fr', { sensitivity: 'base' })
+        );
+      }
+
+      // --- Build filter pills ---
+      function buildFilterPills() {
+        // Themes
+        const themes = uniqueSorted(allResources.map(r => r.theme).filter(Boolean));
+        const themeContainer = document.getElementById('filter-theme');
+        themes.forEach(t => {
+          const pill = document.createElement('button');
+          pill.className = 'am-catalogue-pill';
+          pill.textContent = t;
+          pill.dataset.value = t;
+          pill.addEventListener('click', () => toggleFilter('theme', t, pill));
+          themeContainer.appendChild(pill);
+        });
+
+        // Types
+        const types = uniqueSorted(allResources.map(r => r.type).filter(Boolean));
+        const typeContainer = document.getElementById('filter-type');
+        types.forEach(t => {
+          const pill = document.createElement('button');
+          pill.className = 'am-catalogue-pill';
+          pill.textContent = t;
+          pill.dataset.value = t;
+          pill.addEventListener('click', () => toggleFilter('type', t, pill));
+          typeContainer.appendChild(pill);
+        });
+
+        // Languages
+        const langs = uniqueSorted(
+          allResources.flatMap(r => {
+            if (!r.languages) return [];
+            return Array.isArray(r.languages) ? r.languages : [r.languages];
+          })
+        );
+        const langContainer = document.getElementById('filter-lang');
+        langs.forEach(l => {
+          const pill = document.createElement('button');
+          pill.className = 'am-catalogue-pill';
+          pill.textContent = l;
+          pill.dataset.value = l;
+          pill.addEventListener('click', () => toggleFilter('lang', l, pill));
+          langContainer.appendChild(pill);
+        });
+      }
+
+      // --- Toggle a filter ---
+      function toggleFilter(filterKey, value, pillEl) {
+        if (activeFilters[filterKey] === value) {
+          activeFilters[filterKey] = null;
+          pillEl.classList.remove('active');
+        } else {
+          // Deactivate previous pill in same row
+          const container = pillEl.parentElement;
+          container.querySelectorAll('.am-catalogue-pill').forEach(p => p.classList.remove('active'));
+          activeFilters[filterKey] = value;
+          pillEl.classList.add('active');
+        }
+        applyCatalogueFilters();
+      }
+
+      // --- Apply all filters ---
+      function applyCatalogueFilters() {
+        let list = allResources.slice();
+
+        if (activeFilters.theme) {
+          list = list.filter(r =>
+            (r.theme || '').toLowerCase() === activeFilters.theme.toLowerCase()
+          );
+        }
+        if (activeFilters.type) {
+          list = list.filter(r =>
+            (r.type || '').toLowerCase() === activeFilters.type.toLowerCase()
+          );
+        }
+        if (activeFilters.lang) {
+          list = list.filter(r => {
+            if (!r.languages) return false;
+            const langs = Array.isArray(r.languages)
+              ? r.languages.map(x => x.toLowerCase())
+              : [String(r.languages).toLowerCase()];
+            return langs.includes(activeFilters.lang.toLowerCase());
+          });
+        }
+        if (activeFilters.search) {
+          const q = activeFilters.search.toLowerCase();
+          list = list.filter(r => {
+            const name = (r.name || '').toLowerCase();
+            const desc = (r.description || '').toLowerCase();
+            const tags = Array.isArray(r.tags)
+              ? r.tags.join(' ').toLowerCase()
+              : (r.tags || '').toLowerCase();
+            return name.includes(q) || desc.includes(q) || tags.includes(q);
+          });
+        }
+
+        renderCatalogue(list);
+
+        const countEl = document.getElementById('catalogue-count');
+        if (countEl) countEl.textContent = list.length;
+      }
+
+      // --- Render cards ---
+      function renderCatalogue(list) {
+        const container = document.getElementById('catalogue-results');
+        if (!container) return;
+        container.innerHTML = '';
+
+        if (!list.length) {
+          container.innerHTML = '<div class="am-catalogue-empty"><div class="am-catalogue-empty-icon">🔍</div><span data-fr>Aucune ressource pour ces critères.</span><span data-en hidden>No resources match these criteria.</span></div>';
+          return;
+        }
+
+        const grid = document.createElement('div');
+        grid.className = 'am-catalogue-grid';
+
+        list.forEach(r => {
+          const card = document.createElement('article');
+          card.className = 'am-catalogue-card';
+
+          // Header
+          const header = document.createElement('div');
+          header.className = 'am-catalogue-card-header';
+
+          const visual = document.createElement('div');
+          visual.className = 'am-catalogue-card-visual';
+          visual.setAttribute('aria-hidden', 'true');
+          visual.textContent = (r.name || '').slice(0, 2).toUpperCase();
+
+          const info = document.createElement('div');
+          info.className = 'am-catalogue-card-info';
+
+          const name = document.createElement('h3');
+          name.className = 'am-catalogue-card-name';
+          if (r.url) {
+            const a = document.createElement('a');
+            a.href = r.url;
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = r.name || '—';
+            name.appendChild(a);
+          } else {
+            name.textContent = r.name || '—';
+          }
+
+          const meta = document.createElement('div');
+          meta.className = 'am-catalogue-card-meta';
+          if (r.theme) meta.appendChild(makeMiniPill(r.theme, 'am-pill-theme'));
+          if (r.type) meta.appendChild(makeMiniPill(r.type, 'am-pill-type'));
+          if (r.languages) {
+            const langs = Array.isArray(r.languages) ? r.languages.join(', ') : r.languages;
+            meta.appendChild(makeMiniPill(langs, 'am-pill-lang'));
+          }
+
+          info.appendChild(name);
+          info.appendChild(meta);
+          header.appendChild(visual);
+          header.appendChild(info);
+          card.appendChild(header);
+
+          // Description
+          const desc = document.createElement('p');
+          desc.className = 'am-catalogue-card-desc';
+          desc.textContent = r.description || '—';
+          card.appendChild(desc);
+
+          // Links
+          if (r.links && r.links.length) {
+            const linksWrap = document.createElement('div');
+            linksWrap.className = 'am-catalogue-card-links';
+            const seen = new Set();
+            if (r.url) seen.add(r.url);
+            r.links.forEach(l => {
+              if (!l || !l.href) return;
+              if (seen.has(l.href)) return;
+              seen.add(l.href);
+              const a = document.createElement('a');
+              a.href = l.href;
+              a.target = '_blank';
+              a.rel = 'noopener noreferrer';
+              a.textContent = l.title || l.href;
+              linksWrap.appendChild(a);
+            });
+            if (linksWrap.children.length) card.appendChild(linksWrap);
+          }
+
+          grid.appendChild(card);
+        });
+
+        container.appendChild(grid);
+      }
+
+      function makeMiniPill(text, extraClass) {
+        const span = document.createElement('span');
+        span.className = 'am-pill ' + extraClass;
+        span.textContent = text;
+        return span;
+      }
+
+      // --- Search ---
+      const searchInput = document.getElementById('catalogue-search');
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          activeFilters.search = e.target.value.trim();
+          applyCatalogueFilters();
+        });
+      }
+
+      // --- Open / Close pop-up ---
+      const overlay = document.getElementById('catalogue-overlay');
+      const openBtn = document.getElementById('catalogue-open');
+      const closeBtn = document.getElementById('catalogue-close');
+
+      function openCatalogue() {
+        overlay.classList.add('active');
+        document.body.classList.add('am-catalogue-open');
+        // Load data on first open
+        if (!allResources.length) loadCatalogueData();
+      }
+
+      function closeCatalogue() {
+        overlay.classList.remove('active');
+        document.body.classList.remove('am-catalogue-open');
+      }
+
+      if (openBtn) openBtn.addEventListener('click', openCatalogue);
+      if (closeBtn) closeBtn.addEventListener('click', closeCatalogue);
+
+      // Close on backdrop click
+      if (overlay) {
+        overlay.addEventListener('click', (e) => {
+          if (e.target === overlay) closeCatalogue();
+        });
+      }
+
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && overlay.classList.contains('active')) {
+          closeCatalogue();
+        }
+      });
+
+      // Pre-load data for the count on the CTA button
+      loadCatalogueData();
     </script>
   </body>
 </html>
