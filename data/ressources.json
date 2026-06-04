@@ -30,36 +30,6 @@
     "updated_at": "2026-01-11T20:36:56.43719+00:00"
   },
   {
-    "id": "41ba0dd7-040f-4c5f-816f-b88f914ed402",
-    "name": "Audacity",
-    "url": "https://www.audacityteam.org",
-    "theme": "creation",
-    "type": "audio",
-    "languages": [
-      "multi"
-    ],
-    "tags": [
-      "audio",
-      "podcast",
-      "montage"
-    ],
-    "description": "Montage audio gratuit et simple, utile pour podcasts et enregistrements bruts. Compatible avec formats ouverts (WAV, FLAC).",
-    "links": [
-      {
-        "href": "https://manual.audacityteam.org",
-        "title": "guide"
-      },
-      {
-        "href": "https://www.audacityteam.org",
-        "title": "download"
-      }
-    ],
-    "status": "validated",
-    "owner": null,
-    "created_at": "2026-01-11T20:36:56.43719+00:00",
-    "updated_at": "2026-01-11T20:36:56.43719+00:00"
-  },
-  {
     "id": "db10205b-6d3d-4c29-bd2b-696c8ca1e036",
     "name": "Ardour",
     "url": "https://ardour.org",
@@ -82,36 +52,6 @@
       {
         "href": "https://ardour.org/support.html",
         "title": "support"
-      }
-    ],
-    "status": "validated",
-    "owner": null,
-    "created_at": "2026-01-11T20:36:56.43719+00:00",
-    "updated_at": "2026-01-11T20:36:56.43719+00:00"
-  },
-  {
-    "id": "4bcb7aa4-2983-44bb-be3e-6102a1db5e1c",
-    "name": "GIMP & Inkscape",
-    "url": null,
-    "theme": "creation",
-    "type": "image",
-    "languages": [
-      "multi"
-    ],
-    "tags": [
-      "image",
-      "vectoriel",
-      "edition"
-    ],
-    "description": "Édition bitmap et vectorielle libres — pour visuels, vignettes, logos et mises en page d'affiches.",
-    "links": [
-      {
-        "href": "https://www.gimp.org",
-        "title": "gimp"
-      },
-      {
-        "href": "https://inkscape.org",
-        "title": "inkscape"
       }
     ],
     "status": "validated",
@@ -344,36 +284,6 @@
     "updated_at": "2026-01-11T20:36:56.43719+00:00"
   },
   {
-    "id": "5b12c50a-136c-47f1-bd58-1804e63ef467",
-    "name": "Tor & Tails",
-    "url": "https://www.torproject.org",
-    "theme": "communication",
-    "type": "anonymat",
-    "languages": [
-      "multi"
-    ],
-    "tags": [
-      "tor",
-      "tails",
-      "anonymat"
-    ],
-    "description": "Outils pour navigation anonyme et pour créer des environnements temporaires (Tails) — à utiliser avec prudence suivant le contexte opérationnel.",
-    "links": [
-      {
-        "href": "https://www.torproject.org",
-        "title": "tor"
-      },
-      {
-        "href": "https://tails.boum.org",
-        "title": "tails"
-      }
-    ],
-    "status": "validated",
-    "owner": null,
-    "created_at": "2026-01-11T20:36:56.43719+00:00",
-    "updated_at": "2026-01-11T20:36:56.43719+00:00"
-  },
-  {
     "id": "cdce906f-18bb-4e8d-9957-0c1109da6a71",
     "name": "OnionShare",
     "url": "https://onionshare.org",
@@ -454,6 +364,96 @@
     "owner": null,
     "created_at": "2026-01-11T20:36:56.43719+00:00",
     "updated_at": "2026-01-19T16:22:30.884548+00:00"
+  },
+  {
+    "id": "41ba0dd7-040f-4c5f-816f-b88f914ed402",
+    "name": "Audacity",
+    "url": "https://www.audacityteam.org",
+    "theme": "audio, creation",
+    "type": "audio",
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "audio",
+      "podcast",
+      "montage"
+    ],
+    "description": "Montage audio gratuit et simple, utile pour podcasts et enregistrements bruts. Compatible avec formats ouverts (WAV, FLAC).",
+    "links": [
+      {
+        "href": "https://manual.audacityteam.org",
+        "title": "guide"
+      },
+      {
+        "href": "https://www.audacityteam.org",
+        "title": "download"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-06-03T08:46:51.691778+00:00"
+  },
+  {
+    "id": "4bcb7aa4-2983-44bb-be3e-6102a1db5e1c",
+    "name": "GIMP & Inkscape",
+    "url": null,
+    "theme": "visuel, creation",
+    "type": "image",
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "image",
+      "vectoriel",
+      "edition"
+    ],
+    "description": "Édition bitmap et vectorielle libres — pour visuels, vignettes, logos et mises en page d'affiches.",
+    "links": [
+      {
+        "href": "https://www.gimp.org",
+        "title": "gimp"
+      },
+      {
+        "href": "https://inkscape.org",
+        "title": "inkscape"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-06-03T08:47:01.078606+00:00"
+  },
+  {
+    "id": "5b12c50a-136c-47f1-bd58-1804e63ef467",
+    "name": "Tor & Tails",
+    "url": "https://www.torproject.org",
+    "theme": "securite",
+    "type": "anonymat",
+    "languages": [
+      "multi"
+    ],
+    "tags": [
+      "tor",
+      "tails",
+      "anonymat"
+    ],
+    "description": "Outils pour navigation anonyme et pour créer des environnements temporaires (Tails) — à utiliser avec prudence suivant le contexte opérationnel.",
+    "links": [
+      {
+        "href": "https://www.torproject.org",
+        "title": "tor"
+      },
+      {
+        "href": "https://tails.boum.org",
+        "title": "tails"
+      }
+    ],
+    "status": "validated",
+    "owner": null,
+    "created_at": "2026-01-11T20:36:56.43719+00:00",
+    "updated_at": "2026-06-03T08:47:17.396675+00:00"
   },
   {
     "id": "d91bf7e5-1b1d-44db-b8b6-602753810ff5",
@@ -545,7 +545,7 @@
     "id": "2b9ac207-4b33-444f-abcf-9b01ba18e978",
     "name": "Bal Masqué",
     "url": "https://github.com/comenottaris/BAL-MASQUE",
-    "theme": "creation",
+    "theme": "vie privee",
     "type": "anonymat",
     "languages": [
       "fr"
@@ -569,6 +569,6 @@
     "status": "validated",
     "owner": null,
     "created_at": "2026-01-19T16:51:36.809626+00:00",
-    "updated_at": "2026-01-19T16:51:36.809626+00:00"
+    "updated_at": "2026-06-03T08:46:37.598894+00:00"
   }
 ]
