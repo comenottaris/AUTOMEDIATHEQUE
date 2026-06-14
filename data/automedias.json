@@ -36,15 +36,6 @@
     "description": "Site de la Maison de résistance à la poubelle nucléaire."
   },
   {
-    "name": "Indymedia",
-    "url": "https://indymedia.org/",
-    "type": "site",
-    "languages": [],
-    "country": "International",
-    "status": "online",
-    "description": "Global Network of Independent Media Centres."
-  },
-  {
     "name": "Mídia NINJA",
     "url": "https://midianinja.org/",
     "type": "site",
@@ -88,15 +79,6 @@
     "country": "Kurdistan",
     "status": "online",
     "description": "Organisation indépendante et bénévole basée dans le nord-est de la Syrie. Aide des journalistes et des chercheur·euses à couvrir la situation sur place."
-  },
-  {
-    "name": "Réseau MUTU",
-    "url": "https://reseaumutu.info/",
-    "type": "site",
-    "languages": ["fr"],
-    "country": "France",
-    "status": "online",
-    "description": "Portail de sites d’info militants français."
   },
   {
     "name": "Coordination des sans papiers de Belgique",
