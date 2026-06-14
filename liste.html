@@ -544,11 +544,11 @@
         <div class="am-view-bar">
           <p class="am-count-text" id="am-count" aria-live="polite"></p>
           <div class="am-view-toggle" role="tablist" aria-label="Mode d'affichage">
-            <button class="am-view-btn active" data-view="grid" role="tab" aria-selected="true">
-              <span data-fr>⊞ Grille</span><span data-en hidden>⊞ Grid</span>
-            </button>
             <button class="am-view-btn" data-view="list" role="tab" aria-selected="false">
               <span data-fr>☰ Liste</span><span data-en hidden>☰ List</span>
+            </button>
+            <button class="am-view-btn active" data-view="grid" role="tab" aria-selected="true">
+              <span data-fr>⊞ Grille</span><span data-en hidden>⊞ Grid</span>
             </button>
             <button class="am-view-btn" data-view="bubble" role="tab" aria-selected="false">
               <span data-fr>◉ Bulles</span><span data-en hidden>◉ Bubbles</span>
@@ -558,11 +558,12 @@
 
         <!-- RESULTS -->
         <section class="am-results-section">
-          <!-- GRID VIEW -->
-          <div id="am-grid-view"></div>
-
+          
           <!-- LIST VIEW -->
           <div class="am-list-view" id="am-list-view"></div>
+          
+          <!-- GRID VIEW -->
+          <div id="am-grid-view"></div>
 
           <!-- BUBBLE VIEW -->
           <div class="am-bubble-wrap" id="am-bubble-view">
