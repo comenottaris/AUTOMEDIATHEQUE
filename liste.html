@@ -766,8 +766,8 @@
         const el = document.getElementById('am-count');
         if (el) el.innerHTML = `<strong>${n}</strong> automédia${n > 1 ? 's' : ''}`;
       }
-
-      // ── GRID VIEW (grouped by country) ──
+      
+      // ── GRID VIEW (ungrouped, sorted A-Z) ──
       function renderGrid(items) {
         const container = document.getElementById('am-grid-view');
         container.style.display = currentView === 'grid' ? '' : 'none';
@@ -775,27 +775,23 @@
         document.getElementById('am-bubble-view').classList.remove('active');
         if (currentView !== 'grid') return;
 
-        const groups = {};
-        items.forEach(item => {
-          const key = item.country || 'Autre';
-          if (!groups[key]) groups[key] = [];
-          groups[key].push(item);
+        // Sort items alphabetically by name (A-Z)
+        const sortedItems = [...items].sort((a, b) => {
+          const nameA = (a.name || '').toLowerCase();
+          const nameB = (b.name || '').toLowerCase();
+          if (nameA < nameB) return -1;
+          if (nameA > nameB) return 1;
+          return 0;
         });
 
-        let html = '';
-        Object.keys(groups).sort().forEach(groupName => {
-          const groupItems = groups[groupName];
-          html += `<div class="am-group">
-            <div class="am-group-header">
-              <span class="am-group-label">${groupName}</span>
-              <span class="am-group-count">${groupItems.length}</span>
-            </div>
-            <div class="am-grid">`;
-          groupItems.forEach(item => { html += buildCard(item); });
-          html += `</div></div>`;
-        });
+        // Build a single grid without groups
+        let html = '<div class="am-grid">';
+        sortedItems.forEach(item => { html += buildCard(item); });
+        html += '</div>';
 
         container.innerHTML = html;
+        
+        // Re-attach event listeners
         container.querySelectorAll('.am-card').forEach(card => {
           card.addEventListener('click', () => openDetail(card.dataset.name));
           card.addEventListener('keydown', e => {
@@ -803,7 +799,7 @@
           });
         });
       }
-
+      
       function buildCard(item) {
         const langs = (item.languages || []).map(l =>
           `<span class="am-pill am-pill-lang">${langLabel(l)}</span>`
