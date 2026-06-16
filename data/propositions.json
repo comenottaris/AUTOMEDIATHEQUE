@@ -1,29 +1,46 @@
 [
   {
-    "name": "primitivi",
-    "url": "http://www.primitivi.org/",
-    "type": "TV/WebTV",
+    "name": "Vérité et Justice pour Adama",
+    "url": "https://www.facebook.com/profile.php?id=100064381104561",
+    "type": "Facebook",
     "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Média libre, téloche de rue basé à Marseille depuis 1998. Raconte, relaie, rassemble aux côtés de ceux qui se battent pour une Marseille bouillonnante. Constitué de vidéastes militants non professionnels.",
-    "notes": "Format: Vidéo, documentaire | Statut activité: Actif | Participation: Élevée | Formats: Élevée (vidéo, docu, reportage) | Régularité: Régulier depuis 1998 | Ancrage: Géographique fort (Marseille)",
+    "languages": [
+      "Français"
+    ],
+    "status": "validated",
+    "description": "Collectif coordonné par la famille Traoré pour obtenir la vérité sur la mort d'Adama Traoré (2016) lors d'une interpellation de gendarmerie. ",
+    "notes": "Format: Facebook, Twitter/X, communiqués, marches, rassemblements | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Élevé | Ancrage: Élevé",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
-    "name": "Lyon2autonome",
-    "url": "https://Instagram.com/lyon2autonome",
+    "name": "Justice pour Nahel",
+    "url": "https://www.instagram.com/justicepournahel/",
     "type": "Instagram",
     "country": "France",
     "languages": [
-      "fr"
+      "Français"
     ],
     "status": "validated",
-    "description": "Groupe ouvert autonome de l'université Lyon 2 Lumière",
-    "notes": "",
+    "description": "Collectif de justice formé après la mort de Nahel Merzouk, 17 ans, abattu par un policier à Nanterre le 27 juin 2023. La famille a coordonné un réseau de comités locaux 'Justice pour Nahel' dans 30+ villes de France. ",
+    "notes": "Format: Facebook, TikTok, Twitter/X, communiqués, rassemblements, veillées | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Moyen | Ancrage: Élevé",
     "source": "supabase",
-    "createdAt": "2026-01-06T12:08:31.125995+00:00"
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Te Mana o Te Moana",
+    "url": "https://www.temanaotemoana.org/",
+    "type": "Site",
+    "country": "Polynésie française",
+    "languages": [
+      "Français",
+      "Tahitien (Reo Tahiti)"
+    ],
+    "status": "validated",
+    "description": "Collectif de jeunes Polynésien·nes luttant contre les conséquences des essais nucléaires français (1966-1996) et contre le changement climatique qui menace leurs îles. Le collectif produit des vidéos, des manifestes et organise des actions de sensibilisation.",
+    "notes": "Format: Instagram, TikTok, vidéos, chants, danses, manifestes, campagnes | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Moyen | Ancrage: Élevé",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
     "name": "Collectif Mohamed",
@@ -31,287 +48,11 @@
     "type": "Film",
     "country": "France",
     "languages": [
-      "fr"
+      "Français"
     ],
-    "status": "proposed",
-    "description": "Collectif de jeunes adolescents d'Alfortville et de Vitry-sur-Seine qui se sont réuni pour filmer leurs propres images, raconter leurs histoires et produire un discours politique et donner forme à leur révolte. on fait 3 court métrages entre 1977 et 1981.",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-01-11T16:46:35.041335+00:00"
-  },
-  {
-    "name": "Violences Policières",
-    "url": "https://www.violencespolicieres.fr",
-    "type": "Site",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Site qui répertorie les violences policières en France.",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-01-12T23:19:29.993252+00:00"
-  },
-  {
-    "name": "Collectif Histoire des Gilets Jaunes Par Nous",
-    "url": "https://yellowveststories.noblogs.org/",
-    "type": "Film",
-    "country": null,
-    "languages": [],
-    "status": "proposed",
-    "description": "Film sur les Gilets Jaunes, par les gilets jaunes. ",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-01-19T23:33:37.014779+00:00"
-  },
-  {
-    "name": "Collectif Aouh Aouh Aouh",
-    "url": "https://librairie-quilombo.org/la-revolte-des-gilets-jaunes",
-    "type": "Livre",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Le Collectif Ahou ahou ahou, formé à l’occasion de l’écriture de ce livre, est composé de quatre individus ayant traversé la lutte des Gilets jaunes à Paris, à Marseille et dans plusieurs petites villes du sud de la France. ",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-01-19T23:46:53.241185+00:00"
-  },
-  {
-    "name": "Enquête critique",
-    "url": "https://enquetecritique.org",
-    "type": "site, livre",
-    "country": null,
-    "languages": [],
-    "status": "proposed",
-    "description": "Recherches critiques en sciences sociales depuis les luttes et pour les luttes",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-01-19T23:54:20.263992+00:00"
-  },
-  {
-    "name": "Kiffe ta race",
-    "url": "https://www.binge.audio/podcast/kiffetarace/",
-    "type": "Podcast",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Un mardi sur deux, Rokhaya Diallo et Grace Ly reçoivent un·e invité·e pour explorer les questions raciales sur le mode de la conversation et du vécu. ",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-01-20T00:24:04.476214+00:00"
-  },
-  {
-    "name": "Collectif ZOR",
-    "url": "https://www.instagram.com/zor.collectif/",
-    "type": "Instagram",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif Romani et Voyageur.",
-    "notes": "Format: Publications, vidéos | Statut activité: Actif | Participation: Élevée | Formats: Modéré (Instagram + actions) | Régularité: Régulier | Ancrage: Communautaire fort",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Migrant Voice",
-    "url": "https://www.migrantvoice.org/",
-    "type": "site",
-    "country": "UK",
-    "languages": [],
-    "status": "proposed",
-    "description": "Organisme national dirigé par des migrants qui établit une plateforme pour faire entendre la voix des migrants et promouvoir la justice pour toutes et tous. ",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-01-26T10:54:49.025246+00:00"
-  },
-  {
-    "name": "RAMA",
-    "url": "https://www.ramaokanagan.org/",
-    "type": "Site",
-    "country": "Canada",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif pour la justice des migrant·es soutenant les travailleur·euses migrant·es dans divers secteurs d'activité, quel que soit leur statut migratoire.",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-02-04T11:34:55.829129+00:00"
-  },
-  {
-    "name": "Vivimos Juntxs, Comemos Juntxs",
-    "url": "https://vjcj.org/",
-    "type": "Site",
-    "country": "USA",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif local qui vise à fournir un soutien matériel et social aux communautés sans papiers, et créer un espace dirigé et décidé par les migrants",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-02-04T12:03:03.009316+00:00"
-  },
-  {
-    "name": "BAD BOYS",
-    "url": "https://www.instagram.com/assobadboys/",
-    "type": "Instagram",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Association Communautaire de Mecs Travailleur•ses du Sexe (Cis, Trans, Non-Binaires).",
-    "notes": "Format: Publications, événements | Statut activité: Actif | Participation: Élevée | Formats: Modéré (Instagram + événements) | Régularité: Régulier | Ancrage: Communautaire fort",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Génération panasiatique",
-    "url": "https://generation-panasiatique.fr/",
-    "type": "Site",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif pour l’émancipation des communautés asiatiques marginalisées",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-02-27T14:57:29.016182+00:00"
-  },
-  {
-    "name": "Coletivo TYBYRA",
-    "url": "https://www.instagram.com/indigenaslgbtq/",
-    "type": "Instagram",
-    "country": "Brésil",
-    "languages": [],
-    "status": "proposed",
-    "description": "Premier groupe LGBTQIA+ autochtone du Brésil, créé en 2019. Renforce la coordination politique et la représentativité des personnes autochtones LGBTQIA+.",
-    "notes": "Format: Publications, stories | Statut activité: Actif | Participation: Élevée | Formats: Faible (Instagram seul) | Régularité: Régulier | Ancrage: Communautaire fort",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Transrural initiatives",
-    "url": "https://www.transrural-initiatives.org/qui-sommes-nous/ligne-editoriale/",
-    "type": "Site",
-    "country": "france",
-    "languages": [],
-    "status": "proposed",
-    "description": "Média participatif et indépendant",
-    "notes": "Média participatif et indépendant, portée par des organisations de développement agricole et rural qui se reconnaissent dans les valeurs de l’éducation populaire, Transrural initiatives est réalisée par une équipe associant militants associatifs, animateurs et journalistes. Elle offre une lecture décloisonnée des questions rurales et entend proposer des clés de compréhension et d’action pour accompagner le changement social.",
-    "source": "supabase",
-    "createdAt": "2026-04-13T16:15:08.237595+00:00"
-  },
-  {
-    "name": "Echobanlieues",
-    "url": "https://www.instagram.com/echobanlieues/",
-    "type": "Instagram",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Media fait par des personnes issues des banlieues pour parler de leur vécu. ",
-    "notes": "A aussi une agence : https://www.echoagency.fr",
-    "source": "supabase",
-    "createdAt": "2026-04-13T16:18:51.281749+00:00"
-  },
-  {
-    "name": "Nunatak",
-    "url": "https://revuenunatak.noblogs.org/",
-    "type": "site",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "\nRevue d'histoires, cultures et luttes des montagnes",
-    "notes": "Si vous souhaitez vous faire envoyer des exemplaires, vous pouvez nous contacter sur revuenunatak-diffusion@riseup.net, en précisant le nombre d’exemplaire souhaité ainsi que l’adresse de réception. ",
-    "source": "supabase",
-    "createdAt": "2026-04-28T20:32:51.674873+00:00"
-  },
-  {
-    "name": "Refugees in Libya",
-    "url": "https://www.refugeesinlibya.org/",
-    "type": "Site + Instagram",
-    "country": "Libye",
-    "languages": [],
-    "status": "proposed",
-    "description": "Self-organized refugee-led movement exposing crimes in Libya, Tunisia, Niger and other parts of world. 57K followers Instagram.",
-    "notes": "Format: Site web, réseaux sociaux, campagnes | Statut activité: Actif | Participation: Élevée | Formats: Élevé (site + Instagram + campagnes) | Régularité: Très régulier | Ancrage: Géographique (Libye) + communautaire",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Télé Millevaches",
-    "url": "https://www.instagram.com/telemillevaches",
-    "type": "Instagram",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Média rural sur la montagne limousine.",
-    "notes": "",
-    "source": "supabase",
-    "createdAt": "2026-06-02T14:35:09.383867+00:00"
-  },
-  {
-    "name": "The Nash News",
-    "url": "https://prisonjournalismproject.org/tag/nash-news",
-    "type": "Journal carcéral",
-    "country": "US",
-    "languages": [],
-    "status": "proposed",
-    "description": "Journal écrit, édité et produit par les hommes incarcérés à Nash Correctional Institution (Nashville, NC). Publié 4 fois par an. Occasion de partager les histoires et les perspectives depuis l'intérieur des murs. Couvert par Prison Journalism Project.",
-    "notes": "Format: Newsletter trimestrielle, articles | Statut activité: Vérifié | Participation: OUI — participatif | Formats: MOYEN — newsletter trimestrielle | Régularité: OUI — régulier (4x/an) | Ancrage: OUI — Nash Correctional Institution, NC",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Wet'suwet'en Land Defenders / Unist'ot'en Camp Media",
-    "url": "https://unistoten.camp/",
-    "type": "Média de camp de défense territoriale autochtone",
-    "country": "Canada",
-    "languages": [],
-    "status": "proposed",
-    "description": "Médias produits par les Unist'ot'en (clan Wet'suwet'en) depuis leur camp d'occupation sur le territoire non-cédé du yintah. Témoignent en temps réel de la lutte contre le pipeline Coastal GasLink. Communiqués en Wet'suwet'en et anglais, vidéos YouTube de l'occupation, livestreams des confrontations RCMP, portraits des gardiens du territoire. Auto-production intégrale par les familles Wet'suwet'en sur place. Média de résistance autochtone parmi les plus documentés au monde. Format 'média de camp' similaire aux ZADs françaises mais dans un contexte de souveraineté autochtone.",
-    "notes": "Format: Site web, Facebook, YouTube, communiqués, livestreams | Participation: OUI | Formats: OUI | Régularité: OUI | Ancrage: OUI",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Black Trans Travel Fund (BTTF)",
-    "url": "https://www.blacktranstravelfund.com",
-    "type": "Site",
-    "country": "US",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif grass-roots dirigé par des femmes trans noires. Fournit ressources financières et matérielles pour les voyages. Campagne de collecte $500K mentionnée dans The Guardian. Vente de drapeaux, t-shirts, stickers pour mutual aid. Instagram actif avec mises à jour régulières. Communité NYC-based mais rayonnement national.",
-    "notes": "Format: Site web, Instagram, mutual aid campaigns | Statut activité: Vérifié | Participation: OUI — participatif, mutual aid | Formats: MOYEN — site web + Instagram | Régularité: OUI — campagnes régulières | Ancrage: OUI — ancré dans la communauté des femmes trans noires US",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Féminicides",
-    "url": "https://www.feminicides.fr",
-    "type": "Site",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif féministe fondé en 2016 par des militantes anonymes. Recense les femmes victimes de féminicides conjugaux en France depuis le 1er janvier 2016. News hebdomadaires, suivi des enquêtes et procès.",
-    "notes": "Format: Site web, Twitter, Facebook, vidéos | Statut activité: Actif | Participation: Élevée | Formats: Élevé (base de données + vidéos + news) | Régularité: Très régulier (quotidien) | Ancrage: Thématique fort",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "CSP 75 — Collectif des Sans-Papiers de Paris",
-    "url": "https://www.facebook.com/coordination75sanspapiers",
-    "type": "Facebook",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Le CSP 75 est un collectif de personnes sans-papiers en lutte pour leur régularisation à Paris. Fondé en 2008, il rassemble des travailleur·ses sans-papiers (majoritairement d'Afrique de l'Ouest et Centrale) qui organisent des grèves de la faim, des occupations, et des manifestations. Le collectif produit des communiqués de lutte, des tracts d'appel à manifester, et maintient une page Facebook active. Les membres du CSP 75 sont les producteur·ices directs du contenu — les sans-papiers parlent en leur nom propre. Les grèves de la faim (2008, 2010, 2023) ont généré une production médiatique intense et décentralisée.",
-    "notes": "Format: Communiqués, tracts, rassemblements, Facebook, Twitter/X, pétitions | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Élevé | Ancrage: Élevé",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Famille Nahel / Comité Justice Nahel Merzouk",
-    "url": "https://www.facebook.com/groups/justicepournahel",
-    "type": "Facebook",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif de justice formé après la mort de Nahel Merzouk, 17 ans, abattu par un policier à Nanterre le 27 juin 2023. La famille a coordonné un réseau de comités locaux 'Justice pour Nahel' dans 30+ villes de France. Les réseaux sociaux (TikTok, Facebook, Twitter/X) sont les principaux canaux médiatiques. Le mouvement a généré des centaines de témoignages vidéo et de productions médiatiques décentralisées. La révolte de juin-juillet 2023 fut un média collectif massif.",
-    "notes": "Format: Facebook, TikTok, Twitter/X, communiqués, rassemblements, veillées | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Moyen | Ancrage: Élevé",
+    "status": "validated",
+    "description": "Collectif de jeunes adolescents d'Alfortville et de Vitry-sur-Seine qui se sont réuni pour filmer leurs propres images, raconter leurs histoires et produire un discours politique. 3 courts métrages entre 1977 et 1981.",
+    "notes": "Format: 3 courts métrages (1977-1981) | Statut activité: Archivé | Participation: Élevée | Formats: Modéré (3 films) | Régularité: Ponctuel | Ancrage: Géographique (banlieue parisienne)",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
@@ -320,226 +61,49 @@
     "url": "https://griselidis.com",
     "type": "Site",
     "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Association de santé communautaire AVEC et POUR les travailleuses et travailleurs du sexe. Toulouse et Occitanie. Produit des livrets d'info par et pour les travailleurs du sexe.",
+    "languages": [
+      "Français"
+    ],
+    "status": "validated",
+    "description": "Association de santé communautaire avec et pour les travailleuses et travailleurs du sexe. ",
     "notes": "Format: Site web, livrets, actions de terrain | Statut activité: Actif | Participation: Élevée (concernés impliqués) | Formats: Modéré (site + livrets) | Régularité: Régulier | Ancrage: Géographique (Toulouse/Occitanie)",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
     "name": "Jeudi Noir",
-    "url": "https://www.facebook.com/JeudiNoirParis",
-    "type": "Collectif de jeunes militants logement",
+    "url": "https://www.facebook.com/Jeudi.Noir",
+    "type": "Facebook",
     "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif français de jeunes militant·es pour le droit au logement. Connu pour ses occupations de bureaux vacants et ses actions chocs contre la spéculation immobilière. Produit des contenus sur réseaux sociaux documentant les actions d'occupation. Entièrement bénévole, composé d'étudiant·es et de jeunes travailleur·ses précaires. Actions médiatisées régulièrement.",
+    "languages": [
+      "Français"
+    ],
+    "status": "validated",
+    "description": "Collectif de jeunes galérien·nes du logement qui occupent brièvement les appartements trop chers ou durablement les immeubles trop vides.",
     "notes": "Format: Facebook / Instagram / actions directes | Statut activité: Actif | Participation: Élevé — participation directe aux actions et à la production de contenu | Formats: Moyen — Facebook/Instagram + vidéos d'actions + communiqués | Régularité: Élevé — actions régulières, calendrier militant actif | Ancrage: OUI — fortement ancré à Paris et en Île-de-France, actions dans tout le pays",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "KBS — 部落廣播站 (Tribal Broadcasting Stations) réseau",
-    "url": "https://radio.menu/stations/facet/country/tw",
-    "type": "Radios communautaires tribales",
-    "country": "Taïwan",
-    "languages": [],
-    "status": "proposed",
-    "description": "Réseau décentralisé de radios communautaires gérées par les tribus autochtones de Taïwan. Chaque station est opérée bénévolement par des membres de la tribu locale et diffuse dans la langue autochtone correspondante (Amis, Paiwan, Bunun, Atayal, Seediq, Rukai, Tsou). Les programmes couvrent les actualités du village, les questions foncières, la préservation culturelle, la musique traditionnelle et les histoires orales. Certaines stations sont affiliées à des églises locales ou des centres communautaires. Le réseau existe depuis les années 1990 avec l'émergence des radios FM communautaires après la levée de la loi martiale (1987). Les tribus des côtes est (Hualien, Taitung) et des montagnes centrales (Nantou) sont les plus actives. Taïwan compte 16 tribus officiellement reconnues et 660K+ autochtones (2.8% de la population).",
-    "notes": "Format: Radio FM, podcasts, émissions culturelles, actualités tribales | Statut activité: Actif (réseau décentralisé) | Participation: Élevée | Formats: Moyenne | Régularité: Régulier | Ancrage: Géographique très fort (par tribu/localité)",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Plateforme des Sans-Papiers de Belgique",
-    "url": "https://www.facebook.com/PlateformeDesSansPapiersDeBelgique",
-    "type": "Coordination de sans-papiers / plateau",
-    "country": "Belgique",
-    "languages": [],
-    "status": "proposed",
-    "description": "La Plateforme des Sans-Papiers de Belgique est une coordination de collectifs de personnes sans-papiers en Belgique francophone. La plateforme organise des occupations (églises, bâtiments publics), des grèves de la faim, et des manifestations à Bruxelles. La production médiatique est auto-assurée par les sans-papiers : communiqués, appels à solidarité, vidéos d'occupation. La Belgique a une tradition de luttes des sans-papiers très active (église du Béguinage, occupation de l'église Sainte-Croix). Les occupations sont des médias vivants.",
-    "notes": "Format: Communiqués, occupations, grèves de la faim, Facebook, pétitions | Statut activité: À vérifier | Participation: Élevé | Formats: Faible | Régularité: Moyen | Ancrage: Élevé",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Radios FM villageoises PNG Highlands - Wantok Radio Network, stations locales Tok Pisin",
-    "url": "https://tunein.com/radio/Wantok-Light-Radio-939-s225297",
-    "type": "Radios communautaires villageoises FM",
-    "country": "Papouasie-Nouvelle-Guinee",
-    "languages": [],
-    "status": "proposed",
-    "description": "Reseau de radios communautaires FM villageoises dans les Highlands de Papouasie-Nouvelle-Guinee, diffusant en Tok Pisin et dans les langues locales (Huli, Melpa, Enga, Kuman, etc.). PNG compte 840+ langues, la diversite linguistique la plus dense au monde. Les radios villageoises sont gerees par des communautes locales, des eglises (SDBC tres active dans les medias communautaires PNG), ou des ONG locales. Programmes : actualites du village, coordination des evenements (sing-sings, ceremonies de compensation bride price), musique traditionnelle, sante publique, meteo agricole. Le wantok system (one talk = reseau de parente linguistique) est le fondement social de ces radios. Les Highlands (4M+ habitants) sont la region la plus densement peuplee et linguistiquement diverse. Beaucoup de villages sans electricite permanente, radios fonctionnent sur panneaux solaires.",
-    "notes": "Format: Radio FM, programmes bilingues, actualites villageoises, musique traditionnelle | Statut activité: Actif (reseau decentralise) | Participation: Elevee | Formats: FAIBLE (radio) | Régularité: PARTIEL | Ancrage: Geographique tres fort (par village/vallee Highlands)",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Résistances paysannes / Ardennes / groupements d'éleveurs",
-    "url": "https://journals.openedition.org/vertigo/53309",
-    "type": "Collectif d'éleveurs en lutte / auto-défense",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectifs informels d'éleveurs français en lutte contre la baisse des prix, les normes sanitaires imposées, et les menaces d'expulsion. Particulièrement actifs dans les Ardennes, la Drôme, l'Aveyron et le Cantal. Ces collectifs organisent des blocages de routes, des occupations de préfectures, et produisent des tracts, des communiqués et des vidéos YouTube documentant leurs actions. Les éleveurs utilisent aussi les réseaux sociaux (Facebook, TikTok) pour diffuser largement leurs messages. La crise laitière (2015-2020) et la crise de la viande (GPA, E. coli) ont renforcé ces collectifs auto-organisés. Le mouvement des 'Bonnets Rouges' bretons (2013) fut un précédent médiatique puissant.",
-    "notes": "Format: Tracts, communiqués, blocages de routes, vidéos YouTube, appels à soutien | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Faible | Ancrage: Moyen",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Ban Public",
-    "url": "https://banpublic.org",
-    "type": "Site",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif abolitionniste français fondé en 2004 qui lutte contre les violences carcérales et l'explosion de la population pénale. Publie des tribunes, des communiqués d'actualité et produit des brochures militantes. Il rassemble des ex-détenu·es, des familles, des militant·es et des juristes. La production de contenu est collective et bénévole.",
-    "notes": "Format: Site web, tribunes, communiqués, interventions publiques, brochures | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Élevé | Ancrage: Élevé",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Take Back the Land",
-    "url": "https://takebacktheland.org",
-    "type": "Mouvement de réappropriation foncière",
-    "country": "US",
-    "languages": [],
-    "status": "proposed",
-    "description": "Mouvement communautaire noir basé à Miami, fondé par Max Rameau. Réappropriation de logements vacants pour les sans-abri et familles expulsées. Produit des documentaires, vidéos d'actions, communiqués. Entièrement bénévole, profondément enraciné dans les communautés noires de Miami. S'est étendu en réseau national. Modèle inspirant de \"housing liberation\".",
-    "notes": "Format: Site web / vidéos / réseaux sociaux | Statut activité: Actif (réseau) | Participation: Élevé — les familles bénéficiaires participent aux actions et à la communication | Formats: Moyen — vidéos d'actions, communiqués, site web | Régularité: Moyen — actions ponctuelles, pas publication régulière | Ancrage: OUI — profondément ancré à Miami et dans le Sud des US, avec extensions nationales",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Romnja Feminist Library",
-    "url": "https://romnjafeministlib.com",
-    "type": "Archive féministe numérique romnja",
-    "country": "Transnational",
-    "languages": [],
-    "status": "proposed",
-    "description": "Transnational platform where Romani women and queer people reclaim narratives and fight for justice beyond borders and academia. Digital archive of resistance. Reclaims lost voices in Romani civil rights struggle. Young Romani queer feminists.",
-    "notes": "Format: Site web, archive numérique, Instagram, bibliothèque | Statut activité: À confirmer | Participation: OUI — plateforme participative, réappropriation collective | Formats: OUI — site, archive, Instagram, bibliothèque numérique | Régularité: PARTIEL — production liée aux campagnes et projets | Ancrage: PARTIEL — transnational",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Te Mana o Te Moana / jeunes Polynésie anti-nucléaire et climat",
-    "url": "https://www.instagram.com/temanavision",
-    "type": "Collectif jeunesse polynésien",
-    "country": "Polynésie française",
-    "languages": [],
-    "status": "proposed",
-    "description": "Te Mana o Te Moana est un collectif de jeunes Polynésien·nes luttant contre les conséquences des essais nucléaires français (1966-1996) ET contre le changement climatique qui menace leurs îles. Le collectif produit des vidéos sur Instagram et TikTok, des manifestes, et organise des actions de sensibilisation. Les jeunes Polynésien·nes revendiquent la mémoire des essais nucléaires ET la lutte climatique comme un même combat : la protection de leur territoire et de leur santé. La production est auto-produite, bénévole, et ancrée dans la communauté.",
-    "notes": "Format: Instagram, TikTok, vidéos, chants, danses, manifestes, campagnes | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Moyen | Ancrage: Élevé",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "The Icarus Project Archive",
-    "url": "https://icarusprojectarchive.org",
-    "type": "Archive communautaire / zines",
-    "country": "US",
-    "languages": [],
-    "status": "proposed",
-    "description": "Archive vivante rassemblant 2 décennies de zines, art et histoires du mouvement Icarus Project (2002-2020). Honore un réseau qui a transformé la compréhension de la folie, la guérison et le soin collectif. Publication sur Substack. Contenu historique et politique du mouvement des survivant·es psychiatriques.",
-    "notes": "Format: Site d'archive, Substack, zines, art, récits | Statut activité: Vérifié | Participation: MOYEN — archive consultative, participation indirecte | Formats: OUI — zines + art + récits + Substack | Régularité: MOYEN — mise à jour périodique de l'archive | Ancrage: OUI — profondément ancré dans l'histoire du mouvement Icarus",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
     "name": "West Papua Telegram/WhatsApp clandestins - resistance occupation indonesienne, documentation violations, Free West Papua",
     "url": "https://www.freewestpapua.org",
-    "type": "Canaux Telegram + groupes WhatsApp + Facebook pages clandestines + YouTube",
+    "type": "Site",
     "country": "West Papua",
-    "languages": [],
-    "status": "proposed",
-    "description": "West Papua (5M+ Papous, 250+ langues) sous occupation indonesienne depuis 1963 (annexion 1969 'Act of Free Choice'). Medias clandestins via Telegram/WhatsApp : documentation bombardements, arrestations, tortures par TNI (armee indonesienne). TPNPB (guerilla) communique via Telegram. 100K+ deplaces internes depuis 2018 (Operasi Tumpas). VillageAuto burns. Journalistes papous : Victor Mambor (Suara Papua). Veronica Koman (exile, Telegram alertes). Indonesie interdit presse internationale. Lani/Dani/Asmat/Marind = langues autochtones a risque.",
+    "languages": [
+      "Lani",
+      "Dani",
+      "Kamoro",
+      "Biak",
+      "Marind",
+      "Asmat",
+      "Koti",
+      "Bahasa Indonesia",
+      "anglais",
+      "tok pisin"
+    ],
+    "status": "validated",
+    "description": "Comité de libération de la West Papua (5M+ Papous, 250+ langues) sous occupation indonesienne depuis 1963 (annexion 1969 'Act of Free Choice'). Journalistes papous : Victor Mambor (Suara Papua). Veronica Koman (exile, Telegram alertes). ",
     "notes": "Format: Telegram canaux ULMWP + WhatsApp groupes villages + Facebook Free West Papua Campaign + YouTube videos violations | Statut activité: Actif (urgence continue) | Participation: OUI | Formats: PARTIEL | Régularité: OUI | Ancrage: OUI",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Wild Idaho Rising Tide (WIRT)",
-    "url": "https://wildidahorisingtide.org",
-    "type": "Collectif local anti-énergies fossiles / direct action",
-    "country": "États-Unis",
-    "languages": [],
-    "status": "proposed",
-    "description": "Confronts root causes of climate change, water degradation, and air pollution via direct action in Idaho and Pacific Northwest. Opposes tar sands, megaload shipments, fracking. Community monitoring and reporting.",
-    "notes": "Format: Site web, blog, actions directes, reports | Statut activité: À confirmer | Participation: OUI — actions directes communautaires régulières, surveillance environnementale | Formats: PARTIEL — site et blog, formats limités mais militant | Régularité: PARTIEL — mise à jour irrégulière du site | Ancrage: OUI — fortement ancré dans l'Idaho et la région Pacific Northwest",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Y'en a Marre — mouvement citoyen hip-hop Sénégal",
-    "url": "https://digitalcommons.conncoll.edu/cgi/viewcontent.cgi?article=1016&context=anthrohp",
-    "type": "Mouvement citoyen / Média militant / Hip-hop engagé",
-    "country": "Sénégal",
-    "languages": [],
-    "status": "proposed",
-    "description": "Y'en a Marre ('On en a marre') est un mouvement citoyen fondé en 2011 par des rappeurs (Thiat alias Kilifeu, Fou Malade alias Mat Diam) et journalistes (Cheikh Fadel Diallo, Aliou Sane). Né de la frustration face à la corruption, aux coupures d'électricité, à la cherté de la vie et au maintien au pouvoir d'Abdoulaye Wade au-delà de ses 2 mandats. Le mouvement a utilisé le hip-hop, les graffitis, les tracts, les concerts gratuits dans les quartiers populaires et les réseaux sociaux comme médias tactiques. Les concerts d'Y'en a Marre rassemblaient des milliers de jeunes et servaient d'espaces d'information politique, de recrutement militant et de contre-pouvoir culturel. Les membres étaient systématiquement arrêtés et torturés. Le mouvement a inspiré Balai Citoyen au Burkina Faso (2014), Filimbi en RDC (2015), et Citoyen Bongo au Gabon. Entièrement bénévole, auto-produit, non-professionnel, tactique, collectif. Actif 2011-2019 (phase visible), héritage dans la presse citoyenne sénégalaise.",
-    "notes": "Format: Tracts, réseaux sociaux (Facebook, Twitter), concerts hip-hop, communiqués, manifestations, graffitis, vidéos YouTube | Statut activité: Phase active terminée (2011-2019), héritage vivant | Participation: Elevee (concerts ouverts, quartiers populaires) | Formats: Elevee (tracts, concerts, graffitis, vidéos, communiqués) | Régularité: Irrégulier (mouvement cyclique, campagnes ponctuelles) | Ancrage: Thématique (citoyenneté, anti-corruption, démocratie) + National",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "350 Seattle",
-    "url": "https://350seattle.org",
-    "type": "Site",
-    "country": "US",
-    "languages": [],
-    "status": "proposed",
-    "description": "Association communautaire locale qui s'attaque aux causes profondes de la crise climatique à Seattle. Organise des actions directes, des actions de résistance contre les énergies fossiles et des assemblées communautaires sur le climat.",
-    "notes": "Format: Site web, newsletter, actions directes | Statut activité: À confirmer | Participation: OUI — actions communautaires régulières, assemblées climat ouvertes | Formats: PARTIEL — site + newsletter + actions, formats limités mais réguliers | Régularité: OUI — newsletter mensuelle, mises à jour hebdomadaires du site | Ancrage: OUI — fortement ancré à Seattle/Puget Sound, coalitions locales",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "About Face: Veterans Against the War",
-    "url": "https://aboutfaceveterans.org",
-    "type": "Site",
-    "country": "US",
-    "languages": [],
-    "status": "proposed",
-    "description": "Des militaires et des anciens combattants de l'après-11 septembre qui se mobilisent pour mettre fin à la guerre permanente et au militarisme. Fondé par des anciens combattants de la guerre en Irak. Soutient la résistance des GI, l'objection de conscience et la lutte contre le recrutement. ",
-    "notes": "Format: Site web, campagnes, réseaux sociaux, matériel d'objection de conscience | Statut activité: À confirmer | Participation: OUI — mobilisation active près des bases militaires, campagnes DC | Formats: PARTIEL — site web, matériel imprimé, réseaux sociaux | Régularité: PARTIEL — production liée aux campagnes | Ancrage: OUI — chapters dans plusieurs villes US, fortement ancré dans les communautés de vétéran·es",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "BLCKOUT UK",
-    "url": "https://www.instagram.com/blckoutuk",
-    "type": "Instagram",
-    "country": "UK",
-    "languages": [],
-    "status": "proposed",
-    "description": "Plateforme communautaire owned par et pour les hommes queer noirs au UK. Espace pour événements, news et community. Lié à UK Black Pride (20 ans en 2025). Collectif horizontal, community-owned. Instagram actif.",
-    "notes": "Format: Plateforme communautaire, événements, news | Statut activité: Vérifié | Participation: OUI — événements et espace communautaire | Formats: MOYEN — plateforme + Instagram + événements | Régularité: OUI — actif | Ancrage: OUI — UK, communauté hommes queer noirs",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Comité Vérité et Justice pour Adama",
-    "url": "https://www.facebook.com/comiteveritejusticeadama",
-    "type": "Facebook",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif coordonné par la famille Traoré pour obtenir la vérité sur la mort d'Adama Traoré (2016) lors d'une interpellation de gendarmerie. Le comité produit des communiqués réguliers, organise des marches hebdomadaires à Beaumont-sur-Oise et dans toute la France, et maintient une présence active sur les réseaux sociaux. Le compte Facebook principal et les comptes des comités locaux (comité Montreuil, comité Toulouse, etc.) constituent un réseau médiatique décentralisé auto-produit par les proches et soutiens.",
-    "notes": "Format: Facebook, Twitter/X, communiqués, marches, rassemblements | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Élevé | Ancrage: Élevé",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Entregadores Antifascistas RJ",
-    "url": "https://www.instagram.com/entregadoresantifascistasrj",
-    "type": "Instagram",
-    "country": "Brésil",
-    "languages": [],
-    "status": "proposed",
-    "description": "Mouvement de livreurs de Rio das Ostras et région. Revendiquent la priorité vaccinale, l'aide accident, et des points d'appui pour livreurs. Utilisent la tactique du 'bololô' (concert de klaxons/feux d'artifice contre clients/hostiles). Organisés par Paulo Lima ('Galo'), livreur lui-même.",
-    "notes": "Format: Instagram, actions de rue, bololô | Statut activité: Vérifié | Participation: OUI — participatif, chaque livreur contributeur | Formats: MOYEN — principalement Instagram et actions directes | Régularité: OUI — mobilisations régulières depuis 2020 | Ancrage: OUI — ancré à Rio das Ostras / RJ + réseau national #BrequeDosApps",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
@@ -548,22 +112,124 @@
     "url": "https://www.instagram.com/blacktransmutualaid",
     "type": "Instagram",
     "country": "US",
-    "languages": [],
-    "status": "proposed",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
     "description": "Collectif d'entraide pour personnes trans noires à NYC. 'Building free from racial capitalism, patriarchy, & ableism for the liberation of Black trans people globally'. Instagram avec appels à dons, campagnes de soutien, et mise en réseau mutualiste. Ancre local NYC.",
     "notes": "Format: Instagram | Statut activité: Vérifié | Participation: OUI — mutual aid participatif | Formats: FAIBLE — Instagram uniquement | Régularité: OUI — publications régulières | Ancrage: OUI — NYC, ancré localement",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
-    "name": "Femmes Gaza et Cisjordanie WhatsApp - mutual aid obstétrique, cuisine collective, soutien psychologique",
-    "url": "https://www.gazabaysolidarity.org/networks",
+    "name": "About Face: Veterans Against the War",
+    "url": "https://aboutfaceveterans.org",
     "type": "Site",
-    "country": "Palestine",
-    "languages": [],
-    "status": "proposed",
-    "description": "Femmes palestiniennes creent groupes WhatsApp pour : cuisine collective (substitution aide alimentaire manquante), suivi obstétrique sans hopitaux fonctionnels, soutien psychologique collectif, partage informations aide humanitaire, documentation viols/arrestations IOF. Femmes = 50%+ de la population Gaza, charge mentale/sociale disproportionnee pendant genocide.",
-    "notes": "Format: WhatsApp groupes (50-300 membres), audio notes, partage recettes substitution, suivi grossesse accouchement en urgence | Statut activité: Actif (urgent) | Participation: OUI | Formats: PARTIEL | Régularité: OUI | Ancrage: OUI",
+    "country": "US",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Des militaires et des anciens combattants de l'après-11 septembre qui se mobilisent pour mettre fin à la guerre permanente et au militarisme. Fondé par des anciens combattants de la guerre en Irak. Soutient la résistance des GI, l'objection de conscience et la lutte contre le recrutement. ",
+    "notes": "Format: Site web, campagnes, réseaux sociaux, matériel d'objection de conscience | Statut activité: À confirmer | Participation: OUI — mobilisation active près des bases militaires, campagnes DC | Formats: PARTIEL — site web, matériel imprimé, réseaux sociaux | Régularité: PARTIEL — production liée aux campagnes | Ancrage: OUI — chapters dans plusieurs villes US, fortement ancré dans les communautés de vétéran·es",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Black Trans Travel Fund (BTTF)",
+    "url": "https://www.blacktranstravelfund.com",
+    "type": "Site",
+    "country": "US",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Collectif dirigé par des femmes trans noires. Fournit ressources financières et matérielles pour les voyages. ",
+    "notes": "Format: Site web, Instagram, mutual aid campaigns | Statut activité: Vérifié | Participation: OUI — participatif, mutual aid | Formats: MOYEN — site web + Instagram | Régularité: OUI — campagnes régulières | Ancrage: OUI — ancré dans la communauté des femmes trans noires US",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Plateforme des Sans-Papiers de Belgique",
+    "url": "https://www.facebook.com/lessanspapbelgique",
+    "type": "Facebook",
+    "country": "Belgique",
+    "languages": [
+      "Français"
+    ],
+    "status": "validated",
+    "description": "Coordination de collectifs de personnes sans-papiers en Belgique francophone. Organise des occupations (églises, bâtiments publics), des grèves de la faim, et des manifestations à Bruxelles. La production médiatique est auto-assurée par les sans-papiers. ",
+    "notes": "Format: Communiqués, occupations, grèves de la faim, Facebook, pétitions | Statut activité: À vérifier | Participation: Élevé | Formats: Faible | Régularité: Moyen | Ancrage: Élevé",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Entregadores Antifascistas RJ",
+    "url": "https://www.instagram.com/entregadoresantifascistasrj",
+    "type": "Instagram",
+    "country": "Brésil",
+    "languages": [
+      "Portugais"
+    ],
+    "status": "validated",
+    "description": "Mouvement de livreurs de Rio das Ostras et région. Revendiquent la priorité vaccinale, l'aide accident, et des points d'appui pour livreurs. Utilisent la tactique du 'bololô' (concert de klaxons/feux d'artifice contre clients/hostiles). Organisés par Paulo Lima ('Galo'), livreur lui-même.",
+    "notes": "Format: Instagram, actions de rue, bololô | Statut activité: Vérifié | Participation: OUI — participatif, chaque livreur contributeur | Formats: MOYEN — principalement Instagram et actions directes | Régularité: OUI — mobilisations régulières depuis 2020 | Ancrage: OUI — ancré à Rio das Ostras / RJ + réseau national #BrequeDosApps",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Refugees in Libya",
+    "url": "https://www.refugeesinlibya.org/",
+    "type": "Site",
+    "country": "Libye",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Mouvement autonome mené par des réfugié·es qui dénonce les crimes commis en Libye, en Tunisie, au Niger et dans d'autres régions du monde. ",
+    "notes": "Format: Site web, réseaux sociaux, campagnes | Statut activité: Actif | Participation: Élevée | Formats: Élevé (site + Instagram + campagnes) | Régularité: Très régulier | Ancrage: Géographique (Libye) + communautaire",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Wild Idaho Rising Tide (WIRT)",
+    "url": "https://wildidahorisingtide.org",
+    "type": "Site",
+    "country": "États-Unis",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "S'attaque aux causes profondes du changement climatique, de la dégradation de l'eau et de la pollution atmosphérique en menant des actions directes et en promouvant des solutions mises en place au niveau local.",
+    "notes": "Format: Site web, blog, actions directes, reports | Statut activité: À confirmer | Participation: OUI — actions directes communautaires régulières, surveillance environnementale | Formats: PARTIEL — site et blog, formats limités mais militant | Régularité: PARTIEL — mise à jour irrégulière du site | Ancrage: OUI — fortement ancré dans l'Idaho et la région Pacific Northwest",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Collectif ZOR",
+    "url": "https://www.instagram.com/zor.collectif/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [
+      "Français"
+    ],
+    "status": "validated",
+    "description": "Collectif Romani et Voyageur.",
+    "notes": "Format: Publications, vidéos | Statut activité: Actif | Participation: Élevée | Formats: Modéré (Instagram + actions) | Régularité: Régulier | Ancrage: Communautaire fort",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Primitivi",
+    "url": "http://www.primitivi.org/",
+    "type": "WebTV",
+    "country": "France",
+    "languages": [
+      "Français"
+    ],
+    "status": "validated",
+    "description": "Média libre, téloche de rue basé à Marseille depuis 1998 constituée de vidéastes militant·es non professionnel·les. ",
+    "notes": "Format: Vidéo, documentaire | Statut activité: Actif | Participation: Élevée | Formats: Élevée (vidéo, docu, reportage) | Régularité: Régulier depuis 1998 | Ancrage: Géographique fort (Marseille)",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
@@ -571,22 +237,198 @@
     "name": "Kahwesake / Kahnawake community media (Mohawk Territory)",
     "url": "https://kahnawakenews.com/",
     "type": "Site",
-    "country": "Canada",
-    "languages": [],
-    "status": "proposed",
+    "country": "Canada ",
+    "languages": [
+      "English",
+      "Kanien'kéha (Mohawk)"
+    ],
+    "status": "validated",
     "description": "Médias communautaires du territoire mohawk de Kahnawake (sud de Montréal). CKRK 103.7 FM est la radio communautaire mohawk, émettant en anglais et kanien'kéha. Journal communautaire en ligne (Kahnawake News), pages Facebook de partage d'information locale. Les médias couvrent : conseil de bande, événements culturels, luttes territoriales (crise d'Oka 1990 héritage), langue mohawk revitalisation, initiatives jeunesse. Entièrement gérés par des bénévoles communautaires. Un des exemples les plus anciens d'automédia autochtone au Canada.",
     "notes": "Format: Radio FM (CKRK), journal communautaire, Facebook, site web | Participation: OUI | Formats: OUI | Régularité: OUI | Ancrage: OUI",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
+    "name": "Coletivo TYBYRA",
+    "url": "https://www.instagram.com/indigenaslgbtq/",
+    "type": "Instagram",
+    "country": "Brésil",
+    "languages": [
+      "Portugais"
+    ],
+    "status": "validated",
+    "description": "Premier groupe LGBTQIA+ autochtone du Brésil, créé en 2019. Renforce la coordination politique et la représentativité des personnes autochtones LGBTQIA+.",
+    "notes": "Format: Publications, stories | Statut activité: Actif | Participation: Élevée | Formats: Faible (Instagram seul) | Régularité: Régulier | Ancrage: Communautaire fort",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Féminicides",
+    "url": "https://www.feminicides.fr",
+    "type": "Site",
+    "country": "France",
+    "languages": [
+      "Français"
+    ],
+    "status": "validated",
+    "description": "Collectif féministe fondé en 2016 par des militantes anonymes. Recense les femmes victimes de féminicides conjugaux en France depuis le 1er janvier 2016. News hebdomadaires, suivi des enquêtes et procès.",
+    "notes": "Format: Site web, Twitter, Facebook, vidéos | Statut activité: Actif | Participation: Élevée | Formats: Élevé (base de données + vidéos + news) | Régularité: Très régulier (quotidien) | Ancrage: Thématique fort",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "SWARM — Sex Workers Advocacy and Resistance Movement",
+    "url": "https://www.swarmcollective.org",
+    "type": "Site",
+    "country": "UK",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Collectif militant de travailleuses et travailleurs du sexe au Royaume-Uni, fondé en 2019. Produit un blog régulier avec analyses politiques, témoignages, dénonciations des lois répressives (UK has some of the harshest sex work laws in Europe). Campagnes actives contre la criminalisation. Entièrement dirigé et produit par des sex workers. Bénévole, non-incorporé. Articule lutte anti-criminalisation avec lutte anti-raciste et anti-pauvreté. Un des collectifs les plus dynamiques d'Europe sur le sujet. Déjà identifié en Task 76 (Phase 2 anglophone).",
+    "notes": "Format: Blog, newsletters, campagnes, réseaux sociaux, webinars | Participation: OUI | Formats: PARTIEL | Régularité: OUI | Ancrage: OUI",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Wet'suwet'en Land Defenders / Unist'ot'en Camp Media",
+    "url": "https://unistoten.camp/",
+    "type": "Site",
+    "country": "Canada",
+    "languages": [
+      "English / Babine-Witsuwit'en"
+    ],
+    "status": "validated",
+    "description": "Médias produits par les Unist'ot'en (clan Wet'suwet'en) depuis leur camp d'occupation sur le territoire non-cédé du yintah. Témoignent en temps réel de la lutte contre le pipeline Coastal GasLink. Communiqués en Wet'suwet'en et anglais, vidéos YouTube de l'occupation, livestreams des confrontations RCMP, portraits des gardiens du territoire. Auto-production intégrale par les familles Wet'suwet'en sur place. Média de résistance autochtone parmi les plus documentés au monde. Format 'média de camp' similaire aux ZADs françaises mais dans un contexte de souveraineté autochtone.",
+    "notes": "Format: Site web, Facebook, YouTube, communiqués, livestreams | Participation: OUI | Formats: OUI | Régularité: OUI | Ancrage: OUI",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Ban Public",
+    "url": "https://banpublic.org",
+    "type": "Site",
+    "country": "France",
+    "languages": [
+      "Français"
+    ],
+    "status": "validated",
+    "description": "Collectif abolitionniste français fondé en 2004 qui lutte contre les violences carcérales et l'explosion de la population pénale. Publie des tribunes, des communiqués d'actualité et produit des brochures militantes. Il rassemble des ex-détenu·es, des familles, des militant·es et des juristes. La production de contenu est collective et bénévole.",
+    "notes": "Format: Site web, tribunes, communiqués, interventions publiques, brochures | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Élevé | Ancrage: Élevé",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Roma Feminist Blog / Roma Feminist Collective",
+    "url": "https://www.romanifeministcollective.com/roma-feminist-blog",
+    "type": "Blog",
+    "country": "Transnational",
+    "languages": [
+      "Anglais / Romani"
+    ],
+    "status": "validated",
+    "description": "Online platform sharing stories and experiences of Roma women. Challenges stereotypes and empowers Roma women by providing space for their voices. Features articles on identity, culture, resistance, and intersectionality. Part of broader Romnja Feminist Library initiative.",
+    "notes": "Format: Blog, site web, réseaux sociaux,.archive | Statut activité: À confirmer | Participation: OUI — plateforme de voix pour les femmes roms | Formats: PARTIEL — blog et site web, formats limités | Régularité: PARTIEL — production irrégulière | Ancrage: PARTIEL — transnational, pas ancrage local unique",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "The Nash News",
+    "url": "https://prisonjournalismproject.org/tag/nash-news",
+    "type": "Journal",
+    "country": "US",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Journal écrit, édité et produit par les hommes incarcérés à Nash Correctional Institution (Nashville, NC). Publié 4 fois par an. Couvert par Prison Journalism Project.",
+    "notes": "Format: Newsletter trimestrielle, articles | Statut activité: Vérifié | Participation: OUI — participatif | Formats: MOYEN — newsletter trimestrielle | Régularité: OUI — régulier (4x/an) | Ancrage: OUI — Nash Correctional Institution, NC",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "Take Back the Land",
+    "url": "https://takebacktheland.org",
+    "type": "Site",
+    "country": "US",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Mouvement communautaire noir basé à Miami. Réappropriation de logements vacants pour les sans-abri et familles expulsées. Produit des documentaires, vidéos d'actions, communiqués. Entièrement bénévole, s'est étendu en réseau national. ",
+    "notes": "Format: Site web / vidéos / réseaux sociaux | Statut activité: Actif (réseau) | Participation: Élevé — les familles bénéficiaires participent aux actions et à la communication | Formats: Moyen — vidéos d'actions, communiqués, site web | Régularité: Moyen — actions ponctuelles, pas publication régulière | Ancrage: OUI — profondément ancré à Miami et dans le Sud des US, avec extensions nationales",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "350 Seattle",
+    "url": "https://350seattle.org",
+    "type": "Site",
+    "country": "US",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Association communautaire locale qui s'attaque aux causes profondes de la crise climatique à Seattle. Organise des actions directes, des actions de résistance contre les énergies fossiles et des assemblées communautaires sur le climat.",
+    "notes": "Format: Site web, newsletter, actions directes | Statut activité: À confirmer | Participation: OUI — actions communautaires régulières, assemblées climat ouvertes | Formats: PARTIEL — site + newsletter + actions, formats limités mais réguliers | Régularité: OUI — newsletter mensuelle, mises à jour hebdomadaires du site | Ancrage: OUI — fortement ancré à Seattle/Puget Sound, coalitions locales",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "CSP 75 — Collectif des Sans-Papiers de Paris",
+    "url": "https://www.facebook.com/coordination75sanspapiers",
+    "type": "Facebook",
+    "country": "France",
+    "languages": [
+      "Français",
+      "Bambara",
+      "Wolof",
+      "Lingala"
+    ],
+    "status": "validated",
+    "description": "Le CSP 75 est un collectif de personnes sans-papiers en lutte pour leur régularisation à Paris. Fondé en 2008, il rassemble des travailleur·ses sans-papiers (majoritairement d'Afrique de l'Ouest et Centrale) qui organisent des grèves de la faim, des occupations, et des manifestations. Le collectif produit des communiqués de lutte, des tracts d'appel à manifester, et maintient une page Facebook active. Les membres du CSP 75 sont les producteur·ices directs du contenu — les sans-papiers parlent en leur nom propre. Les grèves de la faim (2008, 2010, 2023) ont généré une production médiatique intense et décentralisée.",
+    "notes": "Format: Communiqués, tracts, rassemblements, Facebook, Twitter/X, pétitions | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Élevé | Ancrage: Élevé",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "BAD BOYS",
+    "url": "https://www.instagram.com/assobadboys/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [
+      "Français"
+    ],
+    "status": "validated",
+    "description": "Association Communautaire de Mecs Travailleur•ses du Sexe (Cis, Trans, Non-Binaires).",
+    "notes": "Format: Publications, événements | Statut activité: Actif | Participation: Élevée | Formats: Modéré (Instagram + événements) | Régularité: Régulier | Ancrage: Communautaire fort",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "BLCKOUT UK",
+    "url": "https://blkoutuk.com/",
+    "type": "Site",
+    "country": "UK",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Plateforme communautaire  par et pour les hommes queer noirs au UK. Espace pour événements, news et community. Lié à UK Black Pride (20 ans en 2025). Collectif horizontal. ",
+    "notes": "Format: Plateforme communautaire, événements, news | Statut activité: Vérifié | Participation: OUI — événements et espace communautaire | Formats: MOYEN — plateforme + Instagram + événements | Régularité: OUI — actif | Ancrage: OUI — UK, communauté hommes queer noirs",
+    "source": "supabase",
+    "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
     "name": "Mad in America",
     "url": "https://www.madinamerica.com",
-    "type": "Blog / Communauté en ligne",
+    "type": "Blog",
     "country": "US",
-    "languages": [],
-    "status": "proposed",
-    "description": "Blog et communauté fondée par Robert Whitaker (journaliste médical). Plateforme pour voix de survivant·es psychiatriques. Blogueuses et blogueurs diversifié·es : Catherine Heseltine (psychiatric survivor), Vesper Moore (Indigenous activist). Critique la psychiatrie biologique et le marketing pharmaceutique. Podcast hebdomadaire. Héberge des voix diverses du mouvement Mad Pride.",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": " Plateforme pour voix de survivant·es psychiatriques.  Critique la psychiatrie biologique et le marketing pharmaceutique. Podcast hebdomadaire. Héberge des voix diverses du mouvement Mad Pride. ",
     "notes": "Format: Site web, blog collectif, podcast (Spotify), newsletter | Statut activité: Vérifié | Participation: OUI — contributions diverses de survivant·es | Formats: OUI — blog + podcast + newsletter + archives | Régularité: OUI — publication régulière, hebdomadaire | Ancrage: OUI — ancré dans le mouvement Mad Pride international",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
@@ -594,48 +436,42 @@
   {
     "name": "NEFSA / New England Fishermen (Instagram reels)",
     "url": "https://www.instagram.com/nefsa_maine",
-    "type": "Collectif de pêcheurs / réseaux sociaux",
+    "type": "Instagram",
     "country": "US",
-    "languages": [],
-    "status": "proposed",
-    "description": "Pêcheurs de la côte de New England (NEFSA) utilisant Instagram pour partager leurs luttes : coût élevé, réglementation gouvernementale, bateaux groundfish chassés des eaux. Jason Joyce, directeur NEFSA. Contenu vidéo autoproduit montrant la réalité des pêcheurs locaux. Témoignages directs sur les impacts des politiques fédérales.",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Pêcheurs de la côte de New England (NEFSA) utilisant Instagram pour partager leurs luttes : coût élevé, réglementation gouvernementale, bateaux groundfish chassés des eaux. ",
     "notes": "Format: Instagram reels, visuels, témoignages | Statut activité: Vérifié | Participation: OUI — pêcheurs contributeurs | Formats: FAIBLE — Instagram reels uniquement | Régularité: OUI — publications régulières | Ancrage: OUI — New England, côte est US, très localisé",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
-    "name": "Prisonniers politiques sahraouis Telegram - documentation detention Maroc, torture, campagne liberation",
-    "url": "https://www.omct.org/fr/ressources/appels-urgents/morocco-hunger-strike-of-sahrawi-political-prisoners",
-    "type": "Telegram/Facebook families prisonniers politiques sahraouis : documentation detention (tribunal militaire, torture), suivi juridique, campagne liberation internationale, soutien families, temoignages",
-    "country": "Maroc",
-    "languages": [],
-    "status": "proposed",
-    "description": "Families 50+ prisonniers politiques saharaouis : documentation detention (condamnations tribunal militaire illégal ONU), torture, campagne liberation internationale, temoignages, soutien psychologique families",
-    "notes": "Format: Telegram canaux, Facebook families, Twitter #FreeSahrawiPrisoners | Statut activité: Actif (prisonniers detenues) | Participation: OUI | Formats: OUI | Régularité: PARTIEL | Ancrage: OUI",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
-    "name": "Roma Feminist Blog / Roma Feminist Collective",
-    "url": "https://www.romanifeministcollective.com/roma-feminist-blog",
-    "type": "Blog féministe romani / plateforme collective",
+    "name": "Romnja Feminist Library",
+    "url": "https://romnjafeministlib.com",
+    "type": "Archive",
     "country": "Transnational",
-    "languages": [],
-    "status": "proposed",
-    "description": "Online platform sharing stories and experiences of Roma women. Challenges stereotypes and empowers Roma women by providing space for their voices. Features articles on identity, culture, resistance, and intersectionality. Part of broader Romnja Feminist Library initiative.",
-    "notes": "Format: Blog, site web, réseaux sociaux,.archive | Statut activité: À confirmer | Participation: OUI — plateforme de voix pour les femmes roms | Formats: PARTIEL — blog et site web, formats limités | Régularité: PARTIEL — production irrégulière | Ancrage: PARTIEL — transnational, pas ancrage local unique",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Plateforme transnationale où les femmes  et les personnes queer roms se réapproprient leur histoire / luttent pour la justice.. ",
+    "notes": "Format: Site web, archive numérique, Instagram, bibliothèque | Statut activité: À confirmer | Participation: OUI — plateforme participative, réappropriation collective | Formats: OUI — site, archive, Instagram, bibliothèque numérique | Régularité: PARTIEL — production liée aux campagnes et projets | Ancrage: PARTIEL — transnational",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
-    "name": "SWARM — Sex Workers Advocacy and Resistance Movement",
-    "url": "https://www.swarmcollective.org",
-    "type": "Collectif militant travailleuses du sexe / blog + campagnes",
-    "country": "UK",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif militant de travailleuses et travailleurs du sexe au Royaume-Uni, fondé en 2019. Produit un blog régulier avec analyses politiques, témoignages, dénonciations des lois répressives (UK has some of the harshest sex work laws in Europe). Campagnes actives contre la criminalisation. Entièrement dirigé et produit par des sex workers. Bénévole, non-incorporé. Articule lutte anti-criminalisation avec lutte anti-raciste et anti-pauvreté. Un des collectifs les plus dynamiques d'Europe sur le sujet. Déjà identifié en Task 76 (Phase 2 anglophone).",
-    "notes": "Format: Blog, newsletters, campagnes, réseaux sociaux, webinars | Participation: OUI | Formats: PARTIEL | Régularité: OUI | Ancrage: OUI",
+    "name": "The Icarus Project Archive",
+    "url": "https://icarusprojectarchive.org",
+    "type": "Archive",
+    "country": "US",
+    "languages": [
+      "Anglais"
+    ],
+    "status": "validated",
+    "description": "Archive vivante rassemblant 2 décennies de zines, art et histoires du mouvement Icarus Project (2002-2020), un réseau qui a transformé la compréhension de la folie, la guérison et le soin collectif. ",
+    "notes": "Format: Site d'archive, Substack, zines, art, récits | Statut activité: Vérifié | Participation: MOYEN — archive consultative, participation indirecte | Formats: OUI — zines + art + récits + Substack | Régularité: MOYEN — mise à jour périodique de l'archive | Ancrage: OUI — profondément ancré dans l'histoire du mouvement Icarus",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
   }
