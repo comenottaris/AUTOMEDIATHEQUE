@@ -306,18 +306,6 @@
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
-    "name": "Collectif Mohamed",
-    "url": "https://letterboxd.com/director/collectif-mohamed/",
-    "type": "Film",
-    "country": "France",
-    "languages": [],
-    "status": "proposed",
-    "description": "Collectif de jeunes adolescents d'Alfortville et de Vitry-sur-Seine qui se sont réuni pour filmer leurs propres images, raconter leurs histoires et produire un discours politique. 3 courts métrages entre 1977 et 1981.",
-    "notes": "Format: 3 courts métrages (1977-1981) | Statut activité: Archivé | Participation: Élevée | Formats: Modéré (3 films) | Régularité: Ponctuel | Ancrage: Géographique (banlieue parisienne)",
-    "source": "supabase",
-    "createdAt": "2026-06-16T09:39:23+00:00"
-  },
-  {
     "name": "Collectif ZOR",
     "url": "https://www.instagram.com/zor.collectif/",
     "type": "Instagram",
