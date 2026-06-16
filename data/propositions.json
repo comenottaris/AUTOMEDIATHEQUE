@@ -1,16 +1,248 @@
 [
-{
-  "name": "primitivi",
-  "url": "http://www.primitivi.org/",
-  "type": "site",
-  "country": "France",
-  "languages": [
-    "fr"
-  ],
-  "status": "validated",
-  "description": "info locale des luttes de marseille",
-  "notes": "vidéos",
-  "source": "supabase",
-  "createdAt": "2026-01-05T23:58:43.620068+00:00"
-},
+  {
+    "name": "primitivi",
+    "url": "http://www.primitivi.org/",
+    "type": "site",
+    "country": "France",
+    "languages": [
+      "fr"
+    ],
+    "status": "validated",
+    "description": "info locale des luttes de marseille",
+    "notes": "vidéos",
+    "source": "supabase",
+    "createdAt": "2026-01-05T23:58:43.620068+00:00"
+  },
+  {
+    "name": "Lyon2autonome",
+    "url": "https://Instagram.com/lyon2autonome",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [
+      "fr"
+    ],
+    "status": "validated",
+    "description": "Groupe ouvert autonome de l'université Lyon 2 Lumière",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-06T12:08:31.125995+00:00"
+  },
+  {
+    "name": "Collectif Mohamed",
+    "url": "https://letterboxd.com/director/collectif-mohamed/",
+    "type": "site",
+    "country": "France",
+    "languages": [
+      "fr"
+    ],
+    "status": "proposed",
+    "description": "Collectif de jeunes adolescents d'Alfortville et de Vitry-sur-Seine qui se sont réuni pour filmer leurs propres images,  raconter leurs histoires  et produire un discours politique et donner forme à leur révolte. on fait 3 court métrages entre 1977 et 1981.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-11T16:46:35.041335+00:00"
+  },
+  {
+    "name": "Violences Policières ",
+    "url": "https://www.violencespolicieres.fr",
+    "type": "Site",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Site qui répertorie les violences policières en France.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-12T23:19:29.993252+00:00"
+  },
+  {
+    "name": "Collectif Histoire des Gilets Jaunes Par Nous",
+    "url": "https://yellowveststories.noblogs.org/",
+    "type": "Film",
+    "country": null,
+    "languages": [],
+    "status": "proposed",
+    "description": "Film sur les Gilets Jaunes, par les gilets jaunes. ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-19T23:33:37.014779+00:00"
+  },
+  {
+    "name": "Collectif Aouh Aouh Aouh",
+    "url": "https://librairie-quilombo.org/la-revolte-des-gilets-jaunes",
+    "type": "Livre",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Le Collectif Ahou ahou ahou, formé à l’occasion de l’écriture de ce livre, est composé de quatre individus ayant traversé la lutte des Gilets jaunes à Paris, à Marseille et dans plusieurs petites villes du sud de la France. ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-19T23:46:53.241185+00:00"
+  },
+  {
+    "name": "Enquête critique",
+    "url": "https://enquetecritique.org",
+    "type": "site, livre",
+    "country": null,
+    "languages": [],
+    "status": "proposed",
+    "description": "Recherches critiques en sciences sociales depuis les luttes et pour les luttes",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-19T23:54:20.263992+00:00"
+  },
+  {
+    "name": "Kiffe ta race",
+    "url": "https://www.binge.audio/podcast/kiffetarace/",
+    "type": "Podcast",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Un mardi sur deux, Rokhaya Diallo et Grace Ly reçoivent un·e invité·e pour explorer les questions raciales sur le mode de la conversation et du vécu. ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-20T00:24:04.476214+00:00"
+  },
+  {
+    "name": "Collectif ZOR",
+    "url": "https://www.instagram.com/zor.collectif/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif Romani et Voyageur",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-26T10:36:32.3165+00:00"
+  },
+  {
+    "name": "Migrant Voice",
+    "url": "https://www.migrantvoice.org/",
+    "type": "site",
+    "country": "UK",
+    "languages": [],
+    "status": "proposed",
+    "description": "Organisme national dirigé par des migrants qui établit une plateforme pour faire entendre la voix des migrants et promouvoir la justice pour toutes et tous. ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-01-26T10:54:49.025246+00:00"
+  },
+  {
+    "name": "RAMA",
+    "url": "https://www.ramaokanagan.org/",
+    "type": "Site",
+    "country": "Canada",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif pour la justice des migrant·es soutenant les travailleur·euses migrant·es dans divers secteurs d'activité, quel que soit leur statut migratoire.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-02-04T11:34:55.829129+00:00"
+  },
+  {
+    "name": "      Vivimos Juntxs, Comemos Juntxs",
+    "url": "https://vjcj.org/",
+    "type": "Site",
+    "country": "USA",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif local qui vise à fournir un soutien matériel et social aux communautés sans papiers, et créer un espace dirigé et décidé par les migrants",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-02-04T12:03:03.009316+00:00"
+  },
+  {
+    "name": "BAD BOYS",
+    "url": "https://www.instagram.com/assobadboys/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Association Communautaire de Mecs Travailleur•ses du Sexe (Cis, Trans, Non-Binaires)",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-02-27T14:01:23.694496+00:00"
+  },
+  {
+    "name": "Génération panasiatique",
+    "url": "https://generation-panasiatique.fr/",
+    "type": "Site",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif pour l’émancipation des communautés asiatiques marginalisées",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-02-27T14:57:29.016182+00:00"
+  },
+  {
+    "name": "Indigenas LGBTQ+",
+    "url": "https://www.instagram.com/indigenaslgbtq/",
+    "type": "Instagram",
+    "country": "Brazil",
+    "languages": [],
+    "status": "proposed",
+    "description": "Premier groupe LGBTQIA+ autochtone du Brésil, créé en 2019. ",
+    "notes": "Renforcer la coordination politique et la représentativité des personnes autochtones LGBTQIA+",
+    "source": "supabase",
+    "createdAt": "2026-04-13T16:08:08.06139+00:00"
+  },
+  {
+    "name": "Transrural initiatives",
+    "url": "https://www.transrural-initiatives.org/qui-sommes-nous/ligne-editoriale/",
+    "type": "Site",
+    "country": "france",
+    "languages": [],
+    "status": "proposed",
+    "description": "Média participatif et indépendant",
+    "notes": "Média participatif et indépendant, portée par des organisations de développement agricole et rural qui se reconnaissent dans les valeurs de l’éducation populaire, Transrural initiatives est réalisée par une équipe associant militants associatifs,  animateurs et journalistes. Elle offre une lecture décloisonnée des questions rurales et entend proposer des clés de compréhension et d’action pour accompagner le changement social.",
+    "source": "supabase",
+    "createdAt": "2026-04-13T16:15:08.237595+00:00"
+  },
+  {
+    "name": "Echobanlieues",
+    "url": "https://www.instagram.com/echobanlieues/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Media fait par des personnes issues des banlieues pour parler de leur vécu. ",
+    "notes": "A aussi une agence : https://www.echoagency.fr",
+    "source": "supabase",
+    "createdAt": "2026-04-13T16:18:51.281749+00:00"
+  },
+  {
+    "name": "Nunatak",
+    "url": "https://revuenunatak.noblogs.org/",
+    "type": "site",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "\nRevue d'histoires, cultures et luttes des montagnes",
+    "notes": "Si vous souhaitez vous faire envoyer des exemplaires, vous pouvez nous contacter sur revuenunatak-diffusion@riseup.net, en précisant le nombre d’exemplaire souhaité ainsi que l’adresse de réception. ",
+    "source": "supabase",
+    "createdAt": "2026-04-28T20:32:51.674873+00:00"
+  },
+  {
+    "name": "Refugees in Lybia",
+    "url": "https://www.refugeesinlibya.org/",
+    "type": "site, instagram",
+    "country": "Lybie",
+    "languages": [],
+    "status": "proposed",
+    "description": "Self-organized refugee-led movement exposing crimes in Libya, Tunisia, Niger and other parts of world.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-05-05T11:56:24.405753+00:00"
+  },
+  {
+    "name": "Télé Millevaches",
+    "url": "https://www.instagram.com/telemillevaches",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Média rural sur la montagne limousine.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-06-02T14:35:09.383867+00:00"
+  }
 ]
