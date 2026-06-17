@@ -277,7 +277,7 @@
     "createdAt": "2026-06-16T09:39:23+00:00"
   },
   {
-    "name": "SWARM — Sex Workers Advocacy and Resistance Movement",
+    "name": "SWARM (Sex Workers Advocacy and Resistance Movement)",
     "url": "https://www.swarmcollective.org",
     "type": "Site",
     "country": "UK",
@@ -285,7 +285,7 @@
       "EN"
     ],
     "status": "validated",
-    "description": "Collectif militant de travailleuses et travailleurs du sexe au Royaume-Uni, fondé en 2019. Produit un blog régulier avec analyses politiques, témoignages, dénonciations des lois répressives (UK has some of the harshest sex work laws in Europe). Campagnes actives contre la criminalisation. Entièrement dirigé et produit par des sex workers. Bénévole, non-incorporé. Articule lutte anti-criminalisation avec lutte anti-raciste et anti-pauvreté. Un des collectifs les plus dynamiques d'Europe sur le sujet. Déjà identifié en Task 76 (Phase 2 anglophone).",
+    "description": "Collectif militant de travailleuses et travailleurs du sexe au Royaume-Uni, fondé en 2019. Produit un blog régulier avec analyses politiques, témoignages, dénonciations des lois répressives  Entièrement dirigé et produit bénévolement par des sex workers. Articule lutte anti-criminalisation avec lutte anti-raciste et anti-pauvreté. Un des collectifs les plus dynamiques d'Europe sur le sujet.",
     "notes": "Format: Blog, newsletters, campagnes, réseaux sociaux, webinars | Participation: OUI | Formats: PARTIEL | Régularité: OUI | Ancrage: OUI",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
@@ -300,7 +300,7 @@
       "Babine-Witsuwit'en"
     ],
     "status": "validated",
-    "description": "Médias produits par les Unist'ot'en (clan Wet'suwet'en) depuis leur camp d'occupation sur le territoire non-cédé du yintah. Témoignent en temps réel de la lutte contre le pipeline Coastal GasLink. Communiqués en Wet'suwet'en et anglais, vidéos YouTube de l'occupation, livestreams des confrontations RCMP, portraits des gardiens du territoire. Auto-production intégrale par les familles Wet'suwet'en sur place. Média de résistance autochtone parmi les plus documentés au monde. Format 'média de camp' similaire aux ZADs françaises mais dans un contexte de souveraineté autochtone.",
+    "description": "Médias produits par les Unist'ot'en (clan Wet'suwet'en) depuis leur camp d'occupation sur le territoire non-cédé du yintah. Témoignent en temps réel de la lutte contre le pipeline Coastal GasLink. Communiqués en Wet'suwet'en et anglais, vidéos YouTube de l'occupation, livestreams des confrontations RCMP, portraits des gardiens du territoire. Auto-production intégrale par les familles Wet'suwet'en sur place. Similaire aux ZADs françaises mais dans un contexte de souveraineté autochtone.",
     "notes": "Format: Site web, Facebook, YouTube, communiqués, livestreams | Participation: OUI | Formats: OUI | Régularité: OUI | Ancrage: OUI",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
@@ -388,7 +388,7 @@
       "Lingala"
     ],
     "status": "validated",
-    "description": "Le CSP 75 est un collectif de personnes sans-papiers en lutte pour leur régularisation à Paris. Fondé en 2008, il rassemble des travailleur·ses sans-papiers (majoritairement d'Afrique de l'Ouest et Centrale) qui organisent des grèves de la faim, des occupations, et des manifestations. Le collectif produit des communiqués de lutte, des tracts d'appel à manifester, et maintient une page Facebook active. Les membres du CSP 75 sont les producteur·ices directs du contenu — les sans-papiers parlent en leur nom propre. Les grèves de la faim (2008, 2010, 2023) ont généré une production médiatique intense et décentralisée.",
+    "description": "Collectif de personnes sans-papiers en lutte pour leur régularisation à Paris. Fondé en 2008, il rassemble des travailleur·ses sans-papiers qui organisent des grèves de la faim, des occupations, et des manifestations. Le collectif produit des communiqués de lutte, des tracts d'appel à manifester et un Journal.",
     "notes": "Format: Communiqués, tracts, rassemblements, Facebook, Twitter/X, pétitions | Statut activité: À vérifier | Participation: Élevé | Formats: Moyen | Régularité: Élevé | Ancrage: Élevé",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
