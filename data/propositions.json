@@ -5,7 +5,7 @@
     "type": "Facebook",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Collectif coordonné par la famille Traoré pour obtenir la vérité sur la mort d'Adama Traoré (2016) lors d'une interpellation de gendarmerie. ",
@@ -19,7 +19,7 @@
     "type": "Instagram",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Collectif de justice formé après la mort de Nahel Merzouk, 17 ans, abattu par un policier à Nanterre le 27 juin 2023. La famille a coordonné un réseau de comités locaux 'Justice pour Nahel' dans 30+ villes de France. ",
@@ -33,8 +33,8 @@
     "type": "Site",
     "country": "Polynésie française",
     "languages": [
-      "Français",
-      "Tahitien (Reo Tahiti)"
+      "FR",
+      "Tahitien"
     ],
     "status": "validated",
     "description": "Collectif de jeunes Polynésien·nes luttant contre les conséquences des essais nucléaires français (1966-1996) et contre le changement climatique qui menace leurs îles. Le collectif produit des vidéos, des manifestes et organise des actions de sensibilisation.",
@@ -48,7 +48,7 @@
     "type": "Film",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Collectif de jeunes adolescents d'Alfortville et de Vitry-sur-Seine qui se sont réuni pour filmer leurs propres images, raconter leurs histoires et produire un discours politique. 3 courts métrages entre 1977 et 1981.",
@@ -62,7 +62,7 @@
     "type": "Site",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Association de santé communautaire avec et pour les travailleuses et travailleurs du sexe. ",
@@ -76,7 +76,7 @@
     "type": "Facebook",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Collectif de jeunes galérien·nes du logement qui occupent brièvement les appartements trop chers ou durablement les immeubles trop vides.",
@@ -98,7 +98,7 @@
       "Asmat",
       "Koti",
       "Bahasa Indonesia",
-      "anglais",
+      "EN",
       "tok pisin"
     ],
     "status": "validated",
@@ -113,7 +113,7 @@
     "type": "Instagram",
     "country": "US",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Collectif d'entraide pour personnes trans noires à NYC. 'Building free from racial capitalism, patriarchy, & ableism for the liberation of Black trans people globally'. Instagram avec appels à dons, campagnes de soutien, et mise en réseau mutualiste. Ancre local NYC.",
@@ -127,7 +127,7 @@
     "type": "Site",
     "country": "US",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Des militaires et des anciens combattants de l'après-11 septembre qui se mobilisent pour mettre fin à la guerre permanente et au militarisme. Fondé par des anciens combattants de la guerre en Irak. Soutient la résistance des GI, l'objection de conscience et la lutte contre le recrutement. ",
@@ -141,7 +141,7 @@
     "type": "Site",
     "country": "US",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Collectif dirigé par des femmes trans noires. Fournit ressources financières et matérielles pour les voyages. ",
@@ -155,7 +155,7 @@
     "type": "Facebook",
     "country": "Belgique",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Coordination de collectifs de personnes sans-papiers en Belgique francophone. Organise des occupations (églises, bâtiments publics), des grèves de la faim, et des manifestations à Bruxelles. La production médiatique est auto-assurée par les sans-papiers. ",
@@ -169,7 +169,7 @@
     "type": "Instagram",
     "country": "Brésil",
     "languages": [
-      "Portugais"
+      "PT"
     ],
     "status": "validated",
     "description": "Mouvement de livreurs de Rio das Ostras et région. Revendiquent la priorité vaccinale, l'aide accident, et des points d'appui pour livreurs. Utilisent la tactique du 'bololô' (concert de klaxons/feux d'artifice contre clients/hostiles). Organisés par Paulo Lima ('Galo'), livreur lui-même.",
@@ -183,7 +183,7 @@
     "type": "Site",
     "country": "Libye",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Mouvement autonome mené par des réfugié·es qui dénonce les crimes commis en Libye, en Tunisie, au Niger et dans d'autres régions du monde. ",
@@ -197,7 +197,7 @@
     "type": "Site",
     "country": "États-Unis",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "S'attaque aux causes profondes du changement climatique, de la dégradation de l'eau et de la pollution atmosphérique en menant des actions directes et en promouvant des solutions mises en place au niveau local.",
@@ -211,7 +211,7 @@
     "type": "Instagram",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Collectif Romani et Voyageur.",
@@ -225,7 +225,7 @@
     "type": "WebTV",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Média libre, téloche de rue basé à Marseille depuis 1998 constituée de vidéastes militant·es non professionnel·les. ",
@@ -239,7 +239,7 @@
     "type": "Site",
     "country": "Canada ",
     "languages": [
-      "English",
+      "EN",
       "Kanien'kéha (Mohawk)"
     ],
     "status": "validated",
@@ -254,7 +254,7 @@
     "type": "Instagram",
     "country": "Brésil",
     "languages": [
-      "Portugais"
+      "PT"
     ],
     "status": "validated",
     "description": "Premier groupe LGBTQIA+ autochtone du Brésil, créé en 2019. Renforce la coordination politique et la représentativité des personnes autochtones LGBTQIA+.",
@@ -268,7 +268,7 @@
     "type": "Site",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Collectif féministe fondé en 2016 par des militantes anonymes. Recense les femmes victimes de féminicides conjugaux en France depuis le 1er janvier 2016. News hebdomadaires, suivi des enquêtes et procès.",
@@ -282,7 +282,7 @@
     "type": "Site",
     "country": "UK",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Collectif militant de travailleuses et travailleurs du sexe au Royaume-Uni, fondé en 2019. Produit un blog régulier avec analyses politiques, témoignages, dénonciations des lois répressives (UK has some of the harshest sex work laws in Europe). Campagnes actives contre la criminalisation. Entièrement dirigé et produit par des sex workers. Bénévole, non-incorporé. Articule lutte anti-criminalisation avec lutte anti-raciste et anti-pauvreté. Un des collectifs les plus dynamiques d'Europe sur le sujet. Déjà identifié en Task 76 (Phase 2 anglophone).",
@@ -296,7 +296,8 @@
     "type": "Site",
     "country": "Canada",
     "languages": [
-      "English / Babine-Witsuwit'en"
+      "EN",
+      "Babine-Witsuwit'en"
     ],
     "status": "validated",
     "description": "Médias produits par les Unist'ot'en (clan Wet'suwet'en) depuis leur camp d'occupation sur le territoire non-cédé du yintah. Témoignent en temps réel de la lutte contre le pipeline Coastal GasLink. Communiqués en Wet'suwet'en et anglais, vidéos YouTube de l'occupation, livestreams des confrontations RCMP, portraits des gardiens du territoire. Auto-production intégrale par les familles Wet'suwet'en sur place. Média de résistance autochtone parmi les plus documentés au monde. Format 'média de camp' similaire aux ZADs françaises mais dans un contexte de souveraineté autochtone.",
@@ -310,7 +311,7 @@
     "type": "Site",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Collectif abolitionniste français fondé en 2004 qui lutte contre les violences carcérales et l'explosion de la population pénale. Publie des tribunes, des communiqués d'actualité et produit des brochures militantes. Il rassemble des ex-détenu·es, des familles, des militant·es et des juristes. La production de contenu est collective et bénévole.",
@@ -324,7 +325,8 @@
     "type": "Blog",
     "country": "Transnational",
     "languages": [
-      "Anglais / Romani"
+      "EN", 
+      "Romani"
     ],
     "status": "validated",
     "description": "Online platform sharing stories and experiences of Roma women. Challenges stereotypes and empowers Roma women by providing space for their voices. Features articles on identity, culture, resistance, and intersectionality. Part of broader Romnja Feminist Library initiative.",
@@ -338,7 +340,7 @@
     "type": "Journal",
     "country": "US",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Journal écrit, édité et produit par les hommes incarcérés à Nash Correctional Institution (Nashville, NC). Publié 4 fois par an. Couvert par Prison Journalism Project.",
@@ -352,7 +354,7 @@
     "type": "Site",
     "country": "US",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Mouvement communautaire noir basé à Miami. Réappropriation de logements vacants pour les sans-abri et familles expulsées. Produit des documentaires, vidéos d'actions, communiqués. Entièrement bénévole, s'est étendu en réseau national. ",
@@ -366,7 +368,7 @@
     "type": "Site",
     "country": "US",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Association communautaire locale qui s'attaque aux causes profondes de la crise climatique à Seattle. Organise des actions directes, des actions de résistance contre les énergies fossiles et des assemblées communautaires sur le climat.",
@@ -380,7 +382,7 @@
     "type": "Facebook",
     "country": "France",
     "languages": [
-      "Français",
+      "FR",
       "Bambara",
       "Wolof",
       "Lingala"
@@ -397,7 +399,7 @@
     "type": "Instagram",
     "country": "France",
     "languages": [
-      "Français"
+      "FR"
     ],
     "status": "validated",
     "description": "Association Communautaire de Mecs Travailleur•ses du Sexe (Cis, Trans, Non-Binaires).",
@@ -411,7 +413,7 @@
     "type": "Site",
     "country": "UK",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Plateforme communautaire  par et pour les hommes queer noirs au UK. Espace pour événements, news et community. Lié à UK Black Pride (20 ans en 2025). Collectif horizontal. ",
@@ -425,7 +427,7 @@
     "type": "Blog",
     "country": "US",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": " Plateforme pour voix de survivant·es psychiatriques.  Critique la psychiatrie biologique et le marketing pharmaceutique. Podcast hebdomadaire. Héberge des voix diverses du mouvement Mad Pride. ",
@@ -439,7 +441,7 @@
     "type": "Instagram",
     "country": "US",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Pêcheurs de la côte de New England (NEFSA) utilisant Instagram pour partager leurs luttes : coût élevé, réglementation gouvernementale, bateaux groundfish chassés des eaux. ",
@@ -453,7 +455,7 @@
     "type": "Archive",
     "country": "Transnational",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Plateforme transnationale où les femmes  et les personnes queer roms se réapproprient leur histoire / luttent pour la justice.. ",
@@ -467,7 +469,7 @@
     "type": "Archive",
     "country": "US",
     "languages": [
-      "Anglais"
+      "EN"
     ],
     "status": "validated",
     "description": "Archive vivante rassemblant 2 décennies de zines, art et histoires du mouvement Icarus Project (2002-2020), un réseau qui a transformé la compréhension de la folie, la guérison et le soin collectif. ",
