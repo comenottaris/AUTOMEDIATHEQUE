@@ -325,7 +325,7 @@
     "type": "Blog",
     "country": "Transnational",
     "languages": [
-      "EN", 
+      "EN",
       "Romani"
     ],
     "status": "validated",
@@ -476,5 +476,17 @@
     "notes": "Format: Site d'archive, Substack, zines, art, récits | Statut activité: Vérifié | Participation: MOYEN — archive consultative, participation indirecte | Formats: OUI — zines + art + récits + Substack | Régularité: MOYEN — mise à jour périodique de l'archive | Ancrage: OUI — profondément ancré dans l'histoire du mouvement Icarus",
     "source": "supabase",
     "createdAt": "2026-06-16T09:39:23+00:00"
+  },
+  {
+    "name": "morvanqueer",
+    "url": "https://www.instagram.com/morvanqueer/",
+    "type": "instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Association de personnes LGBTQIA+ du Morvan, un territoire rural français. A une permanence, organise la Pride à vélo dans le Morvan, des projections, etc. ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-08-24T21:38:12.040222+00:00"
   }
 ]
