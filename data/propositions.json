@@ -488,5 +488,41 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-08-24T21:38:12.040222+00:00"
+  },
+  {
+    "name": "Fédération Lycéenne des Quartiers",
+    "url": "https://www.instagram.com/federationlyceennedesquartiers/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif géré par des lycéen·nes, \"parce que dans les quartiers populaires, la GenZ refuse de se taire\". ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-10-21T17:57:25.004511+00:00"
+  },
+  {
+    "name": "Collectif Malassis Résistance",
+    "url": "https://www.instagram.com/malassisresistance/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif Locataires à Bagnolet\nPour un Logement Digne, Décent, Salubre pour Tou.tes\nContre la Maltraitance et l'Abandon des Services Publics",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-10-21T17:58:50.344034+00:00"
+  },
+  {
+    "name": "Que la fac",
+    "url": "https://www.instagram.com/quelafac/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif d'étudiants organisant des evenements autonomes pour rendre la fac accessible et lutter contre la précarité.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-10-21T18:00:59.309885+00:00"
   }
 ]
