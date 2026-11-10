@@ -524,5 +524,77 @@
     "notes": "",
     "source": "supabase",
     "createdAt": "2026-10-21T18:00:59.309885+00:00"
+  },
+  {
+    "name": "GENeZe",
+    "url": "https://www.instagram.com/geneze_media/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Média par et pour la jeunesse. \n\"Nous voulons nous organiser de manière communale pour construire un monde qui nous ressemble\"",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-11-10T10:53:56.105126+00:00"
+  },
+  {
+    "name": "Zora",
+    "url": "https://www.instagram.com/zora_france_/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Organisation de jeunes femmes, révolutionnaire, antifasciste et internationaliste.",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-11-10T10:57:43.962004+00:00"
+  },
+  {
+    "name": "AJDB",
+    "url": "https://www.instagram.com/ajdb_association/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Association de Jeunes pour le Développement à Bagnolet ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-11-10T10:59:21.742066+00:00"
+  },
+  {
+    "name": "La jeunesse populaire",
+    "url": "https://www.instagram.com/lajeunessepopulaire/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Organisation de la société civile qui porte la voix des jeunes de milieux populaires et précaires en politique.",
+    "notes": "https://www.liberation.fr/idees-et-debats/tribunes/nous-jeunes-des-quartiers-populaires-appelons-a-lunion-de-la-jeunesse-pour-faire-front-contre-lextreme-droite-20240612_5YYQ47GNEBELFNATB4LLVP35ZA/",
+    "source": "supabase",
+    "createdAt": "2026-11-10T11:01:14.825614+00:00"
+  },
+  {
+    "name": "Prisoners Voice Platform",
+    "url": "https://prisonersvoice.org",
+    "type": "site",
+    "country": "International",
+    "languages": [],
+    "status": "proposed",
+    "description": "A platform supporting political prisoners of Turkey/Kurdistan and around the globe.",
+    "notes": "https://www.instagram.com/prisonersvoice.platform/",
+    "source": "supabase",
+    "createdAt": "2026-11-10T11:28:47.630944+00:00"
+  },
+  {
+    "name": "Collectif des sans-facs",
+    "url": "https://www.instagram.com/collectif.sans.facs/",
+    "type": "Instagram",
+    "country": "France",
+    "languages": [],
+    "status": "proposed",
+    "description": "Collectif de personnes n'ayant été accepté dans aucune université / auxquelles on refuse l'accès à l'université. ",
+    "notes": "",
+    "source": "supabase",
+    "createdAt": "2026-11-10T12:09:15.993934+00:00"
   }
 ]
